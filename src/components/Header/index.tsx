@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { HeaderStyles } from "./HeaderStyles"
 
 const Header = () => {
@@ -5,7 +6,8 @@ const Header = () => {
   return (
       <HeaderStyles>
         <div className="footer">
-          Header
+          <Link href="/"><a >Inicio</a></Link>
+          <Link href="/about"><a>About</a></Link>
         </div>
       </HeaderStyles>
   )
