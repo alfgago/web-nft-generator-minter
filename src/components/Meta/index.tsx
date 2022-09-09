@@ -8,12 +8,12 @@ interface MetaProps {
 }
 
 const Meta: React.FC<MetaProps> = ({
-  title = "Rubber Bullets",
-  description = "Rubber Bullets",
+  title = "PlusOne",
+  description = "-",
   image = "http://example.com/logo.jpg",
 }) => {
   const urlLink = "https://rubber-bullets.vercel.app"
-  const keyWords = "rubber, bullets"
+  const keyWords = "plusone, nft"
 
   return (
     <Head>
