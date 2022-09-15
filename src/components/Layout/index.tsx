@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { LayoutStyles } from "./LayoutStyles"
 import Header from "../Header"
 import Footer from "../Footer"
+import Navbar from "../Navbar"
 
 const defaultVariants = {
   out: {
@@ -30,7 +31,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       <LayoutStyles
         className="page-content"
       >
-        <Header />
+        <Navbar />
+        
         <AnimatePresence mode="wait" onExitComplete={onExitCompleteHandler}>
           <motion.div
             key={asPath}
