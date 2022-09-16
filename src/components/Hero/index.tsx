@@ -12,9 +12,7 @@ const Hero = () => {
             className="waterMarkLogo"
           />
         </ArtistImage>
-        <ImageOverlap image="./resources/img/bg-artist-base.png">
-          More Info
-        </ImageOverlap>
+        <ImageOverlap image="./resources/img/bg-artist-base.png"></ImageOverlap>
       </div>
     </HeroStyled>
   )
