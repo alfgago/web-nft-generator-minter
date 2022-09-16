@@ -57,3 +57,40 @@ export const ArtistStyles = styled.div`
     font-size: ${16 / 16}rem;
   }
 `
+
+export const FaqStyles = styled.div`
+  position: relative;
+  width: 100%;
+  height: 557px;
+  color: ${COLORS.black};
+  font-size: ${16 / 16}rem;
+  padding: 0;
+  background: #000;
+
+  .faqContainer {
+    display: flex;
+    height: 557px;
+    justify-content: space-around;
+    max-width: 1728px;
+    margin: 0 auto;
+    padding: ${32 / 16}rem 0;
+    background: linear-gradient(
+      270deg,
+      #d8f5fe 8.41%,
+      rgba(255, 255, 255, 0.9) 88.16%
+    );
+  }
+`
+export const ContainerPage = styled.div`
+  position: relative;
+  width: 100%;
+  color: ${COLORS.black};
+  font-size: ${16 / 16}rem;
+  padding: 0;
+  background: #000;
+  .content {
+    background: #fff;
+    max-width: 1728px;
+    margin: 0 auto;
+  }
+`

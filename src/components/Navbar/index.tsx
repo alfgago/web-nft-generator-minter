@@ -1,32 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import { HeaderStyled, NavStyled } from "./NavbarStyles"
 //import './Navbar.css'
 
 const Navbar = () => {
+  const [click, setClick] = useState(false)
+  const closeMenu = () => setClick(false)
 
-    const [click, setClick] = useState(false)
+  // change nav color when scrolling
+  const [color, setColor] = useState(false)
+  const changeColor = () => {
+    if (window.scrollY >= 90) {
+      setColor(true)
+    } else {
+      setColor(false)
+    }
+  }
 
-    const closeMenu = () => setClick(false)
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", changeColor)
+  }
 
-    return (
-        <HeaderStyled>
-            <NavStyled>
-                <a href='/' className='logo'>
-                <img src='/resources/img/plus-one-logo.png' alt='plusOne'/>
-                </a>
-                <ul className={click ? "nav-menu active" : "nav-menu"}>
-                    <li className='nav-item'>
-                        <a href='#testimonials' onClick={closeMenu}>LOGIN</a>
-                    </li>
-                    <li className='nav-item'>
-                        <a href='#demo' onClick={closeMenu}>
-                            <img src='/resources/img/meta-mask-logo.png' alt='Metamask'/>
-                        </a>
-                    </li>
-                </ul>
-            </NavStyled>
-        </HeaderStyled>
-    )
+  return (
+    <HeaderStyled hasColor={color}>
+      <NavStyled>
+        <a href="/" className="logo">
+          <img src="/resources/img/plus-one-logo.png" alt="plusOne" />
+        </a>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+            <a href="#testimonials" onClick={closeMenu}>
+              LOGIN
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="#demo" onClick={closeMenu}>
+              <img src="/resources/img/meta-mask-logo.png" alt="Metamask" />
+            </a>
+          </li>
+        </ul>
+      </NavStyled>
+    </HeaderStyled>
+  )
 }
 
 export default Navbar

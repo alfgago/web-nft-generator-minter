@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const HeaderStyled = styled.div`
+export interface Props {
+  hasColor: boolean
+}
+
+export const HeaderStyled = styled.div<Props>`
   position: fixed;
   height: 90px;
   width: 100%;
@@ -9,8 +13,9 @@ export const HeaderStyled = styled.div`
   z-index: 9000;
   transition: 0.3s ease-in;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.9);
   color: #ffffff;
+  background-color: ${(props) =>
+    props.hasColor ? "rgba(0, 0, 0, 0.9)" : "transparent"};
   .nav-menu {
     display: flex;
     align-items: center;

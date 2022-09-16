@@ -1,6 +1,13 @@
-import { ArtistStyles } from "./ArtistStyles"
+import { ArtistStyles, FaqStyles, ContainerPage } from "./ArtistStyles"
 
 const Artist = () => {
+  const renderWhiteSpaces = () => {
+    const whiteSpaces = []
+    for (let i = 1; i <= 20; i++) {
+      whiteSpaces.push(<br />)
+    }
+    return whiteSpaces
+  }
   return (
     <ArtistStyles>
       <main>
@@ -19,11 +26,18 @@ const Artist = () => {
           <p>Pass type:</p>
           <ul>
             <li className="active">Tour Pass</li>
-            <li>Amps Club Punks</li>
-            <li>Stoned Night</li>
+            <li>Single Event</li>
+            <li>Lottery</li>
+            <li>Lifetime</li>
           </ul>
         </div>
       </main>
+      <ContainerPage>
+        <div className="content">{renderWhiteSpaces()}</div>
+      </ContainerPage>
+      <FaqStyles>
+        <div className="faqContainer"></div>
+      </FaqStyles>
     </ArtistStyles>
   )
 }
