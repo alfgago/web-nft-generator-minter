@@ -1,10 +1,9 @@
-import Head from 'next/head'
+import Head from "next/head"
 import Hero from "@/components/Hero"
 import Artist from "@/components/Artist"
 import axios from "axios"
 
-const ArtistPage = ({data}:any) => {
-  console.log(data);
+const ArtistPage = ({ data }: any) => {
   return (
     <>
       <Head>
@@ -16,4 +15,4 @@ const ArtistPage = ({data}:any) => {
   )
 }
 
-export default ArtistPage;
+export default ArtistPage
