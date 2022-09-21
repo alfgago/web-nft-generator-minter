@@ -164,7 +164,7 @@ export const ContainerPage = styled.div`
 
     .title {
       display: flex;
-      padding: 0px 120px;
+      padding: 0px 40px;
       margin: 0;
       margin-top: 40px;
       margin-bottom: 65px;
@@ -236,6 +236,114 @@ export const DropRow = styled.div`
       font-size: 17px;
       line-height: 19px;
       padding: 10px 34px;
+      margin: 0px 2px;
+      color: #fff;
+      font-weight: 500;
+      background: #373737;
+      border-radius: 29px;
+      :hover {
+        background: #858585;
+        cursor: pointer;
+      }
+    }
+    .variant {
+      background: #c2c2c2;
+    }
+  }
+`
+
+export const BoxDrawing = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const DrawRow = styled.div`
+  display: flex;
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 35px;
+  justify-content: space-between;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 240, 240, 0.5) 53.85%,
+    rgba(249, 215, 255, 0.5) 94.9%
+  );
+  .column1 {
+    display: flex;
+    font-weight: 400;
+
+    justify-content: center;
+    font-weight: 700;
+    font-size: 33px;
+    background: transparent;
+    .info {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h5 {
+        font-weight: 700;
+        font-size: 33px;
+        padding: 0;
+        margin: 0;
+      }
+      p {
+        padding: 0;
+        margin: 0;
+        font-weight: 700;
+        font-size: 24px;
+      }
+    }
+  }
+  .column2 {
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 33px;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 0px 40px;
+    border-left: solid 2px #000;
+    .time {
+      display: flex;
+      width: 100%;
+    }
+    .place {
+      display: flex;
+      width: 100%;
+    }
+    .date {
+      display: flex;
+      width: 100%;
+    }
+  }
+  .column3 {
+    width: 243px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 25px 40px 0px;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    span {
+      font-size: 20px;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      font-size: 33px;
+      font-weight: 700;
+    }
+    button {
+      width: 100%;
+      height: 56px;
+      border: none;
+      font-size: 17px;
+      line-height: 19px;
+      padding: 10px 10px;
       margin: 0px 2px;
       color: #fff;
       font-weight: 500;

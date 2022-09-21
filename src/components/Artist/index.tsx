@@ -8,6 +8,8 @@ import {
   PassTypeList,
   BoxDrops,
   DropRow,
+  BoxDrawing,
+  DrawRow,
 } from "./ArtistStyles"
 
 const Artist = () => {
@@ -68,7 +70,7 @@ const Artist = () => {
             <DropRow>
               <div className="place">Warfield, San Fran, CA</div>
               <div className="date" style={{ background: "#FFD1FB" }}>
-                June 9
+                June 10
               </div>
               <div className="collection">
                 <img src="./resources/img/drop-pic-2.png" alt="dropPic" />
@@ -84,6 +86,34 @@ const Artist = () => {
             </DropRow>
           </BoxDrops>
           <h3 className="title">Upcoming Drawing</h3>
+          <BoxDrawing>
+            <DrawRow>
+              <div className="column1">
+                <img src="./resources/img/draw-pic-1.png" alt="dropPic" />
+                <div className="info">
+                  <h5>Pink Buffalo</h5>
+                  <div>
+                    <p>Tour: Winter West Coast</p>
+                    <p>Floor price #12</p>
+                  </div>
+                </div>
+              </div>
+              <div className="column2">
+                <div className="time">5 hrs 30 min 21 sec</div>
+                <div className="place">Warfield, San Fran</div>
+                <div className="date">June 9</div>
+              </div>
+              <div className="column3">
+                <div>
+                  <span>Chance of winning</span>
+                  <p>%65</p>
+                </div>
+                <button type="button" className="variant">
+                  Enter Lottery
+                </button>
+              </div>
+            </DrawRow>
+          </BoxDrawing>
         </div>
       </ContainerPage>
       <FaqStyles>
