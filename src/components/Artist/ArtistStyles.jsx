@@ -164,7 +164,7 @@ export const ContainerPage = styled.div`
 
     .title {
       display: flex;
-      padding: 0px 120px;
+      padding: 0px 40px;
       margin: 0;
       margin-top: 40px;
       margin-bottom: 65px;
@@ -223,6 +223,83 @@ export const DropRow = styled.div`
     font-weight: 700;
   }
   .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px;
+    button {
+      width: 100%;
+      border: none;
+      font-size: 17px;
+      line-height: 19px;
+      padding: 10px 34px;
+      margin: 0px 2px;
+      color: #fff;
+      font-weight: 500;
+      background: #373737;
+      border-radius: 29px;
+      :hover {
+        background: #858585;
+        cursor: pointer;
+      }
+    }
+    .variant {
+      background: #c2c2c2;
+    }
+  }
+`
+
+export const BoxDrawing = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const DrawRow = styled.div`
+  display: flex;
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 35px;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 240, 240, 0.5) 53.85%,
+    rgba(249, 215, 255, 0.5) 94.9%
+  );
+  .column1 {
+    display: flex;
+    font-weight: 400;
+    align-items: center;
+    justify-content: center;
+    /*width: 226px;*/
+    background: transparent;
+    color: #fff;
+    /*padding: 20px;*/
+    .info {
+      margin-left: 20px;
+    }
+  }
+  .column2 {
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    /*width: 155px;*/
+    background: #e1fdfd;
+    .time {
+      display: flex;
+      width: 100%;
+    }
+    .place {
+      display: flex;
+      width: 100%;
+    }
+    .date {
+      display: flex;
+      width: 100%;
+    }
+  }
+  .column3 {
     display: flex;
     align-items: center;
     justify-content: center;
