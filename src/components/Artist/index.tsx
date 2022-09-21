@@ -90,7 +90,13 @@ const Artist = () => {
             <DrawRow>
               <div className="column1">
                 <img src="./resources/img/draw-pic-1.png" alt="dropPic" />
-                <div className="info">Pink Buffalo</div>
+                <div className="info">
+                  <h5>Pink Buffalo</h5>
+                  <div>
+                    <p>Tour: Winter West Coast</p>
+                    <p>Floor price #12</p>
+                  </div>
+                </div>
               </div>
               <div className="column2">
                 <div className="time">5 hrs 30 min 21 sec</div>
@@ -98,6 +104,10 @@ const Artist = () => {
                 <div className="date">June 9</div>
               </div>
               <div className="column3">
+                <div>
+                  <span>Chance of winning</span>
+                  <p>%65</p>
+                </div>
                 <button type="button" className="variant">
                   Enter Lottery
                 </button>

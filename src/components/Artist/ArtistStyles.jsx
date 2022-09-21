@@ -261,6 +261,7 @@ export const DrawRow = styled.div`
   width: 100%;
   font-size: 24px;
   margin-bottom: 35px;
+  justify-content: space-between;
   background: linear-gradient(
     90deg,
     rgba(240, 240, 240, 0.5) 53.85%,
@@ -269,14 +270,28 @@ export const DrawRow = styled.div`
   .column1 {
     display: flex;
     font-weight: 400;
-    align-items: center;
+
     justify-content: center;
-    /*width: 226px;*/
+    font-weight: 700;
+    font-size: 33px;
     background: transparent;
-    color: #fff;
-    /*padding: 20px;*/
     .info {
-      margin-left: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h5 {
+        font-weight: 700;
+        font-size: 33px;
+        padding: 0;
+        margin: 0;
+      }
+      p {
+        padding: 0;
+        margin: 0;
+        font-weight: 700;
+        font-size: 24px;
+      }
     }
   }
   .column2 {
@@ -284,8 +299,13 @@ export const DrawRow = styled.div`
     font-weight: 700;
     align-items: center;
     justify-content: center;
-    /*width: 155px;*/
-    background: #e1fdfd;
+    font-weight: 700;
+    font-size: 33px;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 0px 40px;
+    border-left: solid 2px #000;
     .time {
       display: flex;
       width: 100%;
@@ -300,19 +320,30 @@ export const DrawRow = styled.div`
     }
   }
   .column3 {
+    width: 243px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
+    flex-wrap: wrap;
+    padding: 40px 25px 40px 0px;
+    justify-content: space-between;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 5px;
+    align-items: center;
+    text-align: center;
+    span {
+      font-size: 20px;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      font-size: 33px;
+      font-weight: 700;
+    }
     button {
       width: 100%;
+      height: 56px;
       border: none;
       font-size: 17px;
       line-height: 19px;
-      padding: 10px 34px;
+      padding: 10px 10px;
       margin: 0px 2px;
       color: #fff;
       font-weight: 500;
