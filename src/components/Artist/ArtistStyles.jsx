@@ -135,16 +135,73 @@ export const FaqStyles = styled.div`
 
   .faqContainer {
     display: flex;
+    flex-direction: column;
     height: 557px;
     justify-content: space-around;
     max-width: 1728px;
     margin: 0 auto;
-    padding: ${32 / 16}rem 0;
+    padding: 4rem 260px;
     background: linear-gradient(
       270deg,
       #d8f5fe 8.41%,
       rgba(255, 255, 255, 0.9) 88.16%
     );
+
+    .title {
+      display: flex;
+      padding: 0px 40px;
+      margin: 0;
+      width: 100%;
+      font-weight: 600;
+      font-size: 52px;
+      line-height: 57px;
+    }
+
+    .faqBox {
+      display: flex;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 25px;
+      flex-direction: column;
+      .active {
+        margin: 5px 6px;
+        font-weight: 400;
+        color: #fff;
+        padding: 14px 25px;
+        background: #373737;
+        border: 1px solid #454545;
+        border-radius: 69px;
+        width: fit-content;
+      }
+      > li:first-child {
+        margin: 5px 6px 5px 0px;
+      }
+      > li:not(.active) {
+        font-weight: 400;
+        margin: 5px 6px;
+        padding: 19px 25px;
+        background: transparent;
+        border: 1px solid #454545;
+        border-radius: 36px;
+        width: fit-content;
+      }
+    }
+
+    .answer {
+      background: #373737;
+      border-radius: 25px;
+      width: 434px;
+      height: 217px;
+      padding: 30px;
+      color: #fff;
+      margin: 5px 0px 5px 70px;
+    }
   }
 `
 

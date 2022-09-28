@@ -45,4 +45,21 @@ export const NavStyled = styled.nav`
   margin: auto;
   height: 100%;
   padding: 0 2.6rem;
+  .logoSearch {
+    display: flex;
+    align-items: center;
+  }
+  .searchInput {
+    background: transparent;
+    border: solid thin #fff;
+    border-radius: 22px;
+    width: 304px;
+    height: 44px;
+    margin-left: 80px;
+    padding: 10px 20px;
+    color: #fff;
+    :focus {
+      outline: none;
+    }
+  }
 `
