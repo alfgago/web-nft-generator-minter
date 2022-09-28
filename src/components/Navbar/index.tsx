@@ -23,9 +23,12 @@ const Navbar = () => {
   return (
     <HeaderStyled hasColor={color}>
       <NavStyled>
-        <a href="/" className="logo">
-          <img src="/resources/img/plus-one-logo.png" alt="plusOne" />
-        </a>
+        <div className="logoSearch">
+          <a href="/" className="logo">
+            <img src="/resources/img/plus-one-logo.png" alt="plusOne" />
+          </a>
+          <input type="text" className="searchInput" />
+        </div>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className="nav-item">
             <a href="#testimonials" onClick={closeMenu}>
