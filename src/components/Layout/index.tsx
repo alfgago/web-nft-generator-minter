@@ -28,24 +28,22 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const { asPath } = useRouter()
 
   return (
-      <LayoutStyles
-        className="page-content"
-      >
-        <Navbar />
-        
-        <AnimatePresence mode="wait" onExitComplete={onExitCompleteHandler}>
-          <motion.div
-            key={asPath}
-            variants={defaultVariants}
-            animate="in"
-            initial="out"
-            exit="out"
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
-        <Footer />
-      </LayoutStyles>
+    <LayoutStyles className="page-content">
+      <Navbar />
+
+      <AnimatePresence mode="wait" onExitComplete={onExitCompleteHandler}>
+        <motion.div
+          key={asPath}
+          variants={defaultVariants}
+          animate="in"
+          initial="out"
+          exit="out"
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+      <Footer />
+    </LayoutStyles>
   )
 }
 export default Layout

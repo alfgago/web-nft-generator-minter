@@ -3,7 +3,7 @@ import type { AppProps } from "next/app"
 import Layout from "@/components/Layout"
 import Meta from "@/components/Meta"
 
-import '../styles/fonts/stylesheet.css'
+import "../styles/fonts/stylesheet.css"
 import "../styles/globals.css"
 
 function MyApp({ Component, pageProps }: AppProps) {

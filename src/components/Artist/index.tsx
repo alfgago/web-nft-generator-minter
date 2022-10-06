@@ -1,7 +1,4 @@
-import {
-  ArtistStyles,
-  FaqStyles,
-} from "./ArtistStyles"
+import { ArtistStyles, FaqStyles } from "./ArtistStyles"
 import GuestListNFT from "./GuestListNFT"
 import UpcomingDrawing from "./UpcomingDrawing"
 import UpcomingDrops from "./UpcomingDrops"
@@ -12,7 +9,7 @@ const Artist = () => {
       <GuestListNFT />
       <UpcomingDrops />
       <UpcomingDrawing />
-      
+
       <FaqStyles>
         <div className="faqContainer">
           <h3 className="title">FAQ</h3>

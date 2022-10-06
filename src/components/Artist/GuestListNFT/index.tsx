@@ -3,7 +3,7 @@ import {
   CardDescription,
   CardPassType,
   GuestListNFTStyles,
-  PassTypeList
+  PassTypeList,
 } from "./GuestListNFTStyles"
 
 const Artist = () => {

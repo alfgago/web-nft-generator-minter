@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import About from "@/components/About"
-import axios from "axios"
+import Head from "next/head"
 
-const AboutPage = ({data}:any) => {
-  console.log(data);
+import About from "@/components/About"
+
+const AboutPage = ({ data }: any) => {
+  console.log(data)
   return (
     <>
       <Head>
@@ -14,4 +14,4 @@ const AboutPage = ({data}:any) => {
   )
 }
 
-export default AboutPage;
+export default AboutPage

@@ -2,8 +2,8 @@ import axios from "axios"
 
 export default async (req, res) => {
     const wpUrl =
-    process.env.WORDPRESS_URL ??
-    "https://rubberbullets.longlead-dev.decimalstudios.com"
+        process.env.WORDPRESS_URL ??
+        "https://rubberbullets.longlead-dev.decimalstudios.com"
     const domain =
         process.env.DOMAIN ?? "https://rubberbullets.decimalstudios.com"
 
@@ -18,14 +18,13 @@ export default async (req, res) => {
 
         const menuResponse = await axios.get(`${wpUrl}/wp-json/rb/chapters`)
         const menu = menuResponse.data
-        
+
         res.status(200).json({
             data,
             yoast,
             menu,
         })
     }
-    
+
     res.status(400).json({ message: 'Se cae' })
 }
-  
