@@ -2,14 +2,45 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Helvetica Neue, sans-serif;
+  font-family: 'Inter', Helvetica Neue, sans-serif;
 
   background-color: #f4f3ec;
-  font-size: 14px;
-  font-size: max(14px, calc(100vw / 100));
+  font-size: 16px;
+  font-size: max(15px, 0.9vw);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+section {
+  max-width: 100%;
+  padding: 4rem 0;
+}
+
+section .content {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 106rem;
+  padding: 0 3rem;
+}
+
+section .content.full {
+  margin: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (min-width: 1080px) {
+  section {
+    max-width: 100%;
+    padding: 3rem 0;
+  }
+
+  section .content {
+    padding: 0 12rem;
+  }
+}
+
 
 textarea,
 select,
@@ -32,13 +63,27 @@ address {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 3.25rem;
+  margin: 0;
+  font-family: 'Trap', 'Inter', Helvetica Neue, sans-serif;
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: 3.25rem;
+  margin: 0;
+  font-family: 'Trap', 'Inter', Helvetica Neue, sans-serif;
 }
 
 h3, h4, h5, h6 {
   font-size: 1.5rem;
+  margin: 0;
+  font-family: 'Trap', 'Inter', Helvetica Neue, sans-serif;
+}
+
+.trap {
+  font-family: 'Trap', 'Inter', Helvetica Neue, sans-serif;
+}
+
+.inter {
+  font-family: 'Inter', Helvetica Neue, sans-serif;
 }

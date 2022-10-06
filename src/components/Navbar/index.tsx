@@ -25,7 +25,7 @@ const Navbar = () => {
       <NavStyled>
         <div className="logoSearch">
           <a href="/" className="logo">
-            <img src="/resources/img/plus-one-logo.png" alt="plusOne" />
+            <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
           </a>
           <input type="text" className="searchInput" />
         </div>
@@ -37,7 +37,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <a href="#demo" onClick={closeMenu}>
-              <img src="/resources/img/meta-mask-logo.png" alt="Metamask" />
+              <img src="/assets/img/meta-mask-logo.png" alt="Metamask" />
             </a>
           </li>
         </ul>

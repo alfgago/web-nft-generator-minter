@@ -1,9 +1,8 @@
-import Head from 'next/head'
-import Home from "@/components/Home"
-import axios from "axios"
+import Head from "next/head"
 
-const Index = ({data}:any) => {
-  console.log(data);
+import Home from "@/components/Home"
+
+const Index = () => {
   return (
     <>
       <Head>
@@ -14,15 +13,14 @@ const Index = ({data}:any) => {
   )
 }
 
-
 export const getStaticProps = async () => {
-  const { data } = await axios.get(`http://localhost:3000/api/timeline`)
+  // const { data } = await axios.get(`http://localhost:3000/api/timeline`)
   return {
     props: {
-      data,
+      data: false,
     },
     revalidate: 30,
   }
 }
 
-export default Index;
+export default Index

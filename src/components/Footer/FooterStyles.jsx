@@ -1,4 +1,5 @@
 import styled from "styled-components"
+
 import { COLORS } from "@/styles/variables"
 
 export const FooterStyles = styled.footer`
@@ -6,44 +7,52 @@ export const FooterStyles = styled.footer`
   width: 100%;
   line-height: ${60 / 16}rem;
   color: ${COLORS.white};
-  background-color: #0c0c0c;
   text-align: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/assets/img/footer-bg.png") no-repeat top center;
+  }
 
   .footer {
     position: relative;
     display: flex;
-    height: 216px;
-    justify-content: space-around;
-    max-width: 1728px;
+    justify-content: space-between;
+    max-width: 100vw;
     margin: 0 auto;
-    padding: ${32 / 16}rem 0;
+    padding: ${32 / 16}rem 2.6rem;
 
-    background: linear-gradient(
-      270deg,
-      #d8f5fe 8.41%,
-      rgba(255, 255, 255, 0.9) 88.16%
-    );
-  }
-`
+    .waterMarkLogo {
+      position: relative;
+      z-index: 1;
+    }
 
-export const FooterBg = styled.div`
-  display: flex;
-  width: 100%;
-  background: url("./resources/img/footer-bg.png") no-repeat;
-  height: 216px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  align-items: center;
-  justify-content: flex-end;
-  .waterMarkLogo {
-    position: absolute;
-    left: 51px;
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 33%;
+      height: 100%;
+      background: #0c0c0c;
+    }
+
+    &:after {
+      left: auto;
+      right: 0;
+    }
   }
 `
 
 export const FooterNav = styled.div`
+  position: relative;
+  z-index: 1;
   display: flex;
   ul {
     list-style: none;
@@ -52,10 +61,10 @@ export const FooterNav = styled.div`
     display: flex;
     > li {
       font-weight: 600;
-      font-size: 15px;
+      font-size: ${15 / 16}rem;
       text-transform: uppercase;
       font-weight: 600;
-      margin: 5px 30px;
+      margin: ${5 / 16}rem ${30 / 16}rem;
     }
   }
 `
