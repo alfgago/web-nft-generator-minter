@@ -1,6 +1,7 @@
 import React, { useState } from "react"
+
 import { HeaderStyled, NavStyled } from "./NavbarStyles"
-//import './Navbar.css'
+// import './Navbar.css'
 
 const Navbar = () => {
   const [click, setClick] = useState(false)

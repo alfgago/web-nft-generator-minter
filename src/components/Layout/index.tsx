@@ -1,9 +1,11 @@
 import { useRouter } from "next/router"
 import { AnimatePresence, motion } from "framer-motion"
-import { LayoutStyles } from "./LayoutStyles"
-import Header from "../Header"
+
 import Footer from "../Footer"
+import Header from "../Header"
 import Navbar from "../Navbar"
+
+import { LayoutStyles } from "./LayoutStyles"
 
 const defaultVariants = {
   out: {
