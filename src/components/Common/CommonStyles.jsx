@@ -87,25 +87,28 @@ export const PassTypeList = styled.div`
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    .active {
-      margin: ${5 / 16}rem ${6 / 16}rem;
-      font-weight: 600;
-      color: ${COLORS.white};
-      padding: ${14 / 16}rem ${25 / 16}rem;
-      background: #373737;
-      border: 1px solid #454545;
-      border-radius: ${69 / 16}rem;
-    }
-    > li:first-child {
-      margin: ${5 / 16}rem ${6 / 16}rem ${5 / 16}rem 0;
-    }
-    > li:not(.active) {
-      font-weight: 600;
-      margin: ${5 / 16}rem ${6 / 16}rem;
-      padding: ${14 / 16}rem ${25 / 16}rem;
-      background: transparent;
-      border: ${1 / 16}rem solid #454545;
-      border-radius: ${36 / 16}rem;
+    gap: 10px;
+
+    li {
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.5s ease all;
+      &.active {
+        color: ${COLORS.white};
+        padding: ${14 / 16}rem ${25 / 16}rem;
+        background: #373737;
+        border: 1px solid #454545;
+      }
+      &:not(.active) {
+        padding: ${14 / 16}rem ${25 / 16}rem;
+        background: transparent;
+        border: ${1 / 16}rem solid #454545;
+        border-radius: ${36 / 16}rem;
+      }
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
   }
 `
