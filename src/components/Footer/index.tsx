@@ -1,5 +1,5 @@
 import { FooterStyles } from "./FooterStyles"
-import { FooterBg, FooterNav } from "./FooterStyles"
+import { FooterNav } from "./FooterStyles"
 
 const Footer = () => {
   return (
