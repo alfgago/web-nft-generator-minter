@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import Link from "next/link"
 
 import { HeaderStyled, NavStyled } from "./NavbarStyles"
 // import './Navbar.css'
@@ -25,9 +26,11 @@ const Navbar = () => {
     <HeaderStyled hasColor={color}>
       <NavStyled>
         <div className="logoSearch">
-          <a href="/" className="logo">
-            <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
-          </a>
+          <Link href="/">
+            <a className="logo">
+              <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
+            </a>
+          </Link>
           <input type="text" className="searchInput" />
         </div>
         <ul className={click ? "nav-menu active" : "nav-menu"}>

@@ -6,7 +6,7 @@ body {
 
   background-color: #f4f3ec;
   font-size: 16px;
-  font-size: max(15px, 0.9vw);
+  font-size: max(15px, 0.85vw);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -30,10 +30,34 @@ section .content.full {
   max-width: 100%;
 }
 
+.btn {
+  display: inline-block;
+  font-size: 1.4rem;
+  line-height: 3rem;
+  font-family: "Trap", "Inter", Helvetica Neue, sans-serif;
+  color: #fff;
+  background: #373737;
+  padding: 0 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  min-width: 12rem;
+  text-align: center;
+  transition: 0.5s ease all;
+}
+
+.btn:hover {
+  background: #858585;
+  cursor: pointer;
+}
+
+img {
+  user-select: none;
+}
+
 @media screen and (min-width: 1080px) {
   section {
     max-width: 100%;
-    padding: 3rem 0;
+    padding: 6rem 0;
   }
 
   section .content {

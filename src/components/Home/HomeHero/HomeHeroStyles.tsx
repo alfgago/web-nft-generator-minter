@@ -7,6 +7,7 @@ export const HomeHeroStyles = styled.section`
   width: 100%;
   color: ${COLORS.white};
   overflow: hidden;
+  padding-bottom: 6rem;
 
   .background-gradient {
     background: #0217fc;
@@ -24,8 +25,8 @@ export const HomeHeroStyles = styled.section`
       width: calc(100% + 4rem);
       height: calc(100% + 4rem);
       object-fit: cover;
-      opacity: 0;
-      transition: 2.75s linear all;
+      opacity: 0.1;
+      transition: 3s linear all;
 
       &.active {
         opacity: 1;
@@ -36,6 +37,7 @@ export const HomeHeroStyles = styled.section`
       content: "";
       position: absolute;
       top: 50%;
+      margin-top: -4rem;
       right: 0;
       width: 100%;
       height: 100%;
@@ -47,7 +49,7 @@ export const HomeHeroStyles = styled.section`
     position: relative;
     display: flex;
     align-items: flex-start;
-    padding: 8rem 0 2rem 0;
+    padding: 5rem 0 2rem 0;
 
     h2 {
       position: absolute;
