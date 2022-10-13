@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 
-import { HeaderStyled, NavStyled } from "./NavbarStyles"
-// import './Navbar.css'
+import { NavbarStyles } from "./NavbarStyles"
 
 const Navbar = () => {
   const [click, setClick] = useState(false)
@@ -23,30 +22,49 @@ const Navbar = () => {
   }
 
   return (
-    <HeaderStyled hasColor={color}>
-      <NavStyled>
-        <div className="logoSearch">
-          <Link href="/">
-            <a className="logo">
-              <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
-            </a>
-          </Link>
-          <input type="text" className="searchInput" />
-        </div>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li className="nav-item">
-            <a href="#testimonials" onClick={closeMenu}>
-              LOGIN
-            </a>
+    <NavbarStyles hasColor={color}>
+      <Link href="/">
+        <a className="logo">
+          <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
+        </a>
+      </Link>
+      <nav className="nav">
+        <ul>
+          <li className="search-li">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search by artist, venue, or city"
+            />
+            <img src="/assets/img/search.svg" alt="search icon" />
+          </li>
+          <li>
+            <Link href="/artists">
+              <a>Artists</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources">
+              <a>Resources</a>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <nav className="right-nav">
+        <ul>
+          <li>
+            <Link href="/">
+              <a>Account</a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#demo" onClick={closeMenu}>
+            <a href="#">
               <img src="/assets/img/meta-mask-logo.png" alt="Metamask" />
             </a>
           </li>
         </ul>
-      </NavStyled>
-    </HeaderStyled>
+      </nav>
+    </NavbarStyles>
   )
 }
 

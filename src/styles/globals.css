@@ -113,3 +113,15 @@ h6 {
 .inter {
   font-family: "Inter", Helvetica Neue, sans-serif;
 }
+
+input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}

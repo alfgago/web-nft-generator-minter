@@ -1,7 +1,9 @@
 import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
+import LotteryWinners from "./LotteryWinners"
 import MoreSection from "./MoreSection"
 import UpcomingDrawings from "./UpcomingDrawings"
+import UpcomingDrops from "./UpcomingDrops"
 
 const trendingArtists = [
   {
@@ -62,6 +64,8 @@ const Home = () => {
         type={how2.type}
         useBorderTop={how2.useBorderTop}
       />
+      <LotteryWinners />
+      <UpcomingDrops />
     </HomeStyles>
   )
 }

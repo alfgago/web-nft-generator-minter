@@ -6,7 +6,7 @@ export interface Props {
   hasColor: boolean
 }
 
-export const HeaderStyled = styled.div<Props>`
+export const NavbarStyles = styled.div<Props>`
   position: fixed;
   height: ${80 / 16}rem;
   width: 100%;
@@ -18,50 +18,62 @@ export const HeaderStyled = styled.div<Props>`
   color: ${COLORS.white};
   background-color: ${(props) =>
     props.hasColor ? "rgba(0, 0, 0, 0.9)" : "transparent"};
-  .nav-menu {
-    display: flex;
-    align-items: center;
-  }
-  .nav-menu a {
-    color: ${COLORS.white};
-  }
-  .navbar img {
-    width: ${250 / 16}rem;
-    height: auto;
-  }
-  .nav-item {
-    padding: 1rem;
-    font-weight: 500;
-    list-style: none;
-  }
-  .nav-item a:hover {
-    padding-bottom: ${12 / 16}rem;
-  }
-`
-
-export const NavStyled = styled.nav`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 100vw;
-  margin: auto;
-  height: 100%;
   padding: 0 2.6rem;
-  .logoSearch {
+  color: #fff;
+
+  .logo {
+    display: inline-block;
+    margin-right: ${140 / 16}rem;
+  }
+
+  .right-nav {
+    margin-left: auto;
+  }
+
+  a {
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  ul {
     display: flex;
     align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      margin: 0 2rem;
+    }
   }
-  .searchInput {
-    background: transparent;
-    border: solid thin ${COLORS.white};
-    border-radius: 50px;
-    width: ${280 / 16}rem;
-    line-height: ${30 / 16}rem;
-    margin-left: ${80 / 16}rem;
-    padding: 0 ${20 / 16}rem;
-    color: ${COLORS.white};
-    :focus {
-      outline: none;
+
+  .search-li {
+    position: relative;
+    padding: 0;
+    .search-input {
+      background: transparent;
+      border: solid 2px ${COLORS.white};
+      border-radius: 50px;
+      font-weight: 400;
+      width: ${330 / 16}rem;
+      line-height: ${38 / 16}rem;
+      padding: 0 ${20 / 16}rem;
+      color: ${COLORS.white};
+      padding-right: ${40 / 16}rem;
+      font-size: 1rem;
+      :focus {
+        outline: none;
+      }
+    }
+
+    img {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: ${18 / 16}rem;
+      width: auto;
     }
   }
 `
