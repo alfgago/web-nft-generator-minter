@@ -1,6 +1,11 @@
 import Link from "next/link"
 
-import { ArtistsStyles, ListingStyles, HeroStyles, BrowseStyles } from "./ArtistsStyles"
+import {
+  ArtistsStyles,
+  BrowseStyles,
+  HeroStyles,
+  ListingStyles,
+} from "./ArtistsStyles"
 
 const featuredArtists = [
   {
@@ -57,34 +62,34 @@ const ArtistListing = () => {
   return (
     <ArtistsStyles>
       <HeroStyles>
-          <div className="content">
-            <div className="featured">
-              <h1>Artists</h1>
-              {featuredArtists.map((artist: any) => {
-                return (
-                  <Link key={artist.name} href={"/artist/" + artist.slug}>
-                    <div className="artist">
-                      <Link key={artist.name} href={"/artist/" + artist.slug}>
-                        <a className="link">
-                          <div className="img-container">
-                            <img src={artist.image} alt={artist.name} />
-                          </div>
-                          <div className="name">{artist.name}</div>
-                        </a>
-                      </Link>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
+        <div className="content">
+          <div className="featured">
+            <h1>Artists</h1>
+            {featuredArtists.map((artist: any) => {
+              return (
+                <Link key={artist.name} href={"/artist/" + artist.slug}>
+                  <div className="artist">
+                    <Link key={artist.name} href={"/artist/" + artist.slug}>
+                      <a className="link">
+                        <div className="img-container">
+                          <img src={artist.image} alt={artist.name} />
+                        </div>
+                        <div className="name">{artist.name}</div>
+                      </a>
+                    </Link>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
+        </div>
       </HeroStyles>
       <BrowseStyles>
         <section className="top-triangle">
           <div className="content">
             <div className="triangle-container">
               <span className="img-span">
-                <img src="/assets/img/top-triangle-solo.png" alt="border-top"></img>
+                <img src="/assets/img/top-triangle-solo.png" alt="border-top" />
               </span>
             </div>
           </div>
@@ -107,7 +112,6 @@ const ArtistListing = () => {
       <ListingStyles>
         <div className="content" />
       </ListingStyles>
->
     </ArtistsStyles>
   )
 }
