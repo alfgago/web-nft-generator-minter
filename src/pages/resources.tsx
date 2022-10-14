@@ -7,7 +7,7 @@ const AboutPage = ({ data }: any) => {
   return (
     <>
       <Head>
-        <title>About - PlusOne</title>
+        <title>Resources - PlusOne</title>
       </Head>
       <About />
     </>

@@ -104,7 +104,6 @@ export const PassTypeList = styled.div`
         padding: ${14 / 16}rem ${25 / 16}rem;
         background: transparent;
         border: ${1 / 16}rem solid #454545;
-        border-radius: ${36 / 16}rem;
       }
       &:hover {
         background: rgba(0, 0, 0, 0.1);
