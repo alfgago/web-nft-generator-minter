@@ -2,7 +2,7 @@ import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
 import MoreSection from "./MoreSection"
 import UpcomingDrawings from "./UpcomingDrawings"
-
+import Login from "../Login"
 const trendingArtists = [
   {
     name: "Kings of Leon",

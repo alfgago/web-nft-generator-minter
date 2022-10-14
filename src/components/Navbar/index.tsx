@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Link from "next/link"
-
+import Login from "../Login"
 import { HeaderStyled, NavStyled } from "./NavbarStyles"
 // import './Navbar.css'
 
@@ -22,6 +22,8 @@ const Navbar = () => {
     window.addEventListener("scroll", changeColor)
   }
 
+  const [openLogin, setIsOpen] = useState(false)
+
   return (
     <HeaderStyled hasColor={color}>
       <NavStyled>
@@ -35,9 +37,10 @@ const Navbar = () => {
         </div>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className="nav-item">
-            <a href="#testimonials" onClick={closeMenu}>
+            <a href="#Login" onClick={() => setIsOpen(true)}>
               LOGIN
             </a>
+            {openLogin && <Login setIsOpen={setIsOpen} />}
           </li>
           <li className="nav-item">
             <a href="#demo" onClick={closeMenu}>
