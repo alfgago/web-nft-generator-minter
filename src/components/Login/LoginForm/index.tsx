@@ -38,20 +38,29 @@ const LoginForm = () => {
         <p className="subtitle">To manage tour dates and retrieve guest list</p>
         <Formik
           initialValues={initlValues}
-          onSubmit={onSubmit}
+          onSubmit={(values) => {
+            console.log(values)
+          }}
           validationSchema={valuesSchema}
         >
           {({ errors, touched }) => (
             <Form>
               <Field name="email" type="email" placeholder="Email" />
-              {errors.email && touched.email ? <p>{errors.email}</p> : null}
+              {errors.email && touched.email ? (
+                <ul>
+                  <li>{errors.email}</li>
+                </ul>
+              ) : null}
               <br></br>
               <Field name="password" type="password" placeholder="Password" />
               {errors.password && touched.password ? (
-                <p>{errors.password}</p>
+                <p className="alert">{errors.password}</p>
               ) : null}
+
+              <br></br>
+
               <div className="">
-                <a href="#ForgitPassword">Forgot password?</a>
+                <a href="#ForgotPassword">Forgot password?</a>
                 <div className="btn-container">
                   <button type="submit">Submit</button>
                 </div>

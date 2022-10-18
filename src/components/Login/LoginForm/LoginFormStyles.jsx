@@ -85,4 +85,8 @@ export const LoginFormlStyles = styled.section`
   p + a {
     padding-top: ${5 / 16}rem;
   }
+
+  .alert {
+    width: 100%;
+  }
 `
