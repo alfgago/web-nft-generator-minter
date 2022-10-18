@@ -1,7 +1,8 @@
 import React from "react"
-import { LoginFormlStyles } from "./LoginFormStyles"
-import { Formik, Form, Field, withFormik } from "formik"
+import { Field, Form, Formik, withFormik } from "formik"
 import * as Yup from "yup"
+
+import { LoginFormlStyles } from "./LoginFormStyles"
 
 interface FormValues {
   email: string
@@ -45,7 +46,7 @@ const LoginForm = () => {
             <Form>
               <Field name="email" type="email" placeholder="Email" />
               {errors.email && touched.email ? <p>{errors.email}</p> : null}
-              <br></br>
+              <br />
               <Field name="password" type="password" placeholder="Password" />
               {errors.password && touched.password ? (
                 <p>{errors.password}</p>

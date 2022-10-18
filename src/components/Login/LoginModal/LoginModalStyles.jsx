@@ -1,4 +1,5 @@
 import styled from "styled-components"
+
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const LoginModalStyles = styled.section`
@@ -12,22 +13,22 @@ export const LoginModalStyles = styled.section`
   right: 0;
   top: 0;
   bottom: 0;
+  padding: 0;
 
   .bg-modal {
+    position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
+    top: 0;
+    left: 0;
   }
 
   .modal-container {
+    position: relative;
     width: ${780 / 16}rem;
-    height: ${480 / 16}rem;
-    position: absolute;
-    flex: 1;
+    max-width: 95%;
+    max-height: 95%;
   }
 
   .container-centered {
@@ -39,9 +40,10 @@ export const LoginModalStyles = styled.section`
   .modal-content {
     background-color: ${COLORS.white};
     width: 100%;
-    height: ${480 / 16}rem;
     border-radius: ${12 / 16}rem;
-    margin-top: -55px;
+    margin-top: -3rem;
+    padding: 3rem 0;
+    padding-top: 5rem;
   }
 
   .modal-header {
@@ -49,11 +51,11 @@ export const LoginModalStyles = styled.section`
     border-top-right-radius: ${8 / 16}rem;
     position: relative;
     content: "";
-    height: ${114 / 16}rem;
     background: url("/assets/img/login-header.svg") no-repeat;
     background-size: cover;
     object-fit: cover;
     background-position: left center;
+    padding: 1.5rem 0;
   }
 
   .title {

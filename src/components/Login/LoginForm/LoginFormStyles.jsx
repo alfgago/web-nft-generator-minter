@@ -1,7 +1,8 @@
 import styled from "styled-components"
+
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const LoginFormlStyles = styled.section`
+export const LoginFormlStyles = styled.div`
   color: black;
   width: 100%;
   font-family: "Trap";
