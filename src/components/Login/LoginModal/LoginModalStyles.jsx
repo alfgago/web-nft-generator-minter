@@ -24,7 +24,8 @@ export const LoginModalStyles = styled.section`
   }
 
   .modal-container {
-    width: 60%;
+    width: ${780 / 16}rem;
+    height: ${480 / 16}rem;
     position: absolute;
     flex: 1;
   }
@@ -38,7 +39,7 @@ export const LoginModalStyles = styled.section`
   .modal-content {
     background-color: ${COLORS.white};
     width: 100%;
-    height: 70vh;
+    height: ${480 / 16}rem;
     border-radius: ${12 / 16}rem;
     margin-top: -55px;
   }

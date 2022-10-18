@@ -12,6 +12,7 @@ export const LoginFormlStyles = styled.section`
     align-items: center;
     flex-direction: column;
     width: 100%;
+    height: 100%;
   }
 
   p {
@@ -31,12 +32,12 @@ export const LoginFormlStyles = styled.section`
   input {
     background-color: #d9d9d9;
     color: #717171;
-    width: 100%;
-    height: 40px;
+    width: ${624 / 16}rem;
+    height: ${55 / 16}rem;
     border: 0px solid #d9d9d9;
     border-radius: ${12 / 16}rem;
     padding: 20px 20px;
-
+    outline: none;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -44,7 +45,8 @@ export const LoginFormlStyles = styled.section`
   }
   button {
     background-color: #777777;
-    width: 109px;
+    width: ${109 / 16}rem;
+    height: ${41 / 16}rem;
     border-radius: 12px;
     border: none;
     color: #fff;
@@ -63,15 +65,24 @@ export const LoginFormlStyles = styled.section`
   }
 
   .subtitle {
-    padding-bottom: 45px;
+    padding-bottom: 3rem;
     font-weight: 500;
   }
 
-  .div p {
+  .register-cont {
     font-weight: 600;
+    font-size: 24px;
   }
 
   input + div {
     padding: 5px 20px 0px 20px;
+  }
+
+  input::placeholder {
+    color: #717171;
+  }
+
+  p + a {
+    padding-top: ${5 / 16}rem;
   }
 `
