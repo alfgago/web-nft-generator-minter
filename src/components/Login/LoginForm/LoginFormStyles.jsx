@@ -1,7 +1,8 @@
 import styled from "styled-components"
+
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const LoginFormlStyles = styled.section`
+export const LoginFormlStyles = styled.div`
   color: black;
   width: 100%;
   font-family: "Trap";
@@ -87,6 +88,13 @@ export const LoginFormlStyles = styled.section`
   }
 
   .alert {
-    width: 100%;
+    padding-bottom: ${5 / 16}rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: red;
+    list-style-type: circle;
+    font-weight: 400;
   }
 `

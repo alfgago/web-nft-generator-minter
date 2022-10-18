@@ -1,7 +1,9 @@
 import React from "react"
-import { LoginFormlStyles } from "./LoginFormStyles"
-import { Formik, Form, Field, withFormik } from "formik"
+import { Field, Form, Formik, ErrorMessage } from "formik"
 import * as Yup from "yup"
+
+import { LoginFormlStyles } from "./LoginFormStyles"
+import { DiffieHellmanGroup } from "crypto"
 
 interface FormValues {
   email: string
@@ -23,40 +25,36 @@ const valuesSchema = Yup.object().shape({
   email: Yup.string()
     .email("Enter a valid email")
     .required("Email is required"),
-  password: Yup.string()
-    .required("Please Enter your password")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-    ),
+  password: Yup.string().required("Please enter your password"),
 })
 
 const LoginForm = () => {
+  const spread = (txt: any) => {
+    let array = txt.split(",")
+    console.log(array)
+    return array
+  }
+
   return (
     <LoginFormlStyles>
       <div className="container">
         <p className="subtitle">To manage tour dates and retrieve guest list</p>
         <Formik
           initialValues={initlValues}
-          onSubmit={(values) => {
-            console.log(values)
-          }}
+          onSubmit={onSubmit}
           validationSchema={valuesSchema}
         >
           {({ errors, touched }) => (
             <Form>
-              <Field name="email" type="email" placeholder="Email" />
               {errors.email && touched.email ? (
-                <ul>
-                  <li>{errors.email}</li>
-                </ul>
+                <div className="alert">{errors.email}</div>
               ) : null}
+              <Field name="email" type="email" placeholder="Email" />
               <br></br>
-              <Field name="password" type="password" placeholder="Password" />
               {errors.password && touched.password ? (
-                <p className="alert">{errors.password}</p>
+                <div className="alert">{errors.password}</div>
               ) : null}
-
+              <Field name="password" type="password" placeholder="Password" />
               <br></br>
 
               <div className="">

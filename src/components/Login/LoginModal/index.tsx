@@ -1,4 +1,5 @@
 import React from "react"
+
 import { LoginModalStyles } from "./LoginModalStyles"
 const LoginModal = ({
   children,
@@ -14,7 +15,7 @@ const LoginModal = ({
         onClick={() => {
           setIsOpen(false)
         }}
-      ></div>
+       />
 
       <div className="modal-container">
         <div className="modal-header container-centered">
