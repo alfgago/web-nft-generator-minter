@@ -61,7 +61,7 @@ const artists = [
 const ArtistListing = () => {
   return (
     <ArtistsStyles>
-      <HeroStyles>
+      <HeroStyles className="">
         <div className="content">
           <div className="featured">
             <h1>Artists</h1>
