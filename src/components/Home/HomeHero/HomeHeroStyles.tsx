@@ -9,26 +9,53 @@ export const HomeHeroStyles = styled.section`
   overflow: hidden;
   padding-bottom: 6rem;
 
-  .background-gradient {
-    background: #0217fc;
+  .content {
+    z-index: 5;
+  }
+
+  .background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-
-    img {
+    .gradient {
+      background: #0217fc;
       position: absolute;
-      top: -2rem;
-      left: -2rem;
-      width: calc(100% + 4rem);
-      height: calc(100% + 4rem);
-      object-fit: cover;
-      opacity: 0.1;
-      transition: 3s linear all;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
 
-      &.active {
+      img {
+        position: absolute;
+        top: -2rem;
+        left: -2rem;
+        width: calc(100% + 4rem);
+        height: calc(100% + 4rem);
+        object-fit: cover;
+        opacity: 0.1;
+        transition: 3s linear all;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+
+      &:after {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        content: "";
+        width: 100%;
+        height: 100%;
+        mix-blend-mode: soft-light;
+        background: rgb(0, 0, 0);
+        filter: url(#f) contrast(140%) brightness(500%) invert(100%);
+        z-index: 5;
+        pointer-events: none;
         opacity: 1;
       }
     }
@@ -42,6 +69,7 @@ export const HomeHeroStyles = styled.section`
       width: 100%;
       height: 100%;
       background: url("/assets/img/watermark.svg") no-repeat top right;
+      z-index: 5;
     }
   }
 

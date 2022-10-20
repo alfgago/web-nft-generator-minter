@@ -26,22 +26,29 @@ const HomeHero = ({ trendingArtists }: any) => {
 
   return (
     <HomeHeroStyles>
-      <div className="background-gradient">
-        <img
-          src="/assets/img/gradient/1.jpg"
-          alt="gradient"
-          className={active == 1 ? "active" : ""}
-        />
-        <img
-          src="/assets/img/gradient/2.jpg"
-          alt="gradient"
-          className={active == 2 ? "active" : ""}
-        />
-        <img
-          src="/assets/img/gradient/3.jpg"
-          alt="gradient"
-          className={active == 3 ? "active" : ""}
-        />
+      <div className="background">
+        <div className="gradient">
+          <svg>
+            <filter id="f">
+              <feTurbulence type="fractalNoise" baseFrequency="0.7" />
+            </filter>
+          </svg>
+          <img
+            src="/assets/img/gradient/1.jpg"
+            alt="gradient"
+            className={active == 1 ? "active" : ""}
+          />
+          <img
+            src="/assets/img/gradient/2.jpg"
+            alt="gradient"
+            className={active == 2 ? "active" : ""}
+          />
+          <img
+            src="/assets/img/gradient/3.jpg"
+            alt="gradient"
+            className={active == 3 ? "active" : ""}
+          />
+        </div>
       </div>
 
       <div className="content">

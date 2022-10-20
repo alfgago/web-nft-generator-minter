@@ -6,74 +6,220 @@ export interface Props {
   hasColor: boolean
 }
 
-export const NavbarStyles = styled.div<Props>`
+export const NavbarStyles = styled.section<Props>`
   position: fixed;
-  height: ${80 / 16}rem;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 9000;
   transition: 0.3s ease-in;
-  overflow: hidden;
   color: ${COLORS.white};
   background-color: ${(props) =>
     props.hasColor ? "rgba(0, 0, 0, 0.9)" : "transparent"};
-  display: flex;
-  align-items: center;
-  padding: 0 2.6rem;
+  padding: 0;
+  margin: 0;
   color: #fff;
+  font-size: 0.9rem;
 
-  .logo {
-    display: inline-block;
-    margin-right: ${140 / 16}rem;
-  }
-
-  .right-nav {
-    margin-left: auto;
-  }
-
-  a {
-    text-transform: uppercase;
-    font-size: 1rem;
-  }
-
-  ul {
+  .content {
+    height: ${80 / 16}rem;
     display: flex;
     align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-      margin: 0 2rem;
-    }
-  }
+    justify-content: space-between;
 
-  .search-li {
-    position: relative;
-    padding: 0;
-    .search-input {
-      background: transparent;
-      border: solid 2px ${COLORS.white};
-      border-radius: 50px;
-      font-weight: 400;
-      width: ${330 / 16}rem;
-      line-height: ${38 / 16}rem;
-      padding: 0 ${20 / 16}rem;
-      color: ${COLORS.white};
-      padding-right: ${40 / 16}rem;
-      font-size: 1rem;
-      :focus {
-        outline: none;
+    .logo {
+      position: relative;
+      display: inline-block;
+      margin-right: ${80 / 16}rem;
+      z-index: 2000;
+    }
+
+    .nav {
+      position: fixed;
+      display: block;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      display: block;
+      margin-left: auto;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1000;
+      transition: 0.5s ease opacity;
+
+      @media ${DEVICE.laptop} {
+        position: relative;
+        height: auto;
+        widthj: auto;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          position: relative;
+          margin: 0 1rem;
+
+          &:hover {
+            .submenu {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      .submenu {
+        position: absolute;
+        top: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.5s ease all;
+        padding-top: 1rem;
+        ul {
+          display: block;
+          background: #fff;
+          color: #000;
+          font-size: 0.75rem;
+          border-radius: 15px;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+          overflow: hidden;
+          li {
+            display: block;
+            margin: 0;
+            a {
+              display: block;
+              font-size: 0.8rem;
+              padding: 0.5rem 1rem;
+              border-bottom: 1px solid #aaa;
+
+              &:hover {
+                background: #f5f5f5;
+              }
+            }
+
+            &:last-of-type a {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+
+      a {
+        text-transform: uppercase;
+        font-size: inherit;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: 0.5s ease all;
       }
     }
 
-    img {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      height: ${18 / 16}rem;
-      width: auto;
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+
+    .search-bar {
+      position: relative;
+      padding: 0;
+      width: ${600 / 16}rem;
+      max-width: 50%;
+      display: none;
+      @media ${DEVICE.laptop} {
+        display: block;
+      }
+      .search-input {
+        background: transparent;
+        border: solid 2px ${COLORS.white};
+        border-radius: 50px;
+        font-weight: 400;
+        width: 100%;
+        line-height: ${38 / 16}rem;
+        padding: 0 ${20 / 16}rem;
+        color: ${COLORS.white};
+        padding-right: ${40 / 16}rem;
+        font-size: inherit;
+        :focus {
+          outline: none;
+        }
+      }
+
+      svg {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        height: ${18 / 16}rem;
+        width: auto;
+      }
+    }
+
+    &.is-active {
+      .nav {
+        visibility: visible;
+        opacity: 1;
+        padding-top: 8rem;
+
+        ul {
+          width: 100%;
+          display: block;
+          li {
+            a {
+              display: block;
+              padding: 1rem;
+              text-align: center;
+              color: #fff;
+              font-size: 1.2rem;
+              font-weight: bold;
+            }
+            svg {
+              width: 2rem;
+              height: 2rem;
+            }
+
+            .submenu {
+              display: block;
+              position: relative;
+              visibility: visible;
+              opacity: 1;
+              padding: 0;
+              ul {
+                background: none;
+                a {
+                  background: none;
+                  border: 0;
+                  text-transform: none;
+                  font-weight: 300;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .hamburger {
+    z-index: 2000;
+    @media ${DEVICE.laptop} {
+      display: none;
+    }
+
+    .hamburger.is-active .hamburger-inner,
+    .hamburger.is-active .hamburger-inner:after,
+    .hamburger.is-active .hamburger-inner:before,
+    .hamburger-inner,
+    .hamburger-inner:after,
+    .hamburger-inner:before {
+      background-color: #fff;
     }
   }
 `

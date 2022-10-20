@@ -9,6 +9,8 @@ body {
   font-size: max(15px, 0.85vw);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 section {
