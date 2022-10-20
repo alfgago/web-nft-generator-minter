@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
+import Login from "../Login"
+
 import { NavbarStyles } from "./NavbarStyles"
 
 const Navbar = () => {
@@ -20,6 +22,8 @@ const Navbar = () => {
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", changeColor)
   }
+
+  const [openLogin, setIsOpen] = useState(false)
 
   return (
     <NavbarStyles hasColor={color}>
@@ -84,11 +88,10 @@ const Navbar = () => {
               </div>
             </li>
             <li>
-              <Link href="/">
-                <a>
-                  <ReactSVG src="/assets/vectors/account.svg" />
-                </a>
-              </Link>
+              <a href="#account" onClick={() => setIsOpen(true)}>
+                <ReactSVG src="/assets/vectors/account.svg" />
+              </a>
+              {openLogin && <Login setIsOpen={setIsOpen} />}
             </li>
             <li>
               <a href="#">

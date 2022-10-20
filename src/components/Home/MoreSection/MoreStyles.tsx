@@ -7,6 +7,7 @@ export const MoreStyles = styled.div`
   width: 100%;
   color: ${COLORS.black};
   overflow: hidden;
+  z-index: 500;
 
   .content {
     z-index: 2;

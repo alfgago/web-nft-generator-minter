@@ -53,6 +53,7 @@ const HomeHero = ({ trendingArtists }: any) => {
 
       <div className="content">
         <div className="top">
+          <h2>Trending Artists</h2>
           {trendingArtists.map((artist: any) => {
             return (
               <Link key={artist.name} href={"/artist/" + artist.slug}>
@@ -69,7 +70,6 @@ const HomeHero = ({ trendingArtists }: any) => {
               </Link>
             )
           })}
-          <h2>Trending Artists</h2>
         </div>
       </div>
     </HomeHeroStyles>

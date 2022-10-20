@@ -23,7 +23,7 @@ section .content {
   margin: auto;
   width: 100%;
   max-width: 106rem;
-  padding: 0 3rem;
+  padding: 0 1rem;
 }
 
 section .content.full {
@@ -54,17 +54,6 @@ section .content.full {
 
 img {
   user-select: none;
-}
-
-@media screen and (min-width: 1080px) {
-  section {
-    max-width: 100%;
-    padding: 6rem 0;
-  }
-
-  section .content {
-    padding: 0 12rem;
-  }
 }
 
 textarea,
@@ -126,4 +115,34 @@ input:-ms-input-placeholder {
 
 input::placeholder {
   color: rgba(255, 255, 255, 0.9);
+}
+
+@media screen and (min-width: 1080px) {
+  section {
+    max-width: 100%;
+    padding: 6rem 0;
+  }
+
+  section .content {
+    padding: 0 12rem;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  h1,
+  h2 {
+    font-size: 28px;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 15px;
+  }
+
+  html,
+  body {
+    font-size: 10px;
+  }
 }

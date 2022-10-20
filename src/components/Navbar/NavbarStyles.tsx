@@ -52,7 +52,8 @@ export const NavbarStyles = styled.section<Props>`
       @media ${DEVICE.laptop} {
         position: relative;
         height: auto;
-        widthj: auto;
+        width: auto;
+        background: none;
         visibility: visible;
         opacity: 1;
       }

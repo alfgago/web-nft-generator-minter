@@ -63,34 +63,61 @@ export const HomeHeroStyles = styled.section`
     &:after {
       content: "";
       position: absolute;
-      top: 50%;
-      margin-top: -4rem;
-      right: 0;
       width: 100%;
       height: 100%;
+      right: -30vw;
+      top: 60%;
       background: url("/assets/img/watermark.svg") no-repeat top right;
+      background-size: contain;
       z-index: 5;
+
+      @media ${DEVICE.laptop} {
+        right: 0;
+        top: 50%;
+        width: 100%;
+        height: 100%;
+        margin-top: -4rem;
+        background-size: auto;
+      }
     }
   }
 
   .top {
     position: relative;
-    display: flex;
-    align-items: flex-start;
-    padding: 5rem 0 2rem 0;
+    padding: 5rem 0 0 0;
+
+    @media ${DEVICE.laptop} {
+      display: flex;
+      align-items: flex-start;
+      padding: 5rem 0 2rem 0;
+    }
 
     h2 {
-      position: absolute;
-      bottom: 2rem;
-      margin-left: ${553 / 16}rem;
-      padding-left: ${100 / 16}rem;
-      font-size: ${64 / 16}rem;
+      position: relative;
+      margin-bottom: ${30 / 16}rem;
       line-height: 1;
+
+      @media ${DEVICE.laptop} {
+        margin-left: ${100 / 16}rem;
+        position: absolute;
+        bottom: 2rem;
+        margin-bottom: 0;
+        margin-left: ${553 / 16}rem;
+        padding-left: ${100 / 16}rem;
+        font-size: ${64 / 16}rem;
+      }
     }
 
     .artist {
-      width: ${215 / 16}rem;
-      margin-left: ${100 / 16}rem;
+      width: 27%;
+      margin-left: 73%;
+      margin-bottom: ${25 / 16}rem;
+
+      @media ${DEVICE.laptop} {
+        width: ${215 / 16}rem;
+        margin-left: ${100 / 16}rem;
+        margin-bottom: 0;
+      }
 
       .link {
         display: block;
@@ -116,20 +143,37 @@ export const HomeHeroStyles = styled.section`
       .name {
         background: #000;
         color: #fff;
-        font-size: ${18 / 16}rem;
         padding: 0.5em 1em;
+        font-size: 12px;
+
+        @media ${DEVICE.laptop} {
+          font-size: ${18 / 16}rem;
+        }
       }
 
       &:first-of-type {
-        width: ${553 / 16}rem;
+        position: absolute;
+        width: 73%;
+        left: 0;
         margin-left: 0;
+        padding-right: 25px;
 
         .name {
-          font-size: ${30 / 16}rem;
+          font-size: 15px;
         }
 
-        .img-container {
-          padding-bottom: ${359 / 16}rem;
+        @media ${DEVICE.laptop} {
+          width: ${553 / 16}rem;
+          position: relative;
+          padding-right: 0;
+
+          .name {
+            font-size: ${30 / 16}rem;
+          }
+
+          .img-container {
+            padding-bottom: ${359 / 16}rem;
+          }
         }
       }
     }
