@@ -82,7 +82,7 @@ export const NavbarStyles = styled.section<Props>`
         top: 100%;
         visibility: hidden;
         opacity: 0;
-        transition: 0.5s ease all;
+        transition: 0.5s ease opacity;
         padding-top: 1rem;
         ul {
           display: block;
@@ -163,42 +163,70 @@ export const NavbarStyles = styled.section<Props>`
       }
     }
 
-    &.is-active {
-      .nav {
-        visibility: visible;
-        opacity: 1;
-        padding-top: 8rem;
-
-        ul {
-          width: 100%;
+    @media ${DEVICE.maxlaptop} {
+      .mobile-nav {
+        position: absolute;
+        z-index: 1000;
+        li.li-wallet,
+        li.li-account {
           display: block;
-          li {
-            a {
-              display: block;
-              padding: 1rem;
-              text-align: center;
-              color: #fff;
-              font-size: 1.2rem;
-              font-weight: bold;
-            }
+          position: fixed !important;
+          top: 0;
+          right: 8rem;
+          margin: 0;
+          a {
+            display: block;
+            padding: 0.75rem 0 !important;
             svg {
-              width: 2rem;
-              height: 2rem;
+              width: 3.5rem;
+              height: 3.5rem;
             }
+          }
+        }
 
-            .submenu {
-              display: block;
-              position: relative;
-              visibility: visible;
-              opacity: 1;
-              padding: 0;
-              ul {
-                background: none;
-                a {
+        li.li-account {
+          right: 13rem;
+        }
+      }
+
+      li.li-wallet,
+      li.li-account {
+        display: none;
+      }
+
+      &.is-active {
+        .nav {
+          visibility: visible;
+          opacity: 1;
+          padding-top: 8rem;
+
+          ul {
+            width: 100%;
+            display: block;
+            li {
+              a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+                color: #fff;
+                font-size: 1.2rem;
+                font-weight: bold;
+              }
+
+              .submenu {
+                display: block;
+                position: relative;
+                visibility: visible;
+                opacity: 1;
+                padding: 0;
+                ul {
                   background: none;
-                  border: 0;
-                  text-transform: none;
-                  font-weight: 300;
+                  a {
+                    background: none;
+                    border: 0;
+                    text-transform: none;
+                    font-weight: 300;
+                  }
                 }
               }
             }

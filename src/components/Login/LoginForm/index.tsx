@@ -28,12 +28,6 @@ const valuesSchema = Yup.object().shape({
 })
 
 const LoginForm = () => {
-  const spread = (txt: any) => {
-    const array = txt.split(",")
-    console.log(array)
-    return array
-  }
-
   return (
     <LoginFormlStyles>
       <div className="container">
@@ -54,14 +48,10 @@ const LoginForm = () => {
                 <div className="alert">{errors.password}</div>
               ) : null}
               <Field name="password" type="password" placeholder="Password" />
-              <br />
 
-              <div className="">
-                <a href="#ForgotPassword">Forgot password?</a>
-                <div className="btn-container">
-                  <button type="submit">Submit</button>
-                </div>
-              </div>
+              <a href="#ForgotPassword">Forgot password?</a>
+              <div />
+              <button type="submit">Submit</button>
             </Form>
           )}
         </Formik>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
@@ -87,13 +87,12 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            <li>
+            <li className="li-account">
               <a href="#account" onClick={() => setIsOpen(true)}>
                 <ReactSVG src="/assets/vectors/account.svg" />
               </a>
-              {openLogin && <Login setIsOpen={setIsOpen} />}
             </li>
-            <li>
+            <li className="li-wallet">
               <a href="#">
                 <ReactSVG src="/assets/vectors/wallet.svg" />
               </a>
@@ -111,7 +110,23 @@ const Navbar = () => {
             <span className="hamburger-inner" />
           </span>
         </button>
+
+        <div className="mobile-nav">
+          <ul>
+            <li className="li-account">
+              <a href="#account" onClick={() => setIsOpen(true)}>
+                <ReactSVG src="/assets/vectors/account.svg" />
+              </a>
+            </li>
+            <li className="li-wallet">
+              <a href="#">
+                <ReactSVG src="/assets/vectors/wallet.svg" />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
+      {openLogin && <Login setIsOpen={setIsOpen} />}
     </NavbarStyles>
   )
 }
