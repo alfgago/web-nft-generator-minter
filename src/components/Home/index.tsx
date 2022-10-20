@@ -1,9 +1,10 @@
+import Login from "../Login"
+
 import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
 import LotteryWinners from "./LotteryWinners"
 import MoreSection from "./MoreSection"
 import UpcomingDrawings from "./UpcomingDrawings"
-import Login from "../Login"
 import UpcomingDrops from "./UpcomingDrops"
 
 const trendingArtists = [
