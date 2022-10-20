@@ -28,13 +28,21 @@ export const LoginFormlStyles = styled.div`
     display: flex;
     flex-direction: column;
     width: 78%;
+    padding: 0px 20px;
+  }
+  @media only screen and (${DEVICE.maxlaptop}) {
+    form {
+      width: ${380 / 16}rem;
+      align-items: center;
+      display: flex;
+    }
   }
 
   input {
     background-color: #d9d9d9;
     color: #717171;
-    width: ${624 / 16}rem;
-    height: ${55 / 16}rem;
+    width: 100%;
+    height: ${45.61 / 16}rem;
     border: 0px solid #d9d9d9;
     border-radius: ${12 / 16}rem;
     padding: 20px 20px;
@@ -44,19 +52,47 @@ export const LoginFormlStyles = styled.div`
     font-size: 24px;
     line-height: 26px;
   }
+  @media only screen and (${DEVICE.laptop}) {
+    input {
+      width: ${624 / 16}rem;
+      height: ${55 / 16}rem;
+      padding: 20px 20px;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 26px;
+    }
+  }
+
   button {
     background-color: #777777;
-    width: ${109 / 16}rem;
-    height: ${41 / 16}rem;
-    border-radius: 12px;
+    width: ${136 / 16}rem;
+    height: ${51 / 16}rem;
+    border-radius: 30px;
     border: none;
     color: #fff;
-    padding: 7px 2px 7px 2px;
+    padding: 16px 6px 16px 6px;
     font-size: 18px;
   }
-  .btn-container {
-    display: flex;
-    justify-content: flex-end;
+
+  @media only screen and (${DEVICE.laptop}) {
+    button {
+      width: ${109 / 16}rem;
+      height: ${41 / 16}rem;
+      border-radius: 12px;
+      padding: 7px 2px 7px 2px;
+      font-size: 18px;
+      align-self: end;
+    }
+  }
+  input + a {
+    align-self: start;
+    padding: 10px 0px 0px 20px;
+  }
+
+  @media only screen and (${DEVICE.maxlaptop}) {
+    a + div {
+      padding-bottom: 50px;
+    }
   }
 
   a {
@@ -65,16 +101,29 @@ export const LoginFormlStyles = styled.div`
     text-transform: none;
   }
 
+  @media only screen and (${DEVICE.laptop}) {
+    .subtitle {
+      padding-bottom: 3rem;
+      font-weight: 500;
+      font-size: ${16 / 16}rem;
+    }
+  }
   .subtitle {
     padding-bottom: 3rem;
     font-weight: 500;
+    font-size: ${16 / 16}rem;
   }
 
   .register-cont {
     font-weight: 600;
     font-size: 24px;
   }
-
+  @media only screen and (${DEVICE.maxlaptop}) {
+    .register-cont {
+      padding-top: 76px;
+      padding-bottom: 2rem;
+    }
+  }
   input + div {
     padding: 5px 20px 0px 20px;
   }
@@ -96,5 +145,6 @@ export const LoginFormlStyles = styled.div`
     color: red;
     list-style-type: circle;
     font-weight: 400;
+    align-self: start;
   }
 `

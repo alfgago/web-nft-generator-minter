@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Login from "../Login"
-
+import LoginMobile from "../Login/LoginMobile"
 // import './Navbar.css'
 
 import { NavbarStyles } from "./NavbarStyles"

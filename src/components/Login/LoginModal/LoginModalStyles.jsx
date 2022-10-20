@@ -6,6 +6,7 @@ export const LoginModalStyles = styled.section`
   display: flex;
   z-index: 1;
   position: fixed;
+
   color: ${COLORS.white};
   justify-content: center;
   align-items: center;
@@ -15,26 +16,48 @@ export const LoginModalStyles = styled.section`
   bottom: 0;
   padding: 0;
 
-  .bg-modal {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+  @media only screen and (${DEVICE.laptop}) {
+    .bg-modal {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+  @media only screen and (${DEVICE.laptop}) {
+    .modal-container {
+      position: relative;
+      width: ${780 / 16}rem;
+      max-width: 95%;
+      max-height: 95%;
+    }
   }
 
-  .modal-container {
-    position: relative;
-    width: ${780 / 16}rem;
-    max-width: 95%;
-    max-height: 95%;
+  @media only screen and (${DEVICE.maxlaptop}) {
+    .modal-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
   }
 
   .container-centered {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media only screen and (${DEVICE.maxlaptop}) {
+    .modal-content {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .modal-content {
@@ -47,15 +70,24 @@ export const LoginModalStyles = styled.section`
   }
 
   .modal-header {
-    border-top-left-radius: ${8 / 16}rem;
-    border-top-right-radius: ${8 / 16}rem;
     position: relative;
     content: "";
-    background: url("/assets/img/login-header.svg") no-repeat;
-    background-size: cover;
-    object-fit: cover;
-    background-position: left center;
-    padding: 1.5rem 0;
+    background-color: ${COLORS.black};
+    padding: 6rem 0;
+    max-height: 127px;
+  }
+  @media only screen and (${DEVICE.laptop}) {
+    .modal-header {
+      border-top-left-radius: ${8 / 16}rem;
+      border-top-right-radius: ${8 / 16}rem;
+      position: relative;
+      content: "";
+      background: url("/assets/img/login-header.svg") no-repeat;
+      background-size: cover;
+      object-fit: cover;
+      background-position: left center;
+      padding: 1.5rem 0;
+    }
   }
 
   .title {
