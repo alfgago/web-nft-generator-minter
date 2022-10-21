@@ -12,11 +12,16 @@ export const LoginModalStyles = styled.section`
   justify-content: center;
   align-items: center;
   left: 0;
-  top: 5rem;
+  top: 0rem;
   padding: 0;
   width: 100%;
-  height: calc(100% - 5rem);
-  z-index: 1000;
+  height: 100%;
+  z-index: 2000;
+
+  @media ${DEVICE.maxlaptop} {
+    height: calc(100% - 5rem);  
+    top: 5rem;
+  }
 
   .modal-container {
     position: absolute;
@@ -40,6 +45,7 @@ export const LoginModalStyles = styled.section`
 
     a {
       color: #717171;
+      font-size: 1rem;
     }
   }
 
@@ -95,5 +101,15 @@ export const LoginModalStyles = styled.section`
     font-weight: 700;
     font-size: ${40 / 16}rem;
     line-height: ${44 / 16}rem;
+  }
+
+  .close-mobile{
+    align-self: end;
+    position: absolute;
+    right: 3rem;
+    top: 3rem;
+    @media ${DEVICE.laptop} {
+      top: 2rem;
+    }
   }
 `

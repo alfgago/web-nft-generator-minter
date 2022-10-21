@@ -17,13 +17,15 @@ export const LoginFormlStyles = styled.div`
   }
 
   p {
-    width: ${220 / 16}rem;
+    width: ${268 / 16}rem;
     height: 5vh;
     text-align: center;
     font-family: "Trap", "Inter", Helvetica Neue, sans-serif;
     margin: 0px;
   }
 
+
+  
   form {
     display: flex;
     flex-direction: column;
@@ -32,9 +34,11 @@ export const LoginFormlStyles = styled.div`
   }
   @media only screen and (${DEVICE.maxlaptop}) {
     form {
-      width: ${380 / 16}rem;
+      width: 100%;
       align-items: center;
-      display: flex;
+      max-width: ${624 / 16}rem;
+      min-width: 192px;
+      padding: 20px 20px;
     }
   }
 
@@ -49,12 +53,11 @@ export const LoginFormlStyles = styled.div`
     outline: none;
     font-style: normal;
     font-weight: 400;
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 15px;
+    line-height: 16px;
   }
   @media only screen and (${DEVICE.laptop}) {
     input {
-      width: ${624 / 16}rem;
       height: ${55 / 16}rem;
       padding: 20px 20px;
       font-weight: 400;
@@ -65,25 +68,25 @@ export const LoginFormlStyles = styled.div`
 
   button {
     background-color: #777777;
-    width: ${136 / 16}rem;
+    width: 10.5rem;
     height: ${51 / 16}rem;
     border-radius: 30px;
     border: none;
     color: #fff;
-    padding: 16px 6px 16px 6px;
+    padding: 7px 2px 7px 2px;
     font-size: 18px;
-  }
 
-  @media only screen and (${DEVICE.laptop}) {
-    button {
-      width: ${109 / 16}rem;
-      height: ${41 / 16}rem;
-      border-radius: 12px;
-      padding: 7px 2px 7px 2px;
-      font-size: 18px;
-      align-self: end;
+    @media only screen and (${DEVICE.laptop}) {
+      
+        width: ${109 / 16}rem;
+        height: ${41 / 16}rem;
+        border-radius: 12px;
+        font-size: 18px;
+        align-self: end;
+     
     }
   }
+
   input + a {
     align-self: start;
     padding: 10px 0px 0px 20px;
@@ -91,49 +94,29 @@ export const LoginFormlStyles = styled.div`
 
   @media only screen and (${DEVICE.maxlaptop}) {
     a + div {
-      padding-bottom: 50px;
+      padding-bottom: ${52 / 16}rem;
     }
   }
 
-  a {
-    color: #717171;
-    text-decoration: underline;
-    text-transform: none;
-  }
-
-  @media only screen and (${DEVICE.laptop}) {
-    .subtitle {
-      padding-bottom: 3rem;
-      font-weight: 500;
-      font-size: ${16 / 16}rem;
-    }
-  }
   .subtitle {
-    padding-bottom: 3rem;
+    
     font-weight: 500;
-    font-size: ${16 / 16}rem;
+    font-size: ${20 / 16}rem;
+
+    @media only screen and (${DEVICE.laptop}) {
+      padding-bottom: 5rem;
+    }
   }
 
   .register-cont {
     font-weight: 600;
     font-size: 24px;
-  }
-  @media only screen and (${DEVICE.maxlaptop}) {
-    .register-cont {
-      padding-top: 76px;
-      padding-bottom: 2rem;
+
+    @media only screen and (${DEVICE.maxlaptop}) {
+        
+        padding-bottom: 2rem; 
+        font-size: 20px;
     }
-  }
-  input + div {
-    padding: 5px 20px 0px 20px;
-  }
-
-  input::placeholder {
-    color: #717171;
-  }
-
-  p + a {
-    padding-top: ${5 / 16}rem;
   }
 
   .alert {
@@ -146,5 +129,26 @@ export const LoginFormlStyles = styled.div`
     list-style-type: circle;
     font-weight: 400;
     align-self: start;
+    font-size: 1.1rem;
   }
+
+  a {
+    color: #717171;
+    text-decoration: underline;
+    text-transform: none;
+  }
+
+  input + div {
+    padding: 5px 20px 0px 20px;
+  }
+
+  input::placeholder {
+    color: #717171;
+  }
+
+  p + a {
+    padding-top: ${16 / 16}rem;
+  }
+
+
 `

@@ -1,6 +1,8 @@
 import React from "react"
 
 import { LoginModalStyles } from "./LoginModalStyles"
+import CloseIcon from "@mui/icons-material/Close"
+
 const LoginModal = ({
   children,
   setIsOpen,
@@ -19,7 +21,14 @@ const LoginModal = ({
 
       <div className="modal-container">
         <div className="modal-header container-centered">
-          <h2 className="title">Log in</h2>
+          <div>
+            <h2 className="title">Log in</h2>
+          </div>
+          <div>
+            <div className="close-mobile" onClick={() => setIsOpen(false)}>
+              <CloseIcon sx={{ fontSize: 30 }} />
+            </div>
+          </div>
         </div>
         <div className="modal-content">{children}</div>
       </div>
