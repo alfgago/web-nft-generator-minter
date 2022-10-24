@@ -121,7 +121,7 @@ const Navbar = () => {
                 href="#account"
                 onClick={() => {
                   setShowMenu(false)
-                  setIsOpen(true)
+                  setIsOpen(!openLogin)
                 }}
               >
                 <ReactSVG src="/assets/vectors/account.svg" />
