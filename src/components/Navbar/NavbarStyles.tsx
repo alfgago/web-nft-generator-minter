@@ -46,7 +46,7 @@ export const NavbarStyles = styled.section<Props>`
       margin-left: auto;
       visibility: hidden;
       opacity: 0;
-      z-index: 1000;
+      z-index: 2500;
       transition: 0.5s ease opacity;
 
       @media ${DEVICE.laptop} {
@@ -56,6 +56,7 @@ export const NavbarStyles = styled.section<Props>`
         background: none;
         visibility: visible;
         opacity: 1;
+        z-index: 1000;
       }
 
       ul {
@@ -163,10 +164,14 @@ export const NavbarStyles = styled.section<Props>`
       }
     }
 
+    .mobile-nav {
+      display: none;
+    }
     @media ${DEVICE.maxlaptop} {
       .mobile-nav {
+        display: inline-block;
         position: absolute;
-        z-index: 1000;
+        z-index: 2500;
         li.li-wallet,
         li.li-account {
           display: block;
@@ -237,7 +242,7 @@ export const NavbarStyles = styled.section<Props>`
   }
 
   .hamburger {
-    z-index: 2000;
+    z-index: 2500;
     @media ${DEVICE.laptop} {
       display: none;
     }

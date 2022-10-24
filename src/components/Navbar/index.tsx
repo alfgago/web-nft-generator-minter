@@ -104,7 +104,10 @@ const Navbar = () => {
             showMenu ? "is-active" : ""
           }`}
           type="button"
-          onClick={() => setShowMenu(!showMenu)}
+          onClick={() => {
+            setShowMenu(!showMenu)
+            showMenu && setIsOpen(false)
+          }}
         >
           <span className="hamburger-box">
             <span className="hamburger-inner" />
@@ -114,7 +117,13 @@ const Navbar = () => {
         <div className="mobile-nav">
           <ul>
             <li className="li-account">
-              <a href="#account" onClick={() => setIsOpen(true)}>
+              <a
+                href="#account"
+                onClick={() => {
+                  setShowMenu(false)
+                  setIsOpen(true)
+                }}
+              >
                 <ReactSVG src="/assets/vectors/account.svg" />
               </a>
             </li>
