@@ -1,7 +1,7 @@
 import React from "react"
+import { ReactSVG } from "react-svg"
 
 import { LoginModalStyles } from "./LoginModalStyles"
-import CloseIcon from "@mui/icons-material/Close"
 
 const LoginModal = ({
   children,
@@ -26,7 +26,7 @@ const LoginModal = ({
           </div>
           <div>
             <div className="close-mobile" onClick={() => setIsOpen(false)}>
-              <CloseIcon sx={{ fontSize: 30 }} />
+              <ReactSVG src="/assets/vectors/close.svg" />
             </div>
           </div>
         </div>
