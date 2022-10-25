@@ -1,8 +1,8 @@
 import React from "react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
-
 import { LoginFormlStyles } from "./LoginFormStyles"
+import { signIn } from "next-auth/react"
 
 interface FormValues {
   email: string
@@ -15,9 +15,16 @@ const initlValues = {
 }
 
 const onSubmit = (values: FormValues) => {
-  setTimeout(() => {
-    alert(JSON.stringify(values, null, 2))
-  }, 500)
+  alert(JSON.stringify(values, null, 2))
+
+  //used for next-auth
+  signIn("credentials", {
+    redirect: false,
+    email: values.email,
+    password: values.password,
+  })
+    .then((error) => console.log(error))
+    .catch((error) => console.log(error))
 }
 
 const valuesSchema = Yup.object().shape({
