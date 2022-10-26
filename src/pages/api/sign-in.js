@@ -9,7 +9,6 @@ export const signInRequest = async ({ email, password }) => {
   })
 
   if (response) {
-    console.log(response.data.jwt)
     return response.data
   }
 
