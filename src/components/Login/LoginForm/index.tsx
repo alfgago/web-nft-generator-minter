@@ -3,6 +3,9 @@ import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
 import { LoginFormlStyles } from "./LoginFormStyles"
 import { signIn } from "next-auth/react"
+import axios from "axios"
+import { error } from "console"
+import { useRouter } from "next/router"
 
 interface FormValues {
   email: string
@@ -14,19 +17,6 @@ const initlValues = {
   password: "",
 }
 
-const onSubmit = (values: FormValues) => {
-  alert(JSON.stringify(values, null, 2))
-
-  //used for next-auth
-  signIn("credentials", {
-    redirect: false,
-    email: values.email,
-    password: values.password,
-  })
-    .then((error) => console.log(error))
-    .catch((error) => console.log(error))
-}
-
 const valuesSchema = Yup.object().shape({
   email: Yup.string()
     .email("Enter a valid email")
@@ -34,7 +24,25 @@ const valuesSchema = Yup.object().shape({
   password: Yup.string().required("Please enter your password"),
 })
 
-const LoginForm = () => {
+const LoginForm = ({ setIsOpen }: any) => {
+  const router = useRouter()
+
+  const onSubmit = async (values: FormValues) => {
+    //used for next-auth
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    })
+    if (result?.ok) {
+      setIsOpen(false)
+      router.replace("/artists")
+      return
+    } else {
+      alert("errr")
+    }
+  }
+
   return (
     <LoginFormlStyles>
       <div className="container">
