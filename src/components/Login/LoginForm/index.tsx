@@ -6,6 +6,8 @@ import { signIn } from "next-auth/react"
 import axios from "axios"
 import { error } from "console"
 import { useRouter } from "next/router"
+import ROUTES from "../../Common/Config/routes"
+import { useState } from "react"
 
 interface FormValues {
   email: string
@@ -26,6 +28,7 @@ const valuesSchema = Yup.object().shape({
 
 const LoginForm = ({ setIsOpen }: any) => {
   const router = useRouter()
+  const [isIncorrect, setIncorrect] = useState(false)
 
   const onSubmit = async (values: FormValues) => {
     //used for next-auth
@@ -36,11 +39,11 @@ const LoginForm = ({ setIsOpen }: any) => {
     })
     if (result?.ok) {
       setIsOpen(false)
-      router.replace("/artists")
+      setIncorrect(false)
+      router.replace(ROUTES.ARTISTS)
       return
-    } else {
-      alert("errr")
     }
+    setIncorrect(true)
   }
 
   return (
@@ -54,6 +57,11 @@ const LoginForm = ({ setIsOpen }: any) => {
         >
           {({ errors, touched }) => (
             <Form>
+              {isIncorrect && (
+                <ul className="alert">
+                  <li>Incorrect username or password</li>
+                </ul>
+              )}
               {errors.email && touched.email ? (
                 <div className="alert">{errors.email}</div>
               ) : null}
