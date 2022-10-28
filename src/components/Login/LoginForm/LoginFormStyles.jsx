@@ -24,8 +24,6 @@ export const LoginFormlStyles = styled.div`
     margin: 0px;
   }
 
-
-  
   form {
     display: flex;
     flex-direction: column;
@@ -77,13 +75,11 @@ export const LoginFormlStyles = styled.div`
     font-size: 18px;
 
     @media only screen and (${DEVICE.laptop}) {
-      
-        width: ${109 / 16}rem;
-        height: ${41 / 16}rem;
-        border-radius: 12px;
-        font-size: 18px;
-        align-self: end;
-     
+      width: ${109 / 16}rem;
+      height: ${41 / 16}rem;
+      border-radius: 12px;
+      font-size: 18px;
+      align-self: end;
     }
   }
 
@@ -99,12 +95,19 @@ export const LoginFormlStyles = styled.div`
   }
 
   .subtitle {
-    
     font-weight: 500;
     font-size: ${20 / 16}rem;
 
     @media only screen and (${DEVICE.laptop}) {
-      padding-bottom: 5rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  .subtitle + div {
+    padding-bottom: 0px;
+    padding-top: 15px;
+    @media only screen and (${DEVICE.laptop}) {
+      padding-bottom: 12px;
     }
   }
 
@@ -113,9 +116,8 @@ export const LoginFormlStyles = styled.div`
     font-size: 24px;
 
     @media only screen and (${DEVICE.maxlaptop}) {
-        
-        padding-bottom: 2rem; 
-        font-size: 20px;
+      padding-bottom: 2rem;
+      font-size: 20px;
     }
   }
 
@@ -149,6 +151,4 @@ export const LoginFormlStyles = styled.div`
   p + a {
     padding-top: ${16 / 16}rem;
   }
-
-
 `

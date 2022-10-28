@@ -50,6 +50,11 @@ const LoginForm = ({ setIsOpen }: any) => {
     <LoginFormlStyles>
       <div className="container">
         <p className="subtitle">To manage tour dates and retrieve guest list</p>
+        {isIncorrect && (
+          <div>
+            <span className="alert">Incorrect username or password</span>
+          </div>
+        )}
         <Formik
           initialValues={initlValues}
           onSubmit={onSubmit}
@@ -57,15 +62,10 @@ const LoginForm = ({ setIsOpen }: any) => {
         >
           {({ errors, touched }) => (
             <Form>
-              {isIncorrect && (
-                <ul className="alert">
-                  <li>Incorrect username or password</li>
-                </ul>
-              )}
               {errors.email && touched.email ? (
                 <div className="alert">{errors.email}</div>
               ) : null}
-              <Field name="email" type="email" placeholder="Email" />
+              <Field name="email" type="text" placeholder="Email" />
               <br />
               {errors.password && touched.password ? (
                 <div className="alert">{errors.password}</div>
