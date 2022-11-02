@@ -6,8 +6,6 @@ export const LoginModalStyles = styled.section`
   display: flex;
   z-index: 1;
   position: fixed;
-
-  background: ${COLORS.white};
   color: ${COLORS.black};
   justify-content: center;
   align-items: center;
@@ -17,9 +15,14 @@ export const LoginModalStyles = styled.section`
   width: 100%;
   height: 100%;
   z-index: 2000;
+  background-color: ${COLORS.white};
+
+  @media ${DEVICE.laptop} {
+    background-color: transparent;
+  }
 
   @media ${DEVICE.maxlaptop} {
-    height: calc(100% - 5rem);  
+    height: calc(100% - 5rem);
     top: 5rem;
   }
 
@@ -103,7 +106,7 @@ export const LoginModalStyles = styled.section`
     line-height: ${44 / 16}rem;
   }
 
-  .close-mobile{
+  .close-mobile {
     align-self: end;
     position: absolute;
     right: 3rem;
