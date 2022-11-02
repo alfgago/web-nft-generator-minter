@@ -42,8 +42,7 @@ export const TourFilterStyles = styled.div`
   }
 
   .wrapper{
-    padding: 0rem 5rem;
-    
+    padding: 0rem 5rem 4rem 5rem;
     align-items: center;
   }
 `

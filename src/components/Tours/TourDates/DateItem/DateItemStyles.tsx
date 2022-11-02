@@ -6,13 +6,16 @@ const fontSize = "1rem"
 
 export const DateItemStyles = styled.div`
   padding: 10px 0px;
+  p {
+    font-size: 1rem !important;
+  }
 
   .card-container {
     background-color: ${COLORS.white};
     width: 100%;
     border-radius: 0px 0px 12px 12px;
 
-    div:first-child {
+    .card-content {
       padding: 5px 30px;
     }
 
@@ -28,8 +31,27 @@ export const DateItemStyles = styled.div`
       flex-wrap: wrap;
       text-align: center;
 
-      a {
+      button {
+        display: flex;
+        justify-content: center;
+        border: none;
+        padding: 10px 0px;
+        color: ${COLORS.white};
+
+        div {
+          padding-right: 5px;
+        }
+      }
+
+      .cancel-btn {
         flex-basis: 50%;
+        border-radius: 0px 0px 0px 12px;
+        background-color: #616161;
+      }
+      .confirm-btn {
+        flex-basis: 50%;
+        border-radius: 0px 0px 12px 0px;
+        background-color: #005bc8;
       }
     }
   }

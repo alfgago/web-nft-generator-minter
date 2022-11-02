@@ -1,11 +1,12 @@
 import React from "react"
+import { ReactSVG } from "react-svg"
 import { DateItemStyles } from "./DateItemStyles"
 
 const DateItem = ({ placeName, state, city, date }: any) => {
   return (
     <DateItemStyles>
       <div className="card-container">
-        <div>
+        <div className="card-content">
           <input type="checkbox" id="#" name="" value=""></input>
           <p>{placeName}</p>
           <p>
@@ -14,8 +15,14 @@ const DateItem = ({ placeName, state, city, date }: any) => {
           <p>{date}</p>
         </div>
         <div className="btns-container">
-          <a>Cancel date</a>
-          <a href="">Confirm date</a>
+          <button className="cancel-btn">
+            <ReactSVG src="/assets/vectors/close-white.svg" />
+            Cancel date
+          </button>
+          <button className="confirm-btn">
+            <ReactSVG src="/assets/vectors/confirm.svg" />
+            Confirm date
+          </button>
         </div>
       </div>
     </DateItemStyles>
