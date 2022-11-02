@@ -31,7 +31,7 @@ export const TourFilterStyles = styled.div`
     flex-direction: row;
     color: #fff;
     list-style-type: none;
-    justify-content: space-around;
+    justify-content: space-between;
     text-decoration: underline;
     padding 0px;
     align-items: center;
