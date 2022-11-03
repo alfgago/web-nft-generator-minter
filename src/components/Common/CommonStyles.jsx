@@ -111,3 +111,16 @@ export const PassTypeList = styled.div`
     }
   }
 `
+export const AddButtonStyle = styled.button`
+  display: flex;
+  background-color: #777777;
+  border-radius: 49px;
+  border: none;
+  align-items: center;
+  padding: ${10 / 16}rem ${16 / 16}rem;
+  color: #fff;
+
+  span {
+    padding: 0px 12px;
+  }
+`

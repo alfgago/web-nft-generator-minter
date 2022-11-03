@@ -34,20 +34,6 @@ export const TourDateStyles = styled.div`
       }
     }
 
-    button {
-      display: flex;
-      background-color: #777777;
-      border-radius: 49px;
-      border: none;
-      align-items: center;
-      padding: 7px 15px 5px 10px;
-      color: ${COLORS.white};
-
-      span {
-        padding: 0px 15px;
-      }
-    }
-
     > div:first-child {
       display: flex;
       justify-content: space-between;
