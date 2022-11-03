@@ -28,4 +28,6 @@ const ArtistPage = () => {
   )
 }
 
+ArtistPage.requireAuth = false
+
 export default ArtistPage

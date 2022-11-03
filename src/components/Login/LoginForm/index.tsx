@@ -1,8 +1,13 @@
 import React from "react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
-
 import { LoginFormlStyles } from "./LoginFormStyles"
+import { signIn } from "next-auth/react"
+import axios from "axios"
+import { error } from "console"
+import { useRouter } from "next/router"
+import ROUTES from "../../Common/Config/routes"
+import { useState } from "react"
 
 interface FormValues {
   email: string
@@ -14,12 +19,6 @@ const initlValues = {
   password: "",
 }
 
-const onSubmit = (values: FormValues) => {
-  setTimeout(() => {
-    alert(JSON.stringify(values, null, 2))
-  }, 500)
-}
-
 const valuesSchema = Yup.object().shape({
   email: Yup.string()
     .email("Enter a valid email")
@@ -27,11 +26,35 @@ const valuesSchema = Yup.object().shape({
   password: Yup.string().required("Please enter your password"),
 })
 
-const LoginForm = () => {
+const LoginForm = ({ setIsOpen }: any) => {
+  const router = useRouter()
+  const [isIncorrect, setIncorrect] = useState(false)
+
+  const onSubmit = async (values: FormValues) => {
+    //used for next-auth
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    })
+    if (result?.ok) {
+      setIsOpen(false)
+      setIncorrect(false)
+      router.replace(ROUTES.ARTISTS)
+      return
+    }
+    setIncorrect(true)
+  }
+
   return (
     <LoginFormlStyles>
       <div className="container">
         <p className="subtitle">To manage tour dates and retrieve guest list</p>
+        {isIncorrect && (
+          <div>
+            <span className="alert">Incorrect username or password</span>
+          </div>
+        )}
         <Formik
           initialValues={initlValues}
           onSubmit={onSubmit}
@@ -42,7 +65,7 @@ const LoginForm = () => {
               {errors.email && touched.email ? (
                 <div className="alert">{errors.email}</div>
               ) : null}
-              <Field name="email" type="email" placeholder="Email" />
+              <Field name="email" type="text" placeholder="Email" />
               <br />
               {errors.password && touched.password ? (
                 <div className="alert">{errors.password}</div>

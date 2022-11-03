@@ -1,9 +1,8 @@
 import Head from "next/head"
 
 import ArtistListing from "@/components/ArtistListing"
-
+import { useSession, getSession } from "next-auth/react"
 const Artists = ({ data }: any) => {
-  console.log(data)
   return (
     <>
       <Head>
@@ -13,5 +12,7 @@ const Artists = ({ data }: any) => {
     </>
   )
 }
+
+Artists.requireAuth = false
 
 export default Artists

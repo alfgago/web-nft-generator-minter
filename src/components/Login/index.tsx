@@ -10,7 +10,7 @@ const Login = ({ setIsOpen }: any) => {
   return (
     <>
       <LoginModal setIsOpen={setIsOpen}>
-        <LoginForm />
+        <LoginForm setIsOpen={setIsOpen} />
       </LoginModal>
     </>
   )
