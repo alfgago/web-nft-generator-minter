@@ -11,10 +11,12 @@ const CollectionItem = ({ currentItems }: any) => {
               <span>{item.image}</span>
             </div>
             <div>
-              <h2>{item.artisName}</h2>
+              <h2>{item.artistName}</h2>
               <p>{item.passType}</p>
-              <p>{item.passType}</p>
-              {item.content}
+              <p>{item.extraInfo}</p>
+            </div>
+            <div>
+              <button>See on Marketplace</button>
             </div>
           </div>
         )

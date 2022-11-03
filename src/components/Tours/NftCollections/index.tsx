@@ -6,13 +6,41 @@ import ItemPagination from "@/components/Common/ItemPagination"
 
 const NftCollections = () => {
   let nftCollections = [
-    { id: 1, image: "images1", content: "content1" },
-    { id: 2, image: "images2", content: "content2" },
-    { id: 4, image: "images3", content: "content3" },
-    { id: 5, image: "images4", content: "content4" },
-    { id: 6, image: "images5", content: "content5" },
-    { id: 7, image: "images6", content: "content6" },
-    { id: 7, image: "images7", content: "content7" },
+    {
+      id: 1,
+      image: "images1",
+      artistName: "artistName1",
+      passType: "Lottery1",
+      extraInfo: "extra info",
+    },
+    {
+      id: 2,
+      image: "images2",
+      artistName: "artistName2",
+      passType: "Lottery2",
+      extraInfo: "extra info",
+    },
+    {
+      id: 4,
+      image: "images3",
+      artistName: "artistName3",
+      passType: "Lottery3",
+      extraInfo: "extra info",
+    },
+    {
+      id: 5,
+      image: "images4",
+      artistName: "artistName4",
+      passType: "Lottery4",
+      extraInfo: "extra info",
+    },
+    {
+      id: 6,
+      image: "images5",
+      artistName: "artistName5",
+      passType: "Lottery5",
+      extraInfo: "extra info",
+    },
   ]
 
   let values = JSON.stringify(nftCollections)
