@@ -140,7 +140,7 @@ export const Pagination = styled.div`
     list-style: none;
 
     .page-link {
-      padding: 5px;
+      padding: 5px 6px;
       background-color: #d9d9d9;
       width: ${20 / 16}rem;
       height: ${20 / 16}rem;

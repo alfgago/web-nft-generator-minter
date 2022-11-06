@@ -9,20 +9,33 @@ export const CollectionItemStyles = styled.div`
   align-items: center;
 
   .itemWrapper {
-    max-width: ${560 / 16}rem;
+    width: 100%;
+    max-width: 40rem;
     padding-bottom: 15px;
   }
 
   .container {
     display: flex;
     .content {
+        width 96%;
       background-color: ${COLORS.black};
       color: ${COLORS.white};
       padding: ${5 / 16}rem ${20 / 16}rem ${10 / 16}rem ${15 / 16}rem;
     }
+
     p {
       margin: 0px;
     }
+
+    .img-container {
+      width: 50%;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .content + div {
       padding: 16px 20px 20px 0px;
       background-color: ${COLORS.black};

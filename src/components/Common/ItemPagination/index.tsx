@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 import ReactPaginate from "react-paginate"
 import { Pagination } from "../CommonStyles"
 
+/* three props
+itemsPerPage: amount of items per page
+values: the values of each item in the collection
+children: the component that create the items inside the pagination
+*/
 const ItemPagination = ({ itemsPerPage, values, children }: any) => {
   const items = [...values]
 
@@ -11,6 +16,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
   const [pageCount, setPageCount] = useState(0)
   const [itemOffset, setItemOffset] = useState(0)
 
+  //handdle the current items and the number of the page
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage
 
@@ -18,6 +24,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
     setPageCount(Math.ceil(items.length / itemsPerPage))
   }, [itemOffset, itemsPerPage])
 
+  //handle the click on the page
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % items.length
     setItemOffset(newOffset)
@@ -27,6 +34,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
     <>
       {
         (children = React.Children.map(children, (child) => {
+          //use the currentItems var not the data that is received as a prop
           return React.cloneElement(child, { currentItems })
         }))
       }
@@ -44,12 +52,6 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
           containerClassName="pagination"
           activeLinkClassName="active"
           renderOnZeroPageCount={null}
-          // marginPagesDisplayed={2}
-          // pageClassName="page-item"
-          // previousClassName="page-item"
-          // nextClassName="page-item"
-          // breakClassName="page-item"
-          // breakLinkClassName="page-link"
         />
       </Pagination>
     </>

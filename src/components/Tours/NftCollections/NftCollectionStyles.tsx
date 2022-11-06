@@ -7,6 +7,7 @@ export const NftCollectionStyles = styled.div`
   background-color: #ffffff;
 
   .header-collection {
+    padding-bottom: 20px;
     h1 {
       max-width: 21rem;
     }

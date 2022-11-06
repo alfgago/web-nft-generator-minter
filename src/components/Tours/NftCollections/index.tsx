@@ -53,7 +53,6 @@ const NftCollections = () => {
     },
   ]
 
-  let values = JSON.stringify(nftCollections)
   return (
     <NftCollectionStyles>
       <div className="header-collection">

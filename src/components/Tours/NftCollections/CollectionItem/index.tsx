@@ -8,8 +8,8 @@ const CollectionItem = ({ currentItems }: any) => {
         return (
           <div key={item.id} className="itemWrapper">
             <div className="container">
-              <div>
-                <img alt="timer" src={item.image} />
+              <div className="img-container">
+                <img alt="Tour Logo" src={item.image} />
               </div>
               <div className="content">
                 <h3>{item.artistName}</h3>
