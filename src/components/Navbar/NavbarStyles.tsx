@@ -12,10 +12,9 @@ export const NavbarStyles = styled.section<Props>`
   top: 0;
   left: 0;
   z-index: 9000;
-  transition: 0.3s ease-in;
+  transition: 0.5s ease all;
   color: ${COLORS.white};
-  background-color: ${(props) =>
-    props.hasColor ? "rgba(0, 0, 0, 0.9)" : "transparent"};
+  background-color: ${(props) => (props.hasColor ? "#000" : "transparent")};
   padding: 0;
   margin: 0;
   color: #fff;

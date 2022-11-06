@@ -8,8 +8,8 @@ export const FaqStyles = styled.section`
   color: ${COLORS.black};
   background: linear-gradient(
     270deg,
-    #d8f5fe 8.41%,
-    rgba(255, 255, 255, 0.9) 88.16%
+    #d8f5fe 10%,
+    rgba(255, 255, 255, 0.9) 100%
   );
 
   .content {
