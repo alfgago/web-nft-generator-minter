@@ -4,6 +4,7 @@ import TourFilters from "@/components/Tours/TourFilters"
 import { ReactSVG } from "react-svg"
 import { TourStyles } from "./TourStyles"
 import NftCollections from "./NftCollections"
+import GuestsList from "./GuestsList"
 const Tours = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const Tours = () => {
         <ReactSVG className="star" src="/assets/vectors/star.svg" />
       </TourStyles>
       <NftCollections />
+      <GuestsList />
     </>
   )
 }

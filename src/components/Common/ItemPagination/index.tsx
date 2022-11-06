@@ -10,7 +10,7 @@ values: the values of each item in the collection
 children: the component that create the items inside the pagination
 */
 const ItemPagination = ({ itemsPerPage, values, children }: any) => {
-  const items = [...values]
+  const items = values ? [...values] : ""
 
   const [currentItems, setCurrentItems] = useState(items)
   const [pageCount, setPageCount] = useState(0)
