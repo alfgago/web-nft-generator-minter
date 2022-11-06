@@ -19,6 +19,13 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/Tours/TourDates/TourDateStyles.jsx",
+    "src/components/Tours/TourDates/DateItem/DateItemStyles.jsx",
+    "src/components/Tours/NftCollections/NftCollectionStyles.jsx"
+  ],
   "exclude": ["node_modules"]
 }
