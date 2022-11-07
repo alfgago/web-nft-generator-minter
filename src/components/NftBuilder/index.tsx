@@ -55,6 +55,7 @@ const NftBuilder = () => {
           )}
           {activeStep == 3 && (
             <ConfirmationStep
+              formValues={formValues}
               nextAction={submit}
               previousAction={previousStep}
             />

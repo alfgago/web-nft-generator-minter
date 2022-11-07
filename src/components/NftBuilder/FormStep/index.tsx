@@ -83,7 +83,7 @@ const FormStep = ({ formValues, nextAction }: any) => {
               </Field>
             </label>
             <label>
-              <span>Initial auction price / Fixed price</span>
+              <span>Initial auction price / Fixed price (ETH)</span>
               {errors.price && touched.price ? (
                 <div className="alert">{errors.price}</div>
               ) : null}

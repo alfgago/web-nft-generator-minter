@@ -12,7 +12,6 @@ export const NftBuilderStyles = styled.div`
 
   .buttons {
     display: flex;
-    justify-content: flex-end;
     gap: ${15 / 16}rem;
     margin-top: ${50 / 16}rem;
   }

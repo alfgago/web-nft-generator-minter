@@ -2,7 +2,7 @@ import React from "react"
 import { ReactSVG } from "react-svg"
 import DateItem from "./DateItem"
 import { TourDateStyles } from "./TourDateStyles"
-
+import AddButton from "@/components/Common/AddButton"
 const TourDates = () => {
   const tourDates = [
     {
@@ -40,10 +40,7 @@ const TourDates = () => {
           </div>
 
           <div>
-            <button>
-              <ReactSVG src="/assets/vectors/add-icon.svg" />
-              <span>New date</span>
-            </button>
+            <AddButton label="New date" />
           </div>
         </div>
 

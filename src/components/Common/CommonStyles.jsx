@@ -120,3 +120,43 @@ export const PassTypeList = styled.div`
     }
   }
 `
+export const AddButtonStyle = styled.button`
+  display: flex;
+  background-color: #777777;
+  border-radius: 49px;
+  border: none;
+  align-items: center;
+  padding: ${10 / 16}rem ${16 / 16}rem;
+  color: #fff;
+
+  span {
+    padding: 0px 12px;
+  }
+`
+
+export const Pagination = styled.div`
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    gap: 5px;
+    list-style: none;
+
+    .page-link {
+      padding: 5px 6px;
+      background-color: #d9d9d9;
+      width: ${20 / 16}rem;
+      height: ${20 / 16}rem;
+    }
+    .active {
+      color: ${COLORS.white};
+      background-color: #4d4d4d;
+    }
+  }
+`

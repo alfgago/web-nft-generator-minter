@@ -15,11 +15,20 @@ export const DesignStepStyles = styled.div`
     display: flex;
     width: 100%;
     gap: ${50 / 16}rem;
+
+    max-width: ${1200 / 16}rem;
+  }
+
+  .left-col {
+    width: ${300 / 16}rem;
+    min-width: ${300 / 16}rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .settings {
-    width: ${300 / 16}rem;
-    min-width: ${300 / 16}rem;
+    width: 100%;
     > div {
       font-size: ${20 / 16}rem;
       padding: ${12 / 16}rem ${24 / 16}rem;
@@ -60,10 +69,18 @@ export const DesignStepStyles = styled.div`
     }
   }
 
+  .colors {
+    h3 {
+      font-weight: 400;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .sketch-picker {
+      margin-bottom: 1rem;
+    }
+  }
+
   .builder {
     width: 100%;
-    .canvas-container {
-      background: #f4f4f4;
-    }
   }
 `
