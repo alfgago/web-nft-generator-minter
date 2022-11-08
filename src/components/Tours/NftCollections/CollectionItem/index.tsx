@@ -11,13 +11,15 @@ const CollectionItem = ({ currentItems }: any) => {
               <div className="img-container">
                 <img alt="Tour Logo" src={item.image} />
               </div>
-              <div className="content">
-                <h3>{item.artistName}</h3>
-                <p>{item.passType}</p>
-                <p>{item.extraInfo}</p>
-              </div>
               <div>
-                <button>See on Marketplace</button>
+                <div className="content">
+                  <h3>{item.artistName}</h3>
+                  <p>{item.passType}</p>
+                  <p>{item.extraInfo}</p>
+                </div>
+                <div>
+                  <button>See on Marketplace</button>
+                </div>
               </div>
             </div>
             <div className="bottom-content">
