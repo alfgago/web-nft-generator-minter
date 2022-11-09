@@ -16,11 +16,13 @@ const items = [
         tourPass: "Tour pass",
         name: "Nicolas",
         email: "Nicolas@gmail.com",
+        image: "/assets/img/guest-img.png",
       },
       {
         tourPass: "Tour pass",
         name: "Alfred",
         email: "Alfred@gmail.com",
+        image: "/assets/img/guest-img.png",
       },
     ],
   },
@@ -34,6 +36,7 @@ const items = [
         tourPass: "Tour pass",
         name: "Nirvana",
         email: "Nirvana@gmail.com",
+        image: "/assets/img/guest-img.png",
       },
     ],
   },
@@ -43,7 +46,12 @@ const items = [
     city: "San Francisco",
     date: "April 11",
     users: [
-      { tourPass: "Tour pass", name: "Angelo", email: "Angelo@gmail.com" },
+      {
+        tourPass: "Tour pass",
+        name: "Angelo",
+        email: "Angelo@gmail.com",
+        image: "/assets/img/guest-img.png",
+      },
     ],
   },
   {
@@ -51,7 +59,14 @@ const items = [
     state: "Kansas",
     city: "Delaware",
     date: "September 11",
-    users: [{ tourPass: "Tour pass", name: "David", email: "david@gmail.com" }],
+    users: [
+      {
+        tourPass: "Tour pass",
+        name: "David",
+        email: "david@gmail.com",
+        image: "/assets/img/guest-img.png",
+      },
+    ],
   },
 ]
 
