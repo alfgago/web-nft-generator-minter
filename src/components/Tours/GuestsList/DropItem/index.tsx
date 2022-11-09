@@ -14,7 +14,7 @@ const DropItem = ({ data }: any) => {
             {location}, {data.date}
           </p>
         </div>
-        <div className="unc-content">
+        <div className="">
           <button
             onClick={() => {
               setCollapsed(!collapsed)

@@ -15,6 +15,11 @@ const items = [
         name: "Nicolas",
         email: "Nicolas@gmail.com",
       },
+      {
+        tourPass: "Tour pass",
+        name: "Alfred",
+        email: "Alfred@gmail.com",
+      },
     ],
   },
   {

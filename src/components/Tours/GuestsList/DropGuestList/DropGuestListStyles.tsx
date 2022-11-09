@@ -5,4 +5,6 @@ export const DropGuestListStyles = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  padding: 10px 0px;
 `
