@@ -1,4 +1,5 @@
 import React from "react"
+
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ currentItems }: any) => {
   return (
@@ -9,9 +10,9 @@ const GuestItem = ({ currentItems }: any) => {
             <div>img</div>
             <div>
               {data.name}
-              <div></div>
-              <div></div>
-              <div></div>
+              <div />
+              <div />
+              <div />
             </div>
             <div>check</div>
           </GuestItemStyles>

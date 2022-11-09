@@ -1,6 +1,8 @@
 import React from "react"
+
 import ItemPagination from "@/components/Common/ItemPagination"
 import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles"
+
 import GuestsDropMenu from "./GuestsDropMenu"
 
 const items = [

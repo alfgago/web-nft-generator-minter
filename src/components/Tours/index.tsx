@@ -1,10 +1,12 @@
 import React from "react"
+import { ReactSVG } from "react-svg"
+
 import TourDates from "@/components/Tours/TourDates"
 import TourFilters from "@/components/Tours/TourFilters"
-import { ReactSVG } from "react-svg"
-import { TourStyles } from "./TourStyles"
-import NftCollections from "./NftCollections"
+
 import GuestsList from "./GuestsList"
+import NftCollections from "./NftCollections"
+import { TourStyles } from "./TourStyles"
 const Tours = () => {
   return (
     <>
