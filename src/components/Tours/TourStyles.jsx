@@ -6,6 +6,6 @@ export const TourStyles = styled.main`
   .star {
     position: absolute;
     right: 1.2rem;
-    margin-top: -4.2rem;
+    margin-top: -2.9rem;
   }
 `

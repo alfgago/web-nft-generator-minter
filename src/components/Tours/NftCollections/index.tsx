@@ -1,11 +1,13 @@
 import React from "react"
-import { NftCollectionStyles } from "./NftCollectionStyles"
+
 import AddButton from "@/components/Common/AddButton"
-import CollectionItem from "./CollectionItem"
 import ItemPagination from "@/components/Common/ItemPagination"
 
+import CollectionItem from "./CollectionItem"
+import { NftCollectionStyles } from "./NftCollectionStyles"
+
 const NftCollections = () => {
-  let nftCollections = [
+  const nftCollections = [
     {
       id: 1,
       artistName: "artistName1",
@@ -55,13 +57,15 @@ const NftCollections = () => {
 
   return (
     <NftCollectionStyles>
-      <div className="header-collection">
-        <h1>Approved NFT Collections</h1>
-        <AddButton label="Mint new collection"></AddButton>
+      <div className="content">
+        <div className="header-collection">
+          <h1>Approved NFT Collections</h1>
+          <AddButton label="Mint new collection" />
+        </div>
+        <ItemPagination itemsPerPage={3} values={nftCollections}>
+          <CollectionItem />
+        </ItemPagination>
       </div>
-      <ItemPagination itemsPerPage={3} values={nftCollections}>
-        <CollectionItem />
-      </ItemPagination>
     </NftCollectionStyles>
   )
 }

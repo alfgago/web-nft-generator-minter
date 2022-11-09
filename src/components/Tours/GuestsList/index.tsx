@@ -58,12 +58,14 @@ const items = [
 const GuestsList = () => {
   return (
     <GuestsListStyles>
-      <div>
-        <h1>Manage guest lists</h1>
+      <div className="content">
+        <div>
+          <h1>Manage guest lists</h1>
+        </div>
+        <ItemPagination itemsPerPage={3} values={items}>
+          <GuestsDropMenu />
+        </ItemPagination>
       </div>
-      <ItemPagination itemsPerPage={3} values={items}>
-        <GuestsDropMenu />
-      </ItemPagination>
     </GuestsListStyles>
   )
 }
