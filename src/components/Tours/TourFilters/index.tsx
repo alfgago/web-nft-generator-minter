@@ -1,17 +1,58 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+
+import TourDates from "../TourDates"
+
 import { TourFilterStyles } from "./TourFilterStyles"
 
-function TourFilters({ children }: { children: JSX.Element }) {
+const datesList = [
+  {
+    id: 111,
+    placeName: "National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `songkick`,
+  },
+  {
+    id: 112,
+    placeName: "Inter National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `bandsintown`,
+  },
+  {
+    id: 132,
+    placeName: "Inter National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `manual`,
+  },
+]
+
+function TourFilters() {
+  const [tourDates, setTourDates] = useState(datesList)
+  const [filter, setFilter] = useState("")
+
+  useEffect(() => {
+    let filteredList = datesList
+    if (filter) {
+      filteredList = datesList.filter((el) => el.origin == filter)
+    }
+    setTourDates(filteredList)
+  }, [filter])
+
   return (
     <TourFilterStyles>
-      <div className="top-triangle"></div>
-      <div className="wrapper">
+      <div className="content">
         <ul className="filters">
-          <li>Bandsintown</li>
-          <li>SongKick</li>
-          <li>Manual</li>
+          <li onClick={() => setFilter("")}>All</li>
+          <li onClick={() => setFilter("bandsintown")}>Bandsintown</li>
+          <li onClick={() => setFilter("songkick")}>SongKick</li>
+          <li onClick={() => setFilter("manual")}>Manual</li>
         </ul>
-        {children}
+        <TourDates tourDates={tourDates} />
       </div>
     </TourFilterStyles>
   )

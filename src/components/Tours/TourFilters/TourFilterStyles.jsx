@@ -2,29 +2,13 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-const fontSize = "1rem"
-
-export const TourFilterStyles = styled.div`
+export const TourFilterStyles = styled.section`
     background-color: #0c0c0c;
-    padding 10px 0px;
+    padding: 2rem 0;
   
     li {
-    font-size: 1rem;
+      font-size: 1rem;
     }
-
-  .top-triangle {
-    background: url("/assets/img/triangle-top-tour.svg") no-repeat;
-    background-size: cover;
-    object-fit: cover;
-    background-position: center top;
-    padding: 2rem 0rem;
-    width: 100%;
-    position: absolute;
-    top: 8.6rem;
-
-    @media (${DEVICE.laptop}) {
-    }
-  }
 
    .filters {
     display: flex;
@@ -36,13 +20,14 @@ export const TourFilterStyles = styled.div`
     padding 0px;
     align-items: center;
 
+    li {
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
     @media (${DEVICE.laptop}) {
         justify-content: flex-start;
     }
   }
-
-  .wrapper{
-    padding: 0rem 5rem 4rem 5rem;
-    align-items: center;
-  }
+  
 `

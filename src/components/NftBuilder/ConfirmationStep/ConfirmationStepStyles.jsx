@@ -37,7 +37,7 @@ export const ConfirmationStepStyles = styled.div`
     gap: ${15 / 16}rem;
 
     .nft {
-      width: ${100 / 16}rem;
+      width: ${150 / 16}rem;
     }
 
     img {

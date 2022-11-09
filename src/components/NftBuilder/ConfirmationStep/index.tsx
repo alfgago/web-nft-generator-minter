@@ -20,6 +20,9 @@ declare global {
     previewAdded: any
     previewShape: any
     collection: any
+    previewTemplate: any
+    previewText: any
+    previewBg: any
   }
 }
 
@@ -41,7 +44,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     setLoading(true)
     setTimeout(function () {
       setLoading(false)
-    }, 5000)
+    }, 2000)
     if (initialized) {
       bulkCanvasImages()
     }
@@ -63,6 +66,16 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
               ) {
                 window.previewAdded = el
               }
+              if (
+                el._originalElement &&
+                el._originalElement.currentSrc.includes("/templates/")
+              ) {
+                window.previewTemplate = el
+              }
+            }
+
+            if (el.get("type") == "textbox") {
+              window.previewText = el
             }
             el.set("selectable", false)
             el.set("evented", false)
@@ -99,6 +112,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
   }
 
   const pickBackground = (collectionData: any) => {
+    console.log(collectionData)
     const color = collectionData.backgroundColor.hex
     // Remove old BG
     window.previewCanvas.getObjects().forEach(function (el: any) {
@@ -130,7 +144,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     window.previewCanvas.insertAt(backgroundRect, 2)
     backgroundRect.set("selectable", false)
     backgroundRect.set("evented", false)
-
+    window.previewBg = backgroundRect
     addShapesColors(collectionData)
   }
 
@@ -147,6 +161,9 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     if (window.previewAdded && collectionData.gridSize)
       window.previewAdded.moveTo(1)
     shapesColorsRect.moveTo(0)
+    window.previewBg.moveTo(3)
+    window.previewTemplate.moveTo(4)
+    window.previewText.moveTo(5)
   }
 
   return (

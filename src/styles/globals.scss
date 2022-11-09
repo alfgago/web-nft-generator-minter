@@ -16,20 +16,19 @@ body {
 section {
   max-width: 100%;
   padding: 4rem 0;
-}
+  .content {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 96rem;
+    padding: 0 1rem;
 
-section .content {
-  position: relative;
-  margin: auto;
-  width: 100%;
-  max-width: 96rem;
-  padding: 0 1rem;
-}
-
-section .content.full {
-  margin: auto;
-  width: 100%;
-  max-width: 100%;
+    &.full {
+      margin: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 }
 
 .btn {
@@ -157,10 +156,9 @@ input::placeholder {
   section {
     max-width: 100%;
     padding: 6rem 0;
-  }
-
-  section .content {
-    padding: 0 3rem;
+    .content {
+      padding: 0 3rem;
+    }
   }
 }
 
@@ -179,6 +177,6 @@ input::placeholder {
 
   html,
   body {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
