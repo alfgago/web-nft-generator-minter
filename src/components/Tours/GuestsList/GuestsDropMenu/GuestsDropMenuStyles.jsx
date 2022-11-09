@@ -18,5 +18,28 @@ export const GuestsDropMenuStyles = styled.div`
     justify-content: space-between;
     width: 100%;
     max-width: 40rem;
+    flex-wrap: wrap;
+
+    button {
+      border: none;
+      background-color: inherit;
+    }
+
+    .unc-content {
+      width: 90%;
+
+
+      button {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+    }
+
+    .unc-content + div{
+      width: 10%;
+    }
   }
 `
+
+export const GuestDropItemStyles = styled.div``

@@ -1,19 +1,12 @@
 import { ReactSVG } from "react-svg"
+import { useState, useRef } from "react"
 import { GuestsDropMenuStyles } from "./GuestsDropMenuStyles"
+import DropItem from "../DropItem"
 const GuestsDropMenu = ({ currentItems }: any) => {
   return (
     <GuestsDropMenuStyles>
-      {currentItems.map((val: any) => {
-        const location = val.state + ", " + val.city
-
-        return (
-          <div className="drop-container" key={val.id}>
-            <p>
-              {location}, {val.date}
-            </p>
-            <ReactSVG src="/assets/vectors/uncollapse-drop.svg" />
-          </div>
-        )
+      {currentItems.map((data: any) => {
+        return <DropItem key={data.id} data={data} />
       })}
     </GuestsDropMenuStyles>
   )
