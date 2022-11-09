@@ -29,6 +29,7 @@ export const CollectionItemStyles = styled.div`
 
     .img-container {
       width: 50%;
+      max-width: ${98 / 16}rem;
       img {
         object-fit: cover;
         width: 100%;
@@ -68,5 +69,11 @@ export const CollectionItemStyles = styled.div`
       border-right: 1px solid white;
       border-left: 1px solid white;
     }
+  }
+
+  .img-container + div {
+    display: flex;
+    background-color: ${COLORS.black};
+    width: 100%;
   }
 `

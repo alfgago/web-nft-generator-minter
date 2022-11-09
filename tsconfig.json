@@ -19,7 +19,7 @@
       "@/*": ["src/*"]
     }
   },
-  "include": [
+  "include": [, "src/components/Tours/GuestsList/Gue, "src/components/Tours/GuestsList/GuestItem/index"stsDropMenu/GuestsDropMenuStyles.jsx"
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
