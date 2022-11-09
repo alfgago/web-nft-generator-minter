@@ -1,13 +1,13 @@
 import React from "react"
+import { useState } from "react"
+import { useRouter } from "next/router"
+import { signIn } from "next-auth/react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
-import { LoginFormlStyles } from "./LoginFormStyles"
-import { signIn } from "next-auth/react"
-import axios from "axios"
-import { error } from "console"
-import { useRouter } from "next/router"
+
 import ROUTES from "../../Common/Config/routes"
-import { useState } from "react"
+
+import { LoginFormlStyles } from "./LoginFormStyles"
 
 interface FormValues {
   email: string
@@ -31,7 +31,7 @@ const LoginForm = ({ setIsOpen }: any) => {
   const [isIncorrect, setIncorrect] = useState(false)
 
   const onSubmit = async (values: FormValues) => {
-    //used for next-auth
+    // used for next-auth
     const result = await signIn("credentials", {
       redirect: false,
       email: values.email,

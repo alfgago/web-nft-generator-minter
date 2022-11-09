@@ -40,30 +40,6 @@ export const LoginFormlStyles = styled.div`
     }
   }
 
-  input {
-    background-color: #d9d9d9;
-    color: #717171;
-    width: 100%;
-    height: ${45.61 / 16}rem;
-    border: 0px solid #d9d9d9;
-    border-radius: ${12 / 16}rem;
-    padding: 20px 20px;
-    outline: none;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 16px;
-  }
-  @media only screen and (${DEVICE.laptop}) {
-    input {
-      height: ${55 / 16}rem;
-      padding: 20px 20px;
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 26px;
-    }
-  }
-
   button {
     background-color: #777777;
     width: 10.5rem;

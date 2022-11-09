@@ -2,19 +2,28 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const CommonButton = styled.button`
+export const CommonPill = styled.span`
   position: relative;
-  width: 100%;
-  max-width: ${250 / 16}rem;
-  color: ${COLORS.white};
-  background-color: ${COLORS.black};
-  font-size: ${20 / 16}rem;
-  border-radius: 25px;
+  display: inline-block;
+  text-align: center;
+  color: ${COLORS.black};
+  border: 1px solid #454545;
+  border-radius: 50px;
   transition: 0.5s ease all;
   cursor: pointer;
+  font-size: ${24 / 16}rem;
+  line-height: ${26 / 16}rem;
+  padding: ${10 / 16}rem ${30 / 16}rem;
+  font-weight: 500;
 
-  &:hover {
-    opacity: 0.8;
+  &.fill {
+    background-color: #373737;
+    color: ${COLORS.white};
+  }
+
+  &.clickable:hover {
+    background-color: ${COLORS.black};
+    color: ${COLORS.white};
   }
 `
 

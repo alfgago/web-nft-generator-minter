@@ -1,32 +1,12 @@
 import React from "react"
 import { ReactSVG } from "react-svg"
+
+import AddButton from "@/components/Common/AddButton"
+
 import DateItem from "./DateItem"
 import { TourDateStyles } from "./TourDateStyles"
-import AddButton from "@/components/Common/AddButton"
-const TourDates = () => {
-  const tourDates = [
-    {
-      id: 111,
-      placeName: "National Stadium",
-      state: "California",
-      city: "San Francisco",
-      date: `2015/23/22`,
-    },
-    {
-      id: 112,
-      placeName: "Inter National Stadium",
-      state: "California",
-      city: "San Francisco",
-      date: `2015/23/22`,
-    },
-    {
-      id: 132,
-      placeName: "Inter National Stadium",
-      state: "California",
-      city: "San Francisco",
-      date: `2015/23/22`,
-    },
-  ]
+const TourDates = ({ tourDates }: any) => {
+  console.log(tourDates)
 
   return (
     <>
@@ -44,7 +24,7 @@ const TourDates = () => {
           </div>
         </div>
 
-        {tourDates.map((items) => {
+        {tourDates.map((items: any) => {
           return (
             <DateItem
               key={items.id}

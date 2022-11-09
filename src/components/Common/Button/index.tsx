@@ -1,7 +1,11 @@
-import { CommonButton } from "../CommonStyles"
+import { CommonPill } from "../CommonStyles"
 
 const Button = ({ action, label }: any) => {
-  return <CommonButton onClick={() => action()}>{label}</CommonButton>
+  return (
+    <CommonPill className="clickable" onClick={() => action()}>
+      {label}
+    </CommonPill>
+  )
 }
 
 export default Button

@@ -2,8 +2,6 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-const fontSize = "1rem"
-
 export const DateItemStyles = styled.div`
   padding: 10px 0px;
   p {
@@ -16,14 +14,14 @@ export const DateItemStyles = styled.div`
     border-radius: 0px 0px 12px 12px;
 
     .card-content {
-      padding: 5px 30px;
+      padding: ${5 / 16}rem ${30 / 16}rem;
     }
 
     input {
-      right: 60px;
+      right: ${60 / 16}rem;
       position: absolute;
-      width: 2rem;
-      height: 2rem;
+      width: ${32 / 16}rem;
+      height: ${32 / 16}rem;
       border: #777777 solid 2px;
     }
     .btns-container {
@@ -35,7 +33,7 @@ export const DateItemStyles = styled.div`
         display: flex;
         justify-content: center;
         border: none;
-        padding: 10px 0px;
+        padding: ${10 / 16}rem 0px;
         color: ${COLORS.white};
 
         div {
