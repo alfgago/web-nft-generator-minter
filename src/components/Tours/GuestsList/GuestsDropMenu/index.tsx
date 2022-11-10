@@ -1,7 +1,5 @@
-import { ReactSVG } from "react-svg"
-import { useState, useRef } from "react"
+import DropItem from "./DropItem"
 import { GuestsDropMenuStyles } from "./GuestsDropMenuStyles"
-import DropItem from "../DropItem"
 const GuestsDropMenu = ({ currentItems }: any) => {
   return (
     <GuestsDropMenuStyles>

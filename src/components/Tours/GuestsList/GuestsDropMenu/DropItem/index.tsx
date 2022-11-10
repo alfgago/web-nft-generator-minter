@@ -3,7 +3,7 @@ import { useState } from "react"
 import { generateKey } from "crypto"
 import { ReactSVG } from "react-svg"
 
-import DropGuestList from "../DropGuestList"
+import DropGuestList from "./DropGuestList"
 const DropItem = ({ data }: any) => {
   const [collapsed, setCollapsed] = useState(false)
   const location = data.state + ", " + data.city

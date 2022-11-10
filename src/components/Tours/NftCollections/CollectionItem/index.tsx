@@ -1,5 +1,6 @@
 import React from "react"
 import { PassThrough } from "stream"
+
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ currentItems }: any) => {
   return (
