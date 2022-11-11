@@ -1,7 +1,13 @@
 import React from "react"
+import { useState } from "react"
 
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ data }: any) => {
+  const [check, setIsChecked] = useState(true)
+
+  const handleChange = () => {
+    setIsChecked(!check)
+  }
   return (
     <GuestItemStyles>
       <div>
@@ -18,19 +24,14 @@ const GuestItem = ({ data }: any) => {
           <p>{data.email}</p>
         </div>
       </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={true}
-            onChange={() => {
-              console.log("click")
-            }}
-            id="subscribe"
-            name="subscribe"
-          />
-        </label>
-      </div>
+
+      <input
+        type="checkbox"
+        defaultChecked={true}
+        onChange={handleChange}
+        id="subscribe"
+        name="subscribe"
+      />
     </GuestItemStyles>
   )
 }
