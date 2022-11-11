@@ -1,5 +1,7 @@
 import React from "react"
 
+import AddButton from "@/components/Common/AddButton"
+import Button from "@/components/Common/Button"
 import ItemPagination from "@/components/Common/ItemPagination"
 
 import { DropGuestListStyles } from "./DropGuestListStyles"
@@ -10,6 +12,14 @@ const DropGuestList = ({ data }: any) => {
       <ItemPagination itemsPerPage={3} values={data.users}>
         <GuestMenu />
       </ItemPagination>
+      <div className="btns-container">
+        <AddButton label="Add name" />
+        <Button
+          backgroundColor="#D9D9D9"
+          fontSize={16}
+          label="Export guest list"
+        />
+      </div>
     </DropGuestListStyles>
   )
 }

@@ -1,7 +1,9 @@
-import CollectionItem from "@/components/Tours/NftCollections/CollectionItem"
 import React from "react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
+
+import CollectionItem from "@/components/Tours/NftCollections/CollectionItem"
+
 import { Pagination } from "../CommonStyles"
 
 /* three props
@@ -16,7 +18,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
   const [pageCount, setPageCount] = useState(0)
   const [itemOffset, setItemOffset] = useState(0)
 
-  //handdle the current items and the number of the page
+  // handdle the current items and the number of the page
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage
 
@@ -24,7 +26,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
     setPageCount(Math.ceil(items.length / itemsPerPage))
   }, [itemOffset, itemsPerPage])
 
-  //handle the click on the page
+  // handle the click on the page
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % items.length
     setItemOffset(newOffset)
@@ -34,7 +36,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
     <>
       {
         (children = React.Children.map(children, (child) => {
-          //use the currentItems var not the data that is received as a prop
+          // use the currentItems var not the data that is received as a prop
           return React.cloneElement(child, { currentItems })
         }))
       }

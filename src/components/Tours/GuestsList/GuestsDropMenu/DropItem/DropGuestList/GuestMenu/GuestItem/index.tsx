@@ -20,7 +20,15 @@ const GuestItem = ({ data }: any) => {
       </div>
       <div>
         <label>
-          <input type="checkbox" defaultChecked={true} />
+          <input
+            type="checkbox"
+            defaultChecked={true}
+            onChange={() => {
+              console.log("click")
+            }}
+            id="subscribe"
+            name="subscribe"
+          />
         </label>
       </div>
     </GuestItemStyles>

@@ -17,11 +17,6 @@ export const GuestsDropMenuStyles = styled.div`
     max-width: 40rem;
     flex-wrap: wrap;
 
-    button {
-      border: none;
-      background-color: inherit;
-    }
-
     .unc-content {
       width: 90%;
 
