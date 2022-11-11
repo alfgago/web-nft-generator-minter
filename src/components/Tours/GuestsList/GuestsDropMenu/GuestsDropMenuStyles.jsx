@@ -11,12 +11,9 @@ export const GuestsDropMenuStyles = styled.div`
   .drop-container {
     border: 1px solid ${COLORS.black};
     background-color: #f5f5f5;
-    padding: 5px ${40 / 16}rem;
-    font-size: 1rem !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
     max-width: 40rem;
     flex-wrap: wrap;
 
@@ -28,7 +25,6 @@ export const GuestsDropMenuStyles = styled.div`
     .unc-content {
       width: 90%;
 
-
       button {
         display: flex;
         align-items: flex-end;
@@ -36,9 +32,13 @@ export const GuestsDropMenuStyles = styled.div`
       }
     }
 
-    .unc-content + div{
+    .unc-content + div {
       width: 10%;
     }
+  }
+
+  .bg-opned {
+    background-color: ${COLORS.white};
   }
 `
 

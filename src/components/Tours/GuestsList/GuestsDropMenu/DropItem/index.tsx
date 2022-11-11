@@ -9,7 +9,10 @@ const DropItem = ({ data }: any) => {
   const location = data.state + ", " + data.city
   return (
     <>
-      <div className="drop-container" key={data.id}>
+      <div
+        className={`content drop-container ${collapsed ? "bg-opned" : ""}`}
+        key={data.id}
+      >
         <div className="unc-content">
           <p>
             {location}, {data.date}

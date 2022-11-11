@@ -13,12 +13,14 @@ const items = [
     date: "june 19",
     users: [
       {
+        id: 1,
         tourPass: "Tour pass",
         name: "Nicolas",
         email: "Nicolas@gmail.com",
         image: "/assets/img/guest-img.png",
       },
       {
+        id: 2,
         tourPass: "Tour pass",
         name: "Alfred",
         email: "Alfred@gmail.com",
@@ -33,6 +35,7 @@ const items = [
     date: "june 18",
     users: [
       {
+        id: 3,
         tourPass: "Tour pass",
         name: "Nirvana",
         email: "Nirvana@gmail.com",
@@ -47,6 +50,7 @@ const items = [
     date: "April 11",
     users: [
       {
+        id: 4,
         tourPass: "Tour pass",
         name: "Angelo",
         email: "Angelo@gmail.com",
@@ -61,6 +65,7 @@ const items = [
     date: "September 11",
     users: [
       {
+        id: 5,
         tourPass: "Tour pass",
         name: "David",
         email: "david@gmail.com",
