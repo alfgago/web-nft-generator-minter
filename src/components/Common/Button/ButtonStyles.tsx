@@ -31,9 +31,7 @@ export const ButtonStyles = styled.span<Props>`
   }
 
   &.clickable:hover {
-    background-color: ${(props) =>
-      props.hoverBackgroundColor ? props.hoverBackgroundColor : COLORS.black};
-    color: ${(props) =>
-      props.hoverTextColor ? props.hoverTextColor : COLORS.white};
+    background-color: ${(props) => props.hoverBackgroundColor};
+    color: ${(props) => props.hoverTextColor};
   }
 `

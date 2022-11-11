@@ -13,12 +13,12 @@ const DropGuestList = ({ data }: any) => {
         <GuestMenu />
       </ItemPagination>
       <div className="btns-container">
-        <AddButton label="Add name" />
         <Button
           backgroundColor="#D9D9D9"
           fontSize={16}
           label="Export guest list"
         />
+        <AddButton label="Add name" />
       </div>
     </DropGuestListStyles>
   )

@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import { DEVICE } from "@/styles/variables"
+
 export const DropGuestListStyles = styled.div`
   display: flex;
   align-items: center;
@@ -13,5 +15,15 @@ export const DropGuestListStyles = styled.div`
     display: flex;
     justify-content: space-between;
     padding-top: ${15 / 16}rem;
+
+    @media (${DEVICE.maxmobile}) {
+      span {
+        padding: 0.625rem 0.875rem;
+      }
+
+      button {
+        padding: ${0 / 16}rem ${4 / 16}rem;
+      }
+    }
   }
 `
