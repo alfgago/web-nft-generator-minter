@@ -6,8 +6,6 @@ import AddButton from "@/components/Common/AddButton"
 import DateItem from "./DateItem"
 import { TourDateStyles } from "./TourDateStyles"
 const TourDates = ({ tourDates }: any) => {
-  console.log(tourDates)
-
   return (
     <>
       <TourDateStyles>

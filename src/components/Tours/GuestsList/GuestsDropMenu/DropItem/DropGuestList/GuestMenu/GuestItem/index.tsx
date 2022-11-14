@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react"
+import { ReactSVG } from "react-svg"
 
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ data }: any) => {
@@ -24,14 +25,16 @@ const GuestItem = ({ data }: any) => {
           <p>{data.email}</p>
         </div>
       </div>
-
-      <input
-        type="checkbox"
-        defaultChecked={true}
-        onChange={handleChange}
-        id="subscribe"
-        name="subscribe"
-      />
+      <span>
+        <input
+          type="checkbox"
+          defaultChecked={true}
+          onChange={handleChange}
+          id="subscribe"
+          name="subscribe"
+        />
+        {/* <ReactSVG src="/assets/vectors/grey-check.svg" /> */}
+      </span>
     </GuestItemStyles>
   )
 }

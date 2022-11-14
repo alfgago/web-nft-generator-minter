@@ -8,7 +8,7 @@ export const DropGuestListStyles = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  padding: 10px 0px;
+  padding: ${10 / 16}rem ${0 / 16}rem;
 
   .btns-container {
     width: 100%;
@@ -27,26 +27,17 @@ export const DropGuestListStyles = styled.div`
     }
   }
 
-  .container + input {
+  .container + span input {
     width: ${24 / 16}rem;
     height: ${24 / 16}rem;
     border-radius: ${6 / 16}rem;
     padding: ${10 / 16}rem;
-    border: ${4 / 16}rem solid #777777;
+    border: ${3 / 16}rem solid #777777;
     :checked {
-      background-color: #777777;
-    }
-    .checkmark:after {
-      left: 9px;
-      top: 5px;
-      width: 5px;
-      height: 10px;
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-      background-color: #2196f3;
+      background-image: url("/assets/vectors/grey-check.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
 `
