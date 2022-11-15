@@ -32,6 +32,6 @@ export const GuestItemStyles = styled.div`
     height: 100%;
     object-fit: cover;
     width: 100%;
-    max-width: 143px;
+    max-width: ${143 / 16}rem;
   }
 `

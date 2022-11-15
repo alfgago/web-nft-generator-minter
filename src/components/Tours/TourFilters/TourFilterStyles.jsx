@@ -4,7 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const TourFilterStyles = styled.section`
     background-color: #0c0c0c;
-    padding: 2rem 0;
+    padding: ${48 / 16}rem 0;
   
     li {
       font-size: 1rem;

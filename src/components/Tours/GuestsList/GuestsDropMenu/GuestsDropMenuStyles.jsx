@@ -3,13 +3,13 @@ import styled from "styled-components"
 export const GuestsDropMenuStyles = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 0px 20px 0px;
+  padding: ${10 / 16}rem ${0 / 16}rem ${20 / 16}rem ${0 / 16}rem;
   gap: ${27 / 16}rem;
 
   align-items: center;
 
   .drop-container {
-    border: 1px solid ${COLORS.black};
+    border: ${1 / 16}rem solid ${COLORS.black};
     background-color: #f5f5f5;
     display: flex;
     align-items: center;

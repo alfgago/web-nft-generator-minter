@@ -17,7 +17,7 @@ export const CollectionItemStyles = styled.div`
   .container {
     display: flex;
     .content {
-        width 96%;
+      width 50%;
       background-color: ${COLORS.black};
       color: ${COLORS.white};
       padding: ${5 / 16}rem ${20 / 16}rem ${10 / 16}rem ${15 / 16}rem;
@@ -29,18 +29,23 @@ export const CollectionItemStyles = styled.div`
 
     .img-container {
       width: 50%;
+
       max-width: ${98 / 16}rem;
       img {
         object-fit: cover;
         width: 100%;
         height: 100%;
       }
+
+      @media(${DEVICE.maxmobile}){
+        width: 25%;
+      }
     }
 
     .content + div {
-      padding: 16px 20px 20px 0px;
+      padding: ${16 / 16}rem ${20 / 16}rem ${20 / 16}rem ${0 / 16}rem;
       background-color: ${COLORS.black};
-      width: 100%;
+      width: 50%;
       justify-content: center;
       display: flex;
       align-items: center;
@@ -51,6 +56,10 @@ export const CollectionItemStyles = styled.div`
         border: 0px;
         background-color: #d7d7d7;
         font-weight: bold;
+      }
+
+      @media(${DEVICE.maxmobile}){
+        padding: ${16 / 16}rem ${1 / 16}rem ${20 / 16}rem ${0 / 16}rem;
       }
     }
   }
@@ -75,5 +84,9 @@ export const CollectionItemStyles = styled.div`
     display: flex;
     background-color: ${COLORS.black};
     width: 100%;
+
+    @media(${DEVICE.maxmobile}){
+      width: 75%;
+    }
   }
 `
