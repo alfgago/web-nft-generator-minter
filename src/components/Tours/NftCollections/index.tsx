@@ -1,4 +1,5 @@
 import React from "react"
+import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
 import ItemPagination from "@/components/Common/ItemPagination"
@@ -57,9 +58,10 @@ const NftCollections = () => {
 
   return (
     <NftCollectionStyles>
+      <ReactSVG className="star" src="/assets/vectors/star.svg" />
       <div className="content">
         <div className="header-collection">
-          <h1>Approved NFT Collections</h1>
+          <h2>Approved NFT Collections</h2>
           <AddButton label="Mint new collection" />
         </div>
         <ItemPagination itemsPerPage={3} values={nftCollections}>

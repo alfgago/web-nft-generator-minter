@@ -14,7 +14,6 @@ const Tours = () => {
     <TourStyles>
       <SimpleHeader title="Manager" backgroundColor="blue" textAlign="center" />
       <TourFilters />
-      <ReactSVG className="star" src="/assets/vectors/star.svg" />
       <NftCollections />
       <GuestsList />
     </TourStyles>

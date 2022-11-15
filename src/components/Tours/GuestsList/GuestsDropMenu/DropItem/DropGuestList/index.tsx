@@ -4,14 +4,25 @@ import AddButton from "@/components/Common/AddButton"
 import Button from "@/components/Common/Button"
 import ItemPagination from "@/components/Common/ItemPagination"
 
+import GuestItem from "./GuestMenu/GuestItem"
 import { DropGuestListStyles } from "./DropGuestListStyles"
 import GuestMenu from "./GuestMenu"
 const DropGuestList = ({ data }: any) => {
   return (
     <DropGuestListStyles>
-      <ItemPagination itemsPerPage={3} values={data.users}>
-        <GuestMenu />
-      </ItemPagination>
+      <ItemPagination
+        itemsPerPage={3}
+        values={data.users}
+        render={(items: any) => {
+          return (
+            <>
+              {items.map((data: any, i: number) => (
+                <GuestItem key={data.id} data={data} />
+              ))}
+            </>
+          )
+        }}
+      />
       <div className="btns-container">
         <Button
           backgroundColor="#D9D9D9"
