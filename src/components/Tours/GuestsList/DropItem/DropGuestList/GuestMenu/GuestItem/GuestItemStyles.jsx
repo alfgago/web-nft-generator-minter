@@ -4,9 +4,10 @@ import styled from "styled-components"
 export const GuestItemStyles = styled.div`
   display: flex;
   padding-bottom: ${10 / 16}rem;
+  width: 100%;
 
   .container {
-    width: 70%;
+    width: 75%;
   }
 
   .container div {

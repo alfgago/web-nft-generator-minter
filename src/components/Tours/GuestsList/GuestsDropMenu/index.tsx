@@ -1,4 +1,5 @@
-import DropItem from "./DropItem"
+import DropItem from "../DropItem"
+
 import { GuestsDropMenuStyles } from "./GuestsDropMenuStyles"
 const GuestsDropMenu = ({ currentItems }: any) => {
   return (

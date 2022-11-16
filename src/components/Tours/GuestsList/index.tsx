@@ -3,8 +3,8 @@ import React from "react"
 import ItemPagination from "@/components/Common/ItemPagination"
 import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles"
 
-import DropItem from "./GuestsDropMenu/DropItem"
-import GuestsDropMenu from "./GuestsDropMenu"
+import { GuestsDropMenuStyles } from "./GuestsDropMenu/GuestsDropMenuStyles"
+import DropItem from "./DropItem"
 
 const items = [
   {
@@ -89,11 +89,11 @@ const GuestsList = () => {
           render={(items: any) => {
             console.log(items)
             return (
-              <>
+              <div className="drops-container">
                 {items.map((data: any) => {
                   return <DropItem key={data.id} data={data} />
                 })}
-              </>
+              </div>
             )
           }}
         />
