@@ -8,8 +8,10 @@ const DateItem = ({ placeName, state, city, date }: any) => {
     <DateItemStyles>
       <div className="card-container">
         <div className="card-content">
-          <input type="checkbox" id="#" name="" value="" />
-          <p>{placeName}</p>
+          <div>
+            <p>{placeName}</p>
+            <input type="checkbox" id="#" name="" value="" />
+          </div>
           <p>
             {state}, {city}
           </p>
