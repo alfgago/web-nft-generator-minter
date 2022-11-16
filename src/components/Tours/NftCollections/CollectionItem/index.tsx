@@ -3,7 +3,6 @@ import { PassThrough } from "stream"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
-  console.log(item)
   return (
     <CollectionItemStyles>
       <div key={item.id} className="itemWrapper">

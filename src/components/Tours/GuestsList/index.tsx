@@ -87,7 +87,6 @@ const GuestsList = () => {
           itemsPerPage={3}
           values={items}
           render={(items: any) => {
-            console.log(items)
             return (
               <div className="drops-container">
                 {items.map((data: any) => {
