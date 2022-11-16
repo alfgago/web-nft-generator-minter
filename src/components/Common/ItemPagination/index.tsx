@@ -11,7 +11,7 @@ itemsPerPage: amount of items per page
 values: the values of each item in the collection
 children: the component that create the items inside the pagination
 */
-const ItemPagination = ({ itemsPerPage, values, children }: any) => {
+const ItemPagination = ({ itemsPerPage, values, render }: any) => {
   const items = values ? [...values] : ""
 
   const [currentItems, setCurrentItems] = useState(items)
@@ -34,12 +34,7 @@ const ItemPagination = ({ itemsPerPage, values, children }: any) => {
 
   return (
     <>
-      {
-        (children = React.Children.map(children, (child) => {
-          // use the currentItems var not the data that is received as a prop
-          return React.cloneElement(child, { currentItems })
-        }))
-      }
+      {render(currentItems)}
       <Pagination>
         <ReactPaginate
           onPageChange={handlePageClick}

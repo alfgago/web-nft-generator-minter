@@ -2,8 +2,8 @@ import React from "react"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
+import DateItem from "@/components/Tours/DateItem"
 
-import DateItem from "./DateItem"
 import { TourDateStyles } from "./TourDateStyles"
 const TourDates = ({ tourDates }: any) => {
   return (
@@ -22,17 +22,19 @@ const TourDates = ({ tourDates }: any) => {
           </div>
         </div>
 
-        {tourDates.map((items: any) => {
-          return (
-            <DateItem
-              key={items.id}
-              placeName={items.placeName}
-              state={items.state}
-              city={items.city}
-              date={items.date}
-            />
-          )
-        })}
+        <div className="tour-dates">
+          {tourDates.map((items: any) => {
+            return (
+              <DateItem
+                key={items.id}
+                placeName={items.placeName}
+                state={items.state}
+                city={items.city}
+                date={items.date}
+              />
+            )
+          })}
+        </div>
       </TourDateStyles>
     </>
   )

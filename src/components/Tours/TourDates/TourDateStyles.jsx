@@ -18,6 +18,19 @@ export const TourDateStyles = styled.div`
     padding: 3rem 1rem;
   }
 
+  .tour-dates {
+    display: block;
+    @media ${DEVICE.laptop} {
+      display: flex;
+      flex-wrap: wrap;
+      gap: ${50 / 16}rem;
+
+      > .item {
+        width: ${375 / 16}rem;
+      }
+    }
+  }
+
   .date-settings {
     color: ${COLORS.white};
     padding: 10px 0px;
