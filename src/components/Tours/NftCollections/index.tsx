@@ -64,9 +64,19 @@ const NftCollections = () => {
           <h2>Approved NFT Collections</h2>
           <AddButton label="Mint new collection" />
         </div>
-        <ItemPagination itemsPerPage={3} values={nftCollections}>
-          <CollectionItem />
-        </ItemPagination>
+        <ItemPagination
+          itemsPerPage={3}
+          values={nftCollections}
+          render={(items: any) => {
+            return (
+              <>
+                {items.map((data: any, i: number) => (
+                  <CollectionItem key={data.id} item={data} />
+                ))}
+              </>
+            )
+          }}
+        />
       </div>
     </NftCollectionStyles>
   )

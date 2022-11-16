@@ -3,6 +3,7 @@ import React from "react"
 import ItemPagination from "@/components/Common/ItemPagination"
 import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles"
 
+import DropItem from "./GuestsDropMenu/DropItem"
 import GuestsDropMenu from "./GuestsDropMenu"
 
 const items = [
@@ -82,9 +83,20 @@ const GuestsList = () => {
         <div>
           <h1>Manage guest lists</h1>
         </div>
-        <ItemPagination itemsPerPage={3} values={items}>
-          <GuestsDropMenu />
-        </ItemPagination>
+        <ItemPagination
+          itemsPerPage={3}
+          values={items}
+          render={(items: any) => {
+            console.log(items)
+            return (
+              <>
+                {items.map((data: any) => {
+                  return <DropItem key={data.id} data={data} />
+                })}
+              </>
+            )
+          }}
+        />
       </div>
     </GuestsListStyles>
   )
