@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 // @ts-nocheck
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
