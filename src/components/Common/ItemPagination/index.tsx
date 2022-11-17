@@ -48,7 +48,6 @@ const ItemPagination = ({ itemsPerPage, values, render }: any) => {
           breakLabel="..."
           containerClassName="pagination"
           activeLinkClassName="active"
-          renderOnZeroPageCount={null}
         />
       </Pagination>
     </>
