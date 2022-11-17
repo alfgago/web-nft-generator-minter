@@ -2,8 +2,8 @@ import React from "react"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
-import DateItem from "@/components/Tours/DateItem"
 
+import DateItem from "./DateItem"
 import { TourDateStyles } from "./TourDateStyles"
 const TourDates = ({ tourDates }: any) => {
   return (
