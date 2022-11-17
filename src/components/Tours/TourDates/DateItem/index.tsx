@@ -1,7 +1,7 @@
 import React from "react"
 import { ReactSVG } from "react-svg"
 
-import { DateItemStyles } from "./DateItemStyles"
+import { DateItemStyles } from "../../DateItem/DateItemStyles"
 
 const DateItem = ({ placeName, state, city, date }: any) => {
   return (
