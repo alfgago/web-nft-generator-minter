@@ -6,9 +6,11 @@ import { LoginModalStyles } from "./LoginModalStyles"
 const LoginModal = ({
   children,
   setIsOpen,
+  title = "Log in",
 }: {
   children: JSX.Element
   setIsOpen: any
+  title: string
 }) => {
   return (
     <LoginModalStyles>
@@ -22,7 +24,7 @@ const LoginModal = ({
       <div className="modal-container">
         <div className="modal-header container-centered">
           <div>
-            <h2 className="title">Log in</h2>
+            <h2 className="title">{title}</h2>
           </div>
           <div>
             <div className="close-mobile" onClick={() => setIsOpen(false)}>

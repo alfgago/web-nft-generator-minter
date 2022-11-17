@@ -15,18 +15,16 @@ export const DateItemStyles = styled.div`
 
     .card-content {
       padding: ${5 / 16}rem ${30 / 16}rem;
-
       div {
         display: flex;
         justify-content: space-between;
       }
+
+      p + label {
+        margin-top: ${10 / 16}rem;
+      }
     }
 
-    input {
-      width: ${32 / 16}rem;
-      height: ${32 / 16}rem;
-      border: #777777 solid 2px;
-    }
     .btns-container {
       display: flex;
       flex-wrap: wrap;
