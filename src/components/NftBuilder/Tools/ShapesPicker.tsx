@@ -6,7 +6,7 @@ const ShapesPicker = ({
   setShapes,
   setAvailableShapes,
 }: any) => {
-  const possibleShapes = ["star", "diamond", "curve", "roundStar", "circle"]
+  const possibleShapes = ["star", "diamond", "curve", "roundstar", "circle"]
   const canvasWidth = 600
 
   const onPickAvailableShapes = (shape: string) => {
