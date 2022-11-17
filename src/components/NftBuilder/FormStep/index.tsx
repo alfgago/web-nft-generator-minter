@@ -1,13 +1,17 @@
 import { Field, Form, Formik } from "formik"
+import DatePicker from "react-datepicker"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 
 import { FormStepStyles } from "./FormStepStyles"
 
+import "react-datepicker/dist/react-datepicker.css"
+
 const FormStep = ({ formValues, nextAction }: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
+    date: Yup.string().required("Please enter the mint date"),
     wallet: Yup.string().required("Please enter your wallet"),
     size: Yup.number().required("Please enter your collection size."),
     passType: Yup.string().required("Please enter your pass type"),
@@ -17,10 +21,14 @@ const FormStep = ({ formValues, nextAction }: any) => {
 
   interface FormValues {
     name: string
+    date: Date
     wallet: string
     size: number
     passType: string
     saleType: string
+    tour: string
+    show: string
+    duration: number
     price: number
   }
 
@@ -36,7 +44,7 @@ const FormStep = ({ formValues, nextAction }: any) => {
         onSubmit={submit}
         validationSchema={validationSchema}
       >
-        {({ errors, touched }) => (
+        {({ values, setFieldValue, errors, touched }) => (
           <Form className="generator-form trap">
             <label>
               <span>Collection name</span>
@@ -83,12 +91,51 @@ const FormStep = ({ formValues, nextAction }: any) => {
               </Field>
             </label>
             <label>
-              <span>Initial auction price / Fixed price (ETH)</span>
+              {values.saleType == "auction" ? (
+                <span>Initial auction price (ETH)</span>
+              ) : (
+                <span>Fixed price (ETH)</span>
+              )}
               {errors.price && touched.price ? (
                 <div className="alert">{errors.price}</div>
               ) : null}
               <Field type="number" name="price" />
             </label>
+            <label>
+              <span>Mint date</span>
+              {errors.name && touched.name ? (
+                <div className="alert">{errors.name}</div>
+              ) : null}
+              <DatePicker
+                showTimeSelect
+                dateFormat="Pp"
+                name="date"
+                selected={values.date}
+                onChange={(date) => setFieldValue("date", date)}
+              />
+            </label>
+            {values.saleType == "auction" && (
+              <label>
+                <span>Duration (Hours)</span>
+                <Field name="duration" type="text" />
+              </label>
+            )}
+            {values.passType == "tour" && (
+              <label>
+                <span>Tour</span>
+                <Field name="tour" as="select">
+                  <option value="">-</option>
+                </Field>
+              </label>
+            )}
+            {values.passType == "single" && (
+              <label>
+                <span>Show</span>
+                <Field name="show" as="select">
+                  <option value="">-</option>
+                </Field>
+              </label>
+            )}
 
             <div className="buttons">
               <button type="submit">
