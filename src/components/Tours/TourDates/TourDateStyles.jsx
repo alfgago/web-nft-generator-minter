@@ -20,7 +20,10 @@ export const TourDateStyles = styled.div`
 
   .tour-dates {
     display: block;
+
     @media ${DEVICE.laptop} {
+      justify-content: center;
+      width: 95%;
       display: flex;
       flex-wrap: wrap;
       gap: ${50 / 16}rem;
@@ -35,22 +38,47 @@ export const TourDateStyles = styled.div`
     color: ${COLORS.white};
     padding: 10px 0px;
 
+    @media ${DEVICE.laptop} {
+      width: 92%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    p {
+      font-size: ${30 / 16}rem;
+      margin: 0;
+
+      @media ${DEVICE.laptop} {
+        font-size: ${40 / 16}rem;
+      }
+    }
+
+    p + div {
+      margin-top: 20px;
+      @media ${DEVICE.laptop} {
+        margin-top: 0px;
+      }
+    }
+
     div > span {
       font-size: 20px;
     }
 
     a {
       padding: 0.75rem 0 !important;
-      svg {
-        width: 3.5rem;
-        height: 3.5rem;
+      position: absolute;
+      right: ${32 / 16}rem;
+      top: ${34 / 16}rem;
+      @media ${DEVICE.laptop} {
+        top: ${-30 / 16}rem;
+        right: ${55 / 16}rem;
       }
-    }
 
-    > div:first-child {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      svg {
+        width: ${40 / 16}rem;
+        height: ${40 / 16}rem;
+      }
     }
   }
 `
