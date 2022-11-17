@@ -5,7 +5,7 @@ import { DateItemStyles } from "./DateItemStyles"
 
 const DateItem = ({ placeName, state, city, date }: any) => {
   return (
-    <DateItemStyles className="item">
+    <DateItemStyles>
       <div className="card-container">
         <div className="card-content">
           <div>

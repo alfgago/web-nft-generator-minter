@@ -1,12 +1,8 @@
 import { COLORS } from "@/styles/variables"
 import styled from "styled-components"
-export const GuestsDropMenuStyles = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${10 / 16}rem ${0 / 16}rem ${20 / 16}rem ${0 / 16}rem;
-  gap: ${27 / 16}rem;
-
-  align-items: center;
+export const DropItemStyles = styled.div`
+  width: 100%;
+  max-width: 40rem;
 
   .drop-container {
     border: ${1 / 16}rem solid ${COLORS.black};
@@ -36,5 +32,3 @@ export const GuestsDropMenuStyles = styled.div`
     background-color: ${COLORS.white};
   }
 `
-
-export const GuestDropItemStyles = styled.div``

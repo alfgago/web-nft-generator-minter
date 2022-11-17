@@ -4,7 +4,8 @@ import AddButton from "@/components/Common/AddButton"
 import Button from "@/components/Common/Button"
 import ItemPagination from "@/components/Common/ItemPagination"
 
-import GuestItem from "./GuestMenu/GuestItem"
+import GuestItem from "../GuestItem"
+
 import { DropGuestListStyles } from "./DropGuestListStyles"
 import GuestMenu from "./GuestMenu"
 const DropGuestList = ({ data }: any) => {

@@ -29,6 +29,30 @@ const datesList = [
     date: `2015/23/22`,
     origin: `manual`,
   },
+  {
+    id: 1323,
+    placeName: "Inter National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `manual`,
+  },
+  {
+    id: 1326,
+    placeName: "Inter National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `manual`,
+  },
+  {
+    id: 1328,
+    placeName: "Inter National Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: `2015/23/22`,
+    origin: `manual`,
+  },
 ]
 
 function TourFilters() {
@@ -46,13 +70,15 @@ function TourFilters() {
   return (
     <TourFilterStyles>
       <div className="content">
-        <ul className="filters">
-          <li onClick={() => setFilter("")}>All</li>
-          <li onClick={() => setFilter("bandsintown")}>Bandsintown</li>
-          <li onClick={() => setFilter("songkick")}>SongKick</li>
-          <li onClick={() => setFilter("manual")}>Manual</li>
-        </ul>
-        <TourDates tourDates={tourDates} />
+        <div>
+          <ul className="filters">
+            <li onClick={() => setFilter("")}>All</li>
+            <li onClick={() => setFilter("bandsintown")}>Bandsintown</li>
+            <li onClick={() => setFilter("songkick")}>SongKick</li>
+            <li onClick={() => setFilter("manual")}>Manual</li>
+          </ul>
+          <TourDates tourDates={tourDates} />
+        </div>
       </div>
     </TourFilterStyles>
   )

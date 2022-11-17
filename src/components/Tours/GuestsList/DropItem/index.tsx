@@ -4,15 +4,13 @@ import { generateKey } from "crypto"
 import { ReactSVG } from "react-svg"
 
 import DropGuestList from "./DropGuestList"
+import { DropItemStyles } from "./DropItemStyles"
 const DropItem = ({ data }: any) => {
   const [collapsed, setCollapsed] = useState(false)
   const location = data.state + ", " + data.city
   return (
-    <>
-      <div
-        className={`content drop-container ${collapsed ? "bg-opned" : ""}`}
-        key={data.id}
-      >
+    <DropItemStyles>
+      <div className={`content drop-container ${collapsed ? "bg-opned" : ""}`}>
         <div className="unc-content">
           <p>
             {location}, {data.date}
@@ -33,7 +31,7 @@ const DropItem = ({ data }: any) => {
         </div>
         {collapsed && <DropGuestList key={generateKey} data={data} />}
       </div>
-    </>
+    </DropItemStyles>
   )
 }
 

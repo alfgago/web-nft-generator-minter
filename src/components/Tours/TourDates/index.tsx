@@ -10,18 +10,14 @@ const TourDates = ({ tourDates }: any) => {
     <>
       <TourDateStyles>
         <div className="date-settings">
-          <div>
-            <span>Verify tour dates</span>
-            <a>
-              <ReactSVG src="/assets/vectors/settings-icon.svg" />
-            </a>
-          </div>
-
+          <a>
+            <ReactSVG src="/assets/vectors/settings-icon.svg" />
+          </a>
+          <p>Verify tour dates</p>
           <div>
             <AddButton label="New date" />
           </div>
         </div>
-
         <div className="tour-dates">
           {tourDates.map((items: any) => {
             return (
