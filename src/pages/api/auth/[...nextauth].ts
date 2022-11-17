@@ -1,5 +1,7 @@
+// @ts-nocheck
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+
 import { signInRequest } from "../sign-in"
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
@@ -8,7 +10,7 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
-        //credentials from the form
+        // credentials from the form
         const credVal = credentials as {
           email: string
           password: string
