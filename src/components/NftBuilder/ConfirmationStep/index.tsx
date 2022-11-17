@@ -9,11 +9,6 @@ import { ConfirmationStepStyles } from "./ConfirmationStepStyles"
 const canvasWidth = 600
 const canvasHeight = 600
 
-const availableShapes = [
-  1, // circle
-  2, // triangle
-  3, // square
-]
 declare global {
   interface Window {
     previewCanvas: any
@@ -132,7 +127,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     const shapes = generateShapes(
       collectionData.gridSize,
       canvasWidth,
-      availableShapes
+      collectionData.availableShapes
     )
 
     if (collectionData.gridSize > 0) {

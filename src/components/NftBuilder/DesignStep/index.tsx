@@ -8,19 +8,20 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import ColorsPicker from "../Tools/ColorsPicker"
 import GridPicker from "../Tools/GridPicker"
 import ImagePicker from "../Tools/ImagePicker"
+import ShapesPicker from "../Tools/ShapesPicker"
 import TemplatePicker from "../Tools/TemplatePicker"
 
 import { DesignStepStyles } from "./DesignStepStyles"
 
 const canvasWidth = 600
 const canvasHeight = 600
-const settings = ["Template", "Grid", "Colors", "Image"]
+const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
 const nftText = "NAME / DATE /PASS TYPE / TOUR"
 const templates = [
   { number: 1, textX: 0, textY: 500, textRotate: 0 },
-  { number: 2, textX: 75, textY: 600, textRotate: -90 },
+  { number: 2, textX: 25, textY: 600, textRotate: -90 },
   { number: 3, textX: 0, textY: 50, textRotate: 0 },
-  { number: 4, textX: 0, textY: 50, textRotate: 0 },
+  { number: 4, textX: 0, textY: 25, textRotate: 0 },
 ]
 
 const initialShapes = [
@@ -49,7 +50,6 @@ const initialShapes = [
     fill: "#444",
   }),
 ]
-
 declare global {
   interface Window {
     canvas: any
@@ -64,11 +64,12 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
   const [initialized, setInitialized] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
   const [activeTemplate, setActiveTemplate] = useState(templates[0])
-  const [backgroundColor, setBackgroundColor] = useState({ hex: "#eee" })
+  const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#e2b84c" })
   const [imageUrl, setImageUrl] = useState("")
   const [shapes, setShapes] = useState(initialShapes)
   const [gridSize, setGridSize] = useState(3)
+  const [availableShapes, setAvailableShapes] = useState(["star", "roundStar"])
 
   const doNext = () => {
     sessionStorage.setItem(
@@ -77,6 +78,7 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
         backgroundColor: backgroundColor,
         activeTemplate: activeTemplate,
         shapesColor: shapesColor,
+        availableShapes: availableShapes,
         imageUrl: imageUrl,
         gridSize: gridSize,
       })
@@ -224,16 +226,23 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
       fill: color,
     })
 
-    if (gridSize > 0) {
+    if (gridSize > 0 && availableShapes.length > 0) {
       const clipPath = new fabric.Group(shapes, {
         inverted: true,
       })
       backgroundRect.clipPath = clipPath
     }
+    /*
+    const gutter = 30
+    backgroundRect.top = gutter
+    backgroundRect.left = gutter
+    backgroundRect.scaleToWidth(canvasWidth - gutter * 2)
+    */
     window.canvas.insertAt(backgroundRect, 0)
     backgroundRect.set("selectable", false)
     backgroundRect.set("evented", false)
-    if (window.addedImage && gridSize) window.addedImage.sendToBack()
+    if (window.addedImage && gridSize && availableShapes.length > 0)
+      window.addedImage.sendToBack()
 
     addShapesColors()
   }
@@ -315,6 +324,16 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
               shapes={shapes}
               setShapes={setShapes}
               setGridSize={setGridSize}
+              availableShapes={availableShapes}
+            />
+          )}
+
+          {activeSetting == "Shapes" && (
+            <ShapesPicker
+              gridSize={gridSize}
+              availableShapes={availableShapes}
+              setShapes={setShapes}
+              setAvailableShapes={setAvailableShapes}
             />
           )}
 
