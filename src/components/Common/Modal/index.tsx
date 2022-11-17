@@ -1,19 +1,19 @@
 import React from "react"
 import { ReactSVG } from "react-svg"
 
-import { LoginModalStyles } from "./LoginModalStyles"
+import { ModalStyles } from "./ModalStyles"
 
-const LoginModal = ({
+const Modal = ({
   children,
   setIsOpen,
-  title = "Log in",
+  title,
 }: {
   children: JSX.Element
   setIsOpen: any
   title: string
 }) => {
   return (
-    <LoginModalStyles>
+    <ModalStyles>
       <div
         className="bg-modal"
         onClick={() => {
@@ -34,8 +34,8 @@ const LoginModal = ({
         </div>
         <div className="modal-content">{children}</div>
       </div>
-    </LoginModalStyles>
+    </ModalStyles>
   )
 }
 
-export default LoginModal
+export default Modal

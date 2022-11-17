@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const LoginModalStyles = styled.section`
+export const ModalStyles = styled.section`
   display: flex;
   z-index: 1;
   position: fixed;

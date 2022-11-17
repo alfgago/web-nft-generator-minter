@@ -2,8 +2,10 @@ import React, { useState } from "react"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
-import LoginModal from "@/components/Login/LoginModal"
+import LoginModal from "@/components/Common/Modal"
 import DateItem from "@/components/Tours/DateItem"
+
+import NewDateForm from "../NewDateForm"
 
 import { TourDateStyles } from "./TourDateStyles"
 const TourDates = ({ tourDates }: any) => {
@@ -34,8 +36,8 @@ const TourDates = ({ tourDates }: any) => {
           })}
         </div>
         {isOpen && (
-          <LoginModal setIsOpen={setOpen} title="Add new date">
-            <div>hello</div>
+          <LoginModal setIsOpen={setOpen} title="New tour date">
+            <NewDateForm />
           </LoginModal>
         )}
       </TourDateStyles>
