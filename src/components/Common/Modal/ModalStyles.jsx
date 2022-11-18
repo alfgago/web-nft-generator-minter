@@ -37,8 +37,7 @@ export const ModalStyles = styled.section`
   .modal-content {
     background-color: ${COLORS.white};
     width: 100%;
-    padding: 3rem 0;
-    padding-top: 5rem;
+    padding: 2rem 0 3rem 0;
 
     @media ${DEVICE.laptop} {
       height: 100%;
@@ -57,7 +56,7 @@ export const ModalStyles = styled.section`
     content: "";
     background-color: ${COLORS.black};
     color: ${COLORS.white};
-    padding: 3rem 0;
+    padding: 2rem 0;
 
     @media ${DEVICE.laptop} {
       border-top-left-radius: ${8 / 16}rem;
