@@ -14,7 +14,7 @@ export const NewDateFormStyles = styled.div`
 
   .form-container {
     width: 100%;
-    overflow: scroll;
+    // overflow-y: scroll;
 
     form {
       display: flex;
