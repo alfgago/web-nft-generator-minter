@@ -42,29 +42,40 @@ const NewDateForm = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              {errors.locationName && touched.locationName ? (
-                <div className="alert">{errors.locationName}</div>
-              ) : null}
-              <Field
-                name="locationName"
-                type="text"
-                placeholder="Location Name"
-              />
-              {errors.city && touched.city ? (
-                // alert("error")
-                <div className="alert">{errors.city}</div>
-              ) : null}
-              <Field name="city" type="text" placeholder="City" />
+              <label>
+                <span>Location Name</span>
+                {errors.locationName && touched.locationName ? (
+                  <div className="alert">{errors.locationName}</div>
+                ) : null}
+                <Field name="locationName" type="text" placeholder="" />
+              </label>
 
-              {errors.state && touched.state ? (
-                <div className="alert">{errors.state}</div>
-              ) : null}
-              <Field name="state" type="text" placeholder="State" />
+              <label>
+                <span>City</span>
+                {errors.city && touched.city ? (
+                  // alert("error")
+                  <div className="alert">{errors.city}</div>
+                ) : null}
+                <Field name="city" type="text" placeholder="" />
+              </label>
 
-              {errors.date && touched.date ? (
-                <div className="alert">{errors.date}</div>
-              ) : null}
-              <Field name="date" type="date" placeholder="Date" />
+              <label>
+                <span>State</span>
+
+                {errors.state && touched.state ? (
+                  <div className="alert">{errors.state}</div>
+                ) : null}
+                <Field name="state" type="text" placeholder="" />
+              </label>
+
+              <label>
+                <span>Date</span>
+                {errors.date && touched.date ? (
+                  <div className="alert">{errors.date}</div>
+                ) : null}
+                <Field name="date" type="date" placeholder="" />
+              </label>
+
               <button type="submit">Submit</button>
             </Form>
           )}
