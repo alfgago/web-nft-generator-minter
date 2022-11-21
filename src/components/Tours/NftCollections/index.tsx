@@ -69,11 +69,11 @@ const NftCollections = () => {
           values={nftCollections}
           render={(items: any) => {
             return (
-              <>
+              <div>
                 {items.map((data: any, i: number) => (
                   <CollectionItem key={data.id} item={data} />
                 ))}
-              </>
+              </div>
             )
           }}
         />

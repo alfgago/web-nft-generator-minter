@@ -11,11 +11,23 @@ export const CollectionItemStyles = styled.div`
   .itemWrapper {
     width: 100%;
     max-width: 40rem;
-    padding-bottom: 15px;
+    padding-bottom: ${34 / 16}rem;
+    display: flex;
+    flex-direction: column;
+
+    @media(${DEVICE.laptop}){
+      flex-direction: row;
+      max-width: none;
+    }
   }
 
   .container {
     display: flex;
+    @media ${DEVICE.laptop} {
+      max-width: ${615 / 16}rem;
+      width: 100%;
+    }
+
     .content {
       width 50%;
       background-color: ${COLORS.black};
@@ -70,13 +82,36 @@ export const CollectionItemStyles = styled.div`
     text-align: center;
     justify-content: center;
     background-color: #dedede;
+    gap: 10px;
+
+    @media ${DEVICE.laptop} {
+      width: 100%;
+
+      div:first-of-type {
+        max-width: ${252 / 16}rem;
+      }
+
+      .middle + div {
+        max-width: ${154 / 16}rem;
+      }
+    }
+
     div {
       width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .middle {
-      border-right: 1px solid white;
-      border-left: 1px solid white;
+      border-right: ${1 / 16}rem solid white;
+      border-left: ${1 / 16}rem solid white;
+
+      @media ${DEVICE.laptop} {
+        border-right: ${8 / 16}rem solid white;
+      border-left: ${8 / 16}rem solid white;
+      }
     }
   }
 
