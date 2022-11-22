@@ -32,54 +32,56 @@ const NewDateForm = () => {
   return (
     <NewDateFormStyles className="content">
       <div>
-        <p>Add a new date to the tour </p>
-      </div>
-      <div className="form-container">
-        <Formik
-          initialValues={initlValues}
-          onSubmit={onSubmit}
-          validationSchema={valuesSchema}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <label>
-                <span>Location Name</span>
-                {errors.locationName && touched.locationName ? (
-                  <div className="alert">{errors.locationName}</div>
-                ) : null}
-                <Field name="locationName" type="text" placeholder="" />
-              </label>
+        <div>
+          <p>Add a new date to the tour </p>
+        </div>
+        <div className="form-container">
+          <Formik
+            initialValues={initlValues}
+            onSubmit={onSubmit}
+            validationSchema={valuesSchema}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <label>
+                  <span>Location Name</span>
+                  {errors.locationName && touched.locationName ? (
+                    <div className="alert">{errors.locationName}</div>
+                  ) : null}
+                  <Field name="locationName" type="text" placeholder="" />
+                </label>
 
-              <label>
-                <span>City</span>
-                {errors.city && touched.city ? (
-                  // alert("error")
-                  <div className="alert">{errors.city}</div>
-                ) : null}
-                <Field name="city" type="text" placeholder="" />
-              </label>
+                <label>
+                  <span>City</span>
+                  {errors.city && touched.city ? (
+                    // alert("error")
+                    <div className="alert">{errors.city}</div>
+                  ) : null}
+                  <Field name="city" type="text" placeholder="" />
+                </label>
 
-              <label>
-                <span>State</span>
+                <label>
+                  <span>State</span>
 
-                {errors.state && touched.state ? (
-                  <div className="alert">{errors.state}</div>
-                ) : null}
-                <Field name="state" type="text" placeholder="" />
-              </label>
+                  {errors.state && touched.state ? (
+                    <div className="alert">{errors.state}</div>
+                  ) : null}
+                  <Field name="state" type="text" placeholder="" />
+                </label>
 
-              <label>
-                <span>Date</span>
-                {errors.date && touched.date ? (
-                  <div className="alert">{errors.date}</div>
-                ) : null}
-                <Field name="date" type="date" placeholder="" />
-              </label>
+                <label>
+                  <span>Date</span>
+                  {errors.date && touched.date ? (
+                    <div className="alert">{errors.date}</div>
+                  ) : null}
+                  <Field name="date" type="date" placeholder="" />
+                </label>
 
-              <button type="submit">Submit</button>
-            </Form>
-          )}
-        </Formik>
+                <button type="submit">Submit</button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </NewDateFormStyles>
   )

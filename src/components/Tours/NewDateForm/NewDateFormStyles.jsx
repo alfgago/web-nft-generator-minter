@@ -7,6 +7,15 @@ export const NewDateFormStyles = styled.div`
   flex-direction: column;
   padding-top: ${20 / 16}rem;
 
+  > div {
+    display: flex;
+    width: 100%;
+    overflow-y: auto;
+    height: 72vh;
+    flex-direction: column;
+    align-items: center;
+  }
+
   > div p {
     font-weight: 500;
     @media ${DEVICE.laptop} {
@@ -16,10 +25,6 @@ export const NewDateFormStyles = styled.div`
 
   .form-container {
     width: 100%;
-
-    overflow-y: auto;
-    height: 50vh;
-
     @media ${DEVICE.laptop} {
       overflow-y: initial;
       height: inherit;

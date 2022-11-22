@@ -8,7 +8,15 @@ export const NftCollectionStyles = styled.section`
   padding-bottom: ${40 / 16}rem;
 
   .header-collection {
-    padding-bottom: 20px;
+    padding-bottom: ${20 / 16}rem;
+
+    @media ${DEVICE.laptop} {
+      padding-bottom: 0;
+    }
+
+    button {
+      margin-top: ${15 / 16}rem;
+    }
   }
 
   .sec-tittles {

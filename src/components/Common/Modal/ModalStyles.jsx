@@ -21,11 +21,6 @@ export const ModalStyles = styled.section`
     background-color: transparent;
   }
 
-  @media ${DEVICE.maxlaptop} {
-    height: calc(100% - 5rem);
-    top: 5rem;
-  }
-
   .modal-container {
     position: absolute;
     width: 100%;
@@ -57,6 +52,7 @@ export const ModalStyles = styled.section`
     background-color: ${COLORS.black};
     color: ${COLORS.white};
     padding: 2rem 0;
+    align-items: center;
 
     @media ${DEVICE.laptop} {
       border-top-left-radius: ${8 / 16}rem;
@@ -69,6 +65,11 @@ export const ModalStyles = styled.section`
       background-position: left center;
       padding: 1.5rem 0;
       max-height: 127px;
+    }
+
+    div:first-of-type {
+      width: 85%;
+      text-align: center;
     }
   }
 
@@ -107,11 +108,5 @@ export const ModalStyles = styled.section`
 
   .close-mobile {
     align-self: end;
-    position: absolute;
-    right: 3rem;
-    top: 3rem;
-    @media ${DEVICE.laptop} {
-      top: 2rem;
-    }
   }
 `
