@@ -64,6 +64,19 @@ const NftCollections = () => {
           <h2>Approved NFT Collections</h2>
           <AddButton label="Mint new collection" />
         </div>
+        <div className="sec-tittles">
+          <div>
+            <p>Collection info</p>
+          </div>
+          <div className="sec-info">
+            <p>Guest list type</p>
+            <p>Tour / event</p>
+            <p className="p-3">
+              Winners per event
+              <span> (Lottery only, 1 winner = 2 spots on the guest list)</span>
+            </p>
+          </div>
+        </div>
         <ItemPagination
           itemsPerPage={3}
           values={nftCollections}

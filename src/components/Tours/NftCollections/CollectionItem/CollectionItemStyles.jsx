@@ -102,6 +102,10 @@ export const CollectionItemStyles = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @media ${DEVICE.laptop} {
+        flex: 1;
+      }
     }
 
     .middle {
@@ -110,7 +114,8 @@ export const CollectionItemStyles = styled.div`
 
       @media ${DEVICE.laptop} {
         border-right: ${8 / 16}rem solid white;
-      border-left: ${8 / 16}rem solid white;
+        border-left: ${8 / 16}rem solid white;
+        width: ${307 / 16}rem;
       }
     }
   }
