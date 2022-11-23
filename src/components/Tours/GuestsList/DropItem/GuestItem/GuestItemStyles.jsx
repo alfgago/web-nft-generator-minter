@@ -1,4 +1,4 @@
-import { COLORS } from "@/styles/variables"
+import { COLORS, DEVICE } from "@/styles/variables"
 import styled from "styled-components"
 
 export const GuestItemStyles = styled.div`
@@ -8,6 +8,13 @@ export const GuestItemStyles = styled.div`
 
   .container {
     width: 75%;
+
+    @media ${DEVICE.laptop} {
+      width: 100%;
+      display: flex;
+      text-align: center;
+      gap: ${15 / 16}rem;
+    }
   }
 
   .container div {
@@ -34,5 +41,9 @@ export const GuestItemStyles = styled.div`
     object-fit: cover;
     width: 100%;
     max-width: ${143 / 16}rem;
+
+    @media ${DEVICE.laptop} {
+      max-width: ${34.76 / 16}rem;
+    }
   }
 `
