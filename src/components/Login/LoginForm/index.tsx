@@ -37,6 +37,7 @@ const LoginForm = ({ setIsOpen }: any) => {
       email: values.email,
       password: values.password,
     })
+
     if (result?.ok) {
       setIsOpen(false)
       setIncorrect(false)

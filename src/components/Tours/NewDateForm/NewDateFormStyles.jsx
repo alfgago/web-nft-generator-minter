@@ -14,6 +14,9 @@ export const NewDateFormStyles = styled.div`
     height: 72vh;
     flex-direction: column;
     align-items: center;
+    @media ${DEVICE.laptop} {
+      height: initial;
+    }
   }
 
   > div p {
