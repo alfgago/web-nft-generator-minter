@@ -39,7 +39,7 @@ export const DrawRow = styled.div`
     display: flex;
     font-weight: 400;
     justify-content: center;
-    font-weight: 700;
+    font-weight: 600;
     font-size: ${33 / 16}rem;
     background: transparent;
 
@@ -53,7 +53,7 @@ export const DrawRow = styled.div`
       flex-direction: column;
       justify-content: space-between;
       h3 {
-        font-weight: 700;
+        font-weight: 600;
         font-size: ${33 / 16}rem;
         padding: 0;
         margin: 0;
@@ -61,15 +61,15 @@ export const DrawRow = styled.div`
       p {
         padding: 0;
         margin: 0;
-        font-weight: 700;
+        font-weight: 600;
         font-size: ${24 / 16}rem;
         white-space: nowrap;
       }
     }
   }
   .column2 {
-    font-weight: 700;
-    font-weight: 700;
+    font-weight: 600;
+    font-weight: 600;
     font-size: ${32 / 16}rem;
     justify-content: space-between;
     margin-top: ${40 / 16}rem;
@@ -105,7 +105,7 @@ export const DrawRow = styled.div`
       padding: 0;
       margin: 0;
       font-size: ${33 / 16}rem;
-      font-weight: 700;
+      font-weight: 600;
     }
     button {
       width: 100%;

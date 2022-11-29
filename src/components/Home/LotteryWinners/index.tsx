@@ -7,11 +7,11 @@ const Artist = () => {
         <h2 className="title">Recent Lottery Winners</h2>
         <div className="rows">
           <DropRow>
-            <div className="date">June 9</div>
-            <div className="collection">
+            <div className="image">
               <img src="/assets/img/drop-pic-1.png" alt="dropPic" />
-              <div className="name">Steve Aoki</div>
             </div>
+            <div className="date">June 9th</div>
+            <div className="name">Steve Aoki</div>
             <div className="place">Warfield, San Fran, CA</div>
             <div className="winner">
               <small>Winner:</small>
@@ -22,11 +22,11 @@ const Artist = () => {
             </div>
           </DropRow>
           <DropRow className="pink">
-            <div className="date">June 9</div>
-            <div className="collection">
+            <div className="image">
               <img src="/assets/img/drop-pic-2.png" alt="dropPic" />
-              <div className="name">Lottery 2</div>
             </div>
+            <div className="date">June 9th</div>
+            <div className="name">Lottery 2</div>
             <div className="place">Warfield, San Fran, CA</div>
             <div className="winner">
               <small>Winner:</small>
@@ -37,11 +37,11 @@ const Artist = () => {
             </div>
           </DropRow>
           <DropRow>
-            <div className="date">June 9</div>
-            <div className="collection">
+            <div className="image">
               <img src="/assets/img/drop-pic-1.png" alt="dropPic" />
-              <div className="name">Lottery 3</div>
             </div>
+            <div className="date">June 9th</div>
+            <div className="name">Steve Aoki</div>
             <div className="place">Warfield, San Fran, CA</div>
             <div className="winner">
               <small>Winner:</small>

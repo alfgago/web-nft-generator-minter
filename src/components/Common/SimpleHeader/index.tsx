@@ -1,3 +1,5 @@
+import GradientBackground from "../GradientBackground"
+
 import { SimpleHeaderStyles } from "./SimpleHeaderStyles"
 
 const SimpleHeader = ({
@@ -5,6 +7,7 @@ const SimpleHeader = ({
   textAlign = "center",
   backgroundColor = "#000",
   textColor = "#fff",
+  gradient = true,
 }: any) => {
   return (
     <SimpleHeaderStyles
@@ -12,6 +15,7 @@ const SimpleHeader = ({
       backgroundColor={backgroundColor}
       textColor={textColor}
     >
+      <GradientBackground />
       <div className="content">
         <h1>{title}</h1>
       </div>

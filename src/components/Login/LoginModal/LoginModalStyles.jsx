@@ -101,7 +101,7 @@ export const LoginModalStyles = styled.section`
   .title {
     padding: 0 ${40 / 16}rem;
     margin: 0;
-    font-weight: 700;
+    font-weight: 600;
     font-size: ${40 / 16}rem;
     line-height: ${44 / 16}rem;
   }

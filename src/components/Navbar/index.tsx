@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
+import { useWindowSize } from "usehooks-ts"
 
 import Login from "../Login"
 
@@ -8,6 +9,7 @@ import { NavbarStyles } from "./NavbarStyles"
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const { width } = useWindowSize()
 
   // change nav color when scrolling
   const [color, setColor] = useState(false)
@@ -26,7 +28,7 @@ const Navbar = () => {
   const [openLogin, setIsOpen] = useState(false)
 
   return (
-    <NavbarStyles hasColor={color}>
+    <NavbarStyles hasColor={color} id="navbar">
       <div className={`content ${showMenu ? "is-active" : ""}`}>
         <Link href="/">
           <a className="logo">
@@ -87,16 +89,41 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            <li className="li-account">
-              <a href="#account" onClick={() => setIsOpen(true)}>
-                <ReactSVG src="/assets/vectors/account.svg" />
-              </a>
-            </li>
-            <li className="li-wallet">
-              <a href="#">
-                <ReactSVG src="/assets/vectors/wallet.svg" />
-              </a>
-            </li>
+            {width > 1080 && (
+              <li className="li-account">
+                <a href="#account" onClick={() => setIsOpen(true)}>
+                  <ReactSVG src="/assets/vectors/account.svg" />
+                </a>
+              </li>
+            )}
+            {width > 1080 && (
+              <li className="li-wallet">
+                <a href="#">
+                  <ReactSVG src="/assets/vectors/wallet.svg" />
+                </a>
+              </li>
+            )}
+            {width < 1080 && (
+              <li className="has-submenu">
+                <a href="#">Account</a>
+                <div className="submenu account-submenu">
+                  <ul>
+                    <li>
+                      <a href="#account" onClick={() => setIsOpen(true)}>
+                        <ReactSVG src="/assets/vectors/account.svg" />
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <ReactSVG src="/assets/vectors/wallet.svg" />
+                        <span>Connect your wallet</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            )}
           </ul>
         </nav>
         <button
@@ -113,27 +140,6 @@ const Navbar = () => {
             <span className="hamburger-inner" />
           </span>
         </button>
-
-        <div className="mobile-nav">
-          <ul>
-            <li className="li-account">
-              <a
-                href="#account"
-                onClick={() => {
-                  setShowMenu(false)
-                  setIsOpen(!openLogin)
-                }}
-              >
-                <ReactSVG src="/assets/vectors/account.svg" />
-              </a>
-            </li>
-            <li className="li-wallet">
-              <a href="#">
-                <ReactSVG src="/assets/vectors/wallet.svg" />
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
       {openLogin && <Login setIsOpen={setIsOpen} />}
     </NavbarStyles>

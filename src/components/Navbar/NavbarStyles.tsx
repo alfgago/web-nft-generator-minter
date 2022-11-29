@@ -30,7 +30,7 @@ export const NavbarStyles = styled.section<Props>`
       position: relative;
       display: inline-block;
       margin-right: ${80 / 16}rem;
-      z-index: 2000;
+      z-index: 9000;
     }
 
     .nav {
@@ -46,7 +46,7 @@ export const NavbarStyles = styled.section<Props>`
       visibility: hidden;
       opacity: 0;
       z-index: 2500;
-      transition: 0.5s ease opacity;
+      transition: 0.5s ease all;
 
       @media ${DEVICE.laptop} {
         position: relative;
@@ -82,7 +82,7 @@ export const NavbarStyles = styled.section<Props>`
         top: 100%;
         visibility: hidden;
         opacity: 0;
-        transition: 0.5s ease opacity;
+        transition: 0.5s ease all;
         padding-top: 1rem;
         ul {
           display: block;
@@ -163,34 +163,10 @@ export const NavbarStyles = styled.section<Props>`
       }
     }
 
-    .mobile-nav {
-      display: none;
-    }
     @media ${DEVICE.maxlaptop} {
-      .mobile-nav {
-        display: inline-block;
-        position: absolute;
-        z-index: 2500;
-        li.li-wallet,
-        li.li-account {
-          display: block;
-          position: fixed !important;
-          top: 0;
-          right: 8rem;
-          margin: 0;
-          a {
-            display: block;
-            padding: 0.75rem 0 !important;
-            svg {
-              width: 3.5rem;
-              height: 3.5rem;
-            }
-          }
-        }
-
-        li.li-account {
-          right: 13rem;
-        }
+      .hamburger {
+        transform: scale(0.8);
+        padding-right: 0;
       }
 
       li.li-wallet,
@@ -198,43 +174,65 @@ export const NavbarStyles = styled.section<Props>`
         display: none;
       }
 
-      &.is-active {
-        .nav {
-          visibility: visible;
-          opacity: 1;
-          padding-top: 8rem;
+      .nav {
+        padding-top: 8rem;
+        pointer-events: none;
+        ul {
+          width: 100%;
+          display: block;
+          li {
+            a {
+              display: block;
+              padding: 1rem;
+              text-align: center;
+              color: #fff;
+              font-size: 1.5rem;
+              font-weight: bold;
+              background: none !important;
+            }
 
-          ul {
-            width: 100%;
-            display: block;
-            li {
-              a {
-                display: block;
-                padding: 1rem;
-                text-align: center;
-                color: #fff;
-                font-size: 1.2rem;
-                font-weight: bold;
-              }
-
-              .submenu {
-                display: block;
-                position: relative;
-                visibility: visible;
-                opacity: 1;
-                padding: 0;
-                ul {
+            .submenu {
+              display: block;
+              position: relative;
+              visibility: visible;
+              opacity: 1;
+              padding: 0;
+              ul {
+                background: none;
+                a {
+                  display: block;
                   background: none;
-                  a {
-                    background: none;
-                    border: 0;
-                    text-transform: none;
-                    font-weight: 300;
+                  border: 0;
+                  text-transform: none;
+                  font-weight: 300;
+                  font-size: 1.3rem;
+                }
+              }
+              &.account-submenu {
+                a {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;
+                  svg {
+                    height: 25px;
+                  }
+                  > span {
+                    margin-top: -3px;
+                    display: inline-block;
                   }
                 }
               }
             }
           }
+        }
+      }
+
+      &.is-active {
+        .nav {
+          visibility: visible;
+          opacity: 1;
+          pointer-events: all;
         }
       }
     }

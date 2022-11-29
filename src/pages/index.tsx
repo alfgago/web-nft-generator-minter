@@ -1,23 +1,32 @@
 import Head from "next/head"
+import axios from "axios"
 
 import Home from "@/components/Home"
 
-const Index = () => {
+const Index = ({ page }: any) => {
   return (
     <>
       <Head>
         <title>Home - PlusOne</title>
       </Head>
-      <Home />
+      <Home data={page.data} />
     </>
   )
 }
 
 export const getStaticProps = async () => {
-  // const { data } = await axios.get(`http://localhost:3000/api/timeline`)
+  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const token = process.env.API_TOKEN
+
+  const postResponse = await axios.get(`${apiURL}/api/homepage?populate=*`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
   return {
     props: {
-      data: false,
+      page: postResponse.data,
     },
     revalidate: 30,
   }

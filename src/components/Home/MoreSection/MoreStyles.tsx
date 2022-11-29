@@ -5,82 +5,103 @@ import { COLORS, DEVICE } from "@/styles/variables"
 export const MoreStyles = styled.div`
   position: relative;
   width: 100%;
+  background: #fff;
   color: ${COLORS.black};
-  overflow: hidden;
   z-index: 500;
 
   .content {
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    align-items: flex-start;
+    @media ${DEVICE.laptop} {
+      display: block;
+    }
 
     h2 {
-      font-size: ${64 / 16}rem;
       max-width: ${940 / 16}rem;
-      margin-bottom: ${50 / 16}rem;
+      margin-bottom: 2rem;
+      order: 1;
+      @media ${DEVICE.laptop} {
+        margin-bottom: 3rem;
+      }
     }
 
     .description {
-      font-size: ${36 / 16}rem;
-      max-width: ${572 / 16}rem;
-      margin-left: auto;
-      margin-top: -3rem;
+      font-size: 16px;
+      margin: auto;
+      order: 2;
+      margin-bottom: 2rem;
+      @media ${DEVICE.laptop} {
+        max-width: ${572 / 16}rem;
+        font-size: ${36 / 16}rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        margin-left: 13rem;
+      }
+      @media ${DEVICE.desktop} {
+        margin-left: auto;
+      }
+    }
+
+    .btn {
+      display: inline-block;
+      order: 3;
     }
   }
 
-  .top-triangle {
-    position: relative;
-    width: 100%;
-    height: 4.5rem;
-    object-fit: cover;
-  }
-
+  &:after,
   &:before {
     position: absolute;
     content: "";
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
 
+  .top-triangle {
+    display: none;
+  }
+
   &.useBorder {
-    margin-top: -4.5rem;
+    .top-triangle {
+      display: block;
+      position: absolute;
+      width: 100%;
+      object-fit: cover;
+      height: 4.5rem;
+      top: -4.5rem;
+    }
+
+    &:before {
+      top: -4.5rem;
+      height: calc(100% + 4.5rem);
+    }
 
     section {
-      padding-top: 2rem;
+      padding-top: 0;
+      @media ${DEVICE.laptop} {
+        padding-top: 3rem;
+      }
     }
   }
 
-  .star {
-    position: absolute;
-    top: 70%;
-    left: 30%;
-    width: ${56 / 16}rem;
-    z-index: 3;
-  }
-
-  .square {
-    position: absolute;
-    top: ${60 / 16}rem;
-    left: ${60 / 16}rem;
-    width: ${27 / 16}rem;
-    z-index: 3;
-  }
-
-  .square-2 {
-    position: absolute;
-    top: ${70 / 16}rem;
-    left: 70%;
-    width: ${27 / 16}rem;
-  }
-
-  .square-3 {
-    position: absolute;
-    top: 90%;
-    left: 80%;
-    width: ${27 / 16}rem;
-  }
-
   &.blue {
+    &:after {
+      height: 50%;
+      background-image: url("/assets/img/more-blue-bg.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: right top;
+      z-index: 1;
+      @media ${DEVICE.laptop} {
+        height: 100%;
+        left: auto;
+        right: 4rem;
+      }
+    }
+
     &:before {
       background: linear-gradient(
         149deg,
@@ -91,40 +112,26 @@ export const MoreStyles = styled.div`
     }
   }
 
-  &.pink {
+  &.purple {
+    &:after {
+      height: 50%;
+      background-image: url("/assets/img/more-pink-bg.svg");
+      background-size: auto 80%;
+      background-repeat: no-repeat;
+      background-position: right center;
+      z-index: 1;
+      @media ${DEVICE.laptop} {
+        height: 100%;
+        left: auto;
+        right: 4rem;
+      }
+    }
     &:before {
       background: linear-gradient(
         -80.62deg,
         #f9e9ff 8.41%,
         rgba(255, 255, 255, 0.9) 88.16%
       );
-    }
-
-    .star {
-      position: absolute;
-      top: 60%;
-      left: 45%;
-      width: ${56 / 16}rem;
-      z-index: 3;
-    }
-
-    .square {
-      position: absolute;
-      top: ${70 / 16}rem;
-      left: 35%
-      width: ${27 / 16}rem;
-      z-index: 3;
-    }
-
-    .square-2 {
-      position: absolute;
-      top: ${60 / 16}rem;
-      left: 75%;
-      width: ${27 / 16}rem;
-    }
-
-    .square-3 {
-      display: none;
     }
   }
 

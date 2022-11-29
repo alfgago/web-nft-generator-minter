@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import { COLORS } from "@/styles/variables"
+import { DEVICE, COLORS } from "@/styles/variables"
 
 export const FooterStyles = styled.footer`
   position: relative;
@@ -21,11 +21,31 @@ export const FooterStyles = styled.footer`
 
   .footer {
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    max-width: 100vw;
-    margin: 0 auto;
-    padding: ${32 / 16}rem 2.6rem;
+    padding-top: ${100 / 16}rem;
+    padding-bottom: 0;
+    @media ${DEVICE.laptop} {
+      padding-top: ${32 / 16}rem;
+    }
+
+    .content {
+      background: #0c0c0c;
+      max-width: 100vw;
+      margin: 0 auto;
+      padding: ${32 / 16}rem 2.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      @media ${DEVICE.laptop} {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    img {
+      object-fit: contain;
+      margin: 0;
+    }
 
     .waterMarkLogo {
       position: relative;
@@ -58,7 +78,11 @@ export const FooterNav = styled.div`
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
+    margin-top: 3rem;
+    @media ${DEVICE.laptop} {
+      display: flex;
+      margin: 0;
+    }
     > li {
       font-weight: 600;
       font-size: ${15 / 16}rem;
