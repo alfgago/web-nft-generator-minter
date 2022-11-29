@@ -14,7 +14,7 @@ const TypeList = ({ types, selected, onSelect }: any) => {
               className={`type-item ${index == selected ? "active" : ""}`}
               onClick={() => onSelect(index)}
             >
-              <CommonPill className="clickable small">{item.artist}</CommonPill>
+              <CommonPill className="clickable small">{item.name}</CommonPill>
             </li>
           ))}
       </ul>

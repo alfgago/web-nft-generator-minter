@@ -34,6 +34,8 @@ export const CardPassStyles = styled.div`
     @media ${DEVICE.laptop} {
       width: ${250 / 16}rem;
       height: ${250 / 16}rem;
+      min-width: ${250 / 16}rem;
+      min-height: ${250 / 16}rem;
     }
   }
 
