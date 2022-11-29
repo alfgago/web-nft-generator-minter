@@ -16,24 +16,17 @@ export const authOptions: NextAuthOptions = {
         }
 
         // api validation request
-        try {
-          const data = await signInRequest({
-            email: credVal.email,
-            password: credVal.password,
-          })
-          const user = {
-            ...data.data,
-            access_token: data.jwt,
-          }
+        const data = await signInRequest({
+          email: credVal.email,
+          password: credVal.password,
+        })
 
-          if (data) {
-            return data
-          }
-
-          return null
-        } catch (error) {
-          return null
+        const user = {
+          ...data.data,
+          access_token: data.jwt,
         }
+
+        return { ...data }
       },
     }),
   ],
@@ -46,16 +39,13 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user, account }: any) => {
       if (user) {
         token.jwt = user.jwt
-        token.id = user.id
-        token.name = user.username
-        token.email = user.email
-        token.token = user.token
+        token.id = user.user.id
+        token.email = user.user.email
       }
       return Promise.resolve(token)
     },
     /* session callback is called whenever a session for that particular user is checked*/
     session: async ({ session, token }: any) => {
-      // console.log(token)
       session.jwt = token.jwt
       session.id = token.id
       return Promise.resolve(session)

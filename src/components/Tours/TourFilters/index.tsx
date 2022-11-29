@@ -63,15 +63,16 @@ function TourFilters() {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
 
   const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
+  // console.log(session?.user)
 
   useEffect(() => {
-    if (session) {
+    if (session?.user) {
+      console.log("entra")
       fetchData(session)
     }
   }, [])
 
   const fetchData = async (session: any) => {
-    // console.log(session.jwt)
     const response = await axios.get(`${apiURL}api/artists`, {
       headers: {
         Authorization: `Bearer ${session.jwt}`,
