@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import CardPass from "@/components/Common/CardPass"
 import TypeList from "@/components/Common/TypeList"
 
