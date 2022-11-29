@@ -65,21 +65,22 @@ function TourFilters() {
   const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
 
   useEffect(() => {
-    fetchData(session?.jwt)
+    if (session) {
+      fetchData(session)
+    }
   }, [])
 
-  const fetchData = async (token: any) => {
-    console.log(token)
+  const fetchData = async (session: any) => {
+    // console.log(session.jwt)
     const response = await axios.get(`${apiURL}api/artists`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${session.jwt}`,
       },
     })
 
-    setTourData(response)
+    setTourData(response.data.data)
+    console.log(tourData)
   }
-
-  console.log(tourData)
 
   const [tourDates, setTourDates] = useState(datesList)
   const [filter, setFilter] = useState("")
