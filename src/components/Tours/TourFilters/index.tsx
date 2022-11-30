@@ -62,11 +62,10 @@ function TourFilters() {
 
   const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
   const { data: session } = useSession()
-  const [sessionData, setSessionData] = useState(session)
 
+  // need to be solved, the session on first load is undefined
   useEffect(() => {
     if (session) {
-      console.log("hello1")
       fetchData(session)
     }
   }, [session])
@@ -79,7 +78,7 @@ function TourFilters() {
     })
 
     setTourData(response.data)
-    console.log(tourData)
+    // console.log(tourData)
   }
 
   const [tourDates, setTourDates] = useState(datesList)
@@ -109,5 +108,15 @@ function TourFilters() {
     </TourFilterStyles>
   )
 }
+
+// export async function getServerSideProps(ctx: any) {
+//   const data = await getSession(ctx)
+//   console.log(data)
+//   return {
+//     props: {
+//       sessionData: await getSession(ctx),
+//     },
+//   }
+// }
 
 export default TourFilters
