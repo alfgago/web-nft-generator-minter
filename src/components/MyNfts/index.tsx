@@ -3,6 +3,7 @@ import React from "react"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import { MyNtfStyles } from "./MyNftStyles"
+import ShowNfts from "./ShowNfts"
 
 const MyNfts = () => {
   return (
@@ -13,6 +14,7 @@ const MyNfts = () => {
           <a href="#"> Update Profile</a>
         </div>
       </SimpleHeader>
+      <ShowNfts />
     </MyNtfStyles>
   )
 }
