@@ -7,17 +7,37 @@ export const CommonPill = styled.span`
   display: inline-block;
   text-align: center;
   color: ${COLORS.black};
-  border: 1px solid #454545;
+  border: 2px solid #454545;
   border-radius: 50px;
   transition: 0.5s ease all;
   cursor: pointer;
-  font-size: ${24 / 16}rem;
-  line-height: ${26 / 16}rem;
-  padding: ${10 / 16}rem ${30 / 16}rem;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 10px 15px;
   font-weight: 500;
+  white-space: nowrap;
+
+  &.small {
+    font-size: 13px;
+    line-height: 16px;
+    padding: 8px 12px;
+  }
+
+  @media ${DEVICE.laptop} {
+    font-size: ${24 / 16}rem;
+    line-height: ${26 / 16}rem;
+    padding: ${10 / 16}rem ${30 / 16}rem;
+
+    &.small {
+      font-size: ${18 / 16}rem;
+      line-height: ${20 / 16}rem;
+      padding: ${7 / 16}rem ${15 / 16}rem;
+    }
+  }
 
   &.fill {
     background-color: #373737;
+    border: 2px solid #373737;
     color: ${COLORS.white};
   }
 
@@ -25,101 +45,56 @@ export const CommonPill = styled.span`
     background-color: ${COLORS.black};
     color: ${COLORS.white};
   }
-`
 
-export const CardPassType = styled.div`
-  display: flex;
-  height: ${250 / 16}rem;
-  background: ${COLORS.white};
-  box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
+  &.purple {
+    color: #fff;
+    background: #910ae2;
+    border: 2px solid #910ae2;
+    &:hover {
+      color: #910ae2;
+      background: #fff;
+    }
+  }
 
-  img {
-    width: ${250 / 16}rem;
-    height: ${250 / 16}rem;
-    object-fit: cover;
+  &.blue {
+    color: #fff;
+    background: #1415ff;
+    border: 2px solid #1415ff;
+    &:hover {
+      color: #1415ff;
+      background: #fff;
+    }
   }
-`
 
-export const CardDescription = styled.div`
-  padding: ${25 / 16}rem ${20 / 16}rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: ${300 / 16}rem;
-  h3 {
-    font-size: ${28 / 16}rem;
-    margin: 0;
-    padding: 0;
+  &.lightblue {
+    background: #00ecff;
+    border: 2px solid #00ecff;
+    &:hover {
+      color: #00ecff;
+      background: #fff;
+    }
   }
-  .small-title {
-    font-size: ${25 / 16}rem;
-    font-weight: bold;
+
+  &.yellow {
+    color: #000;
+    background: #e0f368;
+    border: 2px solid #e0f368;
+    &:hover {
+      background: #fff;
+    }
   }
-  .descriptor {
-    font-size: ${18 / 16}rem;
-    margin: 0;
-    padding: 0;
-    > div {
-      margin-bottom: 0.5rem;
-      padding: 0;
+
+  &.pink {
+    color: #fff;
+    background: #fb00fb;
+    border: 2px solid #fb00fb;
+    &:hover {
+      color: #fb00fb;
+      background: transparent;
     }
   }
 `
 
-export const CardActions = styled.div`
-  margin-left: auto;
-  display: flex;
-  gap: 3px;
-
-  .btn {
-    border: none;
-    font-size: 1rem;
-    line-height: ${34 / 16}rem;
-    padding: 0 ${20 / 16}rem;
-    color: ${COLORS.white};
-    min-width: 0;
-  }
-  .variant {
-    background: #858585;
-  }
-`
-
-export const PassTypeList = styled.div`
-  width: ${427 / 16}rem;
-  color: ${COLORS.black};
-  font-size: ${16 / 16}rem;
-  padding: 0;
-
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    li {
-      border-radius: 50px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.5s ease all;
-      &.active {
-        color: ${COLORS.white};
-        padding: ${14 / 16}rem ${25 / 16}rem;
-        background: #373737;
-        border: 1px solid #454545;
-      }
-      &:not(.active) {
-        padding: ${14 / 16}rem ${25 / 16}rem;
-        background: transparent;
-        border: ${1 / 16}rem solid #454545;
-      }
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-`
 export const AddButtonStyle = styled.button`
   display: flex;
   background-color: #777777;

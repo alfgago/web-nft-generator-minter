@@ -69,7 +69,7 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
   const [imageUrl, setImageUrl] = useState("")
   const [shapes, setShapes] = useState(initialShapes)
   const [gridSize, setGridSize] = useState(3)
-  const [availableShapes, setAvailableShapes] = useState(["star", "roundStar"])
+  const [availableShapes, setAvailableShapes] = useState(["star", "roundstar"])
 
   const doNext = () => {
     sessionStorage.setItem(

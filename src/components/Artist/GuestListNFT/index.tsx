@@ -1,50 +1,76 @@
-import Link from "next/link"
+import { useState } from "react"
 
-import {
-  CardActions,
-  CardDescription,
-  CardPassType,
-  PassTypeList,
-} from "@/components/Common/CommonStyles"
+import CardPass from "@/components/Common/CardPass"
+import TypeList from "@/components/Common/TypeList"
 
 import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
 const Artist = () => {
+  const [selectedPass, setSelectedPass] = useState(0)
+
+  const passes = [
+    {
+      artist: "Steve Aoki",
+      title: "Purple Man",
+      collectionImage: "/assets/img/demo-nft-pic.png",
+      artistImage: "/assets/img/featured-2.jpg",
+      venue: "Warfield",
+      city: "San Fran, CA",
+      date: "9th June 2023",
+      type: "lottery",
+    },
+    {
+      artist: "Snoop Dog",
+      title: "Sample Data 2",
+      collectionImage: "/assets/img/demo-nft-pic.png",
+      artistImage: "/assets/img/featured-2.jpg",
+      venue: "Warfield",
+      city: "San Fran, CA",
+      date: "6th December 2023",
+      type: "lottery",
+    },
+    {
+      artist: "Ariana Grande",
+      title: "Sample Data 3",
+      collectionImage: "/assets/img/demo-nft-pic.png",
+      artistImage: "/assets/img/featured-2.jpg",
+      venue: "National Stadium",
+      city: "San Jose, Costa Rica",
+      date: "11th Jan 2023",
+      type: "lottery",
+    },
+    {
+      artist: "Other artist",
+      title: "Sample Data 4",
+      collectionImage: "/assets/img/demo-nft-pic.png",
+      artistImage: "/assets/img/featured-2.jpg",
+      venue: "National Stadium",
+      city: "San Jose, Costa Rica",
+      date: "19th Feb 2023",
+      type: "lottery",
+    },
+  ]
+
+  const types = [
+    { name: "Tour Pass" },
+    { name: "Single Event" },
+    { name: "Lottery" },
+    { name: "Lifetime" },
+  ]
+
   return (
     <GuestListNFTStyles>
       <div className="content">
-        <div>
-          <CardPassType>
-            <img src="/assets/img/demo-nft-pic.png" alt="nftPic" />
-            <CardDescription>
-              <h3>Purple Man</h3>
-              <div className="descriptor">
-                <div>Tour Pass</div>
-                <div>Tour: Summer east Coast</div>
-                <div>Floor Price:#432</div>
-              </div>
-              <CardActions>
-                <Link href="/">
-                  <a className="btn variant">Buy now</a>
-                </Link>
-                <Link href="/">
-                  <a className="btn">Place Bid</a>
-                </Link>
-              </CardActions>
-            </CardDescription>
-          </CardPassType>
+        <div className="column1">
+          <CardPass pass={passes[selectedPass]} />
         </div>
         <div className="column2">
           <h2>Guest list NFTs</h2>
-          <PassTypeList>
-            <p>Pass type:</p>
-            <ul>
-              <li className="active">Tour Pass</li>
-              <li>Single Event</li>
-              <li>Lottery</li>
-              <li>Lifetime</li>
-            </ul>
-          </PassTypeList>
+          <TypeList
+            types={types}
+            onSelect={setSelectedPass}
+            selected={selectedPass}
+          />
         </div>
       </div>
     </GuestListNFTStyles>

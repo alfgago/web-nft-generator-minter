@@ -1,4 +1,4 @@
-import Login from "../Login"
+import dynamic from "next/dynamic"
 
 import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
@@ -7,7 +7,26 @@ import MoreSection from "./MoreSection"
 import UpcomingDrawings from "./UpcomingDrawings"
 import UpcomingDrops from "./UpcomingDrops"
 
+const ArtistList = dynamic(() => import("./ArtistList"), {
+  suspense: true,
+})
+
 const trendingArtists = [
+  {
+    name: "Kings of Leon",
+    slug: "kings-of-leon",
+    image: "/assets/img/featured-1.jpg",
+  },
+  {
+    name: "Steve Aoki",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Snoop Dogg",
+    slug: "kings-of-leon",
+    image: "/assets/img/featured-3.jpg",
+  },
   {
     name: "Kings of Leon",
     slug: "kings-of-leon",
@@ -41,14 +60,20 @@ const how2 = {
     "Lottery NFTs give access to win a guest list pass for your favorite artists with drawings held 30 days before every show!",
   buttonTitle: "Learn more",
   buttonLink: "/",
-  type: "pink",
+  type: "purple",
   useBorderTop: false,
 }
 
-const Home = () => {
+const Home = ({ data }: any) => {
+  const attributes = data.attributes
+
   return (
     <HomeStyles>
-      <HomeHero trendingArtists={trendingArtists} />
+      <HomeHero
+        title={attributes.title}
+        copy={attributes.description}
+        image={attributes.banner}
+      />
       <MoreSection
         title={how1.title}
         description={how1.description}
@@ -57,6 +82,7 @@ const Home = () => {
         type={how1.type}
         useBorderTop={how1.useBorderTop}
       />
+      <ArtistList artists={trendingArtists} />
       <UpcomingDrawings />
       <MoreSection
         title={how2.title}

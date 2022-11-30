@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import { MoreStyles } from "./MoreStyles"
 
 const MoreSection = ({
@@ -20,29 +22,12 @@ const MoreSection = ({
         />
       )}
       <section>
-        <div className="background-gradient">
-          <img src="/assets/img/star.svg" alt="gradient" className={"star"} />
-          <img
-            src="/assets/img/square.svg"
-            alt="gradient"
-            className={"square square-1"}
-          />
-          <img
-            src="/assets/img/square.svg"
-            alt="gradient"
-            className={"square square-2"}
-          />
-          <img
-            src="/assets/img/square.svg"
-            alt="gradient"
-            className={"square square-3"}
-          />
-        </div>
-
         <div className="content">
           <h2>{title}</h2>
           <Link href={buttonLink}>
-            <a className="btn">{buttonTitle}</a>
+            <CommonPill className={"btn clickable " + type}>
+              {buttonTitle}
+            </CommonPill>
           </Link>
           <div className="description">{description}</div>
         </div>

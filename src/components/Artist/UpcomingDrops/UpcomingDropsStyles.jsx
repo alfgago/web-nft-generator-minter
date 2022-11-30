@@ -36,7 +36,7 @@ export const DropRow = styled.div`
   }
   .date {
     display: flex;
-    font-weight: 700;
+    font-weight: 600;
     align-items: center;
     justify-content: center;
     width: ${155 / 16}rem;
@@ -63,7 +63,7 @@ export const DropRow = styled.div`
     margin-left: ${10 / 16}rem;
     background: #f2f2f2;
     font-size: ${19 / 16}rem;
-    font-weight: 700;
+    font-weight: 600;
   }
   .actions {
     display: flex;

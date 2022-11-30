@@ -6,11 +6,15 @@ body {
 
   background-color: #fff;
   font-size: 16px;
-  font-size: max(16px, 0.75vw);
+  font-size: max(14px, 0.75vw);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   width: 100%;
+
+  @media screen and (max-width: 1300px) {
+    font-size: 12px;
+  }
 }
 
 section {
@@ -20,13 +24,21 @@ section {
     position: relative;
     margin: auto;
     width: 100%;
-    max-width: 96rem;
-    padding: 0 1rem;
+    max-width: 90rem;
+    padding: 0 2rem;
 
     &.full {
       margin: auto;
       width: 100%;
       max-width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1080px) {
+    max-width: 100%;
+    padding: 7rem 0;
+    .content {
+      padding: 0 4rem;
     }
   }
 }
@@ -41,7 +53,6 @@ section {
   padding: 0 2rem;
   border-radius: 50px;
   font-weight: 600;
-  min-width: 12rem;
   text-align: center;
   transition: 0.5s ease all;
 }
@@ -113,14 +124,9 @@ input[type="reset"] {
   outline: inherit;
 }
 
-h1 {
-  font-size: 3.25rem;
-  margin: 0;
-  font-family: "Trap", "Inter", Helvetica Neue, sans-serif;
-}
-
+h1,
 h2 {
-  font-size: 3.25rem;
+  font-size: 4rem;
   margin: 0;
   font-family: "Trap", "Inter", Helvetica Neue, sans-serif;
 }
@@ -154,17 +160,26 @@ input::placeholder {
   color: rgba(255, 255, 255, 0.9);
 }
 
-@media screen and (min-width: 1080px) {
-  section {
-    max-width: 100%;
-    padding: 6rem 0;
-    .content {
-      padding: 0 3rem;
-    }
+@media screen and (max-width: 1080px) {
+  h1,
+  h2 {
+    font-size: 36px;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 22px;
+  }
+
+  html,
+  body {
+    font-size: 14px;
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 768px) {
   h1,
   h2 {
     font-size: 28px;
@@ -174,11 +189,15 @@ input::placeholder {
   h4,
   h5,
   h6 {
-    font-size: 15px;
+    font-size: 22px;
   }
 
   html,
   body {
     font-size: 14px;
   }
+}
+
+.scrollmagic-pin-spacer {
+  padding: 0 !important;
 }

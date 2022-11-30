@@ -3,10 +3,28 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const LotteryWinnersStyles = styled.section`
+  position: relative;
   background: ${COLORS.white};
 
+  background: linear-gradient(-256.8deg, #c1dce4 15.02%, #ffffff 55.64%);
+
+  &:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("/assets/img/watermark3.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top;
+    pointer-events: none;
+    opacity: 1;
+  }
+
   h2 {
-    font-size: ${64 / 16}rem;
     max-width: ${940 / 16}rem;
     margin-bottom: ${50 / 16}rem;
   }
@@ -36,25 +54,30 @@ export const DropRow = styled.div`
     color: ${COLORS.white};
     padding: ${20 / 16}rem;
   }
+
   .date {
     display: flex;
-    font-weight: 700;
+    font-weight: 600;
     align-items: center;
     justify-content: center;
     padding: ${20 / 16}rem ${30 / 16}rem;
   }
 
-  .collection {
+  .name {
     display: flex;
     align-items: center;
+    margin-left: ${20 / 16}rem;
     width: ${344 / 16}rem;
     background: #4f4f4f;
     color: #fff;
     font-weight: 400;
-    .name {
-      margin-left: ${20 / 16}rem;
-    }
+    padding: 0 ${30 / 16}rem;
+  }
+
+  .image {
     img {
+      display: block;
+      width: 100%;
       height: 100%;
     }
   }
@@ -63,9 +86,9 @@ export const DropRow = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: ${20 / 16}rem;
+    padding: 0 ${20 / 16}rem;
     font-size: ${19 / 16}rem;
-    font-weight: 700;
+    font-weight: 600;
 
     small {
       position: absolute;
@@ -85,7 +108,7 @@ export const DropRow = styled.div`
     margin-left: ${10 / 16}rem;
     background: #f2f2f2;
     font-size: ${19 / 16}rem;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .actions {

@@ -9,6 +9,7 @@ import NewGuestForm from "@/components/Tours/NewGuestForm"
 import GuestItem from "../GuestItem"
 
 import { DropGuestListStyles } from "./DropGuestListStyles"
+
 const DropGuestList = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false)
 

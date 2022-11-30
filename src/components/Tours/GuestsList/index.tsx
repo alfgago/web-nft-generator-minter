@@ -3,7 +3,6 @@ import React from "react"
 import ItemPagination from "@/components/Common/ItemPagination"
 import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles"
 
-import { GuestsDropMenuStyles } from "./GuestsDropMenu/GuestsDropMenuStyles"
 import DropItem from "./DropItem"
 
 const items = [
