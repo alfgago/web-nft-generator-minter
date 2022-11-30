@@ -41,7 +41,7 @@ const LoginForm = ({ setIsOpen }: any) => {
     if (result?.ok) {
       setIsOpen(false)
       setIncorrect(false)
-      router.replace(ROUTES.ARTISTS)
+      router.replace(ROUTES.TOUR_MANAGER)
       return
     }
     setIncorrect(true)

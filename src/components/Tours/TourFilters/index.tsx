@@ -58,28 +58,27 @@ const datesList = [
 ]
 
 function TourFilters() {
-  const { data: session } = useSession()
-
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
 
   const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
-  // console.log(session?.user)
+  const { data: session } = useSession()
+  const [sessionData, setSessionData] = useState(session)
 
   useEffect(() => {
-    if (session?.user) {
-      console.log("entra")
+    if (session) {
+      console.log("hello1")
       fetchData(session)
     }
-  }, [])
+  }, [session])
 
   const fetchData = async (session: any) => {
-    const response = await axios.get(`${apiURL}api/artists`, {
+    const response = await axios.get(`${apiURL}api/users/me?populate=artists`, {
       headers: {
         Authorization: `Bearer ${session.jwt}`,
       },
     })
 
-    setTourData(response.data.data)
+    setTourData(response.data)
     console.log(tourData)
   }
 
