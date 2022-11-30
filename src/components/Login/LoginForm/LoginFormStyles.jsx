@@ -6,6 +6,7 @@ export const LoginFormlStyles = styled.div`
   color: black;
   width: 100%;
   font-family: "Trap";
+  padding-top: ${30 / 16}rem;
 
   .container {
     display: flex;

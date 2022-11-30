@@ -1,17 +1,19 @@
 import React from "react"
 import { ReactSVG } from "react-svg"
 
-import { LoginModalStyles } from "./LoginModalStyles"
+import { ModalStyles } from "./ModalStyles"
 
-const LoginModal = ({
+const Modal = ({
   children,
   setIsOpen,
+  title,
 }: {
   children: JSX.Element
   setIsOpen: any
+  title: string
 }) => {
   return (
-    <LoginModalStyles>
+    <ModalStyles>
       <div
         className="bg-modal"
         onClick={() => {
@@ -22,7 +24,7 @@ const LoginModal = ({
       <div className="modal-container">
         <div className="modal-header container-centered">
           <div>
-            <h2 className="title">Log in</h2>
+            <h2 className="title">{title}</h2>
           </div>
           <div>
             <div className="close-mobile" onClick={() => setIsOpen(false)}>
@@ -32,8 +34,8 @@ const LoginModal = ({
         </div>
         <div className="modal-content">{children}</div>
       </div>
-    </LoginModalStyles>
+    </ModalStyles>
   )
 }
 
-export default LoginModal
+export default Modal

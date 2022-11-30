@@ -6,14 +6,12 @@ body {
 
   background-color: #fff;
   font-size: 16px;
-  font-size: max(16px, 0.75vw);
+  font-size: max(14px, 0.75vw);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   width: 100%;
-  @media screen and (max-width: 1439px) {
-    font-size: 15px;
-  }
+
   @media screen and (max-width: 1300px) {
     font-size: 12px;
   }

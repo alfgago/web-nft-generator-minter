@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const LoginModalStyles = styled.section`
+export const ModalStyles = styled.section`
   display: flex;
   z-index: 1;
   position: fixed;
@@ -14,16 +14,11 @@ export const LoginModalStyles = styled.section`
   padding: 0;
   width: 100%;
   height: 100%;
-  z-index: 2000;
+  z-index: 9000;
   background-color: ${COLORS.white};
 
   @media ${DEVICE.laptop} {
     background-color: transparent;
-  }
-
-  @media ${DEVICE.maxlaptop} {
-    height: calc(100% - 5rem);
-    top: 5rem;
   }
 
   .modal-container {
@@ -37,8 +32,7 @@ export const LoginModalStyles = styled.section`
   .modal-content {
     background-color: ${COLORS.white};
     width: 100%;
-    padding: 3rem 0;
-    padding-top: 5rem;
+    padding: 2rem 0 3rem 0;
 
     @media ${DEVICE.laptop} {
       height: 100%;
@@ -57,7 +51,8 @@ export const LoginModalStyles = styled.section`
     content: "";
     background-color: ${COLORS.black};
     color: ${COLORS.white};
-    padding: 3rem 0;
+    padding: 2rem 0;
+    align-items: center;
 
     @media ${DEVICE.laptop} {
       border-top-left-radius: ${8 / 16}rem;
@@ -70,6 +65,11 @@ export const LoginModalStyles = styled.section`
       background-position: left center;
       padding: 1.5rem 0;
       max-height: 127px;
+    }
+
+    div:first-of-type {
+      width: 85%;
+      text-align: center;
     }
   }
 
@@ -108,11 +108,5 @@ export const LoginModalStyles = styled.section`
 
   .close-mobile {
     align-self: end;
-    position: absolute;
-    right: 3rem;
-    top: 3rem;
-    @media ${DEVICE.laptop} {
-      top: 2rem;
-    }
   }
 `

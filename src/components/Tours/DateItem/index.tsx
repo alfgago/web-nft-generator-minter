@@ -1,6 +1,8 @@
 import React from "react"
 import { ReactSVG } from "react-svg"
 
+import CheckBox from "@/components/Common/CheckBox"
+
 import { DateItemStyles } from "./DateItemStyles"
 
 const DateItem = ({ placeName, state, city, date }: any) => {
@@ -10,7 +12,7 @@ const DateItem = ({ placeName, state, city, date }: any) => {
         <div className="card-content">
           <div>
             <p>{placeName}</p>
-            <input type="checkbox" id="#" name="" value="" />
+            <CheckBox defaultState={false} />
           </div>
           <p>
             {state}, {city}

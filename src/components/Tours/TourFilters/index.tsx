@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react"
+import { getSession, useSession } from "next-auth/react"
+import axios, { AxiosResponse } from "axios"
 
 import TourDates from "../TourDates"
 
@@ -56,6 +58,31 @@ const datesList = [
 ]
 
 function TourFilters() {
+  const { data: session } = useSession()
+
+  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+
+  const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
+  // console.log(session?.user)
+
+  useEffect(() => {
+    if (session?.user) {
+      console.log("entra")
+      fetchData(session)
+    }
+  }, [])
+
+  const fetchData = async (session: any) => {
+    const response = await axios.get(`${apiURL}api/artists/1`, {
+      headers: {
+        Authorization: `Bearer ${session.jwt}`,
+      },
+    })
+
+    setTourData(response.data.data)
+    console.log(tourData)
+  }
+
   const [tourDates, setTourDates] = useState(datesList)
   const [filter, setFilter] = useState("")
 

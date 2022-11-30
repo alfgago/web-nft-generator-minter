@@ -70,7 +70,7 @@ const StickyList = ({ artists, width, height }: any) => {
                                 scroll={false}
                               >
                                 <a className="link">
-                                  <CommonPill className="clickable">
+                                  <CommonPill className="clickable small">
                                     Learn more
                                   </CommonPill>
                                 </a>

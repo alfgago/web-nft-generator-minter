@@ -30,8 +30,8 @@ const GuestItem = ({ data }: any) => {
           type="checkbox"
           defaultChecked={true}
           onChange={handleChange}
-          id="subscribe"
-          name="subscribe"
+          id=""
+          name=""
         />
         {/* <ReactSVG src="/assets/vectors/grey-check.svg" /> */}
       </span>

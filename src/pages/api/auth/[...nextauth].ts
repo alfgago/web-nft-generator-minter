@@ -18,19 +18,17 @@ export const authOptions: NextAuthOptions = {
         }
 
         // api validation request
-        try {
-          const data = await signInRequest({
-            email: credVal.email,
-            password: credVal.password,
-          })
-          const user = {
-            ...data.data,
-            access_token: data.jwt,
-          }
-          return user
-        } catch (error) {
-          return null
+        const data = await signInRequest({
+          email: credVal.email,
+          password: credVal.password,
+        })
+
+        const user = {
+          ...data.data,
+          access_token: data.jwt,
         }
+
+        return { ...data }
       },
     }),
   ],
@@ -39,19 +37,20 @@ export const authOptions: NextAuthOptions = {
     signIn: "@/components/Login/LoginForm",
   },
   callbacks: {
-    session: async ({ session, token }: any) => {
-      session.jwt = token.jwt
-      session.id = token.id
-      return session
-    },
+    //   jwt callback is only called when token is created
     jwt: async ({ token, user, account }: any) => {
       if (user) {
         token.jwt = user.jwt
-        token.id = user.id
-        token.name = user.username
-        token.email = user.email
+        token.id = user.user.id
+        token.email = user.user.email
       }
-      return token
+      return Promise.resolve(token)
+    },
+    /* session callback is called whenever a session for that particular user is checked*/
+    session: async ({ session, token }: any) => {
+      session.jwt = token.jwt
+      session.id = token.id
+      return Promise.resolve(session)
     },
   },
 }

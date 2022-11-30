@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react"
 
-import Footer from "../Footer"
-import Navbar from "../Navbar"
+import LoginModal from "../Common/Modal"
 
 import LoginForm from "./LoginForm"
-import LoginModal from "./LoginModal"
 
 const Login = ({ setIsOpen }: any) => {
   return (
     <>
-      <LoginModal setIsOpen={setIsOpen}>
+      <LoginModal setIsOpen={setIsOpen} title={"Log in"}>
         <LoginForm setIsOpen={setIsOpen} />
       </LoginModal>
     </>

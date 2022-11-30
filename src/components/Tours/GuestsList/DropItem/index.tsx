@@ -9,7 +9,7 @@ const DropItem = ({ data }: any) => {
   const [collapsed, setCollapsed] = useState(false)
   const location = data.state + ", " + data.city
   return (
-    <DropItemStyles>
+    <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
       <div className={`content drop-container ${collapsed ? "bg-opned" : ""}`}>
         <div className="unc-content">
           <p>

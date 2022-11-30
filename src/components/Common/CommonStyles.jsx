@@ -135,3 +135,18 @@ export const Pagination = styled.div`
     }
   }
 `
+export const Checkbox = styled.label`
+  input {
+    width: ${24 / 16}rem;
+    height: ${24 / 16}rem;
+    border-radius: ${6 / 16}rem;
+    padding: ${10 / 16}rem;
+    border: ${3 / 16}rem solid #777777;
+    :checked {
+      background-image: url("/assets/vectors/grey-check.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+`
