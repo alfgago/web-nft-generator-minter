@@ -5,17 +5,17 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import { MyNftCardStyles } from "./MyNftCardStyles"
 
 const MyNftCard = ({ nftData }: any) => {
-  console.log(nftData)
+  console.log(nftData.image)
 
   return (
     <MyNftCardStyles>
       <div className="head-cont">
-        <p>{nftData.name}</p>
+        <h3>{nftData.name}</h3>
         <p>{nftData.info}</p>
       </div>
       <div className="content-cont">
         <div>
-          <img src="/assets/img/myNft.jpg" alt="" />
+          <img src={nftData.image} alt="" />
         </div>
         <div className="info-cont">
           <div>

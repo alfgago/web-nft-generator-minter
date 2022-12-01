@@ -6,6 +6,15 @@ export const MyNtfStyles = styled.main`
     h3 {
       font-weight: 600;
     }
+    .settings {
+      display: flex;
+      align-items: center;
+      gap: ${10 / 16}rem;
+    }
+  }
+
+  .content {
+    padding-bottom: ${32 / 16}rem;
   }
 
   .content > h1 {
