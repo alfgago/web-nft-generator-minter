@@ -3,6 +3,7 @@ import { ReactSVG } from "react-svg"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
+import MyNftGuestsList from "./GuestsList"
 import { MyNtfStyles } from "./MyNftStyles"
 import ShowNfts from "./ShowMyNfts"
 
@@ -20,6 +21,7 @@ const MyNfts = () => {
         </div>
       </SimpleHeader>
       <ShowNfts />
+      <MyNftGuestsList />
     </MyNtfStyles>
   )
 }
