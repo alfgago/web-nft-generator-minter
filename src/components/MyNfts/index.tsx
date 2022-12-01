@@ -3,7 +3,7 @@ import React from "react"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import { MyNtfStyles } from "./MyNftStyles"
-import ShowNfts from "./ShowNfts"
+import ShowNfts from "./ShowMyNfts"
 
 const MyNfts = () => {
   return (
