@@ -5,8 +5,8 @@ export const MyNftCardStyles = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-//   max-width:  ${180 / 16}rem;
-max-width:  ${378 / 16}rem;      
+  max-width:  ${378 / 16}rem;    
+
   
   @media ${DEVICE.laptop}{
       max-width:  ${378 / 16}rem;      
@@ -49,6 +49,10 @@ max-width:  ${378 / 16}rem;
       div p {
         font-weight: 600;
         margin: 0px;
+
+        @media ${DEVICE.laptop} {
+          font-size: ${24 / 16}rem;
+        }
       }
 
       a span {
