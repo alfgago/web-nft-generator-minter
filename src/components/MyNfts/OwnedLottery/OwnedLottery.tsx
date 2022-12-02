@@ -7,16 +7,88 @@ import { OwnedLotteryStyles } from "./OwnedLotteryStyles"
 
 const lotteryItemsList = [
   {
-    id: "1",
-    title: "Act",
-    description: "desc",
-    origin: `active`,
+    id: 1,
+    origin: `upcoming`,
+    nft: {
+      id: "Bull-1",
+      name: "Bull Island",
+      info: "Illander bull",
+      price: 500,
+      amount: 10,
+      image: "/assets/img/myNft.jpg",
+      tourName: "Illander tour",
+    },
+    event: {
+      id: 1,
+      venue: "Nashville Stadium",
+      state: "Georgia",
+      city: "Nashville",
+      date: "june 19",
+      timeLeftCalc: "5 hrs 30 min 21 sec",
+    },
   },
   {
-    id: "2",
-    title: "upc",
-    description: "desc",
+    id: 2,
+    origin: `active`,
+    nft: {
+      id: "bull-2",
+      name: "Green Island bull",
+      info: "The Green Island bull",
+      price: 200,
+      amount: 100,
+      image: "/assets/img/myNftBlue.jpg",
+      tourName: "Green Island",
+    },
+    event: {
+      id: 2,
+      venue: "Kansas Stadium",
+      state: "Kansas",
+      city: "Delaware",
+      date: "September 11",
+      timeLeftCalc: "8 days",
+    },
+  },
+  {
+    id: 3,
     origin: `upcoming`,
+    nft: {
+      id: "bull-3",
+      name: "Dragon Bull",
+      info: "The dragon concert",
+      price: 700,
+      amount: 35,
+      image: "/assets/img/myNft.jpg",
+      tourName: "Dragon Bull Tour",
+    },
+    event: {
+      id: 3,
+      venue: "Georgia Stadium",
+      state: "Georgia",
+      city: "Nashville",
+      date: "june 18",
+      timeLeftCalc: "1 week",
+    },
+  },
+  {
+    id: 4,
+    origin: `active`,
+    nft: {
+      id: "bull-4",
+      name: "Ocean Concer",
+      info: "Concert in the Ocean",
+      price: 1500,
+      amount: 250,
+      image: "/assets/img/myNftBlue.jpg",
+      tourName: "Ocean Concer Tour",
+    },
+    event: {
+      id: 4,
+      venue: "California Stadium",
+      state: "California",
+      city: "San Francisco",
+      date: "April 11",
+      timeLeftCalc: "2 months",
+    },
   },
 ]
 
@@ -46,7 +118,7 @@ const OwnedLottery = () => {
           </ul>
         </div>
 
-        <ItemPagination
+        {/* <ItemPagination
           itemsPerPage={3}
           values={lotteryNfts}
           render={(items: any) => {
@@ -58,7 +130,12 @@ const OwnedLottery = () => {
               </div>
             )
           }}
-        />
+        /> */}
+        <div className="items-cont">
+          {lotteryNfts.map((data: any) => {
+            return <OwnedItem key={data.id} itemData={data} />
+          })}
+        </div>
       </div>
     </OwnedLotteryStyles>
   )

@@ -1,6 +1,8 @@
 import styled from "styled-components"
 
 export const OwnedLotteryStyles = styled.section`
+  padding-top: 0px;
+
   .header-cont {
     display: flex;
     gap: 6rem;
