@@ -11,10 +11,15 @@ const ArtistPage = ({ artist }: any) => {
   const artistName = false
   const image = artist.attributes.banner.data.attributes.url
 
+  const ogTitle = title + " - PlusOne"
+
   return (
     <>
       <Head>
-        <title>{title} - PlusOne</title>
+        <title>{ogTitle}</title>
+        <meta name="description" content={bio} />
+        <meta property="og:title" content={ogTitle} />
+        <meta property="og:image" content={image} />
       </Head>
       <ArtistHero
         title={title}

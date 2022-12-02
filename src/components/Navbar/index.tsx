@@ -67,17 +67,17 @@ const Navbar = () => {
               <div className="submenu">
                 <ul>
                   <li>
-                    <Link href="/">
+                    <Link href="/resources/fans">
                       <a>For Fans</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/">
+                    <Link href="/resources/artists">
                       <a>For Artists</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/">
+                    <Link href="/resources/blog">
                       <a>Blog</a>
                     </Link>
                   </li>

@@ -11,6 +11,7 @@ export const HomeHeroStyles = styled.section`
   height: auto;
   @media ${DEVICE.laptop} {
     height: 100vh;
+    min-height: 600px;
   }
 
   .content {
