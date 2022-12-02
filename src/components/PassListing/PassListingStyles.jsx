@@ -2,84 +2,13 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const ArtistsStyles = styled.div`
+export const PassListingStyles = styled.div`
   position: relative;
   width: 100%;
-`
+  padding-bottom: 4rem;
 
-export const HeroStyles = styled.section`
-  background: rgb(13, 21, 228);
-  background: linear-gradient(
-    119deg,
-    rgba(13, 21, 228, 1) 0%,
-    rgba(0, 150, 255, 1) 58%,
-    rgba(254, 0, 253, 1) 100%
-  );
-
-  h1 {
-    color: #fff;
-  }
-
-  .featured {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    padding: 5rem 0 2rem 0;
-
-    h1 {
-      position: absolute;
-      bottom: 2rem;
-      margin-left: ${553 / 16}rem;
-      padding-left: ${100 / 16}rem;
-      font-size: ${64 / 16}rem;
-      line-height: 1;
-    }
-
-    .artist {
-      width: ${215 / 16}rem;
-      margin-left: ${100 / 16}rem;
-
-      .link {
-        display: block;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .img-container {
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-bottom: 100%;
-        img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      .name {
-        background: #000;
-        color: #fff;
-        font-size: ${18 / 16}rem;
-        padding: 0.5em 1em;
-      }
-
-      &:first-of-type {
-        width: ${553 / 16}rem;
-        margin-left: 0;
-
-        .name {
-          font-size: ${30 / 16}rem;
-        }
-
-        .img-container {
-          padding-bottom: ${359 / 16}rem;
-        }
-      }
-    }
+  .simple-header {
+    padding-bottom: 4.5rem;
   }
 `
 
@@ -109,13 +38,21 @@ export const BrowseStyles = styled.div`
         position: absolute;
         top: 0;
         left: 100%;
+        height: 100vh;
         width: 100vw;
-        height: 100%;
         background: linear-gradient(
-          149deg,
+          90deg,
           rgba(255, 255, 255, 1) 0%,
           rgba(216, 245, 254, 1) 60%
         );
+        @media ${DEVICE.laptop} {
+          height: 100%;
+          background: linear-gradient(
+            149deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(216, 245, 254, 1) 60%
+          );
+        }
       }
       .img-span {
         position: relative;
@@ -140,10 +77,13 @@ export const BrowseStyles = styled.div`
 
   .filter-section {
     .abs {
+      position: relative;
+      margin-top: -3.5rem;
       width: 100%;
       @media ${DEVICE.laptop} {
         position: absolute;
         top: 0;
+        margin-top: 0;
         z-index: 3;
       }
     }
@@ -158,12 +98,15 @@ export const BrowseStyles = styled.div`
     }
 
     .title {
+      display: inline-block;
       font-weight: bold;
       font-size: ${25 / 16}rem;
       margin-right: ${30 / 16}rem;
+      margin-bottom: 1rem;
       @media ${DEVICE.laptop} {
         padding-left: 12rem;
         margin-left: auto;
+        margin-bottom: 0;
       }
     }
     @media ${DEVICE.laptop} {
@@ -180,24 +123,36 @@ export const BrowseStyles = styled.div`
     gap: 10px;
 
     li {
-      padding: ${14 / 16}rem ${25 / 16}rem;
       background: transparent;
-      border: ${1 / 16}rem solid #454545;
-      border-radius: 50px;
       font-weight: 500;
-      cursor: pointer;
-      transition: 0.5s ease all;
-
-      &.active {
-        color: ${COLORS.white};
-        background: #373737;
-      }
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-      }
     }
+  }
+
+  section {
+    padding: 2rem 0;
   }
 `
 export const ListingStyles = styled.section`
   position: relative;
+  padding: 2rem 0;
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    .drop-card {
+      width: 100%;
+      margin-bottom: 0;
+      @media ${DEVICE.laptop} {
+        width: calc(50% - 1rem);
+      }
+
+      .inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+  }
 `

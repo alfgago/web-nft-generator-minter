@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { fabric } from "fabric"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import generateShapes from "@/utils/generateShapes"
 
 import ColorsPicker from "../Tools/ColorsPicker"
 import GridPicker from "../Tools/GridPicker"
@@ -24,32 +25,6 @@ const templates = [
   { number: 4, textX: 0, textY: 25, textRotate: 0 },
 ]
 
-const initialShapes = [
-  new fabric.Circle({
-    left: -300,
-    top: -300,
-    radius: 150,
-    fill: "#444",
-  }),
-  new fabric.Circle({
-    left: 0,
-    top: -300,
-    radius: 150,
-    fill: "#444",
-  }),
-  new fabric.Circle({
-    left: -300,
-    top: 0,
-    radius: 150,
-    fill: "#444",
-  }),
-  new fabric.Circle({
-    left: 0,
-    top: 0,
-    radius: 150,
-    fill: "#444",
-  }),
-]
 declare global {
   interface Window {
     canvas: any
@@ -60,16 +35,18 @@ declare global {
   }
 }
 
-const DesignStep = ({ previousAction, nextAction }: any) => {
+const DesignStep = ({ previousAction, nextAction, artist }: any) => {
   const [initialized, setInitialized] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
   const [activeTemplate, setActiveTemplate] = useState(templates[0])
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
-  const [shapesColor, setShapesColor] = useState({ hex: "#e2b84c" })
+  const [shapesColor, setShapesColor] = useState({ hex: "#000" })
   const [imageUrl, setImageUrl] = useState("")
-  const [shapes, setShapes] = useState(initialShapes)
-  const [gridSize, setGridSize] = useState(3)
+  const [gridSize, setGridSize] = useState(2)
   const [availableShapes, setAvailableShapes] = useState(["star", "roundstar"])
+
+  const initialShapes = generateShapes(gridSize, canvasWidth, availableShapes)
+  const [shapes, setShapes] = useState(initialShapes)
 
   const doNext = () => {
     sessionStorage.setItem(
@@ -153,7 +130,15 @@ const DesignStep = ({ previousAction, nextAction }: any) => {
       } else {
         window.canvas = new fabric.Canvas("canvas")
         pickTemplate()
-        pickBackground("#eee")
+        pickBackground("#000")
+
+        try {
+          console.log(artist)
+          const artistImage = artist.attributes.banner.data.attributes.url
+          setImageUrl(artistImage)
+        } catch (e) {
+          console.log(e)
+        }
       }
       window.canvas.preserveObjectStacking = true
       setInitialized(true)

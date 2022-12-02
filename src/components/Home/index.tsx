@@ -1,15 +1,12 @@
 import dynamic from "next/dynamic"
 
+import ArtistList from "./ArtistList"
 import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
 import LotteryWinners from "./LotteryWinners"
 import MoreSection from "./MoreSection"
 import UpcomingDrawings from "./UpcomingDrawings"
 import UpcomingDrops from "./UpcomingDrops"
-
-const ArtistList = dynamic(() => import("./ArtistList"), {
-  suspense: true,
-})
 
 const trendingArtists = [
   {
@@ -64,8 +61,14 @@ const how2 = {
   useBorderTop: false,
 }
 
-const Home = ({ data }: any) => {
-  const attributes = data.attributes
+const Home = ({ page, nfts, passes, artists }: any) => {
+  const attributes = page.attributes
+  const featureArtists = page.attributes.featured_artists.data
+  console.log(attributes)
+  console.log("NFTS")
+  console.log(nfts)
+  console.log(passes)
+  console.log(featureArtists)
 
   return (
     <HomeStyles>
@@ -74,15 +77,19 @@ const Home = ({ data }: any) => {
         copy={attributes.description}
         image={attributes.banner}
       />
-      <MoreSection
-        title={how1.title}
-        description={how1.description}
-        buttonTitle={how1.buttonTitle}
-        buttonLink={how1.buttonLink}
-        type={how1.type}
-        useBorderTop={how1.useBorderTop}
-      />
-      <ArtistList artists={trendingArtists} />
+      <UpcomingDrops useBorderTop={true} passes={passes} />
+      {false ? (
+        <MoreSection
+          title={how1.title}
+          description={how1.description}
+          buttonTitle={how1.buttonTitle}
+          buttonLink={how1.buttonLink}
+          type={how1.type}
+        />
+      ) : (
+        ""
+      )}
+      <ArtistList artists={featureArtists} />
       <UpcomingDrawings />
       <MoreSection
         title={how2.title}
@@ -92,8 +99,7 @@ const Home = ({ data }: any) => {
         type={how2.type}
         useBorderTop={how2.useBorderTop}
       />
-      <LotteryWinners />
-      <UpcomingDrops />
+      <LotteryWinners nfts={nfts} />
     </HomeStyles>
   )
 }

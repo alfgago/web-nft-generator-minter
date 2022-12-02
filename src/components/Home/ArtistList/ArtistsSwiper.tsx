@@ -28,33 +28,39 @@ const ArtistsSwiper = ({ artists, width, height }: any) => {
             >
               {artists &&
                 artists.length >= 1 &&
-                artists.map((item: any, index: number) => (
-                  <SwiperSlide key={index}>
-                    <div className="artist-item">
-                      <div className="inner">
-                        <div className="image-container">
-                          <img
-                            width="500"
-                            height="338"
-                            src={item.image}
-                            alt={item.slug}
-                            loading="lazy"
-                          />
-                        </div>
-                        <div className="bar">
-                          <h3 className="title">{item.name}</h3>
-                          <Link href={"/artist/" + item.slug} scroll={false}>
-                            <a className="link">
-                              <CommonPill className="clickable">
-                                Learn more
-                              </CommonPill>
-                            </a>
-                          </Link>
+                artists.map((item: any, index: number) => {
+                  const slug = item.attributes.slug
+                  const name = item.attributes.name
+                  const image =
+                    item.attributes?.profile_picture?.data.attributes.url
+                  return (
+                    <SwiperSlide key={index}>
+                      <div className="artist-item">
+                        <div className="inner">
+                          <div className="image-container">
+                            <img
+                              width="500"
+                              height="338"
+                              src={image}
+                              alt={slug}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="bar">
+                            <h3 className="title">{name}</h3>
+                            <Link href={"/artist/" + slug} scroll={false}>
+                              <a className="link">
+                                <CommonPill className="clickable">
+                                  Learn more
+                                </CommonPill>
+                              </a>
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                    </SwiperSlide>
+                  )
+                })}
               <SwiperSlide>
                 <div className="p1-side-logo">
                   <img

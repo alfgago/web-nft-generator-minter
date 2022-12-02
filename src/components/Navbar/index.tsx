@@ -55,7 +55,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/artists">
+                    <Link href="/passes">
                       <a>By NFTs</a>
                     </Link>
                   </li>
@@ -79,11 +79,6 @@ const Navbar = () => {
                   <li>
                     <Link href="/">
                       <a>Blog</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/about">
-                      <a>About</a>
                     </Link>
                   </li>
                 </ul>

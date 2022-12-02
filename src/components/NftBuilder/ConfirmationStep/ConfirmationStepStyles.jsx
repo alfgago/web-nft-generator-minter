@@ -40,6 +40,7 @@ export const ConfirmationStepStyles = styled.div`
       width: ${150 / 16}rem;
     }
 
+    svg,
     img {
       width: 100%;
       height: 100%;

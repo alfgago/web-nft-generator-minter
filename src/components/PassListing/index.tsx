@@ -1,17 +1,72 @@
-import ArtistCard from "../Common/ArtistCard"
+import Link from "next/link"
+
 import { CommonPill } from "../Common/CommonStyles"
+import DropCard from "../Common/DropCard"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import {
-  ArtistListingStyles,
   BrowseStyles,
+  HeroStyles,
   ListingStyles,
-} from "./ArtistListingStyles"
+  PassListingStyles,
+} from "./PassListingStyles"
 
-const ArtistListing = ({ artists }: any) => {
+const featuredArtists = [
+  {
+    name: "Kings of Leon",
+    slug: "kings-of-leon",
+    image: "/assets/img/featured-1.jpg",
+  },
+  {
+    name: "Steve Aoki",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Snoop Dogg",
+    slug: "kings-of-leon",
+    image: "/assets/img/featured-3.jpg",
+  },
+]
+
+const artists = [
+  {
+    name: "Sample 1",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Sample 2",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Sample 3",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Sample 4",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Sample 5",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+  {
+    name: "Sample 6",
+    slug: "steve-aoki",
+    image: "/assets/img/featured-2.jpg",
+  },
+]
+
+const PassListing = ({ passes }: any) => {
+  console.log(passes)
   return (
-    <ArtistListingStyles>
-      <SimpleHeader title="Artists" textAlign="left" />
+    <PassListingStyles>
+      <SimpleHeader title="Pass Collections" textAlign="left" />
       <BrowseStyles>
         <section className="top-triangle">
           <div className="content">
@@ -54,14 +109,14 @@ const ArtistListing = ({ artists }: any) => {
       <ListingStyles>
         <div className="content">
           <div className="list">
-            {artists.map((item: any, index: number) => {
-              return <ArtistCard key={"artist" + index} artist={item} />
+            {passes.map((item: any, index: number) => {
+              return <DropCard key={"lottery-row" + index} pass={item} />
             })}
           </div>
         </div>
       </ListingStyles>
-    </ArtistListingStyles>
+    </PassListingStyles>
   )
 }
 
-export default ArtistListing
+export default PassListing

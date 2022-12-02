@@ -12,11 +12,14 @@ export const FooterStyles = styled.footer`
   &:before {
     content: "";
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 0;
     width: 100%;
     height: 100%;
     background: url("/assets/img/footer-bg.png") no-repeat top center;
+    @media ${DEVICE.laptop} {
+      top: 0;
+    }
   }
 
   .footer {
@@ -24,7 +27,7 @@ export const FooterStyles = styled.footer`
     padding-top: ${100 / 16}rem;
     padding-bottom: 0;
     @media ${DEVICE.laptop} {
-      padding-top: ${32 / 16}rem;
+      padding-top: ${64 / 16}rem;
     }
 
     .content {

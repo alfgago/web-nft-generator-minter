@@ -108,7 +108,6 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
   }
 
   const pickBackground = (collectionData: any) => {
-    console.log(collectionData)
     const color = collectionData.backgroundColor.hex
     // Remove old BG
     window.previewCanvas.getObjects().forEach(function (el: any) {
@@ -201,7 +200,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
           <canvas id="canvas" width={canvasWidth} height={canvasHeight} />
         </div>
       </div>
-      {render ? (
+      {!loading && render ? (
         <div className="preview">
           {previewImages.map((img: any, index: number) => {
             return (

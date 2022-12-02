@@ -38,6 +38,7 @@ const StickyList = ({ artists, width, height }: any) => {
               </div>
               <div className="scroll-scene">
                 <Scene
+                  enabled={listSize > 0}
                   duration={height * (artists.length - 4) + "px"}
                   triggerElement="#scrolly-trigger"
                   triggerHook={"onLeave"}
@@ -51,34 +52,37 @@ const StickyList = ({ artists, width, height }: any) => {
                     }}
                   >
                     <div className="scroller items" id="scroller">
-                      {artists.map((item: any, index: number) => (
-                        <div className="artist-item" key={item.slug + index}>
-                          <div className="inner">
-                            <div className="image-container">
-                              <img
-                                width="500"
-                                height="338"
-                                src={item.image}
-                                alt={item.slug}
-                                loading="lazy"
-                              />
-                            </div>
-                            <div className="bar">
-                              <h3 className="title">{item.name}</h3>
-                              <Link
-                                href={"/artist/" + item.slug}
-                                scroll={false}
-                              >
-                                <a className="link">
-                                  <CommonPill className="clickable small">
-                                    Learn more
-                                  </CommonPill>
-                                </a>
-                              </Link>
+                      {artists.map((item: any, index: number) => {
+                        const slug = item.attributes.slug
+                        const name = item.attributes.name
+                        const image =
+                          item.attributes?.profile_picture?.data.attributes.url
+                        return (
+                          <div className="artist-item" key={slug + index}>
+                            <div className="inner">
+                              <div className="image-container">
+                                <img
+                                  width="500"
+                                  height="338"
+                                  src={image}
+                                  alt={slug}
+                                  loading="lazy"
+                                />
+                              </div>
+                              <div className="bar">
+                                <h3 className="title">{name}</h3>
+                                <Link href={"/artist/" + slug} scroll={false}>
+                                  <a className="link">
+                                    <CommonPill className="clickable small">
+                                      Learn more
+                                    </CommonPill>
+                                  </a>
+                                </Link>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                       <div className="p1-side-logo">
                         <img
                           src="/assets/img/p1-side-logo.svg"

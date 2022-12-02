@@ -46,6 +46,11 @@ export const CommonPill = styled.span`
     color: ${COLORS.white};
   }
 
+  &.active {
+    background-color: ${(props) => props.hoverBackgroundColor};
+    color: ${(props) => props.hoverTextColor};
+  }
+
   &.purple {
     color: #fff;
     background: #910ae2;

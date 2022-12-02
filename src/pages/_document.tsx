@@ -25,6 +25,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <div id="portal" />
+          <div className="cursor" />
         </body>
       </Html>
     )
