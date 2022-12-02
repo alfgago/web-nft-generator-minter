@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <>
       <Meta />
-      <SessionProvider session={pageProps.session}>
+      <SessionProvider session={session}>
         {Component.requireAuth ? (
           <AuthGuard>
             <Layout>

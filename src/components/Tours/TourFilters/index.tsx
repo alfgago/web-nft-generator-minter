@@ -58,29 +58,27 @@ const datesList = [
 ]
 
 function TourFilters() {
-  const { data: session } = useSession()
-
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
 
   const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
-  // console.log(session?.user)
+  const { data: session } = useSession()
 
+  // need to be solved, the session on first load is undefined
   useEffect(() => {
-    if (session?.user) {
-      console.log("entra")
+    if (session) {
       fetchData(session)
     }
-  }, [])
+  }, [session])
 
   const fetchData = async (session: any) => {
-    const response = await axios.get(`${apiURL}api/artists/1`, {
+    const response = await axios.get(`${apiURL}api/users/me?populate=artists`, {
       headers: {
         Authorization: `Bearer ${session.jwt}`,
       },
     })
 
-    setTourData(response.data.data)
-    console.log(tourData)
+    setTourData(response.data)
+    // console.log(tourData)
   }
 
   const [tourDates, setTourDates] = useState(datesList)
@@ -110,5 +108,15 @@ function TourFilters() {
     </TourFilterStyles>
   )
 }
+
+// export async function getServerSideProps(ctx: any) {
+//   const data = await getSession(ctx)
+//   console.log(data)
+//   return {
+//     props: {
+//       sessionData: await getSession(ctx),
+//     },
+//   }
+// }
 
 export default TourFilters

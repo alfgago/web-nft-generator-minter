@@ -8,6 +8,7 @@ const SimpleHeader = ({
   backgroundColor = "#000",
   textColor = "#fff",
   gradient = true,
+  children,
 }: any) => {
   return (
     <SimpleHeaderStyles
@@ -19,6 +20,7 @@ const SimpleHeader = ({
       <GradientBackground />
       <div className="content">
         <h1>{title}</h1>
+        {children}
       </div>
     </SimpleHeaderStyles>
   )

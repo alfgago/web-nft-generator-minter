@@ -38,7 +38,7 @@ const DropGuestList = ({ data }: any) => {
       </div>
       {isOpen && (
         <Modal setIsOpen={setIsOpen} title="Add guests">
-          <NewGuestForm />
+          <NewGuestForm className="content" />
         </Modal>
       )}
     </DropGuestListStyles>

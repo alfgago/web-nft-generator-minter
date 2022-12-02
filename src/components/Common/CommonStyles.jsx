@@ -98,6 +98,15 @@ export const CommonPill = styled.span`
       background: transparent;
     }
   }
+  &.black {
+    color: #fff;
+    background: ${COLORS.black};
+    border: 2px solid ${COLORS.black};
+    &:hover {
+      color: ${COLORS.black};
+      background: transparent;
+    }
+  }
 `
 
 export const AddButtonStyle = styled.button`

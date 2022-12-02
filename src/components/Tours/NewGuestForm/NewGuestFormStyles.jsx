@@ -8,7 +8,7 @@ export const NewGuestFormStyles = styled.div`
   flex-direction: column;
   padding-top: ${20 / 16}rem;
 
-  div div p {
+  div p {
     text-align: center;
     font-weight: 500;
     @media ${DEVICE.laptop} {
@@ -27,6 +27,10 @@ export const NewGuestFormStyles = styled.div`
       flex-direction: column;
       align-items: center;
 
+      .btn-container {
+        display: flex;
+        justify-content: end;
+      }
       @media ${DEVICE.laptop} {
         flex-direction: row;
 
@@ -60,24 +64,24 @@ export const NewGuestFormStyles = styled.div`
         }
       }
 
-      button {
-        background-color: #777777;
-        width: 10.5rem;
-        height: ${51 / 16}rem;
-        border-radius: 30px;
-        border: none;
-        color: #fff;
-        padding: 7px 2px 7px 2px;
-        margin-bottom: ${25 / 16}rem;
+    //   button {
+    //     background-color: #777777;
+    //     width: 10.5rem;
+    //     height: ${51 / 16}rem;
+    //     border-radius: 30px;
+    //     border: none;
+    //     color: #fff;
+    //     padding: 7px 2px 7px 2px;
+    //     margin-bottom: ${25 / 16}rem;
 
-        @media only screen and (${DEVICE.laptop}) {
-          width: ${109 / 16}rem;
-          height: ${41 / 16}rem;
-          border-radius: 12px;
-          margin-bottom: 0;
-        }
-      }
-    }
+    //     @media only screen and (${DEVICE.laptop}) {
+    //       width: ${109 / 16}rem;
+    //       height: ${41 / 16}rem;
+    //       border-radius: 12px;
+    //       margin-bottom: 0;
+    //     }
+    //   }
+    // }
 
     input {
       width: 100%;
