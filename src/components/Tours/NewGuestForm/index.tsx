@@ -2,6 +2,8 @@ import React from "react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import { NewGuestFormStyles } from "./NewGuestFormStyles"
 
 interface FormValues {
@@ -61,7 +63,9 @@ const NewGuestForm = ({ className = "" }: any) => {
                 />
               </label>
               <div className="btn-container">
-                <button type="submit">Submit</button>
+                <button type="submit">
+                  <CommonPill className="clickable fill">Submit</CommonPill>
+                </button>
               </div>
             </Form>
           )}

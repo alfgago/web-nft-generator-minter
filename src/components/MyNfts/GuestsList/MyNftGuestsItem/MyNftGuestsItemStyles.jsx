@@ -37,6 +37,10 @@ export const MyNftGuestsItemStyles = styled.div`
       display: none;
     }
 
+    input {
+      border-radius: 0;
+    }
+
     @media ${DEVICE.laptop} {
       form {
         flex-direction: column;
