@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { COLORS, DEVICE } from "@/styles/variables"
 
 export const MyNftGuestsItemStyles = styled.div`
   display: flex;
@@ -24,6 +25,26 @@ export const MyNftGuestsItemStyles = styled.div`
       margin: 0;
       font-size: ${28 / 16}rem;
       font-weight: 500;
+    }
+  }
+
+  .form-cont {
+    > p {
+      font-weight: 700;
+    }
+
+    .subtitle-form {
+      display: none;
+    }
+
+    @media ${DEVICE.laptop} {
+      form {
+        flex-direction: column;
+        label {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
     }
   }
 `

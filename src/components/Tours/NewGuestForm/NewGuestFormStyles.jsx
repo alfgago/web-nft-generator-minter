@@ -8,7 +8,7 @@ export const NewGuestFormStyles = styled.div`
   flex-direction: column;
   padding-top: ${20 / 16}rem;
 
-  div div p {
+  div p {
     text-align: center;
     font-weight: 500;
     @media ${DEVICE.laptop} {
@@ -27,6 +27,10 @@ export const NewGuestFormStyles = styled.div`
       flex-direction: column;
       align-items: center;
 
+      .btn-container {
+        display: flex;
+        justify-content: end;
+      }
       @media ${DEVICE.laptop} {
         flex-direction: row;
 

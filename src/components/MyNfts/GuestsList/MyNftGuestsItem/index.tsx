@@ -1,6 +1,15 @@
 import React from "react"
+import { Field, Form, Formik } from "formik"
+import * as Yup from "yup"
+
+import NewGuestForm from "@/components/Tours/NewGuestForm"
 
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
+
+interface FormValues {
+  email: string
+  name: string
+}
 
 const MyNftGuestsItem = ({ guestData }: any) => {
   console.log(guestData)
@@ -18,9 +27,9 @@ const MyNftGuestsItem = ({ guestData }: any) => {
           <p>{guestData.date}</p>
         </div>
       </div>
-      <div>
-        <p>info</p>
-        form
+      <div className="form-cont">
+        <p>Info</p>
+        <NewGuestForm />
       </div>
     </MyNftGuestsItemStyles>
   )
