@@ -17,9 +17,9 @@ const OwnedItem = ({ itemData }: any) => {
           <p>Tour: {itemData.nft.tourName}</p>
           <p>Floor price {itemData.nft.price}</p>
         </div>
+        <span />
       </div>
 
-      <span />
       <div className="half-cont grey-card">
         <div className="event-infto-cont half-cont">
           <h3>{itemData.event.timeLeftCalc}</h3>

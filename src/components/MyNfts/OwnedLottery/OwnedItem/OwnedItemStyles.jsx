@@ -27,7 +27,12 @@ export const OwnedItemStyles = styled.div`
         height: 100%;
       }
     }
+    .nft-info-cont + span {
+      border: 0.1px solid;
 
+      background-color: black;
+      margin: 21px 0;
+    }
     .nft-info-cont {
       width: 100%;
       h3 {

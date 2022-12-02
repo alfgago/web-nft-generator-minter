@@ -6,6 +6,7 @@ export const OwnedLotteryStyles = styled.section`
   .header-cont {
     display: flex;
     gap: 6rem;
+    padding-bottom: ${69 / 16}rem;
 
     align-items: center;
     > div h2 {
@@ -21,6 +22,7 @@ export const OwnedLotteryStyles = styled.section`
             font-size: ${32 / 16}rem;
             font-weight: 500;
             list-style-type: none;
+            cursor: pointer;
         }
   }
 `
