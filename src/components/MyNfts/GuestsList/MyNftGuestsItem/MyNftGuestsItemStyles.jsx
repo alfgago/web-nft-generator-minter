@@ -38,7 +38,7 @@ export const MyNftGuestsItemStyles = styled.div`
     }
 
     input {
-      border-radius: 0;
+      border-radius: 0rem !important;
     }
 
     @media ${DEVICE.laptop} {

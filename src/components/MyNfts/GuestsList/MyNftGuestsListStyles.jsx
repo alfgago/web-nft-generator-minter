@@ -16,4 +16,8 @@ export const MyNftGuestsListStyles = styled.section`
     align-items: center;
     justify-content: space-between;
   }
+
+  .items-cont + div {
+    margin-top: ${45 / 16}rem;
+  }
 `
