@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 export const MyNftGuestsListStyles = styled.section`
   padding-top: 0;
+  padding-bottom: ${49 / 16}rem;
 
   .content {
     h2 {
