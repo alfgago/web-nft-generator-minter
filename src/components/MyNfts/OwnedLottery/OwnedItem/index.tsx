@@ -1,5 +1,7 @@
 import React from "react"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
 const OwnedItem = ({ itemData }: any) => {
@@ -19,18 +21,25 @@ const OwnedItem = ({ itemData }: any) => {
 
       <span />
       <div className="half-cont grey-card">
-        <div className="event-infto-cont">
+        <div className="event-infto-cont half-cont">
           <h3>{itemData.event.timeLeftCalc}</h3>
           <h3>
             {itemData.event.city},{itemData.event.state}
           </h3>
           <h3>{itemData.event.date}</h3>
         </div>
-        <div className="owned-info-cont">
-          <p>Owned:</p>
-          <p>Staked:</p>
-          <p>button</p>
-          <p>Chance of winning </p>
+        <div className="owned-info-cont half-cont">
+          <p>
+            Owned: {itemData.nft.property.owned} of{" "}
+            {itemData.nft.property.total}
+          </p>
+          <p>
+            Staked: {itemData.nft.stake.staked} of {itemData.nft.stake.total}
+          </p>
+          <CommonPill className="clickable fill">Stake to enter</CommonPill>
+          <p>
+            Chance of winning <span>{itemData.chanceOfWinning}%</span>
+          </p>
         </div>
       </div>
     </OwnedItemStyles>

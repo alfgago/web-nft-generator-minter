@@ -9,6 +9,7 @@ const lotteryItemsList = [
   {
     id: 1,
     origin: `upcoming`,
+    chanceOfWinning: 50,
     nft: {
       id: "Bull-1",
       name: "Bull Island",
@@ -17,6 +18,14 @@ const lotteryItemsList = [
       amount: 10,
       image: "/assets/img/myNft.jpg",
       tourName: "Illander tour",
+      stake: {
+        staked: 9,
+        total: 10,
+      },
+      property: {
+        owned: 20,
+        total: 90,
+      },
     },
     event: {
       id: 1,
@@ -30,6 +39,7 @@ const lotteryItemsList = [
   {
     id: 2,
     origin: `active`,
+    chanceOfWinning: 60,
     nft: {
       id: "bull-2",
       name: "Green Island bull",
@@ -38,6 +48,14 @@ const lotteryItemsList = [
       amount: 100,
       image: "/assets/img/myNftBlue.jpg",
       tourName: "Green Island",
+      stake: {
+        staked: 10,
+        total: 20,
+      },
+      property: {
+        owned: 25,
+        total: 90,
+      },
     },
     event: {
       id: 2,
@@ -51,6 +69,7 @@ const lotteryItemsList = [
   {
     id: 3,
     origin: `upcoming`,
+    chanceOfWinning: 45,
     nft: {
       id: "bull-3",
       name: "Dragon Bull",
@@ -59,6 +78,14 @@ const lotteryItemsList = [
       amount: 35,
       image: "/assets/img/myNft.jpg",
       tourName: "Dragon Bull Tour",
+      stake: {
+        staked: 8,
+        total: 15,
+      },
+      property: {
+        owned: 40,
+        total: 80,
+      },
     },
     event: {
       id: 3,
@@ -72,6 +99,7 @@ const lotteryItemsList = [
   {
     id: 4,
     origin: `active`,
+    chanceOfWinning: 50,
     nft: {
       id: "bull-4",
       name: "Ocean Concer",
@@ -80,6 +108,14 @@ const lotteryItemsList = [
       amount: 250,
       image: "/assets/img/myNftBlue.jpg",
       tourName: "Ocean Concer Tour",
+      stake: {
+        staked: 25,
+        total: 50,
+      },
+      property: {
+        owned: 70,
+        total: 15,
+      },
     },
     event: {
       id: 4,

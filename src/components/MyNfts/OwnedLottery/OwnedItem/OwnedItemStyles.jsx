@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const OwnedItemStyles = styled.div`
   display: flex;
+  margin-bottom: ${62 / 16}rem;
 
   h3 {
     font-size: ${28 / 16}rem;
@@ -50,10 +51,13 @@ export const OwnedItemStyles = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       p {
         margin: 0;
         font-size: ${20 / 16}rem;
+        span {
+          font-weight: bold;
+        }
       }
     }
   }
