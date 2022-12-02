@@ -5,7 +5,6 @@ import NewGuestForm from "@/components/Tours/NewGuestForm"
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
 
 const MyNftGuestsItem = ({ guestData }: any) => {
-  console.log(guestData)
   return (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">

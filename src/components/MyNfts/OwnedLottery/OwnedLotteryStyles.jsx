@@ -15,9 +15,10 @@ export const OwnedLotteryStyles = styled.section`
         display: flex;
         gap: ${97 / 16}rem;
 
-        span {
+        li {
             font-size: ${32 / 16}rem;
             font-weight: 500;
+            list-style-type: none;
         }
   }
 `
