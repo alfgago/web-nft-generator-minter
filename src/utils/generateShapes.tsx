@@ -81,8 +81,6 @@ const generateShapes = (size: any, canvasWidth: any, availableShapes: any) => {
       shapesArray.push(shape)
     }
   }
-  console.log("shapesArray")
-  console.log(shapesArray)
   return shapesArray
 }
 

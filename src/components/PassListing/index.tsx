@@ -1,17 +1,18 @@
-import ArtistCard from "../Common/ArtistCard"
 import { CommonPill } from "../Common/CommonStyles"
+import DropCard from "../Common/DropCard"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import {
-  ArtistListingStyles,
   BrowseStyles,
   ListingStyles,
-} from "./ArtistListingStyles"
+  PassListingStyles,
+} from "./PassListingStyles"
 
-const ArtistListing = ({ artists }: any) => {
+const PassListing = ({ passes }: any) => {
+  console.log(passes)
   return (
-    <ArtistListingStyles>
-      <SimpleHeader title="Artists" textAlign="left" />
+    <PassListingStyles>
+      <SimpleHeader title="Pass Collections" textAlign="left" />
       <BrowseStyles>
         <section className="top-triangle">
           <div className="content">
@@ -54,14 +55,14 @@ const ArtistListing = ({ artists }: any) => {
       <ListingStyles>
         <div className="content">
           <div className="list">
-            {artists.map((item: any, index: number) => {
-              return <ArtistCard key={"artist" + index} artist={item} />
+            {passes.map((item: any, index: number) => {
+              return <DropCard key={"lottery-row" + index} pass={item} />
             })}
           </div>
         </div>
       </ListingStyles>
-    </ArtistListingStyles>
+    </PassListingStyles>
   )
 }
 
-export default ArtistListing
+export default PassListing

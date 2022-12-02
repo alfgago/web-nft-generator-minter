@@ -1,60 +1,24 @@
-import { DropRow, LotteryWinnersStyles } from "./LotteryWinnersStyles"
+import LotteryRow from "@/components/Common/LotteryRow"
 
-const Artist = () => {
+import { LotteryWinnersStyles } from "./LotteryWinnersStyles"
+
+const LotteryWinners = ({ nfts }: any) => {
   return (
     <LotteryWinnersStyles>
       <div className="content">
         <h2 className="title">Recent Lottery Winners</h2>
         <div className="rows">
-          <DropRow>
-            <div className="image">
-              <img src="/assets/img/drop-pic-1.png" alt="dropPic" />
-            </div>
-            <div className="date">June 9th</div>
-            <div className="name">Steve Aoki</div>
-            <div className="place">Warfield, San Fran, CA</div>
-            <div className="winner">
-              <small>Winner:</small>
-              <span>68MMvc2...NPd</span>
-            </div>
-            <div className="actions">
-              <button type="button">Make Offer</button>
-            </div>
-          </DropRow>
-          <DropRow className="pink">
-            <div className="image">
-              <img src="/assets/img/drop-pic-2.png" alt="dropPic" />
-            </div>
-            <div className="date">June 9th</div>
-            <div className="name">Lottery 2</div>
-            <div className="place">Warfield, San Fran, CA</div>
-            <div className="winner">
-              <small>Winner:</small>
-              <span>68MMvc2...NPd</span>
-            </div>
-            <div className="actions">
-              <button type="button">Make Offer</button>
-            </div>
-          </DropRow>
-          <DropRow>
-            <div className="image">
-              <img src="/assets/img/drop-pic-1.png" alt="dropPic" />
-            </div>
-            <div className="date">June 9th</div>
-            <div className="name">Steve Aoki</div>
-            <div className="place">Warfield, San Fran, CA</div>
-            <div className="winner">
-              <small>Winner:</small>
-              <span>68MMvc2...NPd</span>
-            </div>
-            <div className="actions">
-              <button type="button">Make Offer</button>
-            </div>
-          </DropRow>
+          {nfts.map((item: any, index: number) => (
+            <LotteryRow
+              key={"lottery-row" + index}
+              nft={item}
+              color={index % 2 == 1 ? "pink" : ""}
+            />
+          ))}
         </div>
       </div>
     </LotteryWinnersStyles>
   )
 }
 
-export default Artist
+export default LotteryWinners

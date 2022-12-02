@@ -80,7 +80,7 @@ export const ArtistImage = styled.div<Props>`
     &:before {
       content: "";
       position: absolute;
-      width: 40%;
+      width: 47%;
       height: 100%;
       background: linear-gradient(
         270deg,
@@ -89,11 +89,11 @@ export const ArtistImage = styled.div<Props>`
         rgba(0, 0, 0, 0) 100%
       );
       top: 0;
-      right: 21%;
+      right: 19%;
       z-index: 2000;
 
       @media only screen and (max-width: 1540px) {
-        right: 25%;
+        right: 22%;
         width: 30%;
       }
 

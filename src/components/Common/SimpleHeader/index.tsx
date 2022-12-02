@@ -15,6 +15,7 @@ const SimpleHeader = ({
       textAlign={textAlign}
       backgroundColor={backgroundColor}
       textColor={textColor}
+      className="simple-header"
     >
       <GradientBackground />
       <div className="content">
