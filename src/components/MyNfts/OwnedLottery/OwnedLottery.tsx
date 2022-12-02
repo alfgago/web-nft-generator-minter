@@ -153,7 +153,6 @@ const OwnedLottery = () => {
             <li onClick={() => setFilter("upcoming")}>Upcoming</li>
           </ul>
         </div>
-
         {/* <ItemPagination
           itemsPerPage={3}
           values={lotteryNfts}

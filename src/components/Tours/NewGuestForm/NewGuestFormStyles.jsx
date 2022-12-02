@@ -86,7 +86,7 @@ export const NewGuestFormStyles = styled.div`
     input {
       width: 100%;
       max-width: ${380 / 16}rem;
-      background: #d9d9d9;
+      background: #F2F2F2;
       height: 45.61px;
       border-radius: ${12 / 16}rem;
       margin-top: ${8 / 16}rem;
