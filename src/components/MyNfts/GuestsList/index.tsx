@@ -9,31 +9,35 @@ import NodataGuests from "./NoDataGuests"
 const items = [
   {
     id: 1,
-    tourPass: "Tour pass",
-    name: "Nicolas",
-    email: "Nicolas@gmail.com",
-    image: "/assets/img/guest-img.png",
+    venue: "Nashville Stadium",
+    state: "Georgia",
+    city: "Nashville",
+    date: "june 19",
+    image: "/assets/img/myNftBlue.jpg",
   },
   {
     id: 2,
-    tourPass: "Tour pass",
-    name: "Alfred",
-    email: "Alfred@gmail.com",
-    image: "/assets/img/guest-img.png",
+    venue: "Kansas Stadium",
+    state: "Kansas",
+    city: "Delaware",
+    date: "September 11",
+    image: "/assets/img/myNftBlue.jpg",
   },
   {
     id: 3,
-    tourPass: "Tour pass",
-    name: "Nirvana",
-    email: "Nirvana@gmail.com",
-    image: "/assets/img/guest-img.png",
+    venue: "Georgia Stadium",
+    state: "Georgia",
+    city: "Nashville",
+    date: "june 18",
+    image: "/assets/img/myNftBlue.jpg",
   },
   {
     id: 4,
-    tourPass: "Tour pass",
-    name: "Angelo",
-    email: "Angelo@gmail.com",
-    image: "/assets/img/guest-img.png",
+    venue: "California Stadium",
+    state: "California",
+    city: "San Francisco",
+    date: "April 11",
+    image: "/assets/img/myNftBlue.jpg",
   },
 ]
 
@@ -42,19 +46,22 @@ const MyNftGuestsList = () => {
     <MyNftGuestsListStyles>
       <div className="content">
         {items.length > 0 ? (
-          <ItemPagination
-            itemsPerPage={3}
-            values={items}
-            render={(items: any) => {
-              return (
-                <div className="items-cont">
-                  {items.map((data: any) => {
-                    return <MyNftGuestsItem key={data.id} guestData={data} />
-                  })}
-                </div>
-              )
-            }}
-          />
+          <>
+            <h2>Access Guest List</h2>
+            <ItemPagination
+              itemsPerPage={3}
+              values={items}
+              render={(items: any) => {
+                return (
+                  <div className="items-cont">
+                    {items.map((data: any) => {
+                      return <MyNftGuestsItem key={data.id} guestData={data} />
+                    })}
+                  </div>
+                )
+              }}
+            />
+          </>
         ) : (
           <NodataGuests />
         )}

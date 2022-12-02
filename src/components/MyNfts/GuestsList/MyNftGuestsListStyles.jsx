@@ -7,6 +7,8 @@ export const MyNftGuestsListStyles = styled.section`
   .content {
     h2 {
       font-weight: 600;
+      font-size: 40px;
+      padding-bottom: ${61 / 16}rem;
     }
   }
   .items-cont {
