@@ -4,6 +4,7 @@ import ItemPagination from "@/components/Common/ItemPagination"
 
 import MyNftGuestsItem from "./MyNftGuestsItem"
 import { MyNftGuestsListStyles } from "./MyNftGuestsListStyles"
+import NodataGuests from "./NoDataGuests"
 
 const items = [
   {
@@ -40,21 +41,23 @@ const MyNftGuestsList = () => {
   return (
     <MyNftGuestsListStyles>
       <div className="content">
-        <h2>Access guest list</h2>
-
-        <ItemPagination
-          itemsPerPage={3}
-          values={items}
-          render={(items: any) => {
-            return (
-              <div className="content">
-                {items.map((data: any) => {
-                  return <MyNftGuestsItem key={data.id} guestData={data} />
-                })}
-              </div>
-            )
-          }}
-        />
+        {items.length > 0 ? (
+          <ItemPagination
+            itemsPerPage={3}
+            values={items}
+            render={(items: any) => {
+              return (
+                <div className="content">
+                  {items.map((data: any) => {
+                    return <MyNftGuestsItem key={data.id} guestData={data} />
+                  })}
+                </div>
+              )
+            }}
+          />
+        ) : (
+          <NodataGuests />
+        )}
       </div>
     </MyNftGuestsListStyles>
   )
