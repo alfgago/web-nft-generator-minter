@@ -86,9 +86,16 @@ const Navbar = () => {
             </li>
             {width > 1080 && (
               <li className="li-account">
-                <a href="#account" onClick={() => setIsOpen(true)}>
-                  <ReactSVG src="/assets/vectors/account.svg" />
-                </a>
+                {false && (
+                  <a href="#account" onClick={() => setIsOpen(true)}>
+                    <ReactSVG src="/assets/vectors/account.svg" />
+                  </a>
+                )}
+                <Link href="/my-nfts">
+                  <a>
+                    <ReactSVG src="/assets/vectors/account.svg" />
+                  </a>
+                </Link>
               </li>
             )}
             {width > 1080 && (
