@@ -9,4 +9,9 @@ export const MyNftGuestsListStyles = styled.section`
       font-weight: 600;
     }
   }
+  .items-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `

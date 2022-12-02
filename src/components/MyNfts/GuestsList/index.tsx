@@ -47,7 +47,7 @@ const MyNftGuestsList = () => {
             values={items}
             render={(items: any) => {
               return (
-                <div className="content">
+                <div className="items-cont">
                   {items.map((data: any) => {
                     return <MyNftGuestsItem key={data.id} guestData={data} />
                   })}
