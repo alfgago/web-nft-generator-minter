@@ -61,6 +61,30 @@ export const ArtistCardStyles = styled.div`
       width: 50%;
       padding-bottom: 50%;
     }
+
+    .socials {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      padding: 1rem;
+
+      svg {
+        width: ${27 / 16}rem;
+        height: ${27 / 16}rem;
+        margin-top: ${5 / 16}rem;
+        filter: drop-shadow(1px 1px 1px rgb(0 0 0 / 0.4));
+        path {
+          transition: 0.5s ease all;
+          opacity: 1;
+        }
+      }
+
+      a:hover svg path {
+        cursor: pointer;
+        transform: scale(1.05);
+      }
+    }
   }
 
   .inner {

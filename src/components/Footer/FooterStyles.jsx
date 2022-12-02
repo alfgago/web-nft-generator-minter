@@ -20,6 +20,7 @@ export const FooterStyles = styled.footer`
     @media ${DEVICE.laptop} {
       top: 0;
     }
+    background: #0c0c0c;
   }
 
   .footer {
