@@ -1,66 +1,12 @@
-import Link from "next/link"
-
 import { CommonPill } from "../Common/CommonStyles"
 import DropCard from "../Common/DropCard"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import {
   BrowseStyles,
-  HeroStyles,
   ListingStyles,
   PassListingStyles,
 } from "./PassListingStyles"
-
-const featuredArtists = [
-  {
-    name: "Kings of Leon",
-    slug: "kings-of-leon",
-    image: "/assets/img/featured-1.jpg",
-  },
-  {
-    name: "Steve Aoki",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Snoop Dogg",
-    slug: "kings-of-leon",
-    image: "/assets/img/featured-3.jpg",
-  },
-]
-
-const artists = [
-  {
-    name: "Sample 1",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Sample 2",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Sample 3",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Sample 4",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Sample 5",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-  {
-    name: "Sample 6",
-    slug: "steve-aoki",
-    image: "/assets/img/featured-2.jpg",
-  },
-]
 
 const PassListing = ({ passes }: any) => {
   console.log(passes)
