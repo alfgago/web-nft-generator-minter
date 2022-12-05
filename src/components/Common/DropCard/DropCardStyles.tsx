@@ -12,30 +12,46 @@ export const DropCardStyles = styled.div`
 
   @media ${DEVICE.laptop} {
     &.home {
+      display: block;
       .image-container {
         width: 100%;
         padding-bottom: 100%;
       }
       .inner {
         position: absolute;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        background: #000;
-        color: #fff;
-        display: flex;
-        align-items: center;
+        padding: 0 !important;
+        top: 0;
+        right: 0;
+        display: inline-flex;
+        flex-direction: column;
+        border-bottom-left-radius: 50px;
+        transition: 0.5s ease all;
 
         .titles {
-          width: 80%;
-          padding-right: ${10 / 16}rem;
+          text-align: right;
+          color: #fff;
+          width: 100%;
+          transition: 0.5s ease all;
+          padding: 1rem;
+          padding-top: 0;
+          opacity: 0;
+          order: 2;
         }
         .actions {
+          padding: 1rem;
           display: block;
           text-align: center;
           .time {
             color: #fff;
             margin-top: 0.5rem;
+          }
+        }
+      }
+      &:hover {
+        .inner {
+          background: rgba(0, 0, 0, 0.8);
+          .titles {
+            opacity: 1;
           }
         }
       }

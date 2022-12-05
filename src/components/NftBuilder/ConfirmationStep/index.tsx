@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useEffect, useState } from "react"
 import { fabric } from "fabric"
 
@@ -103,7 +104,9 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
   const generateCanvasImage = (collectionData: any) => {
     pickBackground(collectionData)
     window.previewCanvas.renderAll()
-    const nft = window.previewCanvas.toDataURL()
+    const nft = window.previewCanvas.toDataURL({
+      format: "jpeg",
+    })
     return nft
   }
 
