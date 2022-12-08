@@ -25,9 +25,13 @@ type CreateContractResponseBody =
   | ErrResponseBody
 
 // TODO - @zac actually perform transformation
+// transform the form body from the front end into
+// the shape expected by the client lib. Or throw
+// if the body is invalid
 const transformCreateContractParams = (
   body: CreateContractRequestBody
 ): CreateContractParams => {
+  // this is an example client lib payload
   return {
     contract: {
       asciiArt: "Test transfer visibility",
@@ -68,7 +72,7 @@ export default async function handler(
     const { network } = req.body
     const createParams = transformCreateContractParams(req.body)
     const requestId = await deployContract(createParams, network)
-    res.status(200).json({ requestId })
+    res.status(200).json({ requestId: requestId })
   } catch (e) {
     const msg = e instanceof Error ? e.message : e
     res.status(400).send({ err: "Bad Request:" + msg })
