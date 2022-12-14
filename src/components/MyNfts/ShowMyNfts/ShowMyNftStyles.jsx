@@ -8,11 +8,11 @@ export const ShowMyNftStyles = styled.section`
   .content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100%;
-    gap: ${20 / 16}rem;
+    gap: ${129 / 16}rem;
+    justify-content: center;
   }
 
   .content + div {
