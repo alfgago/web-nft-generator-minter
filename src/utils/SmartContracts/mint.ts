@@ -10,13 +10,14 @@ import {
 type DevMintParams = {
   network: Network
   contractAddress: string
-  metadataCid: string // the
+  metadataCid: string // the ipfs cid of the NFT metadata
   toAddress: string // the receiver of the NFT
 }
 
 // called server side to mint a token via the automation wallet
 // this should likely be used for lottery NFTs and auction NFTs
-// accepts a dynamic metadata cid
+// accepts a dynamic metadata cid. This method is only accessible
+// to the contract owner and operators
 export const devMint = async ({
   network,
   contractAddress,
@@ -46,7 +47,8 @@ export type MintDataForSignature = {
 
 // called from the front end to mint a token via the user's wallet
 // they will receive a confirmation message in metamask (or other wallet)
-// executes the following steps
+// requires a server side signature to be passed to the contract to prevent
+// users from minting with arbitrary metadata
 export const userDynamicMint = async ({
   network,
   contractAddress,
@@ -74,6 +76,7 @@ export const userDynamicMint = async ({
   }
 
   // call to plus one api to sign the data (via Juice Vault)
+  // essentially "approving" the minting of the NFT metadata
   const res = await fetch("/api/signatures", {
     method: "POST",
     body: JSON.stringify({ mintData: dataToSign, network, contractAddress }),
@@ -85,6 +88,7 @@ export const userDynamicMint = async ({
   await jc.onDemandFacet.onDemandMint(tokenUri, signature)
 }
 
+// called by plus one API, signs the mint data to approve it for minting
 export const signMintData = async (
   network: Network,
   contractAddress: string,

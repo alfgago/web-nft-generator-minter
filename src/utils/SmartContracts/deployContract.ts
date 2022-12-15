@@ -8,7 +8,6 @@ export const deployContract = async (
 ): Promise<string> => {
   const jc = createJuiceClientForAutomation(network)
 
-  // TODO - @zac improve typed response
   const requestId = await jc.utils.contracts.create(contractParams)
 
   return requestId
