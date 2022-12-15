@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
 import { deployContract } from "@/utils/SmartContracts/deployContract"
-import { CreateContractParams, Network } from "@juicelabs/vault"
+import { CreateContractParams, Network } from "@juicelabs/client"
 
 // types should probably be consolidated somewhere
 // will leave that up to the team to decide
@@ -34,11 +34,12 @@ const transformCreateContractParams = (
   // this is an example client lib payload
   return {
     contract: {
-      asciiArt: "Test transfer visibility",
-      contractName: "TransferVisibilityWorking",
+      asciiArt:
+        "super cool ascii art that goes in the source code of the smart contract",
+      contractName: "PascalCaseContractTitle",
     },
     metadata: {
-      name: "Sick Contract #1",
+      name: "Name",
       symbol: "SICK",
       maxSupply: 1000,
       royaltyBips: 100,
