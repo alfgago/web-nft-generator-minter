@@ -7,7 +7,7 @@ import {
   createLocalJuiceClient,
 } from "./createJuiceClient"
 
-type DevMintParams = {
+export type DevMintParams = {
   network: Network
   contractAddress: string
   metadataCid: string // the ipfs cid of the NFT metadata
@@ -30,10 +30,15 @@ export const devMint = async ({
   if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
 
   // mint the NFT to the toAddress
-  await jc.baseNFTFacet?.devMintWithTokenURI(toAddress, `ipfs://${metadataCid}`)
+  const tx = await jc.baseNFTFacet?.devMintWithTokenURI(
+    toAddress,
+    `ipfs://${metadataCid}`
+  )
+
+  return tx.hash
 }
 
-type UserMintParams = {
+export type UserMintParams = {
   network: Network
   contractAddress: string
   signer: Signer // acquired once wallet is connected
