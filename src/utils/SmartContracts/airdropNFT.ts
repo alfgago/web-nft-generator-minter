@@ -2,16 +2,23 @@ import { Network } from "@juicelabs/client"
 
 import { createJuiceClientForAutomation } from "./createJuiceClient"
 
+export type AirdropParams = {
+  contractAddress: string // the NFT contract address
+  network: Network // either goerli or polygon
+  nftId: number // the token number
+  toWalletAddress: string // the airdrop receiver
+}
+
 // This helper should be used with the lottery NFTs.
 // NFTs should be initially dev minted to the automation
 // wallet address then call this function to automatically
 // airdrop them to winning addresses once the lottery is run
-export const airdropNFT = async (
-  contractAddress: string, // the NFT contract address
-  network: Network, // either goerli or polygon
-  nftId: number, // the token number
-  toWalletAddress: string // the airdrop receiver
-) => {
+export const airdropNFT = async ({
+  contractAddress,
+  network,
+  toWalletAddress,
+  nftId,
+}: AirdropParams) => {
   const jc = createJuiceClientForAutomation(network, contractAddress)
   await jc.waitForInit()
 

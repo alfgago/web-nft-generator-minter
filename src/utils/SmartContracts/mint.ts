@@ -90,7 +90,9 @@ export const userDynamicMint = async ({
   const { signature } = await res.json()
 
   // actually mint the NFT with the tokenUri and signature
-  await jc.onDemandFacet.onDemandMint(tokenUri, signature)
+  const tx = await jc.onDemandFacet.onDemandMint(tokenUri, signature)
+
+  return tx.hash
 }
 
 // called by plus one API, signs the mint data to approve it for minting
