@@ -755,10 +755,11 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@juicelabs/client@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@juicelabs/client/-/client-1.0.3.tgz#7cfdac1dc662fedf25c2091c790feb704a0b170f"
-  integrity sha512-KPdF7mgJuoJ9vZt/73Ki90o0Dp5qwDmTo/qPMH/J+pocq7OjSwIkrdFeMbo/6knyI2wazj6gYbWA9rIhpPGRpw==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@juicelabs/client/-/client-1.0.4.tgz#6b898b6b3381654e3d577d3ce55ad5a7726e6868"
+  integrity sha512-sl1qwZuyYLRY3wfrOU90jWN5xThaMy+87uSJOBqQ3+QJZB8o0g743WhXS3FTCtZi/W0xkyAkKbYSS1vyuGe92Q==
   dependencies:
+    cross-fetch "^3.1.5"
     nft.storage "^7.0.0"
 
 "@mapbox/node-pre-gyp@^1.0.0":
