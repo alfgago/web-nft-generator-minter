@@ -1,12 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
-import {
-  DevMintParams,
-  MintDataForSignature,
-  signMintData,
-} from "@/utils/SmartContracts/mint"
+import { DevMintParams } from "@/utils/SmartContracts/mint"
 import { devMint } from "@/utils/SmartContracts/mint"
-import { Network } from "@juicelabs/client"
 
 import "dotenv/config"
 

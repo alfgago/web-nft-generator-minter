@@ -24,8 +24,7 @@ export const devMint = async ({
   metadataCid, // the IPFS CID of the NFT metadata
   toAddress,
 }: DevMintParams) => {
-  const jc = createJuiceClientForAutomation(network, contractAddress)
-  await jc.waitForInit()
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
 
@@ -101,8 +100,7 @@ export const signMintData = async (
   contractAddress: string,
   mintData: MintDataForSignature
 ) => {
-  const jc = createJuiceClientForAutomation(network, contractAddress)
-  await jc.waitForInit()
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   const signature = await jc.utils.signatures.createEncoded(mintData)
 

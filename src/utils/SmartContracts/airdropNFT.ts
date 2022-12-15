@@ -2,6 +2,8 @@ import { Network } from "@juicelabs/client"
 
 import { createJuiceClientForAutomation } from "./createJuiceClient"
 
+import "dotenv/config"
+
 export type AirdropParams = {
   contractAddress: string // the NFT contract address
   network: Network // either goerli or polygon
@@ -19,8 +21,7 @@ export const airdropNFT = async ({
   toWalletAddress,
   nftId,
 }: AirdropParams) => {
-  const jc = createJuiceClientForAutomation(network, contractAddress)
-  await jc.waitForInit()
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
 
@@ -28,5 +29,11 @@ export const airdropNFT = async ({
   if (!fromAddress) throw new Error("No signer found")
 
   // transfer the NFT to the wallet address
-  await jc.baseNFTFacet?.transferFrom(fromAddress, toWalletAddress, nftId)
+  const tx = await jc.baseNFTFacet?.transferFrom(
+    fromAddress,
+    toWalletAddress,
+    nftId
+  )
+
+  return tx.hash
 }

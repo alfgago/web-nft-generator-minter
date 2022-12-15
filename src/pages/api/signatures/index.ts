@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
-import { deployContract } from "@/utils/SmartContracts/deployContract"
 import { MintDataForSignature, signMintData } from "@/utils/SmartContracts/mint"
 import { Network } from "@juicelabs/client"
+
+import "dotenv/config"
 
 type CreateSignatureRequestBody = {
   mintData: MintDataForSignature

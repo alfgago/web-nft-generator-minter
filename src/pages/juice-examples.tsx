@@ -2,9 +2,7 @@ import { useState } from "react"
 import { ethers } from "ethers"
 
 import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus"
-import { airdropNFT } from "@/utils/SmartContracts/airdropNFT"
 import { uploadNFTMeta } from "@/utils/SmartContracts/assetUpload"
-import { createLocalJuiceClient } from "@/utils/SmartContracts/createJuiceClient"
 import imageDataUri from "@/utils/SmartContracts/exampleDataUri"
 import { userDynamicMint } from "@/utils/SmartContracts/mint"
 import { JsonRpcSigner } from "@ethersproject/providers"
@@ -43,7 +41,7 @@ const JuiceExamples = () => {
 
     if (!res.ok) {
       const { err } = await res.json()
-      alert("Error: " + err)
+      throw Error(err)
     }
 
     const { requestId } = await res.json()
@@ -84,25 +82,36 @@ const JuiceExamples = () => {
   }
 
   const airdrop = async () => {
-    const txHash = await airdropNFT({
-      contractAddress: requestData.contractAddress,
-      network: "goerli",
-      toWalletAddress: connectedAddress,
-      nftId: 1,
+    const res = await fetch("/api/airdrops", {
+      method: "POST",
+      body: JSON.stringify({
+        contractAddress: requestData.contractAddress,
+        network: "goerli",
+        toWalletAddress: connectedAddress,
+        nftId: 1,
+      }),
     })
 
-    alert("Airdrop Transaction Hash: " + txHash)
+    if (!res.ok) throw new Error("Airdrop failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    alert("Airdrop Transaction Hash: " + transactionHash)
   }
 
   return (
-    <div>
-      <h1>Juice Examples (TODO)</h1>
+    <div style={{ padding: 100, display: "flex", flexDirection: "column" }}>
+      <h1>Juice Examples</h1>
 
-      <h2>Contract Deploy Section</h2>
-      <button onClick={connectMetamask}>Connect Wallet</button>
+      <h4 style={h4Styles}>Contract Deploy Section</h4>
+      <button style={buttonStyles} onClick={connectMetamask}>
+        Connect Wallet
+      </button>
       <span>Connected Address: {connectedAddress}</span>
 
-      <button onClick={deployContract}>Deploy Contract</button>
+      <button style={buttonStyles} onClick={deployContract}>
+        Deploy Contract
+      </button>
       <span>Deploys a new smart contract via the vault API</span>
       {contractDeployStatus === "pending" && <span>pending</span>}
       {contractDeployStatus === "succeeded" && (
@@ -112,28 +121,46 @@ const JuiceExamples = () => {
         <span>failed: {requestData.error}</span>
       )}
 
-      <h2>Example NFT Asset</h2>
+      <h4 style={h4Styles}>Example NFT Asset</h4>
       <img
-        style={{ width: 100, height: "auto" }}
+        style={{ width: 300, height: "auto" }}
         src={imageDataUri}
         alt="example nft asset"
       />
 
-      <h2>Dev Mint Section</h2>
-      <button onClick={uploadAssetAndDevMint}>Dev Mint NFT</button>
+      <h4 style={h4Styles}>Dev Mint Section</h4>
+      <button style={buttonStyles} onClick={uploadAssetAndDevMint}>
+        Dev Mint NFT
+      </button>
       <span>
         Triggers a server side mint of the nft with the custodial admin wallet
       </span>
 
-      <h2>On Demand Mint Section</h2>
-      <button onClick={uploadAssetAndDynamicMint}>On Demand Mint</button>
+      <h4 style={h4Styles}>On Demand Mint Section</h4>
+      <button style={buttonStyles} onClick={uploadAssetAndDynamicMint}>
+        On Demand Mint
+      </button>
       <span>Triggers a mint from the webpage with dynamic metadata</span>
 
-      <h2>Airdrop Section</h2>
-      <button onClick={airdrop}>Airdrop NFT</button>
+      <h4 style={h4Styles}>Airdrop Section</h4>
+      <button style={buttonStyles} onClick={airdrop}>
+        Airdrop NFT
+      </button>
       <span>Sends the NFT held by the admin wallet to a specific user</span>
     </div>
   )
+}
+
+const buttonStyles = {
+  padding: "20px 10px",
+  background: "black",
+  color: "white",
+  maxWidth: 200,
+  margin: "10px 0",
+}
+
+const h4Styles = {
+  marginTop: 50,
 }
 
 // helpers
