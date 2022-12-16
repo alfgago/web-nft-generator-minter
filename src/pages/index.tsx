@@ -9,7 +9,7 @@ const Index = ({ page, nfts, passes }: any) => {
       <Head>
         <title>Home - PlusOne</title>
       </Head>
-      <Home page={page.data} nfts={nfts.data} passes={passes.data} />
+      <Home page={page.data} passes={passes.data} />
     </>
   )
 }
@@ -17,32 +17,15 @@ const Index = ({ page, nfts, passes }: any) => {
 export const getStaticProps = async () => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
-  const postResponse = await axios.get(
-    `${apiURL}/api/homepage?populate[banner]=true&populate[featured_artists][populate][0]=profile_picture`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  const postResponse = await axios.get(`${apiURL}/api/homepage?populate=deep,4`)
 
-  const nftsResponse = await axios.get(`${apiURL}/api/nfts?populate=*`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const passesResponse = await axios.get(`${apiURL}/api/passes?populate=*`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const passesResponse = await axios.get(`${apiURL}/api/passes?populate=*`)
 
   return {
     props: {
       page: postResponse.data,
-      nfts: nftsResponse.data,
       passes: passesResponse.data,
     },
     revalidate: 30,

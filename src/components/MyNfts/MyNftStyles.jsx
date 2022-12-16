@@ -6,10 +6,25 @@ export const MyNtfStyles = styled.main`
     h3 {
       font-weight: 600;
     }
-    .settings {
+    .disconnect {
+      button {
+        font-size: ${12 / 16}rem;
+        align-items: center;
+        gap: ${10 / 16}rem;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .disconnected {
+    .with-icon {
       display: flex;
-      align-items: center;
       gap: ${10 / 16}rem;
+      align-items: center;
+
+      &:hover path {
+        fill: #fff;
+      }
     }
   }
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
+import { useAccount, useConnect } from "wagmi"
+import { InjectedConnector } from "wagmi/connectors/injected"
 
 import Login from "../Login"
 
@@ -10,6 +12,10 @@ import { NavbarStyles } from "./NavbarStyles"
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
   const { width } = useWindowSize()
+  const { isConnected } = useAccount()
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
 
   // change nav color when scrolling
   const [color, setColor] = useState(false)
@@ -25,7 +31,7 @@ const Navbar = () => {
     window.addEventListener("scroll", changeColor)
   }
 
-  const [openLogin, setIsOpen] = useState(false)
+  const [openLogin, setOpenLogin] = useState(false)
 
   return (
     <NavbarStyles hasColor={color} id="navbar">
@@ -84,10 +90,10 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            {width > 1080 && (
+            {width > 1080 && isConnected && (
               <li className="li-account">
                 {false && (
-                  <a href="#account" onClick={() => setIsOpen(true)}>
+                  <a href="#account" onClick={() => setOpenLogin(true)}>
                     <ReactSVG src="/assets/vectors/account.svg" />
                   </a>
                 )}
@@ -98,9 +104,9 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
-            {width > 1080 && (
+            {width > 1080 && !isConnected && (
               <li className="li-wallet">
-                <a href="#">
+                <a href="#" onClick={() => connect()}>
                   <ReactSVG src="/assets/vectors/wallet.svg" />
                 </a>
               </li>
@@ -111,13 +117,13 @@ const Navbar = () => {
                 <div className="submenu account-submenu">
                   <ul>
                     <li>
-                      <a href="#account" onClick={() => setIsOpen(true)}>
+                      <a href="#account" onClick={() => setOpenLogin(true)}>
                         <ReactSVG src="/assets/vectors/account.svg" />
-                        <span>Login</span>
+                        <span>Account</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="#" onClick={() => connect()}>
                         <ReactSVG src="/assets/vectors/wallet.svg" />
                         <span>Connect your wallet</span>
                       </a>
@@ -135,7 +141,7 @@ const Navbar = () => {
           type="button"
           onClick={() => {
             setShowMenu(!showMenu)
-            showMenu && setIsOpen(false)
+            showMenu && setOpenLogin(false)
           }}
         >
           <span className="hamburger-box">
@@ -143,7 +149,7 @@ const Navbar = () => {
           </span>
         </button>
       </div>
-      {openLogin && <Login setIsOpen={setIsOpen} />}
+      {openLogin && <Login setIsOpen={setOpenLogin} />}
     </NavbarStyles>
   )
 }

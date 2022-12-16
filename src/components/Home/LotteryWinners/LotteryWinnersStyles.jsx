@@ -28,4 +28,18 @@ export const LotteryWinnersStyles = styled.section`
     max-width: ${940 / 16}rem;
     margin-bottom: ${50 / 16}rem;
   }
+
+  .loadmore {
+    position: relative;
+    text-align: center;
+    min-height: 1px;
+
+    .message {
+      position: absolute;
+      display: block;
+      width: 100%;
+      top: 100%;
+      margin-top: 0.5rem;
+    }
+  }
 `

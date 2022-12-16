@@ -1,6 +1,6 @@
-import type { NextComponentType } from "next" // Import Component type
-import type { AppProps } from "next/app"
 import { SessionProvider } from "next-auth/react"
+import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi"
+import { publicProvider } from "wagmi/providers/public"
 
 import AuthGuard from "@/components/Common/AuthGuard"
 import Layout from "@/components/Layout"
@@ -10,27 +10,36 @@ import "../styles/fonts/stylesheet.css"
 import "../styles/hamburger.css"
 import "../styles/globals.scss"
 
-type CustomAppProps = AppProps & {
-  Component: NextComponentType & { requireAuth?: boolean } // add auth type
-}
+const { chains, provider, webSocketProvider } = configureChains(
+  [mainnet],
+  [publicProvider()]
+)
+
+const client = createClient({
+  autoConnect: true,
+  provider,
+  webSocketProvider,
+})
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <>
       <Meta />
-      <SessionProvider session={session}>
-        {Component.requireAuth ? (
-          <AuthGuard>
+      <WagmiConfig client={client}>
+        <SessionProvider session={session}>
+          {Component.requireAuth ? (
+            <AuthGuard>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </AuthGuard>
+          ) : (
             <Layout>
               <Component {...pageProps} />
             </Layout>
-          </AuthGuard>
-        ) : (
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        )}
-      </SessionProvider>
+          )}
+        </SessionProvider>
+      </WagmiConfig>
     </>
   )
 }

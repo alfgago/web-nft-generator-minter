@@ -29,9 +29,7 @@ declare global {
   interface Window {
     canvas: any
     template: any
-    text: any
-    addedImage: any
-    shapesColor: any
+    layers: any
   }
 }
 
@@ -88,6 +86,9 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
   }, [imageUrl])
 
   const initCanvas = () => {
+    if (!window.layers) {
+      window.layers = []
+    }
     // FabricJS creates the .canvas-container, so if it exists, don't do this again
     if (!document.body.querySelector(".canvas-container")) {
       if (window.canvas) {
@@ -101,21 +102,21 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("/templates/")
               ) {
-                window.template = el
+                window.layers[3] = el
                 isSelectable = false
               }
               if (
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("blob")
               ) {
-                window.addedImage = el
+                window.layers[1] = el
               }
             }
             if (el.get("type") == "rect") {
               isSelectable = false
             }
             if (el.get("type") == "textbox") {
-              window.text = el
+              window.layers[4] = el
               isSelectable = false
             }
             if (!isSelectable) {
@@ -133,7 +134,6 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         pickBackground("#000")
 
         try {
-          console.log(artist)
           const artistImage = artist.attributes.banner.data.attributes.url
           setImageUrl(artistImage)
         } catch (e) {
@@ -147,19 +147,17 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 
   const pickTemplate = (number = 1) => {
     // Remove old Template
-    window.canvas.remove(window.template)
+    window.canvas.remove(window.layers[3])
     fabric.Image.fromURL(
       `/assets/templates/${number}.png`,
       function (oImg) {
         // window.canvas.add(oImg
-        window.canvas.insertAt(oImg, 1)
-
+        window.canvas.add(oImg)
         oImg.scaleToWidth(canvasWidth)
         oImg.scaleToHeight(canvasHeight)
         oImg.set("selectable", false)
         oImg.set("evented", false)
-        oImg.bringToFront()
-        window.template = oImg
+        window.layers[3] = oImg // Template is the 3rd layer
         addText()
       },
       { crossOrigin: "anonymous" }
@@ -171,7 +169,7 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       if (el.get("type") == "image") {
         if (
           el._originalElement &&
-          el._originalElement.currentSrc.includes("blob")
+          !el._originalElement.currentSrc.includes("/templates/")
         ) {
           window.canvas.remove(el)
         }
@@ -183,13 +181,8 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       function (oImg) {
         oImg.scaleToWidth(canvasWidth)
         window.canvas.add(oImg)
-        window.template.bringToFront()
-        window.text.bringToFront()
-        window.addedImage = oImg
-        window.addedImage.sendToBack()
-        if (window.shapesColor) {
-          window.shapesColor.sendToBack()
-        }
+        window.layers[1] = oImg // Uploaded image is always the 1st layer
+        reorderCanvas()
       },
       { crossOrigin: "anonymous" }
     )
@@ -203,7 +196,7 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       }
     })
 
-    const backgroundRect = new fabric.Rect({
+    const clipBackground = new fabric.Rect({
       width: canvasWidth,
       height: canvasHeight,
       top: 0,
@@ -215,21 +208,21 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       const clipPath = new fabric.Group(shapes, {
         inverted: true,
       })
-      backgroundRect.clipPath = clipPath
+      clipBackground.clipPath = clipPath
     }
-    /*
-    const gutter = 30
-    backgroundRect.top = gutter
-    backgroundRect.left = gutter
-    backgroundRect.scaleToWidth(canvasWidth - gutter * 2)
-    */
-    window.canvas.insertAt(backgroundRect, 0)
-    backgroundRect.set("selectable", false)
-    backgroundRect.set("evented", false)
-    if (window.addedImage && gridSize && availableShapes.length > 0)
-      window.addedImage.sendToBack()
+
+    const gutter = 50
+    clipBackground.top = gutter
+    clipBackground.left = gutter
+    clipBackground.scaleToWidth(canvasWidth - gutter * 2)
+
+    clipBackground.set("selectable", false)
+    clipBackground.set("evented", false)
+    window.canvas.add(clipBackground)
+    window.layers[2] = clipBackground // Clip is the 2nd layer
 
     addShapesColors()
+    reorderCanvas()
   }
 
   const addShapesColors = () => {
@@ -240,9 +233,10 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       left: 0,
       fill: shapesColor.hex,
     })
+    shapesColorsRect.set("selectable", false)
+    shapesColorsRect.set("evented", false)
     window.canvas.add(shapesColorsRect)
-    shapesColorsRect.sendToBack()
-    window.shapesColor = shapesColorsRect
+    window.layers[0] = shapesColorsRect // This is the background, first layer
   }
 
   const addText = () => {
@@ -268,8 +262,16 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 
     text.set("selectable", false)
     text.set("evented", false)
-    text.bringToFront()
-    window.text = text
+    window.layers[4] = text // Text is 4th layer
+    reorderCanvas()
+  }
+
+  const reorderCanvas = () => {
+    window.layers.forEach((element: any, index: number) => {
+      if (element) {
+        element.moveTo(index)
+      }
+    })
   }
 
   return (

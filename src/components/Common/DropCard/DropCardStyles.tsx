@@ -39,11 +39,14 @@ export const DropCardStyles = styled.div`
         }
         .actions {
           padding: 1rem;
-          display: block;
           text-align: center;
           .time {
             color: #fff;
             margin-top: 0.5rem;
+          }
+
+          &.with-time {
+            display: block;
           }
         }
       }
@@ -122,20 +125,20 @@ export const DropCardStyles = styled.div`
       align-items: center;
       gap: ${10 / 16}rem;
 
-      .time {
-        display: block;
-        font-size: ${11 / 16}rem;
-        color: #000;
-        @media ${DEVICE.maxlaptop} {
-          font-size: ${11 / 16}rem;
-        }
-      }
-
       .clickable {
         @media ${DEVICE.maxlaptop} {
           font-size: ${11 / 16}rem;
           padding: 3px 5px;
         }
+      }
+    }
+
+    .time {
+      display: block;
+      font-size: ${11 / 16}rem;
+      color: #000;
+      @media ${DEVICE.maxlaptop} {
+        font-size: ${11 / 16}rem;
       }
     }
   }
