@@ -1,16 +1,19 @@
-import SimpleHeader from "../Common/SimpleHeader"
+import FAQ from "../Common/FAQ"
+import SlidesBanner from "../Common/SlidesBanner"
 
 import { FanResourcesStyles } from "./FanResourcesStyles"
 
-const copy =
-  "The only place to get those exclusive guest list spots with easy entry - often skipping the line at the box office! And the only way into sold out shows!"
+const FanResources = ({ data }: any) => {
+  const attributes = data.attributes
 
-const FanResources = () => {
   return (
     <FanResourcesStyles>
-      <SimpleHeader title="Fan Resources" textAlign="left">
-        {copy}
-      </SimpleHeader>
+      <SlidesBanner
+        title="For Fans:"
+        slides={attributes.banners}
+        style="fans"
+      />
+      <FAQ faqs={attributes.FAQ} />
     </FanResourcesStyles>
   )
 }

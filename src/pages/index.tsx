@@ -3,7 +3,7 @@ import axios from "axios"
 
 import Home from "@/components/Home"
 
-const Index = ({ page, nfts, passes }: any) => {
+const Index = ({ page, passes }: any) => {
   return (
     <>
       <Head>
