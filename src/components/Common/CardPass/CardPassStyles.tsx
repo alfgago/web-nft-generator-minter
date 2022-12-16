@@ -82,4 +82,11 @@ export const CardPassStyles = styled.div`
       gap: 3px;
     }
   }
+
+  .guests-no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 `

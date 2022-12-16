@@ -58,7 +58,7 @@ const Artist = ({ passList }: any) => {
     { name: "Lifetime" },
   ]
 
-  // console.log(passList.passes.data)
+  console.log(passList.banner.data.attributes.url)
   return (
     <>
       {passList != undefined && (

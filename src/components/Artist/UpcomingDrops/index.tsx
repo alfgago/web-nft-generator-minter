@@ -1,27 +1,38 @@
 import { BoxDrops, DropRow, UpcomingDropsStyles } from "./UpcomingDropsStyles"
 
 const Artist = ({ events }: any) => {
-  // console.log(events)
   const dateFormat = (value: any) => {
     const date = new Date(value)
     const day = date.toLocaleString("default", { day: "2-digit" })
     const month = date.toLocaleString("default", { month: "short" })
     const year = date.toLocaleString("default", { year: "numeric" })
-    return day + "-" + month + "-" + year
+    return day + " " + month + " " + year
   }
+
+  const eventsP = events.events.data
+  console.log(eventsP)
+
   return (
     <UpcomingDropsStyles>
       <div className="content">
         <h2 className="title">Upcoming Shows</h2>
-        {events.length > 0 ? (
+        {eventsP.length > 0 ? (
           <BoxDrops>
-            {events.map((items: any, index: number) => {
+            {eventsP.map((items: any, index: number) => {
               // console.log(items.attributes)
               return (
                 <DropRow key={index}>
                   <div className="place">
-                    {items.attributes.city}, {items.attributes.state},
-                    {items.attributes.country}
+                    {items.attributes.city != null && (
+                      <span>{items.attributes.city},</span>
+                    )}
+                    {items.attributes.city != null && (
+                      <span>{items.attributes.state},</span>
+                    )}
+
+                    {items.attributes.city != null && (
+                      <span>{items.attributes.country}</span>
+                    )}
                   </div>
                   <div className="date" style={{ background: "#FFD1FB" }}>
                     {dateFormat(items.attributes.date)}

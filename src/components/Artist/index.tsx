@@ -16,7 +16,7 @@ const Artist = ({ artistData }: any) => {
       {artistData != undefined && (
         <>
           <GuestListNFT passList={artistData} />
-          {/* <UpcomingDrops events={artistData.attributes.events} /> */}
+          <UpcomingDrops events={artistData} />
           <UpcomingDrawing />
           <Faq title="FAQ" />
         </>

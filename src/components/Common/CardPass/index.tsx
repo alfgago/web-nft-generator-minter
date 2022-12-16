@@ -13,7 +13,7 @@ const CardPass = ({ pass }: any) => {
     return day + " " + month + " " + year
   }
 
-  // console.log(pass.attributes.event.data.attributes.name)
+  console.log(pass.attributes.artist.data.attributes.banner.data.attributes.url)
   return (
     <>
       {pass != undefined && (
@@ -50,10 +50,18 @@ const CardPass = ({ pass }: any) => {
               </div>
             </div>
           ) : (
-            <p>No event register</p>
+            <div className="guests-no-data">
+              <h3>The information of this event has not been provided</h3>
+            </div>
           )}
 
-          <img className="artist-pic" src={pass.artistImage} alt={pass.title} />
+          <img
+            className="artist-pic"
+            src={
+              pass.attributes.artist.data.attributes.banner.data.attributes.url
+            }
+            alt={pass.title}
+          />
         </CardPassStyles>
       )}
     </>
