@@ -7,18 +7,24 @@ import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/effect-fade"
 
-const SlidesBanner = ({ slides, style }: any) => {
+const SlidesBanner = ({ title, slides, style }: any) => {
   let nextShape = 0
-  const shapes = [
-    "/assets/img/resources-star.png",
-    "/assets/img/resources-cross.png",
-    "/assets/img/resources-circle.png",
-  ]
-
+  const shapes =
+    style == "fans"
+      ? [
+          "/assets/img/resources-star.png",
+          "/assets/img/resources-cross.png",
+          "/assets/img/resources-circle.png",
+        ]
+      : [
+          "/assets/img/resources-starb.png",
+          "/assets/img/resources-crossb.png",
+          "/assets/img/resources-circleb.png",
+        ]
   return (
     <SlidesBannerStyles className={style}>
       <div className="content">
-        <h1>For Fans</h1>
+        <h1>{title}</h1>
       </div>
       <Swiper
         spaceBetween={30}

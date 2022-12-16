@@ -1,15 +1,15 @@
 import Head from "next/head"
 import axios from "axios"
 
-import FanResources from "@/components/FanResources"
+import Resources from "@/components/Resources"
 
-const Resources = ({ page }: any) => {
+const FanResources = ({ page }: any) => {
   return (
     <>
       <Head>
         <title>Fan Resources - PlusOne</title>
       </Head>
-      <FanResources data={page.data} />
+      <Resources title="For Fans:" data={page.data} style="fans" />
     </>
   )
 }
@@ -29,4 +29,4 @@ export const getStaticProps = async () => {
   }
 }
 
-export default Resources
+export default FanResources

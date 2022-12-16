@@ -13,6 +13,7 @@ export const FAQStyles = styled.section`
   .Collapsible {
     position: relative;
     padding: ${15 / 16}rem ${34 / 16}rem;
+    padding-right: ${60 / 16}rem;
     width: 100%;
     background: #fff;
     border: 2px solid #454545;
@@ -48,18 +49,28 @@ export const FAQStyles = styled.section`
       width: 100%;
       font-family: "Trap";
       font-weight: 600;
-      font-size: ${28 / 16}rem;
-      line-height: ${30 / 16}rem;
+      font-size: ${22 / 16}rem;
+      line-height: ${24 / 16}rem;
       cursor: pointer;
+
+      @media ${DEVICE.laptop} {
+        font-size: ${28 / 16}rem;
+        line-height: ${30 / 16}rem;
+      }
     }
 
     .answer {
       padding-top: ${15 / 16}rem;
       font-family: "Inter";
       font-weight: 300;
-      font-size: ${20 / 16}rem;
-      line-height: ${25 / 16}rem;
+      font-size: ${18 / 16}rem;
+      line-height: ${20 / 16}rem;
       padding-bottom: ${10 / 16}rem;
+
+      @media ${DEVICE.laptop} {
+        font-size: ${20 / 16}rem;
+        line-height: ${25 / 16}rem;
+      }
     }
   }
 `

@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const FanResourcesStyles = styled.div`
+export const ResourcesStyles = styled.div`
   position: relative;
   width: 100%;
   padding-bottom: 4rem;

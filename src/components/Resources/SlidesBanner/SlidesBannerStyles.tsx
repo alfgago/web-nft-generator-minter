@@ -4,10 +4,15 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const SlidesBannerStyles = styled.section`
   position: relative;
+  overflow: hidden;
   width: 100%;
-  background: linear-gradient(-90deg, #4c284d 30%, #000 90%);
+  background: linear-gradient(-90deg, #28324d 30%, #000 90%);
   color: ${COLORS.white};
   padding-bottom: 1rem;
+
+  &.fans {
+    background: linear-gradient(-90deg, #4c284d 30%, #000 90%);
+  }
 
   .content {
     position: static;
@@ -23,6 +28,20 @@ export const SlidesBannerStyles = styled.section`
 
   .swiper {
     overflow: visible;
+
+    span.swiper-pagination-bullet {
+      position: relative;
+      display: inline-block;
+      transition: 0.5s ease all;
+      background: #fff;
+      width: ${10 / 16}rem;
+      height: ${10 / 16}rem;
+    }
+
+    span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+      height: ${16 / 16}rem;
+      top: ${3 / 16}rem;
+    }
   }
 
   .swiper-slide {
@@ -89,7 +108,7 @@ export const SlidesBannerStyles = styled.section`
       line-height: 20px;
       @media ${DEVICE.laptop} {
         font-size: ${32 / 16}rem;
-        font-size: ${39 / 16}rem;
+        line-height: ${39 / 16}rem;
       }
     }
   }
