@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { deployContract } from "@/utils/SmartContracts/deployContract"
 import { CreateContractParams, Network } from "@juicelabs/client"
 
+import "dotenv/config"
+
 // types should probably be consolidated somewhere
 // will leave that up to the team to decide
 type CreateContractRequestBody = {
@@ -60,8 +62,7 @@ const transformCreateContractParams = (
       maxMintsPerTxn: 2,
       mintPrice: "0.001",
     },
-    ownerAddress: "0x5e7610698ba465973C11A607eAf43b7f1733D947",
-    operatorAddress: "0xB9b393363B7394f8766ca5B3c91e020471e830A0",
+    mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }
 }
 

@@ -10,9 +10,7 @@ export const deployContract = async (
 ): Promise<string> => {
   const jc = await createJuiceClientForAutomation(network)
 
-  console.log("ABOUT TO REQUEST CONTRACT CREATION")
   const requestId = await jc.utils.contracts.create(contractParams)
-  console.log("REQUESTED CONTRACT CREATION", requestId)
 
   return requestId
 }

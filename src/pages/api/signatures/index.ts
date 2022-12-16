@@ -32,6 +32,7 @@ export default async function handler(
   try {
     const { mintData, network, contractAddress } = req.body
     const signature = await signMintData(network, contractAddress, mintData)
+
     res.status(200).json({ signature })
   } catch (e) {
     const msg = e instanceof Error ? e.message : e

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ethers } from "ethers"
 
 import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus"
@@ -10,12 +10,21 @@ import { JsonRpcSigner } from "@ethersproject/providers"
 const JuiceExamples = () => {
   const [signer, setSigner] = useState<null | JsonRpcSigner>(null)
   const [connectedAddress, setConnectedAddress] = useState("none")
+  const [contractAddress, setContractAddress] = useState(
+    "0xD21Cd864C4B73660526526581631Ae3aD7230f0D"
+  )
 
   const {
     requestStatus: contractDeployStatus,
     requestData,
     setRequestId,
   } = useRequestStatus()
+
+  useEffect(() => {
+    if (requestData?.contractAddress) {
+      setContractAddress(requestData.contractAddress)
+    }
+  }, [requestData])
 
   const connectMetamask = async () => {
     const mmProvider = getMMEthereumProvider()
@@ -36,7 +45,10 @@ const JuiceExamples = () => {
   const deployContract = async () => {
     const res = await fetch("/api/contracts", {
       method: "POST",
-      body: JSON.stringify({}), // see back end for params
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ network: "goerli" }), // see back end mock
     })
 
     if (!res.ok) {
@@ -52,9 +64,12 @@ const JuiceExamples = () => {
     const metadataCid = await uploadAsset()
     const res = await fetch("/api/mints", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         metadataCid,
-        contractAddress: requestData.contractAddress,
+        contractAddress,
         network: "goerli",
       }),
     })
@@ -74,7 +89,7 @@ const JuiceExamples = () => {
     const txHash = await userDynamicMint({
       network: "goerli",
       metadataCid,
-      contractAddress: requestData.contractAddress,
+      contractAddress,
       signer,
     })
 
@@ -84,19 +99,43 @@ const JuiceExamples = () => {
   const airdrop = async () => {
     const res = await fetch("/api/airdrops", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        contractAddress: requestData.contractAddress,
+        contractAddress,
         network: "goerli",
         toWalletAddress: connectedAddress,
         nftId: 1,
       }),
     })
 
-    if (!res.ok) throw new Error("Airdrop failed" + (await res.json()))
+    if (!res.ok)
+      throw new Error("Airdrop failed" + JSON.stringify(await res.json()))
 
     const { transactionHash } = await res.json()
 
     alert("Airdrop Transaction Hash: " + transactionHash)
+  }
+
+  const setSaleState = async () => {
+    const res = await fetch("/api/contracts/setSaleState", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        saleState: 6, // the state that opens the sale
+      }),
+    })
+
+    if (!res.ok) throw new Error("Set Sale State failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    alert("Set Sale State Transaction Hash: " + transactionHash)
   }
 
   return (
@@ -104,18 +143,13 @@ const JuiceExamples = () => {
       <h1>Juice Examples</h1>
 
       <h4 style={h4Styles}>Contract Deploy Section</h4>
-      <button style={buttonStyles} onClick={connectMetamask}>
-        Connect Wallet
-      </button>
-      <span>Connected Address: {connectedAddress}</span>
-
       <button style={buttonStyles} onClick={deployContract}>
         Deploy Contract
       </button>
       <span>Deploys a new smart contract via the vault API</span>
       {contractDeployStatus === "pending" && <span>pending</span>}
       {contractDeployStatus === "succeeded" && (
-        <span>success: {requestData.contractAddress}</span>
+        <span>success, deployed contract to: {contractAddress}</span>
       )}
       {contractDeployStatus === "failed" && (
         <span>failed: {requestData.error}</span>
@@ -137,9 +171,21 @@ const JuiceExamples = () => {
       </span>
 
       <h4 style={h4Styles}>On Demand Mint Section</h4>
+      <button style={buttonStyles} onClick={setSaleState}>
+        Open The NFT Sale
+      </button>
+      <span>
+        the sale is initially closed, so the admin must first open it for the
+        sale to go live
+      </span>
+      <button style={buttonStyles} onClick={connectMetamask}>
+        Connect Wallet
+      </button>
+      <span>Connected Address: {connectedAddress}</span>
       <button style={buttonStyles} onClick={uploadAssetAndDynamicMint}>
         On Demand Mint
       </button>
+
       <span>Triggers a mint from the webpage with dynamic metadata</span>
 
       <h4 style={h4Styles}>Airdrop Section</h4>

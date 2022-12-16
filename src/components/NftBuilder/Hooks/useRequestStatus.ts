@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { RequestsClient, RequestStatus } from "@juicelabs/client"
 
 export const useRequestStatus = () => {
-  const [requestStatus, setRequestStatus] = useState<RequestStatus>("pending")
+  const [requestStatus, setRequestStatus] = useState<RequestStatus | null>(null)
   const [requestData, setRequestData] = useState<any>(null)
   const [requestId, setRequestId] = useState<string | null>(null)
 

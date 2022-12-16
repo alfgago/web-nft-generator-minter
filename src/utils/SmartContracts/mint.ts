@@ -34,6 +34,8 @@ export const devMint = async ({
     `ipfs://${metadataCid}`
   )
 
+  await tx.wait()
+
   return tx.hash
 }
 
@@ -83,13 +85,24 @@ export const userDynamicMint = async ({
   // essentially "approving" the minting of the NFT metadata
   const res = await fetch("/api/signatures", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ mintData: dataToSign, network, contractAddress }),
   })
+
+  if (!res.ok)
+    throw new Error(
+      "Failed to sign mint data" + JSON.stringify(await res.json())
+    )
 
   const { signature } = await res.json()
 
   // actually mint the NFT with the tokenUri and signature
-  const tx = await jc.onDemandFacet.onDemandMint(tokenUri, signature)
+  const tx = await jc.onDemandFacet.onDemandMint(tokenUri, signature, {
+    gasLimit: 400000,
+  })
+  await tx.wait()
 
   return tx.hash
 }
