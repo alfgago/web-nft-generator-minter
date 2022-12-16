@@ -4,13 +4,23 @@ import GuestListNFT from "./GuestListNFT"
 import UpcomingDrawing from "./UpcomingDrawing"
 import UpcomingDrops from "./UpcomingDrops"
 
-const Artist = () => {
+const Artist = ({ artistData }: any) => {
+  // const passList = artistData.passes
+
+  // const eventsList = artistData.events.data
+
+  // console.log(artistData)
+
   return (
     <ArtistStyles>
-      <GuestListNFT />
-      <UpcomingDrops />
-      <UpcomingDrawing />
-      <Faq title="FAQ" />
+      {artistData != undefined && (
+        <>
+          <GuestListNFT passList={artistData} />
+          {/* <UpcomingDrops events={artistData.attributes.events} /> */}
+          <UpcomingDrawing />
+          <Faq title="FAQ" />
+        </>
+      )}
     </ArtistStyles>
   )
 }

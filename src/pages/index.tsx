@@ -4,6 +4,8 @@ import axios from "axios"
 import Home from "@/components/Home"
 
 const Index = ({ page, nfts, passes }: any) => {
+  console.log(page)
+
   return (
     <>
       <Head>

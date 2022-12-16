@@ -5,7 +5,7 @@ import TypeList from "@/components/Common/TypeList"
 
 import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
-const Artist = () => {
+const Artist = ({ passList }: any) => {
   const [selectedPass, setSelectedPass] = useState(0)
 
   const passes = [
@@ -58,22 +58,32 @@ const Artist = () => {
     { name: "Lifetime" },
   ]
 
+  // console.log(passList.passes.data)
   return (
-    <GuestListNFTStyles>
-      <div className="content">
-        <div className="column1">
-          <CardPass pass={passes[selectedPass]} />
-        </div>
-        <div className="column2">
-          <h2>Guest list NFTs</h2>
-          <TypeList
-            types={types}
-            onSelect={setSelectedPass}
-            selected={selectedPass}
-          />
-        </div>
-      </div>
-    </GuestListNFTStyles>
+    <>
+      {passList != undefined && (
+        <GuestListNFTStyles>
+          <div className="content">
+            <div className="column1">
+              {passList.passes.data.map((items: any, index: number) => {
+                return (
+                  <CardPass key={"pass" + index} pass={items} />
+                  // <CardPass key={"pass" + index} pass={items[selectedPass]} />
+                )
+              })}
+            </div>
+            <div className="column2">
+              <h2>Guest list NFTs</h2>
+              <TypeList
+                types={types}
+                onSelect={setSelectedPass}
+                selected={selectedPass}
+              />
+            </div>
+          </div>
+        </GuestListNFTStyles>
+      )}
+    </>
   )
 }
 
