@@ -22,7 +22,7 @@ export const setSaleState = async ({
   const fromAddress = await jc.signer?.getAddress()
   if (!fromAddress) throw new Error("No signer found")
 
-  // transfer the NFT to the wallet address
+  // set the sale state
   const tx = await jc.baseNFTFacet.setSaleState(saleState)
 
   // wait for the transaction to be mined
