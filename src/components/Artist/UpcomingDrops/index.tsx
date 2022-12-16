@@ -26,11 +26,11 @@ const Artist = ({ events }: any) => {
                     {items.attributes.city != null && (
                       <span>{items.attributes.city},</span>
                     )}
-                    {items.attributes.city != null && (
+                    {items.attributes.state != null && (
                       <span>{items.attributes.state},</span>
                     )}
 
-                    {items.attributes.city != null && (
+                    {items.attributes.country != null && (
                       <span>{items.attributes.country}</span>
                     )}
                   </div>
