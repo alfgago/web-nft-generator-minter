@@ -14,7 +14,7 @@ const fetchData = async ({ page, limit = 3 }: any) => {
       Authorization: `Bearer ${token}`,
     },
   })
-  console.log(nftsResponse.data)
+
   return nftsResponse.data
 }
 

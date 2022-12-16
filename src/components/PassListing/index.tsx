@@ -9,7 +9,6 @@ import {
 } from "./PassListingStyles"
 
 const PassListing = ({ passes }: any) => {
-  console.log(passes)
   return (
     <PassListingStyles>
       <SimpleHeader title="Pass Collections" textAlign="left" />

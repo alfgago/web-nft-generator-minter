@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
+import React from "react"
 import { fabric } from "fabric"
+import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
@@ -17,14 +19,6 @@ import { DesignStepStyles } from "./DesignStepStyles"
 const canvasWidth = 600
 const canvasHeight = 600
 const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
-const nftText = "NAME / DATE /PASS TYPE / TOUR"
-const templates = [
-  { number: 1, textX: 0, textY: 500, textRotate: 0 },
-  { number: 2, textX: 25, textY: 600, textRotate: -90 },
-  { number: 3, textX: 0, textY: 50, textRotate: 0 },
-  { number: 4, textX: 0, textY: 25, textRotate: 0 },
-]
-
 declare global {
   interface Window {
     canvas: any
@@ -33,18 +27,19 @@ declare global {
   }
 }
 
-const DesignStep = ({ previousAction, nextAction, artist }: any) => {
+const DesignStep = ({ previousAction, nextAction, artist, nftName }: any) => {
   const [initialized, setInitialized] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
-  const [activeTemplate, setActiveTemplate] = useState(templates[0])
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#000" })
   const [imageUrl, setImageUrl] = useState("")
   const [gridSize, setGridSize] = useState(2)
+  const [gutter, setGutter] = useState(50)
   const [availableShapes, setAvailableShapes] = useState(["star", "roundstar"])
 
   const initialShapes = generateShapes(gridSize, canvasWidth, availableShapes)
   const [shapes, setShapes] = useState(initialShapes)
+  const [activeTemplate, setActiveTemplate] = useState(0)
 
   const doNext = () => {
     sessionStorage.setItem(
@@ -69,15 +64,15 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 
   useEffect(() => {
     if (initialized) {
-      pickTemplate(activeTemplate.number)
+      pickTemplate(activeTemplate)
     }
-  }, [activeTemplate])
+  }, [activeTemplate, gutter])
 
   useEffect(() => {
     if (initialized) {
       pickBackground(backgroundColor.hex)
     }
-  }, [backgroundColor, shapesColor, shapes])
+  }, [backgroundColor, shapesColor, shapes, gutter])
 
   useEffect(() => {
     if (initialized) {
@@ -145,23 +140,76 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
     }
   }
 
-  const pickTemplate = (number = 1) => {
-    // Remove old Template
-    window.canvas.remove(window.layers[3])
-    fabric.Image.fromURL(
-      `/assets/templates/${number}.png`,
-      function (oImg) {
-        // window.canvas.add(oImg
-        window.canvas.add(oImg)
-        oImg.scaleToWidth(canvasWidth)
-        oImg.scaleToHeight(canvasHeight)
-        oImg.set("selectable", false)
-        oImg.set("evented", false)
-        window.layers[3] = oImg // Template is the 3rd layer
-        addText()
-      },
-      { crossOrigin: "anonymous" }
+  // Need to clean code
+  const pickTemplate = (number = 0) => {
+    if (window.canvas && window.layers[3]) {
+      window.canvas.remove(window.layers[3])
+    }
+    const gutterDist = canvasWidth - gutter
+    number = number + 1
+    let hasTop = false
+    let hasLeft = false
+    let hasRight = false
+    let hasBottom = false
+    if (number == 1) {
+      hasBottom = true
+    }
+    if (number == 2) {
+      hasLeft = true
+    }
+    if (number == 3) {
+      hasTop = true
+    }
+    if (number == 4) {
+      hasTop = true
+      hasLeft = true
+      hasRight = true
+      hasBottom = true
+    }
+
+    const templateGroup = new fabric.Group(
+      [
+        new fabric.Rect({
+          width: canvasWidth,
+          height: gutter,
+          top: 0,
+          left: 0,
+          fill: hasTop ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: canvasWidth,
+          height: gutter,
+          top: gutterDist,
+          left: 0,
+          fill: hasBottom ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: gutter,
+          height: canvasHeight,
+          top: 0,
+          left: 0,
+          fill: hasLeft ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: gutter,
+          height: canvasHeight,
+          top: 0,
+          left: gutterDist,
+          fill: hasRight ? backgroundColor.hex : "",
+        }),
+      ],
+      {
+        width: canvasWidth,
+        height: canvasHeight,
+        top: 0,
+        left: 0,
+      }
     )
+    window.canvas.add(templateGroup)
+    templateGroup.set("selectable", false)
+    templateGroup.set("evented", false)
+    window.layers[3] = templateGroup // Template is the 3rd layer
+    addText()
   }
 
   const changeImage = (imageUrl: any) => {
@@ -210,11 +258,11 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       })
       clipBackground.clipPath = clipPath
     }
-
-    const gutter = 50
+    /*
     clipBackground.top = gutter
     clipBackground.left = gutter
     clipBackground.scaleToWidth(canvasWidth - gutter * 2)
+    */
 
     clipBackground.set("selectable", false)
     clipBackground.set("evented", false)
@@ -245,14 +293,24 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         window.canvas.remove(el)
       }
     })
+    const gutterDist = canvasWidth - gutter
+    const templates = [
+      { number: 1, textX: 0, textY: gutterDist + 9, textRotate: 0 },
+      { number: 2, textX: gutter / 2 - 9, textY: canvasWidth, textRotate: -90 },
+      { number: 3, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
+      { number: 4, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
+    ]
+    const template = templates[activeTemplate]
+    const nftText = nftName
 
     const text = new fabric.Textbox(nftText, {
-      top: activeTemplate.textY,
-      left: activeTemplate.textX,
-      angle: activeTemplate.textRotate,
+      top: template.textY,
+      left: template.textX,
+      angle: template.textRotate,
       width: 600,
+      height: gutter,
       fill: "#FFF",
-      fontSize: 24,
+      fontSize: 18,
       lineHeight: 1.1,
       fontFamily: "Trap",
       textAlign: "center",
@@ -272,6 +330,7 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         element.moveTo(index)
       }
     })
+    window.layers[4].bringToFront()
   }
 
   return (
@@ -291,6 +350,17 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
                 </div>
               )
             })}
+            <div className="gutter-picker">
+              <span>Border Width</span>
+              <Slider
+                axis="x"
+                xmin={50}
+                xmax={200}
+                xstep={1}
+                x={gutter}
+                onChange={({ x }) => setGutter(x)}
+              />
+            </div>
           </div>
         </div>
         <div className="builder">
@@ -299,8 +369,9 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         <div className="tools">
           {activeSetting == "Template" && (
             <TemplatePicker
-              templates={templates}
               activeTemplate={activeTemplate}
+              gutter={gutter}
+              setGutter={setGutter}
               setActiveTemplate={setActiveTemplate}
             />
           )}
@@ -352,3 +423,22 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 }
 
 export default DesignStep
+
+const encodeSvg = (svgString: any) => {
+  return svgString
+    .replace(
+      "<svg",
+      ~svgString.indexOf("xmlns")
+        ? "<svg"
+        : '<svg xmlns="http://www.w3.org/2000/svg"'
+    )
+    .replace(/"/g, "'")
+    .replace(/%/g, "%25")
+    .replace(/#/g, "%23")
+    .replace(/{/g, "%7B")
+    .replace(/}/g, "%7D")
+    .replace(/</g, "%3C")
+    .replace(/>/g, "%3E")
+
+    .replace(/\s+/g, " ")
+}

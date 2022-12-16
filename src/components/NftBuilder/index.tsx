@@ -76,6 +76,7 @@ const NftBuilder = ({ artists }: any) => {
           )}
           {activeStep == 2 && (
             <DesignStep
+              nftName={formValues.name}
               nextAction={nextStep}
               previousAction={previousStep}
               artist={selectedArtist}

@@ -18,7 +18,8 @@ export const NavbarStyles = styled.section<Props>`
   padding: 0;
   margin: 0;
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 500;
 
   .content {
     height: ${80 / 16}rem;
@@ -68,6 +69,10 @@ export const NavbarStyles = styled.section<Props>`
           position: relative;
           margin: 0 1rem;
 
+          > a:hover {
+            opacity: 0.8;
+          }
+
           &:hover {
             .submenu {
               visibility: visible;
@@ -88,7 +93,7 @@ export const NavbarStyles = styled.section<Props>`
           display: block;
           background: #fff;
           color: #000;
-          font-size: 0.75rem;
+          font-size: 0.9rem;
           border-radius: 15px;
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
           overflow: hidden;
@@ -97,7 +102,7 @@ export const NavbarStyles = styled.section<Props>`
             margin: 0;
             a {
               display: block;
-              font-size: 0.8rem;
+              font-size: 0.9rem;
               padding: 0.5rem 1rem;
               border-bottom: 1px solid #aaa;
 
