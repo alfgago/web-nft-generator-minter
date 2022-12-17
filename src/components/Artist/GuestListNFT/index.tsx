@@ -51,10 +51,10 @@ const Artist = ({ passList }: any) => {
     },
   ]
 
-  const passTypes ={ name: passList.attributes.passes.data.map((passes: any) => {
-    return { passes.attributes.pass_type }
+  const passTypes = passList.attributes.passes.data.map((passes: any) => {
+    return { name: passes.attributes.pass_type }
   })
-}
+
   console.log(passTypes)
 
   const types = [
