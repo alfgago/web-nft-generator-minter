@@ -10,7 +10,7 @@ const Artist = ({ events }: any) => {
   }
 
   const eventsP = events.events.data
-  console.log(eventsP)
+  // console.log(eventsP)
 
   return (
     <UpcomingDropsStyles>

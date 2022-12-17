@@ -51,6 +51,12 @@ const Artist = ({ passList }: any) => {
     },
   ]
 
+  const passTypes ={ name: passList.attributes.passes.data.map((passes: any) => {
+    return { passes.attributes.pass_type }
+  })
+}
+  console.log(passTypes)
+
   const types = [
     { name: "Tour Pass" },
     { name: "Single Event" },
@@ -58,32 +64,28 @@ const Artist = ({ passList }: any) => {
     { name: "Lifetime" },
   ]
 
-  console.log(passList.banner.data.attributes.url)
+  console.log(passList)
   return (
-    <>
-      {passList != undefined && (
-        <GuestListNFTStyles>
-          <div className="content">
-            <div className="column1">
-              {passList.passes.data.map((items: any, index: number) => {
-                return (
-                  <CardPass key={"pass" + index} pass={items} />
-                  // <CardPass key={"pass" + index} pass={items[selectedPass]} />
-                )
-              })}
-            </div>
-            <div className="column2">
-              <h2>Guest list NFTs</h2>
-              <TypeList
-                types={types}
-                onSelect={setSelectedPass}
-                selected={selectedPass}
-              />
-            </div>
-          </div>
-        </GuestListNFTStyles>
-      )}
-    </>
+    <GuestListNFTStyles>
+      <div className="content">
+        <div className="column1">
+          {passList.attributes.passes.data.map((items: any, index: number) => {
+            return (
+              <CardPass key={"pass" + index} pass={items} />
+              // <CardPass key={"pass" + index} pass={items[selectedPass]} />
+            )
+          })}
+        </div>
+        <div className="column2">
+          <h2>Guest list NFTs</h2>
+          <TypeList
+            types={types}
+            onSelect={setSelectedPass}
+            selected={selectedPass}
+          />
+        </div>
+      </div>
+    </GuestListNFTStyles>
   )
 }
 
