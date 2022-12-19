@@ -51,12 +51,6 @@ const Artist = ({ passList }: any) => {
     },
   ]
 
-  const passTypes = passList.attributes.passes.data.map((passes: any) => {
-    return { name: passes.attributes.pass_type }
-  })
-
-  console.log(passTypes)
-
   const types = [
     { name: "Tour Pass" },
     { name: "Single Event" },
@@ -64,27 +58,49 @@ const Artist = ({ passList }: any) => {
     { name: "Lifetime" },
   ]
 
-  console.log(passList)
   return (
     <GuestListNFTStyles>
-      <div className="content">
-        <div className="column1">
-          {passList.attributes.passes.data.map((items: any, index: number) => {
-            return (
-              <CardPass key={"pass" + index} pass={items} />
-              // <CardPass key={"pass" + index} pass={items[selectedPass]} />
-            )
-          })}
+      {passList.attributes.passes.data.length > 0 ? (
+        <div className="content">
+          <div className="column1">
+            {passList.attributes.passes.data.map(
+              (items: any, index: number) => {
+                const venue =
+                  items.attributes.event.data.attributes.venue_name ?? ""
+                const city = items.attributes.event.data.attributes.city ?? ""
+                const date = items.attributes.event.data.attributes.date ?? ""
+                const eventName =
+                  items.attributes.event.data.attributes.name ?? ""
+
+                return (
+                  <CardPass
+                    key={"pass" + index}
+                    pass={items}
+                    venue={venue}
+                    city={city}
+                    date={date}
+                    eventName={eventName}
+                  />
+                  // <CardPass key={"pass" + index} pass={items[selectedPass]} />
+                )
+              }
+            )}
+          </div>
+          <div className="column2">
+            <h2>Guest list NFTs</h2>
+            <TypeList
+              types={types}
+              onSelect={setSelectedPass}
+              selected={selectedPass}
+            />
+          </div>
         </div>
-        <div className="column2">
+      ) : (
+        <div className="content no-data">
           <h2>Guest list NFTs</h2>
-          <TypeList
-            types={types}
-            onSelect={setSelectedPass}
-            selected={selectedPass}
-          />
+          <p>This artist has no events yet</p>
         </div>
-      </div>
+      )}
     </GuestListNFTStyles>
   )
 }
