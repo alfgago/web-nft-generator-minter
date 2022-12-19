@@ -13,15 +13,24 @@ const CardPass = ({ pass }: any) => {
     return day + " " + month + " " + year
   }
 
-  console.log(pass.attributes.artist.data.attributes.banner.data.attributes.url)
-  return (
-    <>
-      {pass != undefined && (
+  const imgCardPass = () => {
+    let value = ""
+
+    try {
+      value = pass.attributes.collection_preview_image.data.attributes.url
+    } catch (error) {
+      value =
+        "https://plusone-public.s3.amazonaws.com/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
+    }
+
+    return value
+  }
+
+  try {
+    return (
+      <>
         <CardPassStyles>
-          <img
-            src={pass.attributes.collection_preview_image.data.attributes.url}
-            alt={pass.collection_name}
-          />
+          <img src={imgCardPass()} alt={pass.collection_name} />
           {pass.attributes.event.data != null ? (
             <div className="inner">
               <div className="titles trap">
@@ -63,9 +72,11 @@ const CardPass = ({ pass }: any) => {
             alt={pass.title}
           />
         </CardPassStyles>
-      )}
-    </>
-  )
+      </>
+    )
+  } catch (error) {
+    return <h3>This information is not currently available</h3>
+  }
 }
 
 export default CardPass
