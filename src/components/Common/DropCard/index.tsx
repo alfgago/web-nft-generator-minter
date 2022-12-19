@@ -58,7 +58,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
           <div className="price">{pass.attributes.initial_price} ETH</div>
         </div>
         {upcoming ? (
-          <div className="actions">
+          <div className="actions with-time">
             <Link href="/">
               <a>
                 <CommonPill className="clickable blue small">
@@ -69,7 +69,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
             <span className="time">{timer}</span>
           </div>
         ) : (
-          <div className="actions">
+          <div className="actions no-time">
             <Link href="/">
               <a>
                 <CommonPill className="clickable blue small">

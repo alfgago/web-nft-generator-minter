@@ -11,6 +11,8 @@ yesterday.setDate(yesterday.getDate() - 1)
 
 const UpcomingDrops = ({
   title = "Upcoming Drops",
+  buttonTitle,
+  buttonLink,
   useBorderTop = true,
   passes,
 }: any) => {
@@ -27,9 +29,9 @@ const UpcomingDrops = ({
         <div className="content">
           <div className="head-title">
             <h2>{title}</h2>
-            <Link href="/passes">
+            <Link href={buttonLink}>
               <CommonPill className={"btn clickable blue small"}>
-                See All Drops
+                {buttonTitle}
               </CommonPill>
             </Link>
           </div>
@@ -37,7 +39,7 @@ const UpcomingDrops = ({
             {passes.map((item: any, index: number) => {
               const dropDate = new Date(item.attributes.drop_date)
               const upcoming = yesterday < dropDate
-              if (upcoming) {
+              if (true) {
                 return (
                   <DropCard
                     key={"lottery-row" + index}

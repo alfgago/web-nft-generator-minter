@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
+import React from "react"
 import { fabric } from "fabric"
+import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
@@ -17,36 +19,27 @@ import { DesignStepStyles } from "./DesignStepStyles"
 const canvasWidth = 600
 const canvasHeight = 600
 const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
-const nftText = "NAME / DATE /PASS TYPE / TOUR"
-const templates = [
-  { number: 1, textX: 0, textY: 500, textRotate: 0 },
-  { number: 2, textX: 25, textY: 600, textRotate: -90 },
-  { number: 3, textX: 0, textY: 50, textRotate: 0 },
-  { number: 4, textX: 0, textY: 25, textRotate: 0 },
-]
-
 declare global {
   interface Window {
     canvas: any
     template: any
-    text: any
-    addedImage: any
-    shapesColor: any
+    layers: any
   }
 }
 
-const DesignStep = ({ previousAction, nextAction, artist }: any) => {
+const DesignStep = ({ previousAction, nextAction, artist, nftName }: any) => {
   const [initialized, setInitialized] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
-  const [activeTemplate, setActiveTemplate] = useState(templates[0])
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#000" })
   const [imageUrl, setImageUrl] = useState("")
   const [gridSize, setGridSize] = useState(2)
+  const [gutter, setGutter] = useState(50)
   const [availableShapes, setAvailableShapes] = useState(["star", "roundstar"])
 
   const initialShapes = generateShapes(gridSize, canvasWidth, availableShapes)
   const [shapes, setShapes] = useState(initialShapes)
+  const [activeTemplate, setActiveTemplate] = useState(0)
 
   const doNext = () => {
     sessionStorage.setItem(
@@ -71,15 +64,15 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 
   useEffect(() => {
     if (initialized) {
-      pickTemplate(activeTemplate.number)
+      pickTemplate(activeTemplate)
     }
-  }, [activeTemplate])
+  }, [activeTemplate, gutter])
 
   useEffect(() => {
     if (initialized) {
       pickBackground(backgroundColor.hex)
     }
-  }, [backgroundColor, shapesColor, shapes])
+  }, [backgroundColor, shapesColor, shapes, gutter])
 
   useEffect(() => {
     if (initialized) {
@@ -88,6 +81,9 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
   }, [imageUrl])
 
   const initCanvas = () => {
+    if (!window.layers) {
+      window.layers = []
+    }
     // FabricJS creates the .canvas-container, so if it exists, don't do this again
     if (!document.body.querySelector(".canvas-container")) {
       if (window.canvas) {
@@ -101,21 +97,21 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("/templates/")
               ) {
-                window.template = el
+                window.layers[3] = el
                 isSelectable = false
               }
               if (
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("blob")
               ) {
-                window.addedImage = el
+                window.layers[1] = el
               }
             }
             if (el.get("type") == "rect") {
               isSelectable = false
             }
             if (el.get("type") == "textbox") {
-              window.text = el
+              window.layers[4] = el
               isSelectable = false
             }
             if (!isSelectable) {
@@ -133,7 +129,6 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         pickBackground("#000")
 
         try {
-          console.log(artist)
           const artistImage = artist.attributes.banner.data.attributes.url
           setImageUrl(artistImage)
         } catch (e) {
@@ -145,25 +140,76 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
     }
   }
 
-  const pickTemplate = (number = 1) => {
-    // Remove old Template
-    window.canvas.remove(window.template)
-    fabric.Image.fromURL(
-      `/assets/templates/${number}.png`,
-      function (oImg) {
-        // window.canvas.add(oImg
-        window.canvas.insertAt(oImg, 1)
+  // Need to clean code
+  const pickTemplate = (number = 0) => {
+    if (window.canvas && window.layers[3]) {
+      window.canvas.remove(window.layers[3])
+    }
+    const gutterDist = canvasWidth - gutter
+    number = number + 1
+    let hasTop = false
+    let hasLeft = false
+    let hasRight = false
+    let hasBottom = false
+    if (number == 1) {
+      hasBottom = true
+    }
+    if (number == 2) {
+      hasLeft = true
+    }
+    if (number == 3) {
+      hasTop = true
+    }
+    if (number == 4) {
+      hasTop = true
+      hasLeft = true
+      hasRight = true
+      hasBottom = true
+    }
 
-        oImg.scaleToWidth(canvasWidth)
-        oImg.scaleToHeight(canvasHeight)
-        oImg.set("selectable", false)
-        oImg.set("evented", false)
-        oImg.bringToFront()
-        window.template = oImg
-        addText()
-      },
-      { crossOrigin: "anonymous" }
+    const templateGroup = new fabric.Group(
+      [
+        new fabric.Rect({
+          width: canvasWidth,
+          height: gutter,
+          top: 0,
+          left: 0,
+          fill: hasTop ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: canvasWidth,
+          height: gutter,
+          top: gutterDist,
+          left: 0,
+          fill: hasBottom ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: gutter,
+          height: canvasHeight,
+          top: 0,
+          left: 0,
+          fill: hasLeft ? backgroundColor.hex : "",
+        }),
+        new fabric.Rect({
+          width: gutter,
+          height: canvasHeight,
+          top: 0,
+          left: gutterDist,
+          fill: hasRight ? backgroundColor.hex : "",
+        }),
+      ],
+      {
+        width: canvasWidth,
+        height: canvasHeight,
+        top: 0,
+        left: 0,
+      }
     )
+    window.canvas.add(templateGroup)
+    templateGroup.set("selectable", false)
+    templateGroup.set("evented", false)
+    window.layers[3] = templateGroup // Template is the 3rd layer
+    addText()
   }
 
   const changeImage = (imageUrl: any) => {
@@ -171,7 +217,7 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       if (el.get("type") == "image") {
         if (
           el._originalElement &&
-          el._originalElement.currentSrc.includes("blob")
+          !el._originalElement.currentSrc.includes("/templates/")
         ) {
           window.canvas.remove(el)
         }
@@ -183,13 +229,8 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       function (oImg) {
         oImg.scaleToWidth(canvasWidth)
         window.canvas.add(oImg)
-        window.template.bringToFront()
-        window.text.bringToFront()
-        window.addedImage = oImg
-        window.addedImage.sendToBack()
-        if (window.shapesColor) {
-          window.shapesColor.sendToBack()
-        }
+        window.layers[1] = oImg // Uploaded image is always the 1st layer
+        reorderCanvas()
       },
       { crossOrigin: "anonymous" }
     )
@@ -203,7 +244,7 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       }
     })
 
-    const backgroundRect = new fabric.Rect({
+    const clipBackground = new fabric.Rect({
       width: canvasWidth,
       height: canvasHeight,
       top: 0,
@@ -215,21 +256,21 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       const clipPath = new fabric.Group(shapes, {
         inverted: true,
       })
-      backgroundRect.clipPath = clipPath
+      clipBackground.clipPath = clipPath
     }
     /*
-    const gutter = 30
-    backgroundRect.top = gutter
-    backgroundRect.left = gutter
-    backgroundRect.scaleToWidth(canvasWidth - gutter * 2)
+    clipBackground.top = gutter
+    clipBackground.left = gutter
+    clipBackground.scaleToWidth(canvasWidth - gutter * 2)
     */
-    window.canvas.insertAt(backgroundRect, 0)
-    backgroundRect.set("selectable", false)
-    backgroundRect.set("evented", false)
-    if (window.addedImage && gridSize && availableShapes.length > 0)
-      window.addedImage.sendToBack()
+
+    clipBackground.set("selectable", false)
+    clipBackground.set("evented", false)
+    window.canvas.add(clipBackground)
+    window.layers[2] = clipBackground // Clip is the 2nd layer
 
     addShapesColors()
+    reorderCanvas()
   }
 
   const addShapesColors = () => {
@@ -240,9 +281,10 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
       left: 0,
       fill: shapesColor.hex,
     })
+    shapesColorsRect.set("selectable", false)
+    shapesColorsRect.set("evented", false)
     window.canvas.add(shapesColorsRect)
-    shapesColorsRect.sendToBack()
-    window.shapesColor = shapesColorsRect
+    window.layers[0] = shapesColorsRect // This is the background, first layer
   }
 
   const addText = () => {
@@ -251,14 +293,24 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         window.canvas.remove(el)
       }
     })
+    const gutterDist = canvasWidth - gutter
+    const templates = [
+      { number: 1, textX: 0, textY: gutterDist + 9, textRotate: 0 },
+      { number: 2, textX: gutter / 2 - 9, textY: canvasWidth, textRotate: -90 },
+      { number: 3, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
+      { number: 4, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
+    ]
+    const template = templates[activeTemplate]
+    const nftText = nftName
 
     const text = new fabric.Textbox(nftText, {
-      top: activeTemplate.textY,
-      left: activeTemplate.textX,
-      angle: activeTemplate.textRotate,
+      top: template.textY,
+      left: template.textX,
+      angle: template.textRotate,
       width: 600,
+      height: gutter,
       fill: "#FFF",
-      fontSize: 24,
+      fontSize: 18,
       lineHeight: 1.1,
       fontFamily: "Trap",
       textAlign: "center",
@@ -268,8 +320,17 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 
     text.set("selectable", false)
     text.set("evented", false)
-    text.bringToFront()
-    window.text = text
+    window.layers[4] = text // Text is 4th layer
+    reorderCanvas()
+  }
+
+  const reorderCanvas = () => {
+    window.layers.forEach((element: any, index: number) => {
+      if (element) {
+        element.moveTo(index)
+      }
+    })
+    window.layers[4].bringToFront()
   }
 
   return (
@@ -289,6 +350,17 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
                 </div>
               )
             })}
+            <div className="gutter-picker">
+              <span>Border Width</span>
+              <Slider
+                axis="x"
+                xmin={50}
+                xmax={200}
+                xstep={1}
+                x={gutter}
+                onChange={({ x }) => setGutter(x)}
+              />
+            </div>
           </div>
         </div>
         <div className="builder">
@@ -297,8 +369,9 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
         <div className="tools">
           {activeSetting == "Template" && (
             <TemplatePicker
-              templates={templates}
               activeTemplate={activeTemplate}
+              gutter={gutter}
+              setGutter={setGutter}
               setActiveTemplate={setActiveTemplate}
             />
           )}
@@ -350,3 +423,22 @@ const DesignStep = ({ previousAction, nextAction, artist }: any) => {
 }
 
 export default DesignStep
+
+const encodeSvg = (svgString: any) => {
+  return svgString
+    .replace(
+      "<svg",
+      ~svgString.indexOf("xmlns")
+        ? "<svg"
+        : '<svg xmlns="http://www.w3.org/2000/svg"'
+    )
+    .replace(/"/g, "'")
+    .replace(/%/g, "%25")
+    .replace(/#/g, "%23")
+    .replace(/{/g, "%7B")
+    .replace(/}/g, "%7D")
+    .replace(/</g, "%3C")
+    .replace(/>/g, "%3E")
+
+    .replace(/\s+/g, " ")
+}

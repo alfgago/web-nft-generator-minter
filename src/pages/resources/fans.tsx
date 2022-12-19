@@ -1,16 +1,32 @@
 import Head from "next/head"
+import axios from "axios"
 
-import FanResources from "@/components/FanResources"
+import Resources from "@/components/Resources"
 
-const Resources = () => {
+const FanResources = ({ page }: any) => {
   return (
     <>
       <Head>
         <title>Fan Resources - PlusOne</title>
       </Head>
-      <FanResources />
+      <Resources title="For Fans:" data={page.data} style="fans" />
     </>
   )
 }
 
-export default Resources
+export const getStaticProps = async () => {
+  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const token = process.env.API_TOKEN
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
+
+  const postResponse = await axios.get(`${apiURL}/api/fan-resource?populate=*`)
+
+  return {
+    props: {
+      page: postResponse.data,
+    },
+    revalidate: 30,
+  }
+}
+
+export default FanResources

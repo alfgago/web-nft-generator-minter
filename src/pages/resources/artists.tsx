@@ -1,16 +1,34 @@
 import Head from "next/head"
+import axios from "axios"
 
-import ArtistResources from "@/components/ArtistResources"
+import Resources from "@/components/Resources"
 
-const Resources = () => {
+const ArtistResources = ({ page }: any) => {
   return (
     <>
       <Head>
         <title>Artist Resources - PlusOne</title>
       </Head>
-      <ArtistResources />
+      <Resources title="For Artists:" data={page.data} style="artists" />
     </>
   )
 }
 
-export default Resources
+export const getStaticProps = async () => {
+  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const token = process.env.API_TOKEN
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
+
+  const postResponse = await axios.get(
+    `${apiURL}/api/artist-resource?populate=*`
+  )
+
+  return {
+    props: {
+      page: postResponse.data,
+    },
+    revalidate: 30,
+  }
+}
+
+export default ArtistResources

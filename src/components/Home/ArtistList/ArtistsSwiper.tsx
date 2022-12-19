@@ -5,16 +5,18 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 
 import "swiper/css"
 
-const ArtistsSwiper = ({ artists, width, height }: any) => {
+const ArtistsSwiper = ({ artists, title, buttonTitle, buttonLink }: any) => {
   return (
     <div className="featured-artists">
       <section className="artist-list">
         <div className="content">
           <div className="section-header">
-            <h2>Featured Artists</h2>
-            <Link href="artists" scroll={false}>
+            <h2>{title}</h2>
+            <Link href={buttonLink} scroll={false}>
               <a className="link">
-                <CommonPill className="clickable pink">All artists</CommonPill>
+                <CommonPill className="clickable pink">
+                  {buttonTitle}
+                </CommonPill>
               </a>
             </Link>
           </div>

@@ -13,12 +13,8 @@ const canvasHeight = 600
 declare global {
   interface Window {
     previewCanvas: any
-    previewAdded: any
-    previewShape: any
     collection: any
-    previewTemplate: any
-    previewText: any
-    previewBg: any
+    previewLayers: any
   }
 }
 
@@ -47,6 +43,9 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
   }
 
   const initPreview = () => {
+    if (!window.previewLayers) {
+      window.previewLayers = []
+    }
     // FabricJS creates the .canvas-container, so if it exists, don't do this again
     if (!document.body.querySelector(".canvas-container")) {
       const canvasJson = sessionStorage.getItem("canvasJson")
@@ -60,18 +59,18 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("blob")
               ) {
-                window.previewAdded = el
+                window.previewLayers[1] = el
               }
               if (
                 el._originalElement &&
                 el._originalElement.currentSrc.includes("/templates/")
               ) {
-                window.previewTemplate = el
+                window.previewLayers[3] = el
               }
             }
 
             if (el.get("type") == "textbox") {
-              window.previewText = el
+              window.previewLayers[4] = el
             }
             el.set("selectable", false)
             el.set("evented", false)
@@ -142,7 +141,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     window.previewCanvas.insertAt(backgroundRect, 2)
     backgroundRect.set("selectable", false)
     backgroundRect.set("evented", false)
-    window.previewBg = backgroundRect
+    window.layers[2] = backgroundRect // Clip is the 2nd layer
     addShapesColors(collectionData)
   }
 
@@ -156,12 +155,16 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
       fill: collectionData.shapesColor.hex,
     })
     window.previewCanvas.add(shapesColorsRect)
-    if (window.previewAdded && collectionData.gridSize)
-      window.previewAdded.moveTo(1)
-    shapesColorsRect.moveTo(0)
-    window.previewBg.moveTo(3)
-    window.previewTemplate.moveTo(4)
-    window.previewText.moveTo(5)
+    window.previewLayers[0] = shapesColorsRect // This is the background, first layer
+    reorderCanvas()
+  }
+
+  const reorderCanvas = () => {
+    window.previewLayers.forEach((element: any, index: number) => {
+      if (element) {
+        element.moveTo(index)
+      }
+    })
   }
 
   return (

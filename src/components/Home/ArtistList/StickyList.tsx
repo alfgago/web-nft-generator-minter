@@ -5,7 +5,14 @@ import { Controller, Scene } from "react-scrollmagic"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 
-const StickyList = ({ artists, width, height }: any) => {
+const StickyList = ({
+  artists,
+  title,
+  buttonTitle,
+  buttonLink,
+  width,
+  height,
+}: any) => {
   const [listSize, setListSize] = useState(0)
 
   useEffect(() => {
@@ -27,11 +34,11 @@ const StickyList = ({ artists, width, height }: any) => {
           <section className="artist-list">
             <div className="content">
               <div className="section-header">
-                <h2>Featured Artists</h2>
-                <Link href="artists" scroll={false}>
+                <h2>{title}</h2>
+                <Link href={buttonLink} scroll={false}>
                   <a className="link">
                     <CommonPill className="clickable pink">
-                      All artists
+                      {buttonTitle}
                     </CommonPill>
                   </a>
                 </Link>
