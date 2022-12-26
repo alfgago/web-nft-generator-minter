@@ -4,23 +4,17 @@ import { createJuiceClientForAutomation } from "./createJuiceClient"
 
 import "dotenv/config"
 
-export type AirdropParams = {
+export type SetSaleStateParams = {
   contractAddress: string // the NFT contract address
   network: Network // either goerli or polygon
-  nftId: number // the token number
-  toWalletAddress: string // the airdrop receiver
+  saleState: number // the sale state number 6 = on_demand_mint
 }
 
-// This helper should be used with the lottery NFTs.
-// NFTs should be initially dev minted to the automation
-// wallet address then call this function to automatically
-// airdrop them to winning addresses once the lottery is run
-export const airdropNFT = async ({
+export const setSaleState = async ({
   contractAddress,
   network,
-  toWalletAddress,
-  nftId,
-}: AirdropParams) => {
+  saleState,
+}: SetSaleStateParams) => {
   const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
@@ -28,12 +22,8 @@ export const airdropNFT = async ({
   const fromAddress = await jc.signer?.getAddress()
   if (!fromAddress) throw new Error("No signer found")
 
-  // transfer the NFT to the wallet address
-  const tx = await jc.baseNFTFacet?.transferFrom(
-    fromAddress,
-    toWalletAddress,
-    nftId
-  )
+  // set the sale state
+  const tx = await jc.baseNFTFacet.setSaleState(saleState)
 
   // wait for the transaction to be mined
   await tx.wait()

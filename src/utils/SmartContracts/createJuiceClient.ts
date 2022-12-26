@@ -2,11 +2,9 @@ import { Signer } from "ethers"
 
 import { AutomationWallet, JuiceClient, Network } from "@juicelabs/client"
 
-import "dotenv/config"
-
 // called in the back end. Used for automation
 // and administrative contract tasks
-export const createJuiceClientForAutomation = (
+export const createJuiceClientForAutomation = async (
   network: Network,
   contractAddress?: string
 ) => {
@@ -29,6 +27,8 @@ export const createJuiceClientForAutomation = (
     network,
     contractAddress,
   })
+
+  await juiceClient.waitForInit()
 
   return juiceClient
 }
