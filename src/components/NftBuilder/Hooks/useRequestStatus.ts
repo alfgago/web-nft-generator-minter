@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
 
-import {
-  RequestPoller,
-  RequestStatus,
-} from "@/utils/SmartContracts/requestPoller"
+import { RequestsClient, RequestStatus } from "@juicelabs/client"
 
 export const useRequestStatus = () => {
   const [requestStatus, setRequestStatus] = useState<RequestStatus>("pending")
@@ -12,17 +9,14 @@ export const useRequestStatus = () => {
   useEffect(() => {
     if (!requestId) return
 
-    const urlToPoll = `https://juicelabs.io/api/v1/requests/${requestId}`
+    const requestsClient = new RequestsClient("https://juicelabs.io/api/v1")
 
-    // poll on an interval and set the appropriate status
-    const poller = new RequestPoller(urlToPoll, ({ status }) =>
+    requestsClient.subscribe(requestId, ({ status }) => {
       setRequestStatus(status)
-    )
-
-    poller.start()
+    })
 
     return () => {
-      poller.stop()
+      requestsClient.unsubscribe(requestId)
     }
   }, [requestId])
 
