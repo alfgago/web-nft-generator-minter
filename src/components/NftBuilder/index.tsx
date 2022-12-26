@@ -49,6 +49,9 @@ const NftBuilder = ({ artists }: any) => {
     console.log(formValues)
     const res = await fetch("/api/contracts", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formValues),
     })
 

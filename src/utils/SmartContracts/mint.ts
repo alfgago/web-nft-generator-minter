@@ -7,7 +7,7 @@ import {
   createLocalJuiceClient,
 } from "./createJuiceClient"
 
-type DevMintParams = {
+export type DevMintParams = {
   network: Network
   contractAddress: string
   metadataCid: string // the ipfs cid of the NFT metadata
@@ -24,16 +24,22 @@ export const devMint = async ({
   metadataCid, // the IPFS CID of the NFT metadata
   toAddress,
 }: DevMintParams) => {
-  const jc = createJuiceClientForAutomation(network, contractAddress)
-  await jc.waitForInit()
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
 
   // mint the NFT to the toAddress
-  await jc.baseNFTFacet?.devMintWithTokenURI(toAddress, `ipfs://${metadataCid}`)
+  const tx = await jc.baseNFTFacet?.devMintWithTokenURI(
+    toAddress,
+    `ipfs://${metadataCid}`
+  )
+
+  await tx.wait()
+
+  return tx.hash
 }
 
-type UserMintParams = {
+export type UserMintParams = {
   network: Network
   contractAddress: string
   signer: Signer // acquired once wallet is connected
@@ -79,13 +85,26 @@ export const userDynamicMint = async ({
   // essentially "approving" the minting of the NFT metadata
   const res = await fetch("/api/signatures", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ mintData: dataToSign, network, contractAddress }),
   })
+
+  if (!res.ok)
+    throw new Error(
+      "Failed to sign mint data" + JSON.stringify(await res.json())
+    )
 
   const { signature } = await res.json()
 
   // actually mint the NFT with the tokenUri and signature
-  await jc.onDemandFacet.onDemandMint(tokenUri, signature)
+  const tx = await jc.onDemandFacet.onDemandMint(tokenUri, signature, {
+    gasLimit: 400000,
+  })
+  await tx.wait()
+
+  return tx.hash
 }
 
 // called by plus one API, signs the mint data to approve it for minting
@@ -94,8 +113,7 @@ export const signMintData = async (
   contractAddress: string,
   mintData: MintDataForSignature
 ) => {
-  const jc = createJuiceClientForAutomation(network, contractAddress)
-  await jc.waitForInit()
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
 
   const signature = await jc.utils.signatures.createEncoded(mintData)
 

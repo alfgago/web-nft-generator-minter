@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { RequestsClient, RequestStatus } from "@juicelabs/client"
 
 export const useRequestStatus = () => {
-  const [requestStatus, setRequestStatus] = useState<RequestStatus>("pending")
+  const [requestStatus, setRequestStatus] = useState<RequestStatus | null>(null)
+  const [requestData, setRequestData] = useState<any>(null)
   const [requestId, setRequestId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -11,8 +12,9 @@ export const useRequestStatus = () => {
 
     const requestsClient = new RequestsClient("https://juicelabs.io/api/v1")
 
-    requestsClient.subscribe(requestId, ({ status }) => {
+    requestsClient.subscribe(requestId, ({ status, ...restOfData }) => {
       setRequestStatus(status)
+      setRequestData(restOfData)
     })
 
     return () => {
@@ -20,5 +22,5 @@ export const useRequestStatus = () => {
     }
   }, [requestId])
 
-  return { requestStatus, setRequestId }
+  return { requestStatus, setRequestId, requestData }
 }

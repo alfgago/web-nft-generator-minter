@@ -95,6 +95,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
         collection.push(image)
       }
     }
+
     // @ts-ignore
     setPreviewImages(collection)
     setRender(true)
