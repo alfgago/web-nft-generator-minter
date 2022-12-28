@@ -26,7 +26,6 @@ TourManagerPage.requireAuth = false
 
 export const getServerSideProps = async ({ req }: any) => {
   const session = await getSession({ req })
-  console.log(session)
   return {
     props: {
       user: session,
