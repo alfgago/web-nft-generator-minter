@@ -72,6 +72,7 @@ export const DesignStepStyles = styled.div`
           height: 20px;
           background: #fff;
           border: 1px solid #000;
+          pointer-events: none;
         }
 
         &:after {
@@ -84,6 +85,7 @@ export const DesignStepStyles = styled.div`
           background: #1e73f3;
           opacity: 0;
           transition: 0.5s ease all;
+          pointer-events: none;
         }
 
         &:hover:after {

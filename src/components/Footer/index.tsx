@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { FooterStyles } from "./FooterStyles"
 import { FooterNav } from "./FooterStyles"
 
@@ -6,16 +8,30 @@ const Footer = () => {
     <FooterStyles>
       <section className="footer">
         <div className="content">
-          <img
-            src="/assets/img/plusone-logo-horizontal.png"
-            alt="plusOne-vertical"
-            className="waterMarkLogo"
-          />
+          <Link as="a" href="/">
+            <img
+              src="/assets/img/long-logo.svg"
+              alt="plusOne-vertical"
+              className="watermark-logo"
+            />
+          </Link>
           <FooterNav>
             <ul>
-              <li>Explore Artists</li>
-              <li>Explore NFTs</li>
-              <li>Login</li>
+              <li>
+                <Link as="a" href="/artists">
+                  Explore Artists
+                </Link>
+              </li>
+              <li>
+                <Link as="a" href="/passes">
+                  Explore Passes
+                </Link>
+              </li>
+              <li>
+                <Link as="a" href="/about">
+                  About Us
+                </Link>
+              </li>
             </ul>
           </FooterNav>
         </div>

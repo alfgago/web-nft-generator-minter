@@ -17,6 +17,7 @@ export const ConfirmationStepStyles = styled.div`
   .canvas-container {
     width: 300px !important;
     height: 300px !important;
+    pointer-events: none;
     canvas {
       width: 300px !important;
       height: 300px !important;

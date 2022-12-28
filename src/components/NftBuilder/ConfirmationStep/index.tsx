@@ -4,6 +4,7 @@ import { fabric } from "fabric"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
+import TemplateFabric from "@/utils/templateFabric"
 
 import { ConfirmationStepStyles } from "./ConfirmationStepStyles"
 
@@ -13,8 +14,7 @@ const canvasHeight = 600
 declare global {
   interface Window {
     previewCanvas: any
-    collection: any
-    previewLayers: any
+    previewFabric: any
   }
 }
 
@@ -43,44 +43,25 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
   }
 
   const initPreview = () => {
-    if (!window.previewLayers) {
-      window.previewLayers = []
-    }
-    // FabricJS creates the .canvas-container, so if it exists, don't do this again
-    if (!document.body.querySelector(".canvas-container")) {
-      const canvasJson = sessionStorage.getItem("canvasJson")
-      if (canvasJson) {
-        const json = JSON.parse(canvasJson)
-        const canvas = new fabric.Canvas("canvas")
-        canvas.loadFromJSON(json, () => {
-          canvas.getObjects().forEach(function (el: any) {
-            if (el.get("type") == "image") {
-              if (
-                el._originalElement &&
-                el._originalElement.currentSrc.includes("blob")
-              ) {
-                window.previewLayers[1] = el
-              }
-              if (
-                el._originalElement &&
-                el._originalElement.currentSrc.includes("/templates/")
-              ) {
-                window.previewLayers[3] = el
-              }
-            }
+    const collectionData = sessionStorage.getItem("collectionData")
+    if (collectionData) {
+      const collectionDataJson = JSON.parse(collectionData)
+      const json = sessionStorage.getItem("canvasJson")
 
-            if (el.get("type") == "textbox") {
-              window.previewLayers[4] = el
-            }
-            el.set("selectable", false)
-            el.set("evented", false)
-          })
-          canvas.preserveObjectStacking = true
-          canvas.renderAll()
-        })
-        window.previewCanvas = canvas
-      }
-
+      window.previewCanvas = new fabric.Canvas("canvas")
+      window.previewFabric = new TemplateFabric(
+        window.previewCanvas,
+        json,
+        null,
+        null
+      )
+      const nftText = formValues.name + " #"
+      window.previewFabric.addText({
+        canvasRef: window.canvas,
+        activeTemplate: collectionDataJson.activeTemplate,
+        gutter: collectionDataJson.gutter,
+        nftText,
+      })
       setInitialized(true)
     }
   }
@@ -91,7 +72,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     if (collectionData) {
       const collectionDataJson = JSON.parse(collectionData)
       for (let i = 0; i < formValues.size; i++) {
-        const image = generateCanvasImage(collectionDataJson)
+        const image = generateCanvasImage(collectionDataJson, i)
         collection.push(image)
       }
     }
@@ -101,71 +82,35 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
     setRender(true)
   }
 
-  const generateCanvasImage = (collectionData: any) => {
-    pickBackground(collectionData)
-    window.previewCanvas.renderAll()
-    const nft = window.previewCanvas.toDataURL({
-      format: "jpeg",
-    })
-    return nft
-  }
-
-  const pickBackground = (collectionData: any) => {
-    const color = collectionData.backgroundColor.hex
-    // Remove old BG
-    window.previewCanvas.getObjects().forEach(function (el: any) {
-      if (el.get("type") == "rect") {
-        window.previewCanvas.remove(el)
-      }
-    })
-
-    const backgroundRect = new fabric.Rect({
-      width: canvasWidth,
-      height: canvasHeight,
-      top: 0,
-      left: 0,
-      fill: color,
-    })
-
+  const generateCanvasImage = (collectionData: any, index: number) => {
     const shapes = generateShapes(
       collectionData.gridSize,
       canvasWidth,
       collectionData.availableShapes
     )
 
-    if (collectionData.gridSize > 0) {
-      const clipPath = new fabric.Group(shapes, {
-        inverted: true,
-      })
-      backgroundRect.clipPath = clipPath
-    }
-    window.previewCanvas.insertAt(backgroundRect, 2)
-    backgroundRect.set("selectable", false)
-    backgroundRect.set("evented", false)
-    window.layers[2] = backgroundRect // Clip is the 2nd layer
-    addShapesColors(collectionData)
-  }
-
-  const addShapesColors = (collectionData: any) => {
-    const shapesColorsRect = new fabric.Rect({
-      width: canvasWidth,
-      height: canvasHeight,
-      top: 0,
-
-      left: 0,
-      fill: collectionData.shapesColor.hex,
+    window.previewFabric.pickBackground({
+      canvasRef: window.previewCanvas,
+      gridSize: collectionData.gridSize,
+      shapes,
+      gutter: collectionData.gutter,
+      backgroundColor: collectionData.backgroundColor,
+      shapesColor: collectionData.shapesColor,
+      activeTemplate: collectionData.activeTemplate,
     })
-    window.previewCanvas.add(shapesColorsRect)
-    window.previewLayers[0] = shapesColorsRect // This is the background, first layer
-    reorderCanvas()
-  }
 
-  const reorderCanvas = () => {
-    window.previewLayers.forEach((element: any, index: number) => {
-      if (element) {
-        element.moveTo(index)
-      }
+    const nftText = formValues.name + " #" + (index + 1)
+    window.previewFabric.addText({
+      canvasRef: window.previewCanvas,
+      activeTemplate: collectionData.activeTemplate,
+      gutter: collectionData.gutter,
+      nftText,
     })
+    window.previewCanvas.renderAll()
+    const nft = window.previewCanvas.toDataURL({
+      format: "jpeg",
+    })
+    return nft
   }
 
   return (

@@ -51,9 +51,10 @@ export const FooterStyles = styled.footer`
       margin: 0;
     }
 
-    .waterMarkLogo {
+    .watermark-logo {
       position: relative;
       z-index: 1;
+      max-height: 100px;
     }
 
     &:before,

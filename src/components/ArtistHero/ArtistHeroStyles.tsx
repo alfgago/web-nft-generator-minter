@@ -57,7 +57,7 @@ export const ArtistImage = styled.div<Props>`
   width: 100%;
   height: 100%;
 
-  .waterMarkLogo {
+  .watermark-logo {
     position: absolute;
     bottom: 36px;
     left: 51px;

@@ -9,7 +9,7 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
         <img
           src="/assets/img/plusone-logo-vertical.png"
           alt="plusOne-vertical"
-          className="waterMarkLogo"
+          className="watermark-logo"
         />
         <div className="overlay" />
       </ArtistImage>

@@ -46,8 +46,9 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
     passType: any,
     setFieldValue: any
   ) => {
+    const type = passType.charAt(0).toUpperCase() + passType.slice(1)
     const sel = artists[artistIndex]
-    setFieldValue("name", `${sel.attributes.name} ${passType} Pass`)
+    setFieldValue("name", `${sel.attributes.name} ${type} Pass`)
   }
 
   return (
