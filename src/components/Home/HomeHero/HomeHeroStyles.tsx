@@ -27,17 +27,31 @@ export const HomeHeroStyles = styled.section`
     }
 
     z-index: 5;
+
+    img {
+      width: auto;
+      height: ${100 / 16}rem;
+      margin-bottom: 3rem;
+      margin-left: 0;
+
+      @media ${DEVICE.laptop} {
+        height: ${160 / 16}rem;
+      }
+    }
+
     h1 {
-      font-size: 85px;
+      font-size: 40px;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 3rem;
       line-height: 1;
       text-shadow: 0 0 15px rgb(0 0 0 / 30%);
 
       @media ${DEVICE.laptop} {
-        font-size: ${128 / 16}rem;
+        font-size: ${64 / 16}rem;
+        max-width: ${850 / 16}rem;
       }
     }
+
     .copy {
       font-size: 28px;
       max-width: ${740 / 16}rem;

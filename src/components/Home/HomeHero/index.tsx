@@ -21,8 +21,11 @@ const HomeHero = ({ title, copy, image }: any) => {
       <div className="watermark" />
 
       <div className="content">
-        <h1>{title}</h1>
-        <div className="copy">{copy}</div>
+        <div className="banner-logo">
+          <img alt="Plusone Logo" src="/assets/img/long-logo.svg" />
+        </div>
+        <h1 className="title">{title}</h1>
+        {copy && <div className="copy">{copy}</div>}
         <Link href="/">
           <a>
             <CommonPill className="btn clickable fill">Sign Up</CommonPill>
