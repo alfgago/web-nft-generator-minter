@@ -1,5 +1,4 @@
 import React from "react"
-import { ReactSVG } from "react-svg"
 
 import TourFilters from "@/components/Tours/TourFilters"
 
@@ -12,7 +11,11 @@ import { TourStyles } from "./TourStyles"
 const Tours = () => {
   return (
     <TourStyles>
-      <SimpleHeader title="Manager" backgroundColor="blue" textAlign="center" />
+      <SimpleHeader
+        title="Tour Manager"
+        backgroundColor="blue"
+        textAlign="center"
+      />
       <TourFilters />
       <NftCollections />
       <GuestsList />

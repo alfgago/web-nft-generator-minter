@@ -60,7 +60,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
         validationSchema={validationSchema}
       >
         {({ values, setFieldValue, errors, touched }) => (
-          <Form className="generator-form trap">
+          <Form className="generator-form trap cols-2">
             <label>
               <span>Collection name</span>
               <input

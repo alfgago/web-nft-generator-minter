@@ -74,6 +74,31 @@ input {
 }
 
 form {
+  label {
+    width: 100%;
+    margin-bottom: 1.8rem;
+
+    > span {
+      font-weight: bold;
+      padding-left: 1.5rem;
+    }
+
+    > .alert {
+      display: inline-block;
+      color: red;
+      list-style-type: circle;
+      font-weight: 400;
+      align-self: start;
+      font-size: 0.7rem;
+      margin-left: 0.7rem;
+    }
+
+    select,
+    input {
+      margin-top: 0.5rem;
+    }
+  }
+
   select,
   textarea,
   input {
@@ -92,6 +117,32 @@ form {
     @media screen and (min-width: 1080px) {
       padding: 1rem 1.5rem;
       font-size: 1.5rem;
+    }
+  }
+
+  &.cols-2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    label {
+      @media screen and (min-width: 1080px) {
+        width: calc(50% - 1.8rem);
+      }
+    }
+  }
+
+  &.in-popup {
+    margin-bottom: 1rem;
+    label {
+      @media screen and (min-width: 1080px) {
+        width: calc(50% - 1rem);
+        select,
+        textarea,
+        input {
+          font-size: 1.1rem;
+        }
+      }
     }
   }
 }

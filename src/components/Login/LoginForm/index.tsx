@@ -75,13 +75,10 @@ const LoginForm = ({ setIsOpen }: any) => {
 
               <a href="#ForgotPassword">Forgot password?</a>
               <div />
-              <button type="submit">Submit</button>
+              <button type="submit">Log in</button>
             </Form>
           )}
         </Formik>
-
-        <p className="register-cont">No account yet?</p>
-        <a href="#register">Register</a>
       </div>
     </LoginFormlStyles>
   )

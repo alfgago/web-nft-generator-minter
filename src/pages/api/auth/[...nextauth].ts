@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable new-cap */
 // @ts-nocheck
 import NextAuth, { NextAuthOptions } from "next-auth"
@@ -28,7 +29,7 @@ export const authOptions: NextAuthOptions = {
           access_token: data.jwt,
         }
 
-        return { ...data }
+        return { ...user }
       },
     }),
   ],
@@ -46,7 +47,7 @@ export const authOptions: NextAuthOptions = {
       }
       return Promise.resolve(token)
     },
-    /* session callback is called whenever a session for that particular user is checked*/
+    /* session callback is called whenever a session for that particular user is checked */
     session: async ({ session, token }: any) => {
       session.jwt = token.jwt
       session.id = token.id

@@ -10,8 +10,8 @@ export const HomeHeroStyles = styled.section`
   padding-bottom: 6rem;
   height: auto;
   @media ${DEVICE.laptop} {
-    height: 100vh;
-    min-height: 600px;
+    height: 70vh;
+    min-height: ${880 / 16}rem;
   }
 
   .content {
