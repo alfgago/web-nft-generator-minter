@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
@@ -20,10 +21,10 @@ const HomeHero = ({ title, copy, image }: any) => {
       </div>
       <div className="watermark" />
 
+      <div className="banner-logo content">
+        <ReactSVG src="/assets/img/logo-hero.svg" />
+      </div>
       <div className="content">
-        <div className="banner-logo">
-          <img alt="Plusone Logo" src="/assets/img/long-logo.svg" />
-        </div>
         <h1 className="title">{title}</h1>
         {copy && <div className="copy">{copy}</div>}
         <Link href="/">

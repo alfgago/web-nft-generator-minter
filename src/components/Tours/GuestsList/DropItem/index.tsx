@@ -23,9 +23,9 @@ const DropItem = ({ data }: any) => {
             }}
           >
             {!collapsed ? (
-              <ReactSVG src="/assets/vectors/uncollapse-drop.svg" />
+              <ReactSVG src="/assets/icons/uncollapse-drop.svg" />
             ) : (
-              <ReactSVG src="/assets/vectors/collapse-drop.svg" />
+              <ReactSVG src="/assets/icons/collapse-drop.svg" />
             )}
           </button>
         </div>

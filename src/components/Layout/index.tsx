@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { AnimatePresence, motion } from "framer-motion"
 
+import AnimatedCursor from "../Common/AnimatedCursor"
 import Footer from "../Footer"
 import Navbar from "../Navbar"
 
@@ -41,6 +42,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           exit="out"
         >
           {children}
+          <AnimatedCursor />
         </motion.div>
       </AnimatePresence>
       <Footer />

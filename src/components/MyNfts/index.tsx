@@ -48,7 +48,7 @@ const MyNfts = () => {
             <button onClick={() => connect()}>
               <CommonPill className="clickable small">
                 <span className="with-icon">
-                  <ReactSVG src="/assets/vectors/wallet.svg" />
+                  <ReactSVG src="/assets/icons/wallet.svg" />
                   Connect Wallet
                 </span>
               </CommonPill>

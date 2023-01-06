@@ -1,6 +1,9 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
+import Image from "next/future/image"
 import Link from "next/link"
+
+import s3url from "@/utils/s3url"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -44,12 +47,24 @@ const DropCard = ({ pass, classes = "" }: any) => {
     dropDateTimer()
   }, [])
 
+  const imageUrl =
+    pass.attributes.collection_preview_image?.data?.attributes.url
+
+  const imageW =
+    pass.attributes.collection_preview_image?.data?.attributes.width
+
+  const imageH =
+    pass.attributes.collection_preview_image?.data?.attributes.height
+
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <img
-          src={pass.attributes.collection_preview_image?.data?.attributes.url}
+        <Image
+          src={s3url(imageUrl)}
           alt={pass.title}
+          quality={90}
+          width={imageW}
+          height={imageH}
         />
       </div>
       <div className="inner">

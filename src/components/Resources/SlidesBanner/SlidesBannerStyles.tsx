@@ -19,6 +19,7 @@ export const SlidesBannerStyles = styled.section`
   }
 
   h1 {
+    visibility: hidden;
     font-weight: 300;
     padding-top: 2rem;
     @media ${DEVICE.laptop} {

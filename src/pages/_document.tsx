@@ -16,6 +16,12 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <script
+            async
+            defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAct3czCwkxYOWDMR1ewC_b88NPtpO2YKc&libraries=places"
+          />
+
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
             rel="stylesheet"
@@ -25,7 +31,6 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <div id="portal" />
-          <div className="cursor" />
         </body>
       </Html>
     )

@@ -32,6 +32,12 @@ export const NavbarStyles = styled.section<Props>`
       display: inline-block;
       margin-right: ${80 / 16}rem;
       z-index: 9000;
+      height: 100%;
+
+      img {
+        height: 100%;
+        width: auto;
+      }
     }
 
     .nav {

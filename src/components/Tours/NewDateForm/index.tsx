@@ -1,9 +1,14 @@
 import React from "react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import LocationPicker from "@/components/Common/LocationPicker"
 
 import { NewDateFormStyles } from "./NewDateFormStyles"
 
@@ -11,10 +16,9 @@ interface FormValues {
   date: string
   name: string
   description: string
-  venueName: string
-  country: string
-  state: string
-  city: string
+  address: string
+  latitude: number
+  longitude: number
   artist: string
 }
 
@@ -23,33 +27,27 @@ const NewDateForm = () => {
     date: "",
     name: "",
     description: "",
-    venueName: "",
-    country: "",
-    state: "",
-    city: "",
+    address: "",
+    latitude: 0,
+    longitude: 0,
     artist: "",
   }
 
   const valuesSchema = Yup.object().shape({
     date: Yup.date().required("Date is required"),
     name: Yup.string().required("Name is required"),
-    description: Yup.string().required("Description is required"),
-    venueName: Yup.string().required("Venue name is required"),
-    country: Yup.string().required("Country is required"),
-    state: Yup.string().required("State is required"),
-    city: Yup.string().required("City is required"),
+    address: Yup.string().required("Address is required"),
     artist: Yup.string().required("Artist is required"),
   })
 
   async function createShow(values: FormValues) {
-    const response = await axios.post("/api/events/create-show", {
+    const response = await axios.post("/api/shows/create", {
       date: values.date,
       name: values.name,
       description: values.description,
-      venueName: values.venueName,
-      country: values.country,
-      state: values.state,
-      city: values.city,
+      address: values.address,
+      latitude: values.latitude,
+      longitude: values.longitude,
       artist: values.artist,
     })
     return response
@@ -85,7 +83,7 @@ const NewDateForm = () => {
             onSubmit={onSubmit}
             validationSchema={valuesSchema}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, setFieldValue }) => (
               <Form className="cols-2 in-popup">
                 <label>
                   <span>Date</span>
@@ -101,40 +99,9 @@ const NewDateForm = () => {
                   ) : null}
                   <Field name="name" type="text" placeholder="" />
                 </label>
-                <label>
-                  <span>Description</span>
-                  {errors.description && touched.description ? (
-                    <div className="alert">{errors.description}</div>
-                  ) : null}
-                  <Field name="description" type="text" placeholder="" />
-                </label>
-                <label>
-                  <span>Venue Name</span>
-                  {errors.venueName && touched.venueName ? (
-                    <div className="alert">{errors.venueName}</div>
-                  ) : null}
-                  <Field name="venueName" type="text" placeholder="" />
-                </label>
-                <label>
-                  <span>Country</span>
-                  {errors.country && touched.country ? (
-                    <div className="alert">{errors.country}</div>
-                  ) : null}
-                  <Field name="country" type="text" placeholder="" />
-                </label>
-                <label>
-                  <span>State</span>
-                  {errors.state && touched.state ? (
-                    <div className="alert">{errors.state}</div>
-                  ) : null}
-                  <Field name="state" type="text" placeholder="" />
-                </label>
-                <label>
-                  <span>City</span>
-                  {errors.city && touched.city ? (
-                    <div className="alert">{errors.city}</div>
-                  ) : null}
-                  <Field name="city" type="text" placeholder="" />
+                <label className="full">
+                  <span>Venue</span>
+                  <LocationPicker setFieldValue={setFieldValue} />
                 </label>
                 <label>
                   <span>Artist</span>

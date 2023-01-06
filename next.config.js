@@ -1,7 +1,5 @@
-
 require("dotenv").config()
-const path = require('path')
-
+const path = require("path")
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,24 +7,41 @@ const nextConfig = {
   swcMinify: true,
   experimental: { esmExternals: true },
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
+    includePaths: [path.join(__dirname, "styles")],
   },
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
-      use: ['raw-loader', 'glslify-loader'],
+      use: ["raw-loader", "glslify-loader"],
     })
     return config
+  },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+      formats: ["image/webp"],
+    },
+  },
+  images: {
+    domains: [
+      "plusone-public.s3.amazonaws.com",
+      "plusone-frontend.vercel.app",
+      "plusonemusic.io",
+      "localhost",
+    ],
   },
   async rewrites() {
     return [
       {
-        source: '/uploads/:path*',
-        destination: process.env.API_URL + '/uploads/:path*' // Proxy to Backend
-      }
+        source: "/uploads/:path*",
+        destination: process.env.API_URL + "/uploads/:path*", // Proxy to Backend
+      },
+      {
+        source: "/aws/:path*",
+        destination: "https://plusone-public.s3.amazonaws.com/:path*", // Proxy to S3
+      },
     ]
-  }
+  },
 }
 
 module.exports = nextConfig
-

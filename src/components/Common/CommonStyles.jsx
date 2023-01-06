@@ -25,12 +25,12 @@ export const CommonPill = styled.span`
 
   @media ${DEVICE.laptop} {
     font-size: ${24 / 16}rem;
-    line-height: ${26 / 16}rem;
+    line-height: 1.2;
     padding: ${10 / 16}rem ${30 / 16}rem;
 
     &.small {
       font-size: ${18 / 16}rem;
-      line-height: ${20 / 16}rem;
+      line-height: 1.2;
       padding: ${7 / 16}rem ${15 / 16}rem;
     }
   }
@@ -157,7 +157,7 @@ export const Checkbox = styled.label`
     padding: ${10 / 16}rem;
     border: ${3 / 16}rem solid #777777;
     :checked {
-      background-image: url("/assets/vectors/grey-check.svg");
+      background-image: url("/assets/icons/grey-check.svg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;

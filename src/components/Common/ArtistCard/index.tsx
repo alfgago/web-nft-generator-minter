@@ -1,3 +1,4 @@
+import Image from "next/future/image"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
@@ -12,23 +13,29 @@ const ArtistCard = ({ artist, classes = "" }: any) => {
   return (
     <ArtistCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <img src={picture} alt={artist.attributes.name} />
+        <Image
+          src={picture}
+          alt={artist.attributes.name}
+          quality={90}
+          width={300}
+          height={300}
+        />
         <div className="socials">
           <a href={artist.attributes.spotify} target="_blank" rel="noreferrer">
-            <ReactSVG src="/assets/vectors/spotify.svg" />
+            <ReactSVG src="/assets/icons/spotify.svg" />
           </a>
           <a href={artist.attributes.youtube} target="_blank" rel="noreferrer">
-            <ReactSVG src="/assets/vectors/youtube.svg" />
+            <ReactSVG src="/assets/icons/youtube.svg" />
           </a>
           <a
             href={artist.attributes.instagram}
             target="_blank"
             rel="noreferrer"
           >
-            <ReactSVG src="/assets/vectors/instagram.svg" />
+            <ReactSVG src="/assets/icons/instagram.svg" />
           </a>
           <a href={artist.attributes.facebook} target="_blank" rel="noreferrer">
-            <ReactSVG src="/assets/vectors/facebook.svg" />
+            <ReactSVG src="/assets/icons/facebook.svg" />
           </a>
         </div>
       </div>

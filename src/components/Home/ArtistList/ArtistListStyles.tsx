@@ -171,7 +171,7 @@ export const ArtistListStyles = styled.div<Props>`
           width: 100%;
           max-width: 100%;
           height: 100%;
-          padding-bottom: ${90 / 16}rem;
+          padding-bottom: ${180 / 16}rem;
         }
 
         .image-container {
@@ -210,8 +210,8 @@ export const ArtistListStyles = styled.div<Props>`
             position: absolute;
             bottom: 0;
             left: 0;
-            height: ${90 / 16}rem;
-            padding: 0 ${40 / 16}rem;
+            min-height: ${180 / 16}rem;
+            padding: 10px ${40 / 16}rem;
           }
 
           h3 {
@@ -222,8 +222,9 @@ export const ArtistListStyles = styled.div<Props>`
             margin: auto;
 
             @media ${DEVICE.laptop} {
-              font-size: ${31 / 16}rem;
-              line-height: ${33 / 16}rem;
+              font-size: ${44 / 16}rem;
+              line-height: 1.1;
+              padding-right: ${32 / 16}rem;
               margin: 0;
             }
           }

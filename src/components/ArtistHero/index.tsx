@@ -1,11 +1,26 @@
 import React from "react"
+import Image from "next/future/image"
+import { useWindowSize } from "usehooks-ts"
+
+import s3url from "@/utils/s3url"
 
 import { ArtistHeroStyled, ArtistImage } from "./ArtistHeroStyles"
 
 const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
+  const { height, width } = useWindowSize()
+
   return (
     <ArtistHeroStyled>
-      <ArtistImage image={image} overlay="/assets/img/bg-artist-base.png">
+      <ArtistImage overlay="/assets/img/bg-artist-base.png">
+        <div className="background-image">
+          <Image
+            src={s3url(image.url)}
+            alt={title}
+            quality={90}
+            width={width * 0.8}
+            height={height}
+          />
+        </div>
         <img
           src="/assets/img/plusone-logo-vertical.png"
           alt="plusOne-vertical"

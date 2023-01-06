@@ -28,7 +28,7 @@ const Modal = ({
           </div>
           <div>
             <div className="close-mobile" onClick={() => setIsOpen(false)}>
-              <ReactSVG src="/assets/vectors/close.svg" />
+              <ReactSVG src="/assets/icons/close.svg" />
             </div>
           </div>
         </div>

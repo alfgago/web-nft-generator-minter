@@ -4,7 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const ArtistHeroStyled = styled.section`
   color: ${COLORS.white};
-  height: ${720 / 16}rem;
+  height: auto;
   width: 100%;
   position: relative;
   background: linear-gradient(
@@ -12,6 +12,10 @@ export const ArtistHeroStyled = styled.section`
     #f1ff97 -0.82%,
     rgba(243, 243, 243, 0.9) 52.7%
   );
+
+  @media ${DEVICE.laptop} {
+    height: ${720 / 16}rem;
+  }
 
   .content {
     position: relative;
@@ -46,7 +50,6 @@ export const ArtistHeroStyled = styled.section`
   }
 `
 export interface Props {
-  image?: string
   overlay?: string
 }
 
@@ -56,50 +59,63 @@ export const ArtistImage = styled.div<Props>`
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 
   .watermark-logo {
     position: absolute;
     bottom: 36px;
     left: 51px;
-    z-index: 3000;
+    z-index: 4;
   }
 
-  &:before {
-    content: "";
-    position: absolute;
-    width: 73%;
+  .background-image {
+    position: relative;
+    display: inline-block;
     height: 100%;
-    background: url("${(props) => props.image}") no-repeat;
-    background-size: auto 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-
-  .overlay {
+    z-index: 2;
+    img {
+      width: auto;
+      height: 100%;
+      max-width: 100vw;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      object-fit: cover;
+    }
     &:before {
       content: "";
       position: absolute;
-      width: 47%;
+      width: 50%;
       height: 100%;
-      background: linear-gradient(
-        270deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 1) 45%,
-        rgba(0, 0, 0, 0) 100%
-      );
       top: 0;
-      right: 19%;
-      z-index: 2000;
+      right: 0;
+      z-index: 1;
+      background: linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 0) 0%,
+        rgba(0, 0, 0, 1) 100%
+      );
+    }
+  }
 
-      @media only screen and (max-width: 1540px) {
-        right: 22%;
-        width: 30%;
-      }
-
-      @media only screen and (max-width: 1440px) {
-        display: none;
-      }
+  .overlay {
+    position: relative;
+    width: 100%;
+    height: @media ${DEVICE.laptop} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      top: 0;
+      right: 25rem;
+      z-index: 1;
     }
     &:after {
       content: "";
@@ -110,8 +126,8 @@ export const ArtistImage = styled.div<Props>`
       background-size: auto 100%;
       background-position: right;
       top: 0;
-      right: 0;
-      z-index: 2000;
+      left: 0;
+      z-index: 3;
     }
   }
 `

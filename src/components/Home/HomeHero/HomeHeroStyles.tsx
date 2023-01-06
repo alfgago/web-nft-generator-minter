@@ -9,35 +9,27 @@ export const HomeHeroStyles = styled.section`
   overflow: hidden;
   padding-bottom: 6rem;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 12rem;
+
   @media ${DEVICE.laptop} {
-    height: 70vh;
+    height: 90vh;
     min-height: ${880 / 16}rem;
+    padding-top: 7rem;
   }
 
   .content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-top: 6rem;
+    margin: 0 auto;
+    padding-top: 0;
     padding-bottom: 2rem;
+    mix-blend-mode: screen;
     @media ${DEVICE.laptop} {
-      padding-top: 0;
       padding-bottom: 6rem;
     }
 
     z-index: 5;
-
-    img {
-      width: auto;
-      height: ${100 / 16}rem;
-      margin-bottom: 3rem;
-      margin-left: 0;
-
-      @media ${DEVICE.laptop} {
-        height: ${160 / 16}rem;
-      }
-    }
 
     h1 {
       font-size: 40px;
@@ -69,9 +61,16 @@ export const HomeHeroStyles = styled.section`
       background: #fff;
       border: 1px solid #fff;
       color: #000;
+      font-weight: 900;
+      font-size: 2rem;
       &:hover {
         color: #fff;
         background: transparent;
+      }
+
+      @media ${DEVICE.laptop} {
+        font-size: 1.8rem;
+        line-height: 1.2;
       }
     }
   }
@@ -111,6 +110,49 @@ export const HomeHeroStyles = styled.section`
       width: 100%;
       height: 100%;
       background-size: 38%;
+    }
+  }
+
+  .banner-logo {
+    mix-blend-mode: unset;
+    padding-bottom: 0;
+
+    svg {
+      width: auto;
+      height: 12.25rem;
+      margin-bottom: -3.5rem;
+      margin-left: -5rem;
+
+      path.st0 {
+        opacity: 0.3;
+        animation: fadeInOut;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-duration: 4s;
+
+        &.st-1 {
+          stroke: #00ecff;
+          animation-delay: 3s;
+        }
+        &.st-2 {
+          stroke: #1415ff;
+          animation-delay: 2s;
+        }
+        &.st-3 {
+          stroke: rgb(208, 0, 255);
+          animation-delay: 1s;
+        }
+        &.st-4 {
+          stroke: #fb00fb;
+          animation-delay: 0s;
+        }
+      }
+
+      @media ${DEVICE.laptop} {
+        height: 20rem;
+        margin-bottom: -6.5rem;
+        margin-left: -8rem;
+      }
     }
   }
 `

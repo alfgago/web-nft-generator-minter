@@ -63,7 +63,7 @@ const NftCollections = () => {
 
   return (
     <NftCollectionStyles>
-      <ReactSVG className="star" src="/assets/vectors/star.svg" />
+      <ReactSVG className="star" src="/assets/icons/star.svg" />
       <div className="content">
         <div className="header-collection">
           <h2>Approved NFT Collections</h2>

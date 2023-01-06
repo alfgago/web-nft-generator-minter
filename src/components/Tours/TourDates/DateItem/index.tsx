@@ -19,11 +19,11 @@ const DateItem = ({ placeName, state, city, date }: any) => {
         </div>
         <div className="btns-container">
           <button className="cancel-btn">
-            <ReactSVG src="/assets/vectors/close-white.svg" />
+            <ReactSVG src="/assets/icons/close-white.svg" />
             Cancel date
           </button>
           <button className="confirm-btn">
-            <ReactSVG src="/assets/vectors/confirm.svg" />
+            <ReactSVG src="/assets/icons/confirm.svg" />
             Confirm date
           </button>
         </div>

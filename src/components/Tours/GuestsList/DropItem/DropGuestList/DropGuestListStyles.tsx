@@ -34,7 +34,7 @@ export const DropGuestListStyles = styled.div`
     padding: ${10 / 16}rem;
     border: ${3 / 16}rem solid #777777;
     :checked {
-      background-image: url("/assets/vectors/grey-check.svg");
+      background-image: url("/assets/icons/grey-check.svg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;

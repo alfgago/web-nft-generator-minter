@@ -255,3 +255,15 @@ input::placeholder {
 .scrollmagic-pin-spacer {
   padding: 0 !important;
 }
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.05;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}

@@ -1,7 +1,9 @@
+import Image from "next/future/image"
 import Link from "next/link"
 import { Swiper, SwiperSlide } from "swiper/react" // Import Swiper styles
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import s3url from "@/utils/s3url"
 
 import "swiper/css"
 
@@ -35,17 +37,21 @@ const ArtistsSwiper = ({ artists, title, buttonTitle, buttonLink }: any) => {
                   const name = item.attributes.name
                   const image =
                     item.attributes?.profile_picture?.data.attributes.url
+                  const imageW =
+                    item.attributes?.profile_picture?.data.attributes.width
+                  const imageH =
+                    item.attributes?.profile_picture?.data.attributes.height
                   return (
                     <SwiperSlide key={index}>
                       <div className="artist-item">
                         <div className="inner">
                           <div className="image-container">
-                            <img
-                              width="500"
-                              height="338"
-                              src={image}
+                            <Image
+                              src={s3url(image)}
                               alt={slug}
-                              loading="lazy"
+                              quality={90}
+                              width={imageW}
+                              height={imageH}
                             />
                           </div>
                           <div className="bar">

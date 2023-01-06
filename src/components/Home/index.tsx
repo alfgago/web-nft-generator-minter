@@ -1,12 +1,13 @@
 import dynamic from "next/dynamic"
 
-import ArtistList from "./ArtistList"
 import HomeHero from "./HomeHero"
 import { HomeStyles } from "./HomeStyles"
-import LotteryWinners from "./LotteryWinners"
-import MoreSection from "./MoreSection"
-import UpcomingDrawings from "./UpcomingDrawings"
-import UpcomingDrops from "./UpcomingDrops"
+
+const ArtistList = dynamic(() => import("./ArtistList"))
+const MoreSection = dynamic(() => import("./MoreSection"))
+const UpcomingDrawings = dynamic(() => import("./UpcomingDrawings"))
+const UpcomingDrops = dynamic(() => import("./UpcomingDrops"))
+const LotteryWinners = dynamic(() => import("./LotteryWinners"))
 
 const Home = ({ page, passes }: any) => {
   const attributes = page.attributes

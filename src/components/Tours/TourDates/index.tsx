@@ -15,7 +15,7 @@ const TourDates = ({ tourDates }: any) => {
       <TourDateStyles>
         <div className="date-settings">
           <a>
-            <ReactSVG src="/assets/vectors/settings-icon.svg" />
+            <ReactSVG src="/assets/icons/settings-icon.svg" />
           </a>
           <p>Verify tour dates</p>
           <div>

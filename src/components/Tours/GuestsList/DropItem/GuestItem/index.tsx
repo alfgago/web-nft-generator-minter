@@ -33,7 +33,7 @@ const GuestItem = ({ data }: any) => {
           id=""
           name=""
         />
-        {/* <ReactSVG src="/assets/vectors/grey-check.svg" /> */}
+        {/* <ReactSVG src="/assets/icons/grey-check.svg" /> */}
       </span>
     </GuestItemStyles>
   )

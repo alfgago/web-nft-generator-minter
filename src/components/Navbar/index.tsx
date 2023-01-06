@@ -38,7 +38,12 @@ const Navbar = () => {
       <div className={`content ${showMenu ? "is-active" : ""}`}>
         <Link href="/">
           <a className="logo">
-            <img src="/assets/img/plus-one-logo.png" alt="plusOne" />
+            <img
+              src="/assets/img/short-logo.svg"
+              alt="plusOne Logo"
+              width="113px"
+              height="75px"
+            />
           </a>
         </Link>
         <div className="search-bar">
@@ -47,7 +52,7 @@ const Navbar = () => {
             className="search-input"
             placeholder="Search by artist, venue, or city"
           />
-          <ReactSVG src="/assets/vectors/search.svg" />
+          <ReactSVG src="/assets/icons/search.svg" />
         </div>
         <nav className="nav">
           <ul>
@@ -94,12 +99,12 @@ const Navbar = () => {
               <li className="li-account">
                 {false && (
                   <a href="#account" onClick={() => setOpenLogin(true)}>
-                    <ReactSVG src="/assets/vectors/account.svg" />
+                    <ReactSVG src="/assets/icons/account.svg" />
                   </a>
                 )}
                 <Link href="/my-nfts">
                   <a>
-                    <ReactSVG src="/assets/vectors/account.svg" />
+                    <ReactSVG src="/assets/icons/account.svg" />
                   </a>
                 </Link>
               </li>
@@ -107,7 +112,7 @@ const Navbar = () => {
             {width > 1080 && !isConnected && (
               <li className="li-wallet">
                 <a href="#" onClick={() => connect()}>
-                  <ReactSVG src="/assets/vectors/wallet.svg" />
+                  <ReactSVG src="/assets/icons/wallet.svg" />
                 </a>
               </li>
             )}
@@ -118,13 +123,13 @@ const Navbar = () => {
                   <ul>
                     <li>
                       <a href="#account" onClick={() => setOpenLogin(true)}>
-                        <ReactSVG src="/assets/vectors/account.svg" />
+                        <ReactSVG src="/assets/icons/account.svg" />
                         <span>Account</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" onClick={() => connect()}>
-                        <ReactSVG src="/assets/vectors/wallet.svg" />
+                        <ReactSVG src="/assets/icons/wallet.svg" />
                         <span>Connect your wallet</span>
                       </a>
                     </li>

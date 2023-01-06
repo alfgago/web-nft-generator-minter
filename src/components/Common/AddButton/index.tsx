@@ -5,7 +5,7 @@ import { AddButtonStyle } from "../CommonStyles"
 const AddButton = ({ action, label }: any) => {
   return (
     <AddButtonStyle onClick={() => action()}>
-      <ReactSVG src="/assets/vectors/add-icon.svg" />
+      <ReactSVG src="/assets/icons/add-icon.svg" />
       <span>{label}</span>
     </AddButtonStyle>
   )

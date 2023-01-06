@@ -78,7 +78,6 @@ function TourFilters() {
     })
 
     setTourData(response.data)
-    // console.log(tourData)
   }
 
   const [tourDates, setTourDates] = useState(datesList)
@@ -108,15 +107,5 @@ function TourFilters() {
     </TourFilterStyles>
   )
 }
-
-// export async function getServerSideProps(ctx: any) {
-//   const data = await getSession(ctx)
-//   console.log(data)
-//   return {
-//     props: {
-//       sessionData: await getSession(ctx),
-//     },
-//   }
-// }
 
 export default TourFilters

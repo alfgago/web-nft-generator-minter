@@ -28,7 +28,7 @@ export const FAQStyles = styled.section`
       right: ${34 / 16}rem;
       width: ${20 / 16}rem;
       height: ${20 / 16}rem;
-      background-image: url("/assets/vectors/faq-toggle.svg");
+      background-image: url("/assets/icons/faq-toggle.svg");
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;

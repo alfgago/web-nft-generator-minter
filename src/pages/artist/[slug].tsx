@@ -9,7 +9,7 @@ const ArtistPage = ({ artist }: any) => {
   const bio = artist.attributes.bio
   const genre = false
   const artistName = false
-  const image = artist.attributes.banner.data.attributes.url
+  const image = artist.attributes.banner.data.attributes
 
   const ogTitle = title + " - PlusOne"
 
