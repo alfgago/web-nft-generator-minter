@@ -18,7 +18,7 @@ const LocationPicker = ({ setFieldValue }: any) => {
     debounce: 300,
   })
 
-  const handleInput = (e) => {
+  const handleInput = (e: any) => {
     setValue(e.target.value)
   }
 
