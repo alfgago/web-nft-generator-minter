@@ -13,8 +13,6 @@ const CardPass = ({ pass, event }: any) => {
   if (!event) {
     return <h3>No upcoming drawings found for current artist.</h3>
   }
-  console.log("event")
-  console.log(event)
   const venue = event.venue_name ?? ""
   const city = event.address ?? ""
   const date = event.date ?? ""

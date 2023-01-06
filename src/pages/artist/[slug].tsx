@@ -50,8 +50,6 @@ export const getServerSideProps = async ({ query }: any) => {
     }
   )
 
-  // console.log(postResponse.data.data[0])
-
   const response = await axios.get(
     `https://plusone.stag.host/api/artists/${postResponse.data.data[0].id}?populate=deep,4`,
     {

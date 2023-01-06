@@ -8,8 +8,6 @@ const Artist = ({ events }: any) => {
     const year = date.toLocaleString("default", { year: "numeric" })
     return day + " " + month + " " + year
   }
-  console.log("events")
-  console.log(events.data)
 
   return (
     <UpcomingDropsStyles>
@@ -18,7 +16,6 @@ const Artist = ({ events }: any) => {
         {events.data && events.data.length ? (
           <BoxDrops>
             {events.data.map((item: any, index: number) => {
-              // console.log(items.attributes)
               return (
                 <DropRow key={index}>
                   <div className="place">
