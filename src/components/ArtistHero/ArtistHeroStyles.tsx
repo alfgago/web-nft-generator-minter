@@ -56,6 +56,18 @@ export const ArtistHeroStyled = styled.section`
       }
     }
 
+    .socials {
+      display: flex;
+      text-decoration: none;
+      justify-content: end;
+      align-items: center;
+      gap: 12px;
+
+      li {
+        list-style-type: none;
+      }
+    }
+
     .genre {
       font-size: ${30 / 16}rem;
     }

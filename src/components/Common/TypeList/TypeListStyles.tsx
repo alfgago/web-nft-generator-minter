@@ -20,12 +20,13 @@ export const TypeListStyles = styled.div`
     ::-webkit-scrollbar {
       display: none;
     }
+    flex-wrap: wrap;
 
     @media ${DEVICE.laptop} {
       flex-wrap: wrap;
       padding: 0;
       margin: 0;
-      width: auto;
+      width: 60%;
     }
 
     li {

@@ -24,6 +24,14 @@ export const DropRow = styled.div`
   width: 100%;
   font-size: ${22 / 16}rem;
   margin-bottom: ${35 / 16}rem;
+  flex-direction: column;
+  align-items: center;
+
+  @media ${DEVICE.laptop} {
+    flex-direction: row;
+    align-items: revert;
+  }
+
   .place {
     display: flex;
     font-weight: 400;
@@ -46,11 +54,19 @@ export const DropRow = styled.div`
   .collection {
     display: flex;
     align-items: center;
-    width: ${344 / 16}rem;
     background: #f2f2f2;
     font-weight: 400;
+    width: 100%;
+    @media ${DEVICE.laptop} {
+      width: ${344 / 16}rem;
+    }
     .name {
       margin-left: ${20 / 16}rem;
+      display: none;
+
+      @media ${DEVICE.laptop} {
+        display: initial;
+      }
     }
     img {
       height: 100%;
@@ -63,10 +79,14 @@ export const DropRow = styled.div`
     align-items: center;
     justify-content: center;
     width: ${273 / 16}rem;
-    margin-left: ${10 / 16}rem;
     background: #f2f2f2;
     font-size: ${19 / 16}rem;
     font-weight: 600;
+    margin-left: 0;
+
+    @media ${DEVICE.laptop} {
+      margin-left: ${10 / 16}rem;
+    }
   }
   .actions {
     display: flex;
@@ -94,6 +114,47 @@ export const DropRow = styled.div`
     }
     .variant {
       background: #c2c2c2;
+    }
+  }
+
+  .cont {
+    display: flex;
+    flex-direction: column;
+
+    @media ${DEVICE.laptop} {
+      flex-direction: row;
+    }
+
+    .wrap-end {
+      display: flex;
+      width: 100%;
+      padding-top: ${10 / 16}rem;
+
+      @media ${DEVICE.laptop} {
+        padding-top: 0;
+      }
+    }
+
+    .wrap-main {
+      display: flex;
+      width: 100%;
+
+      .row-1 {
+        display: flex;
+        height: 50%;
+        @media ${DEVICE.laptop} {
+          height: 100%;
+        }
+      }
+      .name-mobile {
+        height: 50%;
+        background-color: #f2f2f2;
+        display: flex;
+        align-items: center;
+        @media ${DEVICE.laptop} {
+          display: none;
+        }
+      }
     }
   }
 `

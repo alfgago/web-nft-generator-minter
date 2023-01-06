@@ -19,6 +19,15 @@ const Artist = ({ passList }: any) => {
     <GuestListNFTStyles>
       {passList.attributes.passes.data.length > 0 ? (
         <div className="content">
+          <div className="mobile-col2">
+            <h2>Guest list NFTs</h2>
+            <p className="subt-filter">Pass type:</p>
+            <TypeList
+              types={types}
+              onSelect={setSelectedPassType}
+              selected={selectedPassType}
+            />
+          </div>
           <div className="column1">
             {passList.attributes.passes.data.map((item: any, index: number) => {
               return item.attributes.event.data ? (
@@ -37,6 +46,7 @@ const Artist = ({ passList }: any) => {
           </div>
           <div className="column2">
             <h2>Guest list NFTs</h2>
+            <p className="subt-filter">Pass type:</p>
             <TypeList
               types={types}
               onSelect={setSelectedPassType}

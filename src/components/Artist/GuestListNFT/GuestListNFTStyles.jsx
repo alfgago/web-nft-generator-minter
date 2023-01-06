@@ -22,6 +22,10 @@ export const GuestListNFTStyles = styled.section`
   .column2 {
     display: flex;
     flex-direction: column;
+
+    @media ${DEVICE.maxlaptop} {
+      display: none;
+    }
   }
 
   .no-data {
@@ -31,6 +35,39 @@ export const GuestListNFTStyles = styled.section`
     p {
       font-weight: 400;
       font-size: 15px;
+    }
+  }
+
+  .mobile-col2 {
+    display: flex;
+    flex-direction: column;
+
+    @media ${DEVICE.laptop} {
+      display: none;
+    }
+  }
+
+  .column1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fRmyrv {
+    max-width: ${700 / 16}rem;
+
+    @media ${DEVICE.laptop} {
+      max-width: 100%;
+    }
+  }
+
+  .subt-filter {
+    font-weight: bold;
+    margin-bottom: 0;
+
+    @media ${DEVICE.laptop} {
+      margin-bottom: revert;
     }
   }
 `

@@ -1,5 +1,6 @@
 import React from "react"
 import Image from "next/future/image"
+import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
 
 import s3url from "@/utils/s3url"
@@ -33,6 +34,20 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
           <h1 className="title">{title}</h1>
           <div className="name">{artistName}</div>
           <div className="bio">{bio}</div>
+          <div className="socials">
+            <a href="#" target="_blank" rel="noreferrer">
+              <ReactSVG src="/assets/icons/spotify.svg" />
+            </a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <ReactSVG src="/assets/icons/youtube.svg" />
+            </a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <ReactSVG src="/assets/icons/instagram.svg" />
+            </a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <ReactSVG src="/assets/icons/facebook.svg" />
+            </a>
+          </div>
           <div className="genre">{genre}</div>
         </div>
       </div>

@@ -18,38 +18,58 @@ const Artist = ({ events }: any) => {
             {events.data.map((item: any, index: number) => {
               return (
                 <DropRow key={index}>
-                  <div className="place">
-                    <span>
-                      {item.attributes.venue_name} {item.attributes.address}{" "}
-                      {item.attributes.city}
-                    </span>
-                  </div>
-                  <div className="date" style={{ background: "#FFD1FB" }}>
-                    {dateFormat(item.attributes.date)}
-                  </div>
-                  <div className="collection">
-                    <img
-                      src={
-                        item.attributes.passes.data.length
-                          ? item.attributes.passes?.data[0].attributes
-                              .collection_preview_image.data.attributes.url
-                          : "/assets/img/drop-pic-2.png"
-                      }
-                      alt="artist show nft pic"
-                    />
-                    <div className="name">
-                      {item.attributes.passes.data.length
-                        ? item.attributes.passes?.data[0].attributes
-                            .collection_name
-                        : "-"}
+                  <div className="cont">
+                    <div className="wrap-main">
+                      <div className="main-cont">
+                        <div className="row-1 ">
+                          <div className="place">
+                            <span>
+                              {item.attributes.venue_name}{" "}
+                              {item.attributes.address} {item.attributes.city}
+                            </span>
+                          </div>
+                          <div
+                            className="date"
+                            style={{ background: "#FFD1FB" }}
+                          >
+                            {dateFormat(item.attributes.date)}
+                          </div>
+                        </div>
+                        <div className="name-mobile">
+                          {item.attributes.passes.data.length
+                            ? item.attributes.passes?.data[0].attributes
+                                .collection_name
+                            : "-"}
+                        </div>
+                      </div>
+
+                      <div className="collection">
+                        <img
+                          src={
+                            item.attributes.passes.data.length
+                              ? item.attributes.passes?.data[0].attributes
+                                  .collection_preview_image.data.attributes.url
+                              : "/assets/img/drop-pic-2.png"
+                          }
+                          alt="artist show nft pic"
+                        />
+                        <div className="name">
+                          {item.attributes.passes.data.length
+                            ? item.attributes.passes?.data[0].attributes
+                                .collection_name
+                            : "-"}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="time">5 hrs 30 min 21 sec</div>
-                  <div className="actions">
-                    <button type="button">Add Name</button>
-                    <button type="button" className="variant">
-                      Set Reminder
-                    </button>
+                    <div className="wrap-end">
+                      <div className="time">5 hrs 30 min 21 sec</div>
+                      <div className="actions">
+                        <button type="button">Add Name</button>
+                        <button type="button" className="variant">
+                          Set Reminder
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </DropRow>
               )
