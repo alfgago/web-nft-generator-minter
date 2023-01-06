@@ -46,13 +46,15 @@ const ArtistsSwiper = ({ artists, title, buttonTitle, buttonLink }: any) => {
                       <div className="artist-item">
                         <div className="inner">
                           <div className="image-container">
-                            <Image
-                              src={s3url(image)}
-                              alt={slug}
-                              quality={90}
-                              width={imageW}
-                              height={imageH}
-                            />
+                            <Link href={"/artist/" + slug} scroll={false}>
+                              <Image
+                                src={s3url(image)}
+                                alt={slug}
+                                quality={90}
+                                width={imageW}
+                                height={imageH}
+                              />
+                            </Link>
                           </div>
                           <div className="bar">
                             <h3 className="title">{name}</h3>

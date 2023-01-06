@@ -33,6 +33,7 @@ export const DropRow = styled.div`
     background: #000;
     color: ${COLORS.white};
     padding: ${20 / 16}rem;
+    flex-wrap: wrap;
   }
   .date {
     display: flex;
@@ -53,6 +54,8 @@ export const DropRow = styled.div`
     }
     img {
       height: 100%;
+      width: 7.25rem;
+      object-fit: cover;
     }
   }
   .time {

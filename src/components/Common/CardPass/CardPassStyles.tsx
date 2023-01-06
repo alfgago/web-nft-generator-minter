@@ -48,6 +48,7 @@ export const CardPassStyles = styled.div`
     @media ${DEVICE.laptop} {
       padding: ${25 / 16}rem ${20 / 16}rem;
       min-width: ${300 / 16}rem;
+      max-width: ${300 / 16}rem;
     }
     .titles {
       font-size: ${22 / 16}rem;
@@ -57,17 +58,25 @@ export const CardPassStyles = styled.div`
         font-size: ${25 / 16}rem;
       }
 
+      .city {
+        color: #333;
+        font-size: ${16 / 16}rem;
+        @media ${DEVICE.laptop} {
+          font-size: ${18 / 16}rem;
+        }
+      }
+
       .date {
         color: #333;
-        font-size: ${18 / 16}rem;
+        font-size: ${16 / 16}rem;
         font-weight: 400;
         @media ${DEVICE.laptop} {
-          font-size: ${20 / 16}rem;
+          font-size: ${18 / 16}rem;
         }
       }
     }
     .descriptor {
-      font-size: ${18 / 16}rem;
+      font-size: ${16 / 16}rem;
       margin: 0;
       padding: 0;
       > div {
@@ -81,5 +90,12 @@ export const CardPassStyles = styled.div`
       display: flex;
       gap: 3px;
     }
+  }
+
+  .guests-no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 `

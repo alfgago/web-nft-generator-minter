@@ -33,6 +33,7 @@ export const NavbarStyles = styled.section<Props>`
       margin-right: ${80 / 16}rem;
       z-index: 9000;
       height: 100%;
+      margin-left: -1rem;
 
       img {
         height: 100%;
@@ -74,6 +75,17 @@ export const NavbarStyles = styled.section<Props>`
         li {
           position: relative;
           margin: 0 1rem;
+
+          @media ${DEVICE.maxlaptop} {
+            &.has-submenu {
+              border-bottom: 2px solid #fff;
+              padding-bottom: 1rem;
+              margin-bottom: 0.5rem;
+              &:last-of-type {
+                border: 0;
+              }
+            }
+          }
 
           > a:hover {
             opacity: 0.8;

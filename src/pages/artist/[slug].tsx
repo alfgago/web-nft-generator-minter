@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react"
 import Head from "next/head"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 import Artist from "@/components/Artist"
 import ArtistHero from "@/components/ArtistHero"
 
 const ArtistPage = ({ artist }: any) => {
+  console.log(artist)
   const title = artist.attributes.name
   const bio = artist.attributes.bio
   const genre = false
@@ -12,6 +14,7 @@ const ArtistPage = ({ artist }: any) => {
   const image = artist.attributes.banner.data.attributes
 
   const ogTitle = title + " - PlusOne"
+  const artistData = artist
 
   return (
     <>
@@ -28,7 +31,8 @@ const ArtistPage = ({ artist }: any) => {
         image={image}
         genre={genre}
       />
-      <Artist />
+
+      <Artist artistData={artistData} />
     </>
   )
 }
@@ -38,7 +42,7 @@ export const getServerSideProps = async ({ query }: any) => {
   const token = process.env.API_TOKEN
 
   const postResponse = await axios.get(
-    `${apiURL}/api/artists?filters\[slug\][$eq]=${query.slug}&populate=*`,
+    `${apiURL}/api/artists?filters[slug][$eq]=${query.slug}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,10 +50,23 @@ export const getServerSideProps = async ({ query }: any) => {
     }
   )
 
+  // console.log(postResponse.data.data[0])
+
+  const response = await axios.get(
+    `https://plusone.stag.host/api/artists/${postResponse.data.data[0].id}?populate=deep,4`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+
+  console.log(response)
+
   if (postResponse.data) {
-    return {
+    https: return {
       props: {
-        artist: postResponse.data.data[0],
+        artist: response.data.data,
       },
     }
   }

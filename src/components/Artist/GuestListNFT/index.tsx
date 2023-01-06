@@ -5,74 +5,51 @@ import TypeList from "@/components/Common/TypeList"
 
 import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
-const Artist = () => {
-  const [selectedPass, setSelectedPass] = useState(0)
-
-  const passes = [
-    {
-      artist: "Steve Aoki",
-      title: "Purple Man",
-      collectionImage: "/assets/img/demo-nft-pic.png",
-      artistImage: "/assets/img/featured-2.jpg",
-      venue: "Warfield",
-      city: "San Fran, CA",
-      date: "9th June 2023",
-      type: "lottery",
-    },
-    {
-      artist: "Snoop Dog",
-      title: "Sample Data 2",
-      collectionImage: "/assets/img/demo-nft-pic.png",
-      artistImage: "/assets/img/featured-2.jpg",
-      venue: "Warfield",
-      city: "San Fran, CA",
-      date: "6th December 2023",
-      type: "lottery",
-    },
-    {
-      artist: "Ariana Grande",
-      title: "Sample Data 3",
-      collectionImage: "/assets/img/demo-nft-pic.png",
-      artistImage: "/assets/img/featured-2.jpg",
-      venue: "National Stadium",
-      city: "San Jose, Costa Rica",
-      date: "11th Jan 2023",
-      type: "lottery",
-    },
-    {
-      artist: "Other artist",
-      title: "Sample Data 4",
-      collectionImage: "/assets/img/demo-nft-pic.png",
-      artistImage: "/assets/img/featured-2.jpg",
-      venue: "National Stadium",
-      city: "San Jose, Costa Rica",
-      date: "19th Feb 2023",
-      type: "lottery",
-    },
-  ]
+const Artist = ({ passList }: any) => {
+  const [selectedPassType, setSelectedPassType] = useState(0)
 
   const types = [
-    { name: "Tour Pass" },
-    { name: "Single Event" },
-    { name: "Lottery" },
-    { name: "Lifetime" },
+    { name: "Lifetime", value: "lifetime" },
+    { name: "Lottery", value: "lottery" },
+    { name: "Tour", value: "tour" },
+    { name: "Single Event", value: "single-event" },
   ]
 
   return (
     <GuestListNFTStyles>
-      <div className="content">
-        <div className="column1">
-          <CardPass pass={passes[selectedPass]} />
+      {passList.attributes.passes.data.length > 0 ? (
+        <div className="content">
+          <div className="column1">
+            {passList.attributes.passes.data.map((item: any, index: number) => {
+              return item.attributes.event.data ? (
+                <CardPass
+                  key={"pass" + index}
+                  pass={item}
+                  event={item.attributes.event.data.attributes}
+                />
+              ) : (
+                <h3 className="not-found">
+                  No {types[selectedPassType].name} Passes found for this
+                  artist.
+                </h3>
+              )
+            })}
+          </div>
+          <div className="column2">
+            <h2>Guest list NFTs</h2>
+            <TypeList
+              types={types}
+              onSelect={setSelectedPassType}
+              selected={selectedPassType}
+            />
+          </div>
         </div>
-        <div className="column2">
+      ) : (
+        <div className="content no-data">
           <h2>Guest list NFTs</h2>
-          <TypeList
-            types={types}
-            onSelect={setSelectedPass}
-            selected={selectedPass}
-          />
+          <p>This artist has no events yet</p>
         </div>
-      </div>
+      )}
     </GuestListNFTStyles>
   )
 }

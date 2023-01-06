@@ -22,6 +22,15 @@ export const GuestListNFTStyles = styled.section`
   .column2 {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+  }
+
+  .no-data {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      font-weight: 400;
+      font-size: 15px;
+    }
   }
 `
