@@ -55,7 +55,7 @@ const CardPass = ({ pass, event }: any) => {
               <div>{eventName}</div>
             </div>
             <div className="action">
-              <Link href="/">
+              <Link legacyBehavior href="/">
                 <a>
                   <CommonPill className="clickable fill small">
                     Enter Lottery

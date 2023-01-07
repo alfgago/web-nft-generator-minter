@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
-import Image from "next/future/image"
+import Image from "next/image"
 import Link from "next/link"
 
 import s3url from "@/utils/s3url"
@@ -74,7 +74,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
         </div>
         {upcoming ? (
           <div className="actions with-time">
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>
                 <CommonPill className="clickable blue small">
                   Set a reminder
@@ -85,14 +85,14 @@ const DropCard = ({ pass, classes = "" }: any) => {
           </div>
         ) : (
           <div className="actions no-time">
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>
                 <CommonPill className="clickable blue small">
                   Buy Now
                 </CommonPill>
               </a>
             </Link>
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>
                 <CommonPill className="clickable blue small">View</CommonPill>
               </a>

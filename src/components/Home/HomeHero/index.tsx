@@ -27,7 +27,7 @@ const HomeHero = ({ title, copy, image }: any) => {
       <div className="content">
         <h1 className="title">{title}</h1>
         {copy && <div className="copy">{copy}</div>}
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a>
             <CommonPill className="btn clickable fill">Sign Up</CommonPill>
           </a>

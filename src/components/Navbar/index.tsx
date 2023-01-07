@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <NavbarStyles hasColor={color} id="navbar">
       <div className={`content ${showMenu ? "is-active" : ""}`}>
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a className="logo">
             <img
               src="/assets/img/p1-logo.svg"
@@ -61,12 +61,12 @@ const Navbar = () => {
               <div className="submenu">
                 <ul>
                   <li>
-                    <Link href="/artists">
+                    <Link legacyBehavior href="/artists">
                       <a>By Artists</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/passes">
+                    <Link legacyBehavior href="/passes">
                       <a>By NFTs</a>
                     </Link>
                   </li>
@@ -78,17 +78,17 @@ const Navbar = () => {
               <div className="submenu">
                 <ul>
                   <li>
-                    <Link href="/resources/fans">
+                    <Link legacyBehavior href="/resources/fans">
                       <a>For Fans</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/resources/artists">
+                    <Link legacyBehavior href="/resources/artists">
                       <a>For Artists</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/resources/blog">
+                    <Link legacyBehavior href="/resources/blog">
                       <a>Blog</a>
                     </Link>
                   </li>
@@ -102,7 +102,7 @@ const Navbar = () => {
                     <ReactSVG src="/assets/icons/account.svg" />
                   </a>
                 )}
-                <Link href="/my-nfts">
+                <Link legacyBehavior href="/my-nfts">
                   <a>
                     <ReactSVG src="/assets/icons/account.svg" />
                   </a>

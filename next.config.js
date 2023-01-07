@@ -17,10 +17,6 @@ const nextConfig = {
   },
   experimental: {
     esmExternals: true,
-    images: {
-      allowFutureImage: true,
-      formats: ["image/webp"],
-    },
   },
   images: {
     domains: [

@@ -1,4 +1,4 @@
-import Image from "next/future/image"
+import Image from "next/image"
 import Link from "next/link"
 
 import s3url from "@/utils/s3url"
@@ -32,7 +32,7 @@ const LotteryRow = ({ nft, color }: any) => {
           <span>{nft.attributes.winner_wallet}</span>
         </div>
         <div className="actions">
-          <Link href="/" as="a">
+          <Link legacyBehavior href="/" as="a">
             <CommonPill className="clickable small">Make Offer</CommonPill>
           </Link>
         </div>

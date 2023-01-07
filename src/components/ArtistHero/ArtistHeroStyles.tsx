@@ -103,6 +103,7 @@ export const ArtistImage = styled.div<Props>`
     height: 100%;
     width: 100%;
     z-index: 2;
+    pointer-events: none;
 
     @media ${DEVICE.laptop} {
       display: inline-block;

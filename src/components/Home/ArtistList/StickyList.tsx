@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Image from "next/future/image"
+import Image from "next/image"
 import Link from "next/link"
 import { Tween } from "react-gsap"
 import { Controller, Scene } from "react-scrollmagic"
@@ -37,7 +37,7 @@ const StickyList = ({
             <div className="content">
               <div className="section-header">
                 <h2>{title}</h2>
-                <Link href={buttonLink} scroll={false}>
+                <Link legacyBehavior href={buttonLink} scroll={false}>
                   <a className="link">
                     <CommonPill className="clickable pink">
                       {buttonTitle}
@@ -86,7 +86,11 @@ const StickyList = ({
                               </div>
                               <div className="bar">
                                 <h3 className="title">{name}</h3>
-                                <Link href={"/artist/" + slug} scroll={false}>
+                                <Link
+                                  legacyBehavior
+                                  href={"/artist/" + slug}
+                                  scroll={false}
+                                >
                                   <a className="link">
                                     <CommonPill className="clickable small">
                                       Learn more

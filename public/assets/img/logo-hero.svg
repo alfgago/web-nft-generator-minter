@@ -7,7 +7,8 @@
             stroke-miterlimit: 10;
         }
         .st22 {
-            fill: #fff;
+            fill: #222;
+            opacity: 0.9;
         }
     </style>
     <path

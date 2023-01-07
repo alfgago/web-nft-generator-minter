@@ -1,4 +1,4 @@
-import Image from "next/future/image"
+import Image from "next/image"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
@@ -51,7 +51,7 @@ const ArtistCard = ({ artist, classes = "" }: any) => {
           </div>
         </div>
         <div className="actions">
-          <Link href={"/artist/" + artist.attributes.slug}>
+          <Link legacyBehavior href={"/artist/" + artist.attributes.slug}>
             <a>
               <CommonPill className="clickable blue small">
                 See Artist

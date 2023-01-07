@@ -29,7 +29,7 @@ const UpcomingDrops = ({
         <div className="content">
           <div className="head-title">
             <h2>{title}</h2>
-            <Link href={buttonLink}>
+            <Link legacyBehavior href={buttonLink}>
               <CommonPill className={"btn clickable blue small"}>
                 {buttonTitle}
               </CommonPill>

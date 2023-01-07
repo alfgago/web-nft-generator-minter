@@ -24,7 +24,7 @@ const MoreSection = ({
       <section>
         <div className="content">
           <h2>{title}</h2>
-          <Link href={buttonLink}>
+          <Link legacyBehavior href={buttonLink}>
             <CommonPill className={"btn clickable " + type}>
               {buttonTitle}
             </CommonPill>

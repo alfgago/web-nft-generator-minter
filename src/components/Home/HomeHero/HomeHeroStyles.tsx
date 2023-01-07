@@ -116,6 +116,7 @@ export const HomeHeroStyles = styled.section`
   .banner-logo {
     mix-blend-mode: overlay;
     padding-bottom: 0;
+    pointer-events: none;
 
     svg {
       width: auto;
