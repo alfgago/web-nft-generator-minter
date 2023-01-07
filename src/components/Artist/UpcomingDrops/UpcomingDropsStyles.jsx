@@ -37,28 +37,34 @@ export const DropRow = styled.div`
     font-weight: 400;
     align-items: center;
     justify-content: center;
-    width: ${226 / 16}rem;
     background: #000;
     color: ${COLORS.white};
     padding: ${20 / 16}rem;
     flex-wrap: wrap;
+    width: 100%;
+    @media ${DEVICE.laptop} {
+      width: ${227 / 16}rem;
+    }
   }
   .date {
     display: flex;
     font-weight: 600;
     align-items: center;
     justify-content: center;
-    width: ${155 / 16}rem;
+    width: 100%;
     background: #e1fdfd;
+    @media ${DEVICE.laptop} {
+      width: ${156 / 16}rem;
+    }
   }
   .collection {
     display: flex;
     align-items: center;
     background: #f2f2f2;
     font-weight: 400;
-    width: 100%;
+    width: revert;
     @media ${DEVICE.laptop} {
-      width: ${344 / 16}rem;
+      width: ${400 / 16}rem;
     }
     .name {
       margin-left: ${20 / 16}rem;
@@ -78,13 +84,15 @@ export const DropRow = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${273 / 16}rem;
     background: #f2f2f2;
     font-size: ${19 / 16}rem;
     font-weight: 600;
     margin-left: 0;
+    width: 100%;
+    flex: 1;
 
     @media ${DEVICE.laptop} {
+      width: ${273 / 16}rem;
       margin-left: ${10 / 16}rem;
     }
   }
@@ -96,6 +104,8 @@ export const DropRow = styled.div`
     flex-direction: column;
     justify-content: space-around;
     padding: ${5 / 16}rem;
+    gap: 5px;
+
     button {
       width: 100%;
       border: none;
@@ -120,9 +130,12 @@ export const DropRow = styled.div`
   .cont {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: ${700 / 16}rem;
 
     @media ${DEVICE.laptop} {
       flex-direction: row;
+      max-width: 100%;
     }
 
     .wrap-end {
@@ -139,6 +152,13 @@ export const DropRow = styled.div`
       display: flex;
       width: 100%;
 
+      .main-cont {
+        width: 100%;
+
+        @media ${DEVICE.laptop} {
+          width: revert;
+        }
+      }
       .row-1 {
         display: flex;
         height: 50%;
