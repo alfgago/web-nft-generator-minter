@@ -5,7 +5,6 @@ const path = require("path")
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: { esmExternals: true },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
@@ -17,6 +16,7 @@ const nextConfig = {
     return config
   },
   experimental: {
+    esmExternals: true,
     images: {
       allowFutureImage: true,
       formats: ["image/webp"],

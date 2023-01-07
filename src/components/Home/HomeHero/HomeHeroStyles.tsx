@@ -114,7 +114,7 @@ export const HomeHeroStyles = styled.section`
   }
 
   .banner-logo {
-    mix-blend-mode: unset;
+    mix-blend-mode: overlay;
     padding-bottom: 0;
 
     svg {
@@ -124,7 +124,7 @@ export const HomeHeroStyles = styled.section`
       margin-left: -5rem;
 
       path.st0 {
-        opacity: 0.3;
+        opacity: 0.7;
         animation: fadeInOut;
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;

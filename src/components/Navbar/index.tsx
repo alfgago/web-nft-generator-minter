@@ -39,7 +39,7 @@ const Navbar = () => {
         <Link href="/">
           <a className="logo">
             <img
-              src="/assets/img/short-logo.svg"
+              src="/assets/img/p1-logo.svg"
               alt="plusOne Logo"
               width="113px"
               height="75px"

@@ -52,7 +52,12 @@ export const DropCardStyles = styled.div`
       }
       &:hover {
         .inner {
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(0, 0, 0, 0.6);
+          border-radius: 16px;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(0, 0, 0, 1);
           .titles {
             opacity: 1;
           }

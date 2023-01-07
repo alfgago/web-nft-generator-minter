@@ -30,10 +30,9 @@ export const NavbarStyles = styled.section<Props>`
     .logo {
       position: relative;
       display: inline-block;
+      height: ${35 / 16}rem;
       margin-right: ${80 / 16}rem;
       z-index: 9000;
-      height: 100%;
-      margin-left: -1rem;
 
       img {
         height: 100%;
