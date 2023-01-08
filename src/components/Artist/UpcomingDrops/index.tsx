@@ -16,6 +16,12 @@ const Artist = ({ events }: any) => {
         {events.data && events.data.length ? (
           <BoxDrops>
             {events.data.map((item: any, index: number) => {
+              const imageUrl = item.attributes.passes.data.length
+                ? item.attributes.passes?.data[0].attributes
+                    .preview_image_url ??
+                  item.attributes.passes?.data[0].attributes
+                    .collection_preview_image.data.attributes.url
+                : "/assets/img/drop-pic-2.png"
               return (
                 <DropRow key={index}>
                   <div className="cont">
@@ -44,15 +50,7 @@ const Artist = ({ events }: any) => {
                       </div>
 
                       <div className="collection">
-                        <img
-                          src={
-                            item.attributes.passes.data.length
-                              ? item.attributes.passes?.data[0].attributes
-                                  .collection_preview_image.data.attributes.url
-                              : "/assets/img/drop-pic-2.png"
-                          }
-                          alt="artist show nft pic"
-                        />
+                        <img src={imageUrl} alt="artist show nft pic" />
                         <div className="name">
                           {item.attributes.passes.data.length
                             ? item.attributes.passes?.data[0].attributes
