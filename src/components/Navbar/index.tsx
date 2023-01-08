@@ -127,7 +127,9 @@ const Navbar = () => {
                   )}
                   {!isConnected && (
                     <li className="li-account">
-                      <span onClick={() => connect()}>My NFTs</span>
+                      <a href="#" onClick={() => connect()}>
+                        My NFTs
+                      </a>
                     </li>
                   )}
                   {!isConnected && width < 1080 && (
