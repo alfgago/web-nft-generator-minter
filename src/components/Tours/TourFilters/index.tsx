@@ -66,16 +66,9 @@ function TourFilters() {
 
   const fetchData = async () => {
     // @ts-ignore
-    const artistsResponse = await axios.get("/api/artists?user=" + user.id)
-    const artists = artistsResponse.data.data
-    let shows: any = []
-    for (const i in artists) {
-      if (artists[i].attributes.events.data) {
-        const artistShows = artists[i].attributes.events.data
-        shows = shows.concat(artistShows)
-      }
-    }
-    setTourDates(shows)
+    const res = await axios.get("/api/shows?user=" + user.id)
+    const artistShows = res.data.data
+    setTourDates(artistShows)
   }
 
   useEffect(() => {

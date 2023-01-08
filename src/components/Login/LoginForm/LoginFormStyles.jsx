@@ -42,20 +42,7 @@ export const LoginFormlStyles = styled.div`
   }
 
   button {
-    background-color: #777777;
-    width: 10.5rem;
-    height: ${51 / 16}rem;
-    border-radius: 30px;
-    border: none;
-    color: #fff;
-    padding: 7px 2px 7px 2px;
-    font-size: 18px;
-
     @media only screen and (${DEVICE.laptop}) {
-      width: ${109 / 16}rem;
-      height: ${41 / 16}rem;
-      border-radius: 12px;
-      font-size: 18px;
       align-self: end;
     }
   }

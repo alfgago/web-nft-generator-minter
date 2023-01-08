@@ -32,11 +32,9 @@ export const DropRow = styled.div`
     align-items: revert;
   }
 
-  .place {
-    display: flex;
+  .event-name {
+    display: block;
     font-weight: 400;
-    align-items: center;
-    justify-content: center;
     background: #000;
     color: ${COLORS.white};
     padding: ${20 / 16}rem;
@@ -44,6 +42,13 @@ export const DropRow = styled.div`
     width: 100%;
     @media ${DEVICE.laptop} {
       width: ${227 / 16}rem;
+    }
+
+    .place {
+      margin-top: 0.5rem;
+      font-size: 0.5em;
+      text-align: left;
+      width: 100%;
     }
   }
   .date {

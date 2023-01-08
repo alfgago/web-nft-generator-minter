@@ -1,5 +1,6 @@
 import React from "react"
-import { PassThrough } from "stream"
+
+import { CommonPill } from "@/components/Common/CommonStyles"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
@@ -14,10 +15,11 @@ const CollectionItem = ({ item }: any) => {
           <div>
             <div className="content">
               <h3>{item.collection_name}</h3>
-              <p>{item.pass_type}</p>
             </div>
             <div>
-              <button>See on Marketplace</button>
+              <CommonPill className="fill clickable small">
+                See on marketplace
+              </CommonPill>
             </div>
           </div>
         </div>
@@ -29,7 +31,9 @@ const CollectionItem = ({ item }: any) => {
             <p> All</p>
           </div>
           <div>
-            <p>{item.winners}</p>
+            <p>
+              {item.winners ? item.winners : item.size} / {item.collection_size}
+            </p>
           </div>
         </div>
       </div>

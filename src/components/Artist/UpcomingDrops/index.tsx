@@ -25,11 +25,16 @@ const Artist = ({ events }: any) => {
                     <div className="wrap-main">
                       <div className="main-cont">
                         <div className="row-1 ">
-                          <div className="place">
-                            <span>
-                              {item.attributes.venue_name}{" "}
-                              {item.attributes.address} {item.attributes.city}
-                            </span>
+                          <div className="event-name">
+                            <div className="name">
+                              <span>{item.attributes.name} </span>
+                            </div>
+                            <div className="place">
+                              <span>
+                                {item.attributes.venue_name}{" "}
+                                {item.attributes.address} {item.attributes.city}
+                              </span>
+                            </div>
                           </div>
                           <div
                             className="date"

@@ -4,6 +4,8 @@ import { signIn } from "next-auth/react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import { LoginFormlStyles } from "./LoginFormStyles"
 
 interface FormValues {
@@ -73,7 +75,11 @@ const LoginForm = ({ setIsOpen }: any) => {
 
               <a href="#ForgotPassword">Forgot password?</a>
               <div />
-              <button type="submit">Log in</button>
+              <button type="submit">
+                <CommonPill className="clickable black small">
+                  Log in
+                </CommonPill>
+              </button>
             </Form>
           )}
         </Formik>

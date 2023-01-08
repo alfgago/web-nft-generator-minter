@@ -1,7 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 
-const fetchData = async ({ page = 1, limit = 10, artist = 0 }: any) => {
+const fetchData = async ({
+  page = 1,
+  limit = 10,
+  artist = 0,
+  user = 0,
+}: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
@@ -12,6 +17,10 @@ const fetchData = async ({ page = 1, limit = 10, artist = 0 }: any) => {
   if (artist) {
     // @ts-ignore
     params["filters[artist][id][$eq]"] = artist
+  }
+  if (user) {
+    // @ts-ignore
+    params["filters[artist][user][id][$eq]"] = user
   }
 
   const response = await axios.get(`${apiURL}/api/events`, {

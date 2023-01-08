@@ -4,6 +4,13 @@ import { ReactSVG } from "react-svg"
 import CheckBox from "@/components/Common/CheckBox"
 
 import { DateItemStyles } from "./DateItemStyles"
+const dateFormat = (value: any) => {
+  const date = new Date(value)
+  const day = date.toLocaleString("default", { day: "2-digit" })
+  const month = date.toLocaleString("default", { month: "short" })
+  const year = date.toLocaleString("default", { year: "numeric" })
+  return day + " " + month + " " + year
+}
 
 const DateItem = ({ show }: any) => {
   return (
@@ -15,7 +22,7 @@ const DateItem = ({ show }: any) => {
             <CheckBox defaultState={true} />
           </div>
           <div className="address">{show.address}</div>
-          <div className="date">{show.date}</div>
+          <div className="date">{dateFormat(show.date)}</div>
         </div>
         <div className="btns-container" style={{ display: "none" }}>
           <button className="cancel-btn">

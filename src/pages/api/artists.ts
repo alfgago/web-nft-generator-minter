@@ -18,7 +18,7 @@ const fetchData = async ({
   }
   if (user) {
     // @ts-ignore
-    params["filters[user][id][$eq]"] = 1
+    params["filters[user][id][$eq]"] = user
   }
 
   const response = await axios.get(`${apiURL}/api/artists`, {

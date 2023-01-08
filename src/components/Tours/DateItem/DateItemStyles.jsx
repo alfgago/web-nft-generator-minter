@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const DateItemStyles = styled.div`
-  padding: 10px 0px;
   p {
     font-size: 1rem !important;
   }

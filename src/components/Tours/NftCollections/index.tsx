@@ -1,68 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 import axios from "axios"
 import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import ItemPagination from "@/components/Common/ItemPagination"
 
 import CollectionItem from "./CollectionItem"
 import { NftCollectionStyles } from "./NftCollectionStyles"
 
 const NftCollections = () => {
-  const nftCollections = [
-    {
-      id: 1,
-      artistName: "artistName1",
-      passType: "Lottery1",
-      amount: 22,
-      extraInfo: "extra info",
-      eventName: "eventName1",
-      image: "/assets/img/collectionPic.png",
-    },
-    {
-      id: 2,
-      artistName: "artistName2",
-      passType: "Lottery2",
-      amount: 22,
-      extraInfo: "extra info",
-      eventName: "eventName1",
-      image: "/assets/img/collectionPic.png",
-    },
-    {
-      id: 4,
-      artistName: "artistName3",
-      passType: "Lottery3",
-      amount: 22,
-      extraInfo: "extra info",
-      eventName: "eventName1",
-      image: "/assets/img/collectionPic.png",
-    },
-    {
-      id: 5,
-      artistName: "artistName4",
-      passType: "Lottery4",
-      extraInfo: "extra info",
-      amount: 22,
-      eventName: "eventName1",
-      image: "/assets/img/collectionPic.png",
-    },
-    {
-      id: 6,
-      artistName: "artistName5",
-      passType: "Lottery5",
-      extraInfo: "extra info",
-      amount: 22,
-      eventName: "eventName1",
-      image: "/assets/img/collectionPic.png",
-    },
-  ]
-
   const [passes, setPasses] = useState([])
+  const { data: user } = useSession()
 
   async function fetchData() {
     try {
-      const { data } = await axios.get("/api/passes?artist=2")
+      // @ts-ignore
+      const { data } = await axios.get("/api/passes?user=" + user.id)
       const passes = data.data
       setPasses(passes)
     } catch (err: any) {
@@ -101,10 +56,7 @@ const NftCollections = () => {
             <p>Tour / event</p>
             <p className="p-3">
               Winners per event
-              <small>
-                {" "}
-                (Lottery only, 1 winner = 2 spots on the guest list)
-              </small>
+              <small> (2 slots per winner)</small>
             </p>
           </div>
         </div>

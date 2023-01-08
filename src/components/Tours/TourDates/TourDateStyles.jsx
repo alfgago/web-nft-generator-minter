@@ -25,10 +25,10 @@ export const TourDateStyles = styled.div`
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: ${50 / 16}rem;
+      gap: ${30 / 16}rem;
 
       > .item {
-        width: ${400 / 16}rem;
+        width: calc(33% - ${30 / 16}rem);
       }
     }
   }

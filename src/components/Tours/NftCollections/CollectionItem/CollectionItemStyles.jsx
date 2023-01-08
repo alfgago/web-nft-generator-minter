@@ -21,6 +21,12 @@ export const CollectionItemStyles = styled.div`
     }
   }
 
+  h3 {
+    @media(${DEVICE.maxlaptop}){
+      font-size: 16px;
+    }
+  }
+
   .container {
     display: flex;
     @media ${DEVICE.laptop} {

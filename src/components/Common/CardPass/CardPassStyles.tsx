@@ -16,18 +16,25 @@ export const CardPassStyles = styled.div`
     margin: auto;
   }
 
+  .more,
   img {
+    position: relative;
     width: 40%;
     object-fit: cover;
 
     @media ${DEVICE.maxlaptop} {
-      &.artist-pic {
+      height: auto;
+      &.more {
         position: absolute;
         width: 40px;
         height: 40px;
         bottom: 20px;
         right: 15px;
-        border-radius: 50px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50px;
+        }
       }
     }
 
@@ -37,6 +44,35 @@ export const CardPassStyles = styled.div`
       min-width: ${250 / 16}rem;
       min-height: ${250 / 16}rem;
     }
+  }
+
+  .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem;
+    color: #fff;
+    transition: 0.5s ease all;
+    > div {
+      margin-bottom: 0.5rem;
+      b {
+        display: block;
+      }
+    }
+    @media ${DEVICE.maxlaptop} {
+      display: none;
+    }
+  }
+
+  &:hover .info {
+    opacity: 1;
   }
 
   .inner {
@@ -51,19 +87,11 @@ export const CardPassStyles = styled.div`
       max-width: ${300 / 16}rem;
     }
     .titles {
-      font-size: ${22 / 16}rem;
+      font-size: ${18 / 16}rem;
       line-height: 1.1;
       font-weight: bold;
       @media ${DEVICE.laptop} {
-        font-size: ${25 / 16}rem;
-      }
-
-      .city {
-        color: #333;
-        font-size: ${16 / 16}rem;
-        @media ${DEVICE.laptop} {
-          font-size: ${18 / 16}rem;
-        }
+        font-size: ${22 / 16}rem;
       }
 
       .date {
@@ -76,9 +104,12 @@ export const CardPassStyles = styled.div`
       }
     }
     .descriptor {
-      font-size: ${16 / 16}rem;
+      font-size: ${11 / 16}rem;
       margin: 0;
       padding: 0;
+      @media ${DEVICE.laptop} {
+        font-size: ${13 / 16}rem;
+      }
       > div {
         margin-bottom: 0.5rem;
         padding: 0;

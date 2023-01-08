@@ -5,6 +5,7 @@ const fetchData = async ({
   page,
   limit = 6,
   artist = 0,
+  user = 0,
   type = false,
   future = true,
 }: any) => {
@@ -25,7 +26,7 @@ const fetchData = async ({
   }
   if (type) {
     // @ts-ignore
-    params["filters[pass_type][$eq]"] = "Lottery"
+    params["filters[pass_type][$eq]"] = type
   }
   if (future) {
     // @ts-ignore
@@ -34,6 +35,10 @@ const fetchData = async ({
   if (artist) {
     // @ts-ignore
     params["filters[artist][id][$eq]"] = artist
+  }
+  if (user) {
+    // @ts-ignore
+    params["filters[artist][user][id][$eq]"] = user
   }
 
   const response = await axios.get(`${apiURL}/api/passes`, {
