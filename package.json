@@ -7,17 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "next build",
-    "vercel-build2": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && next build"
+    "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@juicelabs/client": "1.0.6",
-    "@napi-rs/canvas": "^0.1.32",
     "@types/fabric": "^4.5.14",
     "axios": "^0.27.2",
-    "canvas": "^2.11.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",

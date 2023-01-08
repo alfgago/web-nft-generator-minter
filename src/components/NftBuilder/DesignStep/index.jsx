@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
@@ -21,17 +22,9 @@ import { DesignStepStyles } from "./DesignStepStyles"
 const canvasWidth = 600
 const canvasHeight = 600
 const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
-declare global {
-  interface Window {
-    templateFabric: any
-    canvas: any
-  }
-}
 
-const DesignStep = ({ previousAction, nextAction, artist, nftName }: any) => {
-  const [templateFabric, setTemplateFabric] = useState<TemplateFabric | false>(
-    false
-  )
+const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
+  const [templateFabric, setTemplateFabric] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#333" })
@@ -141,7 +134,7 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }: any) => {
       <div className="flex">
         <div className="left-col">
           <div className="settings trap">
-            {settings.map((setting: string) => {
+            {settings.map((setting) => {
               return (
                 <div
                   key={setting}

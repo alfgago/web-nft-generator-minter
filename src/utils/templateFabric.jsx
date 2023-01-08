@@ -1,22 +1,24 @@
 import { fabric } from "fabric"
 
 export default class TemplateFabric {
-  layers: any
+  layers
 
-  constructor(canvasRef: any, json: any, shapes: any, artistImage: any) {
-    const layers: any[] = []
+  constructor(canvasRef, json, shapes, artistImage) {
+    const layers = []
     fabric.Object.prototype.objectCaching = true
     if (json) {
       canvasRef.loadFromJSON(json, () => {
-        canvasRef.getObjects().forEach(function (el: any) {
+        canvasRef.getObjects().forEach(function (el) {
           let isSelectable = false
           if (el.get("type") == "image") {
+            console.log(el)
             if (
               (el._originalElement &&
                 el._originalElement.currentSrc.includes("blob")) ||
               el._originalElement.currentSrc.includes(
                 "plusone-public.s3.amazonaws"
-              )
+              ) ||
+              el._originalElement.currentSrc.includes("/aws/")
             ) {
               layers[1] = el
               isSelectable = true
@@ -34,7 +36,7 @@ export default class TemplateFabric {
       })
       this.layers = layers
 
-      canvasRef.getObjects().forEach(function (el: any) {
+      canvasRef.getObjects().forEach(function (el) {
         if (el.get("type") == "image") {
           canvasRef.remove(el)
         }
@@ -54,8 +56,8 @@ export default class TemplateFabric {
     activeTemplate = 0,
     gutter = 60,
     backgroundColor = { hex: "#000" },
-  }: any) => {
-    canvasRef.getObjects().forEach(function (el: any) {
+  }) => {
+    canvasRef.getObjects().forEach(function (el) {
       if (el.get("type") == "group") {
         canvasRef.remove(el)
       }
@@ -81,6 +83,8 @@ export default class TemplateFabric {
     if (number == 4) {
       hasBottom = true
     }
+
+    console.log(canvasRef.width)
 
     const templateGroup = new fabric.Group(
       [
@@ -120,6 +124,7 @@ export default class TemplateFabric {
         left: 0,
       }
     )
+    console.log(templateGroup)
 
     templateGroup.set("selectable", false)
     templateGroup.set("evented", false)
@@ -127,8 +132,8 @@ export default class TemplateFabric {
     this.layers[3] = templateGroup // Template is the 3rd layer
   }
 
-  changeImage = ({ canvasRef, imageUrl }: any) => {
-    canvasRef.getObjects().forEach(function (el: any) {
+  changeImage = ({ canvasRef, imageUrl }) => {
+    canvasRef.getObjects().forEach(function (el) {
       if (el.get("type") == "image") {
         canvasRef.remove(el)
       }
@@ -155,9 +160,9 @@ export default class TemplateFabric {
     backgroundColor = { hex: "#000" },
     shapesColor = { hex: "#333" },
     activeTemplate = 0,
-  }: any) => {
+  }) => {
     // Remove old BG
-    canvasRef.getObjects().forEach(function (el: any) {
+    canvasRef.getObjects().forEach(function (el) {
       if (el.get("type") == "rect") {
         canvasRef.remove(el)
       }
@@ -227,7 +232,7 @@ export default class TemplateFabric {
     )
   }
 
-  addShapesColors = ({ canvasRef, shapesColor }: any) => {
+  addShapesColors = ({ canvasRef, shapesColor }) => {
     const shapesColorsRect = new fabric.Rect({
       width: canvasRef.width,
       height: canvasRef.height,
@@ -241,8 +246,8 @@ export default class TemplateFabric {
     this.layers[0] = shapesColorsRect // This is the background, first layer
   }
 
-  addText = ({ canvasRef, activeTemplate = 1, gutter = 60, nftText }: any) => {
-    canvasRef.getObjects().forEach(function (el: any) {
+  addText = ({ canvasRef, activeTemplate = 1, gutter = 60, nftText }) => {
+    canvasRef.getObjects().forEach(function (el) {
       if (el.get("type") == "textbox") {
         canvasRef.remove(el)
       }
@@ -293,7 +298,7 @@ export default class TemplateFabric {
   }
 
   reorderCanvas = () => {
-    this.layers.forEach((element: any, index: number) => {
+    this.layers.forEach((element, index) => {
       if (element) {
         element.moveTo(index)
       }

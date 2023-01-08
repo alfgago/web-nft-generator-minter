@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
 import { fabric } from "fabric"
@@ -11,19 +12,12 @@ import { ConfirmationStepStyles } from "./ConfirmationStepStyles"
 const canvasWidth = 600
 const canvasHeight = 600
 
-declare global {
-  interface Window {
-    previewCanvas: any
-    previewFabric: any
-  }
-}
-
 const ConfirmationStep = ({
   formValues,
   previousAction,
   nextAction,
   uploading,
-}: any) => {
+}) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -62,7 +56,7 @@ const ConfirmationStep = ({
       )
       const nftText = formValues.name + " #"
       window.previewFabric.addText({
-        canvasRef: window.canvas,
+        canvasRef: window.previewCanvas,
         activeTemplate: collectionDataJson.activeTemplate,
         gutter: collectionDataJson.gutter,
         nftText,
@@ -87,7 +81,7 @@ const ConfirmationStep = ({
     setRender(true)
   }
 
-  const generateCanvasImage = (collectionData: any, index: number) => {
+  const generateCanvasImage = (collectionData, index) => {
     const shapes = generateShapes(
       collectionData.gridSize,
       canvasWidth,
@@ -159,7 +153,7 @@ const ConfirmationStep = ({
       </div>
       {!loading && render ? (
         <div className="preview">
-          {previewImages.map((img: any, index: number) => {
+          {previewImages.map((img, index) => {
             return (
               <div key={index} className="nft">
                 <img src={img} alt="preview nft" />

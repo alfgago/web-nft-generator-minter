@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { fabric } from "fabric"
 
 const svgShapes = {
@@ -11,7 +10,7 @@ const svgShapes = {
     "M452.92 163.52L425.5 156.56C401.4 150.44 382.59 131.62 376.46 107.52L369.49 80.1C342.36 -26.7 190.63 -26.7 163.5 80.1L156.54 107.52C150.42 131.62 131.6 150.43 107.5 156.56L80.0805 163.53C-26.7195 190.66 -26.7195 342.38 80.0805 369.52L107.5 376.49C131.6 382.61 150.41 401.43 156.54 425.53L163.51 452.95C190.64 559.75 342.36 559.75 369.5 452.95L376.47 425.53C382.59 401.43 401.41 382.62 425.51 376.49L452.93 369.53C559.73 342.4 559.73 190.68 452.93 163.54L452.92 163.52Z",
 }
 
-const generateShapes = (size: any, canvasWidth: any, availableShapes: any) => {
+const generateShapes = (size, canvasWidth, availableShapes) => {
   const shapesArray = []
   let angles = [0, 45, 90, 135, 180, 225, 270, 315, 360]
   const min = Math.ceil(0)
@@ -84,12 +83,7 @@ const generateShapes = (size: any, canvasWidth: any, availableShapes: any) => {
   return shapesArray
 }
 
-const createTriangle = (
-  x: number,
-  y: number,
-  cellSize: number,
-  angle: number
-) => {
+const createTriangle = (x, y, cellSize, angle) => {
   const pos = fabric.util.rotatePoint(
     new fabric.Point(x, y),
     new fabric.Point(x + cellSize / 2, y + (cellSize / 3) * 2),

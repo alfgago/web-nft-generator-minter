@@ -16,7 +16,8 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
   const [collectionTitle, setCollectionTitle] = useState("")
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
-    dropDate: Yup.string().required("Please enter the mint date"),
+    dropDate: Yup.date().required("Please enter the mint date"),
+    artist: Yup.string().required("Please enter the artist"),
     wallet: Yup.string().required("Please enter your wallet"),
     size: Yup.number().required("Please enter your collection size."),
     passType: Yup.string().required("Please enter your pass type"),
@@ -91,7 +92,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
             </label>
             <label>
               <span>Artist</span>
-              {errors.artist && touched.artist ? (
+              {errors.artist ? (
                 <div className="alert">{errors.artist}</div>
               ) : null}
               <Field
@@ -157,7 +158,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
             </label>
             <label>
               <span>Drop date</span>
-              {errors.dropDate && touched.dropDate ? (
+              {errors.dropDate ? (
                 <div className="alert">{errors.dropDate}</div>
               ) : null}
               <DatePicker
