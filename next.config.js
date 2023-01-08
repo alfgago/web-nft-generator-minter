@@ -38,7 +38,7 @@ const nextConfig = {
       },
       {
         source: "/ipfs/:path*",
-        destination: "https://:path*.ipfs.nftstorage.link", // Proxy to S3
+        destination: "https://ipfs.io/ipfs/:path*", // Proxy to S3
       },
     ]
   },
