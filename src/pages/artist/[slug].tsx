@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
 import Head from "next/head"
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 
-import Artist from "@/components/Artist"
-import ArtistHero from "@/components/ArtistHero"
+const Artist = dynamic(() => import("@/components/Artist"))
+const ArtistHero = dynamic(() => import("@/components/ArtistHero"))
 
 const ArtistPage = ({ artist }: any) => {
   const title = artist.attributes.name
@@ -12,7 +12,7 @@ const ArtistPage = ({ artist }: any) => {
   const artistName = false
   const image = artist.attributes.banner.data.attributes
   const ogTitle = title + " - PlusOne"
-  console.log(image)
+
   return (
     <>
       <Head>
