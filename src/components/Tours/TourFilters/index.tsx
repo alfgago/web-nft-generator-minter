@@ -66,7 +66,7 @@ function TourFilters() {
 
   const fetchData = async () => {
     // @ts-ignore
-    const artistsResponse = await axios.get("/api/artists?user=" + user.id)
+    const artistsResponse = await axios.get("/api/artists?user=" + 1)
     const artists = artistsResponse.data.data
     let shows: any = []
     for (const i in artists) {

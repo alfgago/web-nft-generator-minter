@@ -1,23 +1,40 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 import CardPass from "@/components/Common/CardPass"
 import TypeList from "@/components/Common/TypeList"
 
 import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
-const Artist = ({ passList }: any) => {
+const GuestListNFT = ({ artist }: any) => {
   const [selectedPassType, setSelectedPassType] = useState(0)
+  const [passes, setPasses] = useState([])
 
   const types = [
-    { name: "Lifetime", value: "lifetime" },
-    { name: "Lottery", value: "lottery" },
-    { name: "Tour", value: "tour" },
-    { name: "Single Event", value: "single-event" },
+    { name: "Lifetime", value: "Lifetime" },
+    { name: "Lottery", value: "Lottery" },
+    { name: "Tour", value: "Tour" },
+    { name: "Single Event", value: "Single Event" },
   ]
+
+  async function fetchData() {
+    try {
+      const { data } = await axios.get("/api/passes?artist=" + artist.id)
+      const artistPasses = data.data
+      setPasses(artistPasses)
+    } catch (err: any) {
+      console.log(err)
+    }
+  }
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <GuestListNFTStyles>
-      {passList.attributes.passes.data.length > 0 ? (
+      {passes.length > 0 ? (
         <div className="content">
           <div className="mobile-col2">
             <h2>Guest list NFTs</h2>
@@ -29,7 +46,7 @@ const Artist = ({ passList }: any) => {
             />
           </div>
           <div className="column1">
-            {passList.attributes.passes.data.map((item: any, index: number) => {
+            {passes.map((item: any, index: number) => {
               return item.attributes.event.data ? (
                 <CardPass
                   key={"pass" + index}
@@ -64,4 +81,4 @@ const Artist = ({ passList }: any) => {
   )
 }
 
-export default Artist
+export default GuestListNFT

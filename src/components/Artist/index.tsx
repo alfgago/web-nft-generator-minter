@@ -5,13 +5,14 @@ import SuggestedArtists from "./SuggestedArtists"
 import UpcomingDrawing from "./UpcomingDrawing"
 import UpcomingDrops from "./UpcomingDrops"
 
-const Artist = ({ artistData }: any) => {
+const Artist = ({ artist }: any) => {
+  console.log(artist)
   return (
     <ArtistStyles>
-      {artistData != undefined && (
+      {artist != undefined && (
         <>
-          <GuestListNFT passList={artistData} />
-          <UpcomingDrops events={artistData.attributes.events} />
+          <GuestListNFT artist={artist} />
+          <UpcomingDrops events={artist.attributes.events} />
           <UpcomingDrawing />
           <SuggestedArtists title="Suggested Artists" />
         </>

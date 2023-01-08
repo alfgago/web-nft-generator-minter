@@ -6,16 +6,13 @@ import Artist from "@/components/Artist"
 import ArtistHero from "@/components/ArtistHero"
 
 const ArtistPage = ({ artist }: any) => {
-  console.log(artist)
   const title = artist.attributes.name
   const bio = artist.attributes.bio
   const genre = false
   const artistName = false
   const image = artist.attributes.banner.data.attributes
-
   const ogTitle = title + " - PlusOne"
-  const artistData = artist
-
+  console.log(image)
   return (
     <>
       <Head>
@@ -32,7 +29,7 @@ const ArtistPage = ({ artist }: any) => {
         genre={genre}
       />
 
-      <Artist artistData={artistData} />
+      <Artist artist={artist} />
     </>
   )
 }
@@ -41,30 +38,20 @@ export const getServerSideProps = async ({ query }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const postResponse = await axios.get(
-    `${apiURL}/api/artists?filters[slug][$eq]=${query.slug}&populate=*`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  const response = await axios.get(`${apiURL}/api/artists`, {
+    params: {
+      populate: "banner,events.passes",
+      "filters[slug][$eq]": query.slug,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-  const response = await axios.get(
-    `https://plusone.stag.host/api/artists/${postResponse.data.data[0].id}?populate=deep,4`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-
-  console.log(response)
-
-  if (postResponse.data) {
+  if (response.data) {
     https: return {
       props: {
-        artist: response.data.data,
+        artist: response.data.data[0],
       },
     }
   }

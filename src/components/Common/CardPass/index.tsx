@@ -1,4 +1,7 @@
+import Image from "next/image"
 import Link from "next/link"
+
+import s3url from "@/utils/s3url"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -32,7 +35,7 @@ const CardPass = ({ pass, event }: any) => {
     try {
       value =
         pass.attributes.preview_image_url ??
-        pass.attributes.collection_preview_image.data.attributes.url
+        "/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
     } catch (error) {
       value =
         "/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
@@ -45,7 +48,13 @@ const CardPass = ({ pass, event }: any) => {
     return (
       <CardPassStyles>
         <>
-          <img src={imgCardPass()} alt={pass.collection_name} />
+          <Image
+            src={s3url(imgCardPass())}
+            alt={pass.collection_name}
+            quality={90}
+            width={300}
+            height={300}
+          />
           <div className="inner">
             <div className="titles trap">
               {venue && <div className="venue">{venue}</div>}
@@ -66,12 +75,15 @@ const CardPass = ({ pass, event }: any) => {
               </Link>
             </div>
           </div>
-          <img
+          <Image
             className="artist-pic"
-            src={
+            src={s3url(
               pass.attributes.artist.data.attributes.banner.data.attributes.url
-            }
+            )}
             alt={pass.title}
+            quality={90}
+            width={300}
+            height={300}
           />
         </>
       </CardPassStyles>

@@ -17,10 +17,7 @@ const Artist = ({ events }: any) => {
           <BoxDrops>
             {events.data.map((item: any, index: number) => {
               const imageUrl = item.attributes.passes.data.length
-                ? item.attributes.passes?.data[0].attributes
-                    .preview_image_url ??
-                  item.attributes.passes?.data[0].attributes
-                    .collection_preview_image.data.attributes.url
+                ? item.attributes.passes?.data[0].attributes.preview_image_url
                 : "/assets/img/drop-pic-2.png"
               return (
                 <DropRow key={index}>
