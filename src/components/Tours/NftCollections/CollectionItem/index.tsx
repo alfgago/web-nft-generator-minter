@@ -3,18 +3,18 @@ import { PassThrough } from "stream"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
+  console.log(item)
   return (
     <CollectionItemStyles>
       <div key={item.id} className="itemWrapper">
         <div className="container">
           <div className="img-container">
-            <img alt="Tour Logo" src={item.image} />
+            <img alt="Tour Logo" src={item.preview_image_url} />
           </div>
           <div>
             <div className="content">
-              <h3>{item.artistName}</h3>
-              <p>{item.passType}</p>
-              <p>{item.extraInfo}</p>
+              <h3>{item.collection_name}</h3>
+              <p>{item.pass_type}</p>
             </div>
             <div>
               <button>See on Marketplace</button>
@@ -23,13 +23,13 @@ const CollectionItem = ({ item }: any) => {
         </div>
         <div className="bottom-content">
           <div>
-            <p>{item.passType}</p>
+            <p>{item.pass_type}</p>
           </div>
           <div className="middle">
-            <p> Tour / {item.eventName}</p>
+            <p> All</p>
           </div>
           <div>
-            <p>{item.amount}</p>
+            <p>{item.winners}</p>
           </div>
         </div>
       </div>

@@ -130,6 +130,9 @@ export const CommonPill = styled.span`
     &:hover {
       color: ${COLORS.black};
       background: transparent;
+      path {
+        fill: black;
+      }
     }
   }
 `

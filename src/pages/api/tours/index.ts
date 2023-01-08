@@ -18,9 +18,11 @@ const fetchData = async ({
     randomSort: random,
   }
   if (type) {
+    // @ts-ignore
     params["filters[pass_type][$eq]"] = type
   }
   if (user) {
+    // @ts-ignore
     params["filters[user][$eq]"] = user
   }
 

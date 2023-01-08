@@ -1,13 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import axios from "axios"
 import { ReactSVG } from "react-svg"
 
-import AddButton from "@/components/Common/AddButton"
 import { CommonPill } from "@/components/Common/CommonStyles"
 import ItemPagination from "@/components/Common/ItemPagination"
-import Modal from "@/components/Common/Modal"
-
-import NewCollectionForm from "../NewCollectionForm"
 
 import CollectionItem from "./CollectionItem"
 import { NftCollectionStyles } from "./NftCollectionStyles"
@@ -61,6 +58,23 @@ const NftCollections = () => {
     },
   ]
 
+  const [passes, setPasses] = useState([])
+
+  async function fetchData() {
+    try {
+      const { data } = await axios.get("/api/passes?artist=2")
+      const passes = data.data
+      setPasses(passes)
+    } catch (err: any) {
+      console.log(err)
+    }
+  }
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <NftCollectionStyles>
       <ReactSVG className="star" src="/assets/icons/star.svg" />
@@ -94,19 +108,11 @@ const NftCollections = () => {
             </p>
           </div>
         </div>
-        <ItemPagination
-          itemsPerPage={3}
-          values={nftCollections}
-          render={(items: any) => {
-            return (
-              <div>
-                {items.map((data: any, i: number) => (
-                  <CollectionItem key={data.id} item={data} />
-                ))}
-              </div>
-            )
-          }}
-        />
+        <div>
+          {passes.map((data: any, i: number) => (
+            <CollectionItem key={data.id} item={data.attributes} />
+          ))}
+        </div>
       </div>
     </NftCollectionStyles>
   )

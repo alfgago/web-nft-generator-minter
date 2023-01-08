@@ -1,7 +1,9 @@
 import React, { useState } from "react"
+import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
 import Button from "@/components/Common/Button"
+import { CommonPill } from "@/components/Common/CommonStyles"
 import ItemPagination from "@/components/Common/ItemPagination"
 import Modal from "@/components/Common/Modal"
 import NewGuestForm from "@/components/Tours/NewGuestForm"
@@ -29,12 +31,23 @@ const DropGuestList = ({ data }: any) => {
         }}
       />
       <div className="btns-container">
-        <Button
-          backgroundColor="#D9D9D9"
-          fontSize={16}
-          label="Export guest list"
-        />
-        <AddButton label="Add name" action={() => setIsOpen(!isOpen)} />
+        <CommonPill
+          className="clickable small"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span>Export guest list</span>
+        </CommonPill>
+        <CommonPill
+          className="clickable fill small black"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <ReactSVG
+            src="/assets/icons/add-icon.svg"
+            wrapper="span"
+            className="icon"
+          />
+          <span>Add name</span>
+        </CommonPill>
       </div>
       {isOpen && (
         <Modal setIsOpen={setIsOpen} title="Add guests">

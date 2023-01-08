@@ -14,7 +14,7 @@ const UpcomingDrawings = ({ title = "Upcoming Lottery Drawings" }: any) => {
 
   async function fetchData() {
     try {
-      const { data } = await axios.get("/api/passes")
+      const { data } = await axios.get("/api/passes?type=Lottery&future=true")
       // Update the state with the response data
       // @ts-ignore
       const typesList = []

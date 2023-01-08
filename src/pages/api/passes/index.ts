@@ -1,7 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 
-const fetchData = async ({ page, limit = 6 }: any) => {
+const fetchData = async ({
+  page,
+  limit = 6,
+  artist = 0,
+  type = false,
+  future = true,
+}: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
@@ -11,15 +17,27 @@ const fetchData = async ({ page, limit = 6 }: any) => {
   const yyyy = today.getFullYear()
   const todayString = 2020 + "-" + mm + "-" + dd // Temporalmente usando 2020, porque de lo contrario no muestra datos, mientras llenamos BD
 
+  const params = {
+    "pagination[page]": page,
+    "pagination[pageSize]": limit,
+    populate: "artist.banner,event,tour,collection_preview_image",
+    sort: "drop_date:desc",
+  }
+  if (type) {
+    // @ts-ignore
+    params["filters[pass_type][$eq]"] = "Lottery"
+  }
+  if (future) {
+    // @ts-ignore
+    params["filters[drop_date][$gte]"] = todayString
+  }
+  if (artist) {
+    // @ts-ignore
+    params["filters[artist][id][$eq]"] = artist
+  }
+
   const response = await axios.get(`${apiURL}/api/passes`, {
-    params: {
-      "pagination[page]": page,
-      "pagination[pageSize]": limit,
-      populate: "artist.banner,event,tour,collection_preview_image",
-      sort: "drop_date:desc",
-      "filters[drop_date][$gte]": todayString,
-      "filters[pass_type][$eq]": "Lottery",
-    },
+    params: params,
     headers: {
       Authorization: `Bearer ${token}`,
     },

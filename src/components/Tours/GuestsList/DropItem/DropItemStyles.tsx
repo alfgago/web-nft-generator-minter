@@ -22,7 +22,7 @@ export const DropItemStyles = styled.div<Props>`
     flex-wrap: wrap;
 
     @media ${DEVICE.laptop} {
-      max-width: ${(props) => props.dropWidth};
+      max-width: none;
     }
 
     .unc-content {
