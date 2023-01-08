@@ -23,7 +23,7 @@ const Home = ({ page, passes }: any) => {
       {sections.map((section: any, index: number) => {
         const type = section.__component
         return (
-          <>
+          <div key={"home-" + index}>
             {type == "lp.drops-component" && (
               <UpcomingDrops
                 title={section.title}
@@ -56,7 +56,7 @@ const Home = ({ page, passes }: any) => {
             {type == "lp.lottery-winners" && (
               <LotteryWinners title={section.title} />
             )}
-          </>
+          </div>
         )
       })}
     </HomeStyles>

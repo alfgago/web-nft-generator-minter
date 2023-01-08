@@ -82,19 +82,13 @@ const Navbar = () => {
               <div className="submenu">
                 <ul>
                   <li>
-                    <Link legacyBehavior href="/resources/fans">
-                      <a>For Fans</a>
-                    </Link>
+                    <Link href="/resources/fans">For Fans</Link>
                   </li>
                   <li>
-                    <Link legacyBehavior href="/resources/artists">
-                      <a>For Artists</a>
-                    </Link>
+                    <Link href="/resources/artists">For Artists</Link>
                   </li>
                   <li>
-                    <Link legacyBehavior href="/resources/blog">
-                      <a>Blog</a>
-                    </Link>
+                    <Link href="/resources/blog">Blog</Link>
                   </li>
                 </ul>
               </div>
@@ -116,16 +110,12 @@ const Navbar = () => {
                   )}
                   {session && (
                     <li className="li-account">
-                      <Link href="/profile">
-                        <span>Profile</span>
-                      </Link>
+                      <Link href="/profile">Profile</Link>
                     </li>
                   )}
                   {session && (
                     <li className="li-account">
-                      <Link href="/tour-manager">
-                        <span>Tour Manager</span>
-                      </Link>
+                      <Link href="/tour-manager">Tour Manager</Link>
                     </li>
                   )}
                   {isConnected && (
@@ -137,9 +127,7 @@ const Navbar = () => {
                   )}
                   {!isConnected && (
                     <li className="li-account">
-                      <a href="#" onClick={() => connect()}>
-                        <span>My NFTs</span>
-                      </a>
+                      <span onClick={() => connect()}>My NFTs</span>
                     </li>
                   )}
                   {!isConnected && width < 1080 && (
