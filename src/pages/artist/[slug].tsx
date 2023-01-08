@@ -2,8 +2,9 @@ import dynamic from "next/dynamic"
 import Head from "next/head"
 import axios from "axios"
 
+import ArtistHero from "@/components/ArtistHero"
+
 const Artist = dynamic(() => import("@/components/Artist"))
-const ArtistHero = dynamic(() => import("@/components/ArtistHero"))
 
 const ArtistPage = ({ artist }: any) => {
   const title = artist.attributes.name

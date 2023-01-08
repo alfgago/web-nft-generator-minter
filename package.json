@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && next build"
+    "vercel-build": "next build",
+    "vercel-build2": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@juicelabs/client": "1.0.6",
+    "@napi-rs/canvas": "^0.1.32",
     "@types/fabric": "^4.5.14",
     "axios": "^0.27.2",
     "canvas": "^2.11.0",
@@ -32,7 +34,6 @@
     "react-color": "^2.19.3",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
-    "react-google-autocomplete": "^2.7.1",
     "react-gsap": "^3.2.1",
     "react-input-slider": "^6.0.1",
     "react-paginate": "^8.1.3",
@@ -43,7 +44,6 @@
     "strapi-sdk-js": "^2.2.0",
     "styled-components": "^5.3.6",
     "swiper": "^8.4.5",
-    "swr": "^2.0.0",
     "use-places-autocomplete": "^4.0.0",
     "usehooks-ts": "^2.9.1",
     "wagmi": "0.10.5",
