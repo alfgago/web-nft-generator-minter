@@ -48,24 +48,19 @@ const DropCard = ({ pass, classes = "" }: any) => {
   }, [])
 
   const imageUrl =
+    pass.attributes.preview_image_url ??
     pass.attributes.collection_preview_image?.data?.attributes.url
 
   const imageW =
-    pass.attributes.collection_preview_image?.data?.attributes.width
+    pass.attributes.collection_preview_image?.data?.attributes.width ?? 600
 
   const imageH =
-    pass.attributes.collection_preview_image?.data?.attributes.height
+    pass.attributes.collection_preview_image?.data?.attributes.height ?? 600
 
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <Image
-          src={s3url(imageUrl)}
-          alt={pass.title}
-          quality={90}
-          width={imageW}
-          height={imageH}
-        />
+        <img src={imageUrl} alt="Collection Preview Image" />
       </div>
       <div className="inner">
         <div className="titles">

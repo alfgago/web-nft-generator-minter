@@ -62,7 +62,7 @@ const NftBuilder = ({ artists }: any) => {
     // Creates the pass, to then associate NFTs to it
     const passResponse = await axios.post("/api/passes/create", {
       ...formValues,
-      preview_image_url: nftKey + ".ipfs.nftstorage.link",
+      preview_image_url: "https://" + nftKey + ".ipfs.nftstorage.link",
     })
     for (const i in images) {
       if (images[i]) {
@@ -71,7 +71,7 @@ const NftBuilder = ({ artists }: any) => {
         const nftKey = await client.storeBlob(blob)
         await axios.post("/api/nfts/create", {
           name: formValues.name + " " + i + 1,
-          image_url: nftKey + ".ipfs.nftstorage.link",
+          image_url: "https://" + nftKey + ".ipfs.nftstorage.link",
           ipfs_token: nftKey,
           pass_id: passResponse.data.data.id,
         })

@@ -30,7 +30,9 @@ const CardPass = ({ pass, event }: any) => {
     let value = ""
 
     try {
-      value = pass.attributes.collection_preview_image.data.attributes.url
+      value =
+        pass.attributes.preview_image_url ??
+        pass.attributes.collection_preview_image.data.attributes.url
     } catch (error) {
       value =
         "/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
