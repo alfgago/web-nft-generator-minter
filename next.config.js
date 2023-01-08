@@ -24,6 +24,7 @@ const nextConfig = {
       "plusone-frontend.vercel.app",
       "plusonemusic.io",
       "localhost",
+      "ipfs.io",
     ],
   },
   async rewrites() {
