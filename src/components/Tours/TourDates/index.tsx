@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { ReactSVG } from "react-svg"
 
-import AddButton from "@/components/Common/AddButton"
+import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
 import DateItem from "@/components/Tours/DateItem"
 
@@ -14,25 +14,29 @@ const TourDates = ({ tourDates }: any) => {
     <>
       <TourDateStyles>
         <div className="date-settings">
-          <a>
+          <a className="cog">
             <ReactSVG src="/assets/icons/settings-icon.svg" />
           </a>
-          <p>Verify tour dates</p>
+          <h2>Verify upcoming shows</h2>
           <div>
-            <AddButton label="New date" action={() => setOpen(!isOpen)} />
+            <CommonPill
+              className="clickable fill small pink"
+              onClick={() => setOpen(!isOpen)}
+            >
+              <ReactSVG
+                src="/assets/icons/add-icon.svg"
+                wrapper="span"
+                className="icon"
+              />
+              <span>New date</span>
+            </CommonPill>
           </div>
         </div>
         <div className="tour-dates">
-          {tourDates.map((items: any) => {
-            return (
-              <DateItem
-                key={items.id}
-                placeName={items.placeName}
-                state={items.state}
-                city={items.city}
-                date={items.date}
-              />
-            )
+          {tourDates.map((item: any) => {
+            if (item) {
+              return <DateItem key={item.id} show={item.attributes} />
+            }
           })}
         </div>
         {isOpen && (

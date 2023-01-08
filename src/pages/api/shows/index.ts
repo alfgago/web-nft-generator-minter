@@ -1,27 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 
-const fetchData = async ({
-  page = 1,
-  limit = 2,
-  random = false,
-  user = 0,
-}: any) => {
+const fetchData = async ({ page = 1, limit = 10, artist = 0 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "banner,profile_picture,passes,events",
-    randomSort: random,
   }
-  if (user) {
+  if (artist) {
     // @ts-ignore
-    params["filters[user][id][$eq]"] = user
+    params["filters[artist][id][$eq]"] = artist
   }
 
-  const response = await axios.get(`${apiURL}/api/artists`, {
+  const response = await axios.get(`${apiURL}/api/events`, {
     params: params,
     headers: {
       Authorization: `Bearer ${token}`,

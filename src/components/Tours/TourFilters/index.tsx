@@ -1,5 +1,7 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react"
-import { getSession, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import axios, { AxiosResponse } from "axios"
 
 import TourDates from "../TourDates"
@@ -58,37 +60,26 @@ const datesList = [
 ]
 
 function TourFilters() {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const [tourDates, setTourDates] = useState([])
+  const [filter, setFilter] = useState("")
+  const { data: user } = useSession()
 
-  const [tourData, setTourData] = useState<AxiosResponse | null | void>(null)
-  const { data: session } = useSession()
-
-  // need to be solved, the session on first load is undefined
-  useEffect(() => {
-    if (session) {
-      fetchData(session)
+  const fetchData = async () => {
+    // @ts-ignore
+    const artistsResponse = await axios.get("/api/artists?user=" + user.id)
+    const artists = artistsResponse.data.data
+    let shows: any = []
+    for (const i in artists) {
+      if (artists[i].attributes.events.data) {
+        const artistShows = artists[i].attributes.events.data
+        shows = shows.concat(artistShows)
+      }
     }
-  }, [session])
-
-  const fetchData = async (session: any) => {
-    const response = await axios.get(`${apiURL}api/users/me?populate=artists`, {
-      headers: {
-        Authorization: `Bearer ${session.jwt}`,
-      },
-    })
-
-    setTourData(response.data)
+    setTourDates(shows)
   }
 
-  const [tourDates, setTourDates] = useState(datesList)
-  const [filter, setFilter] = useState("")
-
   useEffect(() => {
-    let filteredList = datesList
-    if (filter) {
-      filteredList = datesList.filter((el) => el.origin == filter)
-    }
-    setTourDates(filteredList)
+    fetchData()
   }, [filter])
 
   return (

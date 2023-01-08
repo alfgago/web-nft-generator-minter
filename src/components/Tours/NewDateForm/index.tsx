@@ -1,10 +1,8 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete"
+import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -22,16 +20,39 @@ interface FormValues {
   artist: string
 }
 
+const initialValues = {
+  date: "",
+  name: "",
+  description: "",
+  address: "",
+  latitude: 0,
+  longitude: 0,
+  artist: "",
+}
+
 const NewDateForm = () => {
-  const initialValues = {
-    date: "",
-    name: "",
-    description: "",
-    address: "",
-    latitude: 0,
-    longitude: 0,
-    artist: "",
+  const { data: user } = useSession()
+  const [artists, setArtists] = useState([])
+
+  async function fetchData() {
+    try {
+      if (user) {
+        const { data } = await axios.get(
+          // @ts-ignore
+          "/api/artists?limit=10&user=" + user.id
+        )
+        const artists = data.data
+        setArtists(artists)
+      }
+    } catch (err: any) {
+      console.log(err)
+    }
   }
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const valuesSchema = Yup.object().shape({
     date: Yup.date().required("Date is required"),
@@ -65,7 +86,7 @@ const NewDateForm = () => {
       })
       .catch((error) => {
         // Show an error message
-        alert("An error occurred")
+        alert("An error occurred adding the event")
       })
       .finally(() => {
         setSubmitting(false)
@@ -108,7 +129,17 @@ const NewDateForm = () => {
                   {errors.artist && touched.artist ? (
                     <div className="alert">{errors.artist}</div>
                   ) : null}
-                  <Field name="artist" type="text" placeholder="" />
+
+                  <Field name="artist" as="select">
+                    <option value="">- Select an artist -</option>
+                    {artists.map((item: any) => {
+                      return (
+                        <option key={item.id} value={item.id}>
+                          {item.attributes.name}
+                        </option>
+                      )
+                    })}
+                  </Field>
                 </label>
 
                 <div className="buttons">

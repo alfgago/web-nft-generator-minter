@@ -11,7 +11,7 @@ const SuggestedArtists = ({ title }: any) => {
 
   async function fetchData() {
     try {
-      const { data } = await axios.get("/api/artists")
+      const { data } = await axios.get("/api/artists?random=true")
       const artists = data.data
       setArtists(artists)
     } catch (err: any) {

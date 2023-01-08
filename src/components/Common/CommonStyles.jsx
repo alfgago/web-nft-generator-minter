@@ -4,7 +4,8 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const CommonPill = styled.span`
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   text-align: center;
   color: ${COLORS.black};
   border: 2px solid #454545;
@@ -16,6 +17,12 @@ export const CommonPill = styled.span`
   padding: 10px 15px;
   font-weight: 500;
   white-space: nowrap;
+
+  .icon {
+    margin-right: ${10 / 16}rem;
+    height: 1em;
+    width: 1em;
+  }
 
   &.small {
     font-size: 13px;
@@ -57,7 +64,10 @@ export const CommonPill = styled.span`
     border: 2px solid #910ae2;
     &:hover {
       color: #910ae2;
-      background: #fff;
+      background: transparent;
+      path {
+        fill: #910ae2;
+      }
     }
   }
 
@@ -67,7 +77,10 @@ export const CommonPill = styled.span`
     border: 2px solid #1415ff;
     &:hover {
       color: #1415ff;
-      background: #fff;
+      background: transparent;
+      path {
+        fill: #1415ff;
+      }
     }
   }
 
@@ -76,6 +89,12 @@ export const CommonPill = styled.span`
     border: 2px solid #00ecff;
     &:hover {
       color: #00ecff;
+      background: transparent;
+      path {
+        fill: #00ecff;
+      }
+    }
+    &.fill:hover {
       background: #fff;
     }
   }
@@ -85,6 +104,9 @@ export const CommonPill = styled.span`
     background: #e0f368;
     border: 2px solid #e0f368;
     &:hover {
+      background: transparent;
+    }
+    &.fill:hover {
       background: #fff;
     }
   }
@@ -96,6 +118,9 @@ export const CommonPill = styled.span`
     &:hover {
       color: #fb00fb;
       background: transparent;
+      path {
+        fill: #fb00fb;
+      }
     }
   }
   &.black {

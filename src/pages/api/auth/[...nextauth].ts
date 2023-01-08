@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         })
 
         const user = {
-          ...data.data,
+          ...data.user,
           access_token: data.jwt,
         }
 
@@ -39,11 +39,11 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     //   jwt callback is only called when token is created
-    jwt: async ({ token, user, account }: any) => {
+    jwt: async ({ token, user }: any) => {
       if (user) {
-        token.jwt = user.jwt
-        token.id = user.user.id
-        token.email = user.user.email
+        token.jwt = user.access_token
+        token.email = user.email
+        token.name = user.name
       }
       return Promise.resolve(token)
     },

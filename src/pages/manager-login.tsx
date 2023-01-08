@@ -2,13 +2,10 @@ import React from "react"
 import Head from "next/head"
 import { getSession } from "next-auth/react"
 
-import Tours from "@/components/Tours"
 import TourManagerLogin from "@/components/Tours/TourManagerLogin"
 
 const TourManagerPage = ({ user }: any) => {
-  const title = "Tour Manager"
-
-  console.log(user)
+  const title = "Login"
 
   return (
     <>
@@ -17,20 +14,19 @@ const TourManagerPage = ({ user }: any) => {
         <meta name="robots" content="noindex" />
       </Head>
 
-      {user ? <Tours /> : <TourManagerLogin />}
+      <TourManagerLogin />
     </>
   )
 }
 
-TourManagerPage.requireAuth = true
+TourManagerPage.requireAuth = false
 
 export const getServerSideProps = async ({ req }: any) => {
   const session = await getSession({ req })
-
-  if (!session) {
+  if (session) {
     return {
       redirect: {
-        destination: "/manager-login",
+        destination: "/tour-manager",
         permanent: false,
       },
     }

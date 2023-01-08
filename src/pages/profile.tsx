@@ -27,10 +27,10 @@ TourManagerPage.requireAuth = true
 export const getServerSideProps = async ({ req }: any) => {
   const session = await getSession({ req })
 
-  if (!session) {
+  if (true) {
     return {
       redirect: {
-        destination: "/manager-login",
+        destination: "/",
         permanent: false,
       },
     }

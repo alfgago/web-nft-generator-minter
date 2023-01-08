@@ -22,14 +22,13 @@ export const TourDateStyles = styled.div`
     display: block;
 
     @media ${DEVICE.laptop} {
-      justify-content: center;
-      width: 95%;
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
       gap: ${50 / 16}rem;
 
       > .item {
-        width: ${375 / 16}rem;
+        width: ${400 / 16}rem;
       }
     }
   }
@@ -39,7 +38,7 @@ export const TourDateStyles = styled.div`
     padding: 10px 0px;
 
     @media ${DEVICE.laptop} {
-      width: 92%;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -65,7 +64,8 @@ export const TourDateStyles = styled.div`
       font-size: 20px;
     }
 
-    a {
+    a.cog {
+      display: none;
       padding: 0.75rem 0 !important;
       position: absolute;
       right: ${32 / 16}rem;

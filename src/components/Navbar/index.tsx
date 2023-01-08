@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import { signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
 import { useAccount, useConnect } from "wagmi"
@@ -13,6 +15,8 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
   const { width } = useWindowSize()
   const { isConnected } = useAccount()
+
+  const { data: session, status } = useSession()
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
@@ -95,46 +99,72 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            {width > 1080 && isConnected && (
-              <li className="li-account">
-                {false && (
-                  <a href="#account" onClick={() => setOpenLogin(true)}>
-                    <ReactSVG src="/assets/icons/account.svg" />
-                  </a>
-                )}
-                <Link legacyBehavior href="/my-nfts">
-                  <a>
-                    <ReactSVG src="/assets/icons/account.svg" />
-                  </a>
-                </Link>
-              </li>
-            )}
-            {width > 1080 && !isConnected && (
-              <li className="li-wallet">
-                <a href="#" onClick={() => connect()}>
-                  <ReactSVG src="/assets/icons/wallet.svg" />
-                </a>
-              </li>
-            )}
-            {width < 1080 && (
-              <li className="has-submenu">
-                <a href="#">Account</a>
-                <div className="submenu account-submenu">
-                  <ul>
-                    <li>
-                      <a href="#account" onClick={() => setOpenLogin(true)}>
-                        <ReactSVG src="/assets/icons/account.svg" />
-                        <span>Account</span>
+            <li className="has-submenu">
+              {width > 1080 ? (
+                <ReactSVG src="/assets/icons/account.svg" />
+              ) : (
+                "Account"
+              )}
+              <div className="submenu">
+                <ul>
+                  {!session && (
+                    <li className="li-account">
+                      <a href="#" onClick={() => setOpenLogin(true)}>
+                        <span>Login</span>
                       </a>
                     </li>
-                    <li>
+                  )}
+                  {session && (
+                    <li className="li-account">
+                      <Link href="/profile">
+                        <span>Profile</span>
+                      </Link>
+                    </li>
+                  )}
+                  {session && (
+                    <li className="li-account">
+                      <Link href="/tour-manager">
+                        <span>Tour Manager</span>
+                      </Link>
+                    </li>
+                  )}
+                  {isConnected && (
+                    <li className="li-account">
+                      <Link href="/my-nfts">
+                        <span>My NFTs</span>
+                      </Link>
+                    </li>
+                  )}
+                  {!isConnected && (
+                    <li className="li-account">
+                      <a href="#" onClick={() => connect()}>
+                        <span>My NFTs</span>
+                      </a>
+                    </li>
+                  )}
+                  {!isConnected && width < 1080 && (
+                    <li className="li-wallet">
                       <a href="#" onClick={() => connect()}>
                         <ReactSVG src="/assets/icons/wallet.svg" />
                         <span>Connect your wallet</span>
                       </a>
                     </li>
-                  </ul>
-                </div>
+                  )}
+                  {session && (
+                    <li className="li-account">
+                      <a href="#" onClick={() => signOut()}>
+                        <span>Logout</span>
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </li>
+            {!isConnected && width > 1080 && (
+              <li className="li-wallet">
+                <a href="#" onClick={() => connect()}>
+                  <ReactSVG src="/assets/icons/wallet.svg" />
+                </a>
               </li>
             )}
           </ul>

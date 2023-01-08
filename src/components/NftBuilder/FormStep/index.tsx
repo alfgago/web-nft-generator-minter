@@ -1,6 +1,9 @@
 // @ts-nocheck
-import { Field, Form, Formik, useFormik } from "formik"
+import { useState } from "react"
+import { Field, Form, Formik } from "formik"
 import DatePicker from "react-datepicker"
+import { useAccount, useConnect } from "wagmi"
+import { InjectedConnector } from "wagmi/connectors/injected"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -10,6 +13,7 @@ import { FormStepStyles } from "./FormStepStyles"
 import "react-datepicker/dist/react-datepicker.css"
 
 const FormStep = ({ formValues, nextAction, artists }: any) => {
+  const [collectionTitle, setCollectionTitle] = useState("")
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
     dropDate: Yup.string().required("Please enter the mint date"),
@@ -25,6 +29,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
     dropDate: Date
     wallet: string
     size: number
+    winners: number
     passType: string
     saleType: string
     artist: number
@@ -42,18 +47,30 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
   }
 
   const generateName = (
-    artistIndex: any,
+    artistId: number,
     passType: any,
     setFieldValue: any
   ) => {
     const type = passType.charAt(0).toUpperCase() + passType.slice(1)
-    const sel = artists[artistIndex]
-    setFieldValue("name", `${sel.attributes.name} ${type} Pass`)
+    const sel = artists.find((obj: any) => obj.id == artistId)
+    let title = ""
+    if (sel) {
+      title = `${sel.attributes.name} ${type} Pass`
+    }
+    setFieldValue("name", title)
+    setCollectionTitle(title)
   }
+
+  const { address, isConnected } = useAccount()
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
 
   return (
     <FormStepStyles>
-      <h2>Project Metadata</h2>
+      <h2>
+        Collection Data {collectionTitle && <span> - {collectionTitle}</span>}
+      </h2>
       <Formik
         initialValues={formValues}
         onSubmit={submit}
@@ -61,7 +78,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
       >
         {({ values, setFieldValue, errors, touched }) => (
           <Form className="generator-form trap cols-2">
-            <label>
+            <label className="hidden">
               <span>Collection name</span>
               <input
                 className="name-field"
@@ -88,25 +105,18 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
                 <option value="">-</option>
                 {artists.length &&
                   artists.map((item: any, index: number) => (
-                    <option key={"artist-item" + index} value={index}>
+                    <option key={"artist-item" + index} value={item.id}>
                       {item.attributes.name}
                     </option>
                   ))}
               </Field>
             </label>
             <label>
-              <span>Royalty Wallet Address</span>
-              {errors.wallet && touched.wallet ? (
-                <div className="alert">{errors.wallet}</div>
-              ) : null}
-              <Field type="text" name="wallet" />
-            </label>
-            <label>
               <span>Collection size</span>
               {errors.size && touched.size ? (
                 <div className="alert">{errors.size}</div>
               ) : null}
-              <Field type="number" name="size" />
+              <Field type="number" name="size" max="500" />
             </label>
             <label>
               <span>Pass Type</span>
@@ -122,12 +132,18 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
                 }}
               >
                 <option value="">-</option>
-                <option value="lifetime">Lifetime</option>
-                <option value="lottery">Lottery</option>
-                <option value="tour">Tour</option>
-                <option value="single">Single Event</option>
+                <option value="Lifetime">Lifetime</option>
+                <option value="Lottery">Lottery</option>
+                <option value="Tour">Tour</option>
+                <option value="Single Event">Single Event</option>
               </Field>
             </label>
+            {values.passType == "Lottery" && (
+              <label>
+                <span>How many winners per lottery?</span>
+                <Field type="number" name="winners" />
+              </label>
+            )}
             <label>
               <span>Sale Type</span>
               {errors.saleType && touched.saleType ? (
@@ -135,11 +151,32 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
               ) : null}
               <Field name="saleType" as="select">
                 <option value="">-</option>
-                <option value="auction">Auction</option>
-                <option value="fixed">Fixed Price</option>
+                <option value="Auction">Auction</option>
+                <option value="Fixed">Fixed Price</option>
               </Field>
             </label>
-            {values.passType == "tour" && (
+            <label>
+              <span>Drop date</span>
+              {errors.dropDate && touched.dropDate ? (
+                <div className="alert">{errors.dropDate}</div>
+              ) : null}
+              <DatePicker
+                showTimeSelect
+                dateFormat="Pp"
+                name="dropDate"
+                selected={values.dropDate}
+                onChange={(dropDate) => setFieldValue("dropDate", dropDate)}
+              />
+            </label>
+            {values.passType == "Single Event" && (
+              <label>
+                <span>Show</span>
+                <Field name="show" as="select">
+                  <option value="">-</option>
+                </Field>
+              </label>
+            )}
+            {values.passType == "Tour" && (
               <>
                 <label>
                   <span>Tour start date</span>
@@ -170,16 +207,8 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
                 </label>
               </>
             )}
-            {values.passType == "single" && (
-              <label>
-                <span>Show</span>
-                <Field name="show" as="select">
-                  <option value="">-</option>
-                </Field>
-              </label>
-            )}
             <label>
-              {values.saleType == "auction" ? (
+              {values.saleType == "Auction" ? (
                 <span>Initial auction price (ETH)</span>
               ) : (
                 <span>Fixed price (ETH)</span>
@@ -189,25 +218,37 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
               ) : null}
               <Field type="number" name="price" />
             </label>
-            <label>
-              <span>Drop date</span>
-              {errors.dropDate && touched.dropDate ? (
-                <div className="alert">{errors.dropDate}</div>
-              ) : null}
-              <DatePicker
-                showTimeSelect
-                dateFormat="Pp"
-                name="dropDate"
-                selected={values.dropDate}
-                onChange={(dropDate) => setFieldValue("dropDate", dropDate)}
-              />
-            </label>
-            {values.saleType == "auction" && (
+            {values.saleType == "Auction" && (
               <label>
                 <span>Duration (Hours)</span>
                 <Field name="duration" type="text" />
               </label>
             )}
+            <label className="full">
+              <span>Royalty Wallet Address</span>
+              {errors.wallet && touched.wallet ? (
+                <div className="alert">{errors.wallet}</div>
+              ) : null}
+              <Field type="text" name="wallet" />
+              <div className="description">
+                {!isConnected && (
+                  <span>
+                    <span className="connect" onClick={() => connect()}>
+                      Connect your wallet
+                    </span>{" "}
+                    to auto-fill the address, or carefully type it.
+                  </span>
+                )}
+                {isConnected && (
+                  <span
+                    className="connect"
+                    onClick={() => setFieldValue("wallet", address)}
+                  >
+                    Auto-fill using my connected wallet.
+                  </span>
+                )}
+              </div>
+            </label>
 
             <div className="buttons">
               <button type="submit">

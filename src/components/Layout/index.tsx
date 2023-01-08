@@ -42,7 +42,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           exit="out"
         >
           {children}
-          <AnimatedCursor />
         </motion.div>
       </AnimatePresence>
       <Footer />

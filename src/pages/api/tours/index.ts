@@ -6,6 +6,7 @@ const fetchData = async ({
   limit = 2,
   random = false,
   user = 0,
+  type = "Lottery",
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -13,12 +14,14 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "banner,profile_picture,passes,events",
+    populate: "banner,profile_picture,passes",
     randomSort: random,
   }
+  if (type) {
+    params["filters[pass_type][$eq]"] = type
+  }
   if (user) {
-    // @ts-ignore
-    params["filters[user][id][$eq]"] = user
+    params["filters[user][$eq]"] = user
   }
 
   const response = await axios.get(`${apiURL}/api/artists`, {

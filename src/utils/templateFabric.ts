@@ -248,6 +248,7 @@ export default class TemplateFabric {
       }
     })
     const gutterDist = canvasRef.width - gutter
+    // Used to calculate text position on each template
     const templates = [
       {
         number: 1,
@@ -262,10 +263,14 @@ export default class TemplateFabric {
         textRotate: -90,
       },
       { number: 3, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
-      { number: 4, textX: 0, textY: gutter / 2 - 9, textRotate: 0 },
+      {
+        number: 4,
+        textX: 0,
+        textY: gutterDist + (gutter / 2 - 9),
+        textRotate: 0,
+      },
     ]
     const template = templates[activeTemplate]
-
     const text = new fabric.Textbox(nftText, {
       top: template.textY,
       left: template.textX,

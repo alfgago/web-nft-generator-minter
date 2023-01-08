@@ -11,11 +11,22 @@ export const DateItemStyles = styled.div`
   .card-container {
     background-color: ${COLORS.white};
     width: 100%;
-    border-radius: 0px 0px 12px 12px;
+    border-radius: 15px;
 
     .card-content {
-      padding: ${5 / 16}rem ${30 / 16}rem;
-      div {
+      padding: ${20 / 16}rem ${30 / 16}rem;
+
+      h4 {
+        font-size: ${22 / 16}rem;
+      }
+
+      .address {
+        font-size: ${16 / 16}rem;
+        font-weight: 500;
+        padding-bottom: 1rem;
+      }
+
+      > div {
         display: flex;
         justify-content: space-between;
       }

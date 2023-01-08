@@ -5,21 +5,19 @@ import CheckBox from "@/components/Common/CheckBox"
 
 import { DateItemStyles } from "./DateItemStyles"
 
-const DateItem = ({ placeName, state, city, date }: any) => {
+const DateItem = ({ show }: any) => {
   return (
     <DateItemStyles className="item">
       <div className="card-container">
         <div className="card-content">
           <div>
-            <p>{placeName}</p>
-            <CheckBox defaultState={false} />
+            <h4>{show.name}</h4>
+            <CheckBox defaultState={true} />
           </div>
-          <p>
-            {state}, {city}
-          </p>
-          <p>{date}</p>
+          <div className="address">{show.address}</div>
+          <div className="date">{show.date}</div>
         </div>
-        <div className="btns-container">
+        <div className="btns-container" style={{ display: "none" }}>
           <button className="cancel-btn">
             <ReactSVG src="/assets/icons/close-white.svg" />
             Cancel date

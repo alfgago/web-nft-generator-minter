@@ -1,4 +1,5 @@
 import Head from "next/head"
+import { getSession } from "next-auth/react"
 import axios from "axios"
 
 import NftBuilder from "@/components/NftBuilder"
@@ -16,19 +17,30 @@ const BuilderPage = ({ data }: any) => {
 
 export default BuilderPage
 
-export const getServerSideProps = async () => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
+BuilderPage.requireAuth = true
 
-  const postResponse = await axios.get(`${apiURL}/api/artists?populate=*`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  if (postResponse.data) {
+export const getServerSideProps = async ({ req }: any) => {
+  const domain = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/manager-login",
+        permanent: false,
+      },
+    }
+  }
+
+  // @ts-ignore
+  const { data } = await axios.get(domain + `/api/artists?user=${session.id}`)
+  const artists = data.data
+
+  if (artists) {
     return {
       props: {
-        data: postResponse.data.data,
+        data: artists,
       },
     }
   }

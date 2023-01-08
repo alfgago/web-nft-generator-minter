@@ -1,7 +1,9 @@
 import React, { useState } from "react"
+import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
+import { CommonPill } from "@/components/Common/CommonStyles"
 import ItemPagination from "@/components/Common/ItemPagination"
 import Modal from "@/components/Common/Modal"
 
@@ -59,18 +61,22 @@ const NftCollections = () => {
     },
   ]
 
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <NftCollectionStyles>
       <ReactSVG className="star" src="/assets/icons/star.svg" />
       <div className="content">
         <div className="header-collection">
-          <h2>Approved NFT Collections</h2>
-          <AddButton
-            label="Mint new collection"
-            action={() => setIsOpen(!isOpen)}
-          />
+          <h2>NFT Collections</h2>
+          <Link href="/nft-generator" className="button">
+            <CommonPill className="clickable blue small">
+              <ReactSVG
+                src="/assets/icons/add-icon.svg"
+                wrapper="span"
+                className="icon"
+              />
+              <span>Mint new pass collection</span>
+            </CommonPill>
+          </Link>
         </div>
         <div className="sec-tittles">
           <div>
@@ -81,7 +87,10 @@ const NftCollections = () => {
             <p>Tour / event</p>
             <p className="p-3">
               Winners per event
-              <span> (Lottery only, 1 winner = 2 spots on the guest list)</span>
+              <small>
+                {" "}
+                (Lottery only, 1 winner = 2 spots on the guest list)
+              </small>
             </p>
           </div>
         </div>
@@ -99,11 +108,6 @@ const NftCollections = () => {
           }}
         />
       </div>
-      {isOpen && (
-        <Modal setIsOpen={setIsOpen} title="Mint new collection">
-          <NewCollectionForm />
-        </Modal>
-      )}
     </NftCollectionStyles>
   )
 }

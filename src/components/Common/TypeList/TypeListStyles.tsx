@@ -26,7 +26,7 @@ export const TypeListStyles = styled.div`
       flex-wrap: wrap;
       padding: 0;
       margin: 0;
-      width: 60%;
+      width: 100%;
     }
 
     li {

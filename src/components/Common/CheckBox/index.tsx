@@ -13,7 +13,7 @@ const CheckBox = ({ id = "", name = "", label = "", defaultState }: any) => {
     <Checkbox>
       <input
         type="checkbox"
-        defaultChecked={defaultState}
+        checked={defaultState}
         onChange={handleChange}
         id={id}
         name={name}

@@ -120,8 +120,9 @@ export const NavbarStyles = styled.section<Props>`
             a {
               display: block;
               font-size: 0.9rem;
-              padding: 0.5rem 1rem;
+              padding: 0.6rem 1.5rem;
               border-bottom: 1px solid #aaa;
+              text-transform: none;
 
               &:hover {
                 background: #f5f5f5;

@@ -108,5 +108,6 @@ export const ModalStyles = styled.section`
 
   .close-mobile {
     align-self: end;
+    cursor: pointer;
   }
 `

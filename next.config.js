@@ -23,6 +23,7 @@ const nextConfig = {
       "plusone-public.s3.amazonaws.com",
       "plusone-frontend.vercel.app",
       "plusonemusic.io",
+      "*.ipfs.nftstorage.link",
       "localhost",
     ],
   },

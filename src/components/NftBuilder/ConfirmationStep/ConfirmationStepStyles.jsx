@@ -62,6 +62,41 @@ export const ConfirmationStepStyles = styled.div`
       span {
         display: block;
       }
+
+      &.wallet {
+        width: ${700 / 16}rem;
+      }
+    }
+  }
+
+  .collection-minting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999999999999999;
+    background: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: ${30 / 16}rem;
+    font-weight: 300;
+
+    span {
+      display: block;
+      max-width: 90%;
+      width: ${500 / 16}rem;
+      padding: 1rem;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    img {
+      width: 100%;
+      object-fit: contain;
+      height: 3rem;
+      margin-top: 1rem;
     }
   }
 `

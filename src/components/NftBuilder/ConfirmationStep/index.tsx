@@ -18,7 +18,12 @@ declare global {
   }
 }
 
-const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
+const ConfirmationStep = ({
+  formValues,
+  previousAction,
+  nextAction,
+  uploading,
+}: any) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -123,7 +128,7 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
           <strong>Collection name</strong>
           <span>{formValues.name}</span>
         </label>
-        <label>
+        <label className="wallet">
           <strong>Royalty Wallet Address</strong>
           <span>{formValues.wallet}</span>
         </label>
@@ -170,19 +175,33 @@ const ConfirmationStep = ({ formValues, previousAction, nextAction }: any) => {
         <img src="/assets/img/spinner.svg" className="spinner" alt="loader" />
       )}
 
-      <div className="buttons">
-        <button onClick={() => previousAction()}>
-          <CommonPill className="clickable">Previous</CommonPill>
-        </button>
-        <button onClick={() => onClickGenerate()}>
-          <CommonPill className="clickable">Generate Previews</CommonPill>
-        </button>
-        {render && (
-          <button onClick={() => nextAction()}>
-            <CommonPill className="clickable fill">Confirm</CommonPill>
+      {uploading ? (
+        <div className="collection-minting">
+          <span>
+            Your collection is being minted, this may take a few minutes. Please
+            do not close this window
+            <img
+              src="/assets/img/spinner.svg"
+              className="spinner"
+              alt="loader"
+            />
+          </span>
+        </div>
+      ) : (
+        <div className="buttons">
+          <button onClick={() => previousAction()}>
+            <CommonPill className="clickable">Previous</CommonPill>
           </button>
-        )}
-      </div>
+          <button onClick={() => onClickGenerate()}>
+            <CommonPill className="clickable">Generate Previews</CommonPill>
+          </button>
+          {render && (
+            <button onClick={() => nextAction(previewImages)}>
+              <CommonPill className="clickable fill">Confirm</CommonPill>
+            </button>
+          )}
+        </div>
+      )}
     </ConfirmationStepStyles>
   )
 }

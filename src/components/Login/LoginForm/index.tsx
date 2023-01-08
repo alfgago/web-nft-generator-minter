@@ -1,11 +1,8 @@
 import React from "react"
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { signIn } from "next-auth/react"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
-
-import ROUTES from "../../Common/Config/routes"
 
 import { LoginFormlStyles } from "./LoginFormStyles"
 
@@ -27,7 +24,6 @@ const valuesSchema = Yup.object().shape({
 })
 
 const LoginForm = ({ setIsOpen }: any) => {
-  const router = useRouter()
   const [isIncorrect, setIncorrect] = useState(false)
 
   const onSubmit = async (values: FormValues) => {
@@ -39,9 +35,11 @@ const LoginForm = ({ setIsOpen }: any) => {
     })
 
     if (result?.ok) {
-      setIsOpen(false)
+      if (setIsOpen) {
+        setIsOpen(false)
+      }
       setIncorrect(false)
-      router.replace(ROUTES.TOUR_MANAGER)
+      location.reload()
       return
     }
     setIncorrect(true)
