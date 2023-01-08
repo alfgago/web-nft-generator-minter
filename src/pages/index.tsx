@@ -21,7 +21,9 @@ export const getStaticProps = async () => {
 
   const postResponse = await axios.get(`${apiURL}/api/homepage?populate=deep,4`)
 
-  const passesResponse = await axios.get(`${apiURL}/api/passes?populate=*`)
+  const passesResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/passes?populate=*`
+  )
 
   return {
     props: {
