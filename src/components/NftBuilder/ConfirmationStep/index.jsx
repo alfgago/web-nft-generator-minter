@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
-import { fabric } from "fabric"
+import { fabric } from "fabric-pure-browser"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
@@ -42,26 +42,28 @@ const ConfirmationStep = ({
   }
 
   const initPreview = () => {
-    const collectionData = sessionStorage.getItem("collectionData")
-    if (collectionData) {
-      const collectionDataJson = JSON.parse(collectionData)
-      const json = sessionStorage.getItem("canvasJson")
+    if (!document.body.querySelector(".canvas-container")) {
+      const collectionData = sessionStorage.getItem("collectionData")
+      if (collectionData) {
+        const collectionDataJson = JSON.parse(collectionData)
+        const json = sessionStorage.getItem("canvasJson")
 
-      window.previewCanvas = new fabric.Canvas("canvas")
-      window.previewFabric = new TemplateFabric(
-        window.previewCanvas,
-        json,
-        null,
-        null
-      )
-      const nftText = formValues.name + " #"
-      window.previewFabric.addText({
-        canvasRef: window.previewCanvas,
-        activeTemplate: collectionDataJson.activeTemplate,
-        gutter: collectionDataJson.gutter,
-        nftText,
-      })
-      setInitialized(true)
+        window.previewCanvas = new fabric.Canvas("canvas")
+        window.previewFabric = new TemplateFabric(
+          window.previewCanvas,
+          json,
+          null,
+          null
+        )
+        const nftText = formValues.name + " #"
+        window.previewFabric.addText({
+          canvasRef: window.previewCanvas,
+          activeTemplate: collectionDataJson.activeTemplate,
+          gutter: collectionDataJson.gutter,
+          nftText,
+        })
+        setInitialized(true)
+      }
     }
   }
 

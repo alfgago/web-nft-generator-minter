@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
 import React from "react"
-import { fabric } from "fabric"
+import { fabric } from "fabric-pure-browser"
 import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"

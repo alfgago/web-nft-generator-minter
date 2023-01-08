@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { fabric } from "fabric-pure-browser"
 
 const svgShapes = {
   diamond:
@@ -81,22 +81,6 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
     }
   }
   return shapesArray
-}
-
-const createTriangle = (x, y, cellSize, angle) => {
-  const pos = fabric.util.rotatePoint(
-    new fabric.Point(x, y),
-    new fabric.Point(x + cellSize / 2, y + (cellSize / 3) * 2),
-    fabric.util.degreesToRadians(angle)
-  )
-  return new fabric.Triangle({
-    width: cellSize,
-    height: cellSize,
-    fill: "#444",
-    left: pos.x,
-    top: pos.y,
-    angle: angle,
-  })
 }
 
 export default generateShapes

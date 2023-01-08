@@ -23,7 +23,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/MyNfts/GuestsList/MyNftGuestsItem/MyNftGuestsItemStyles.ysx"
+    "src/components/MyNfts/GuestsList/MyNftGuestsItem/MyNftGuestsItemStyles.ysx",
+    "src/utils/templateFabric.js",
+    "src/components/NftBuilder/ConfirmationStep/index.jsx",
+    "src/components/NftBuilder/DesignStep/index.jsx",
+    "src/utils/generateShapes.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 import axios from "axios"
 import { File, NFTStorage } from "nft.storage"
 
@@ -12,6 +13,7 @@ import { NftBuilderStyles } from "./NftBuilderStyles"
 import StepsHeader from "./StepsHeader"
 
 const NftBuilder = ({ artists }: any) => {
+  const router = useRouter()
   const [activeStep, setActiveStep] = useState(1)
   const [uploading, setUploading] = useState(false)
   const [selectedArtist, setSelectedArtist] = useState(artists[0])
@@ -31,6 +33,7 @@ const NftBuilder = ({ artists }: any) => {
   })
 
   useEffect(() => {
+    // @ts-ignore
     window.canvas = false
   }, [])
 
@@ -62,8 +65,7 @@ const NftBuilder = ({ artists }: any) => {
     // Creates the pass, to then associate NFTs to it
     const passResponse = await axios.post("/api/passes/create", {
       ...formValues,
-      preview_image_url:
-        "https://" + process.env.NEXT_PUBLIC_DOMAIN + "/" + nftKey,
+      preview_image_url: "https://plusonemusic.io/ipfs/" + nftKey,
     })
     for (const i in images) {
       if (images[i]) {
@@ -71,14 +73,16 @@ const NftBuilder = ({ artists }: any) => {
         const blob = await base64Response.blob()
         const nftKey = await client.storeBlob(blob)
         await axios.post("/api/nfts/create", {
-          name: formValues.name + " " + i + 1,
-          image_url: "https://" + process.env.NEXT_PUBLIC_DOMAIN + "/" + nftKey,
+          name: formValues.name + " " + (i + 1),
+          image_url: "https://plusonemusic.io/ipfs/" + nftKey,
           ipfs_token: nftKey,
           pass_id: passResponse.data.data.id,
         })
         console.log(i + ": " + nftKey)
       }
     }
+
+    router.push("/tour-manager")
     setUploading(false)
     /* const res = await fetch("/api/contracts", {
       method: "POST",

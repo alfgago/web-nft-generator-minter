@@ -1,4 +1,4 @@
-import { fabric } from "fabric"
+import { fabric } from "fabric-pure-browser"
 
 export default class TemplateFabric {
   layers
@@ -11,7 +11,6 @@ export default class TemplateFabric {
         canvasRef.getObjects().forEach(function (el) {
           let isSelectable = false
           if (el.get("type") == "image") {
-            console.log(el)
             if (
               (el._originalElement &&
                 el._originalElement.currentSrc.includes("blob")) ||
@@ -84,8 +83,6 @@ export default class TemplateFabric {
       hasBottom = true
     }
 
-    console.log(canvasRef.width)
-
     const templateGroup = new fabric.Group(
       [
         new fabric.Rect({
@@ -124,7 +121,6 @@ export default class TemplateFabric {
         left: 0,
       }
     )
-    console.log(templateGroup)
 
     templateGroup.set("selectable", false)
     templateGroup.set("evented", false)
