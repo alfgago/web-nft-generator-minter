@@ -2,6 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
+import s3url from "@/utils/s3url"
+
 import { CommonPill } from "../CommonStyles"
 
 import { ArtistCardStyles } from "./ArtistCardStyles"
@@ -14,7 +16,7 @@ const ArtistCard = ({ artist, classes = "" }: any) => {
     <ArtistCardStyles className={"drop-card " + classes}>
       <div className="image-container">
         <Image
-          src={picture}
+          src={s3url(picture)}
           alt={artist.attributes.name}
           quality={90}
           width={300}

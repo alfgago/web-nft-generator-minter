@@ -60,7 +60,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <img src={imageUrl} alt="Collection Preview Image" />
+        <img src={s3url(imageUrl)} alt="Collection Preview Image" />
       </div>
       <div className="inner">
         <div className="titles">

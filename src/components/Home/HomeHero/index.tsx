@@ -3,6 +3,7 @@ import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
+import s3url from "@/utils/s3url"
 
 import { HomeHeroStyles } from "./HomeHeroStyles"
 
@@ -13,7 +14,7 @@ const HomeHero = ({ title, copy, image }: any) => {
         className="background"
         style={{
           backgroundImage: image.data
-            ? `url(${image.data.attributes.url})`
+            ? `url(${s3url(image.data.attributes.url)})`
             : "",
         }}
       >

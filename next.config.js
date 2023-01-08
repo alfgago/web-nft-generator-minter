@@ -37,6 +37,10 @@ const nextConfig = {
         source: "/aws/:path*",
         destination: "https://plusone-public.s3.amazonaws.com/:path*", // Proxy to S3
       },
+      {
+        source: "/ipfs/:path*",
+        destination: ":path*.ipfs.nftstorage.link", // Proxy to S3
+      },
     ]
   },
 }
