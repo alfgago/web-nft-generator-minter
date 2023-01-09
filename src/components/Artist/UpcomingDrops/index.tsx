@@ -38,7 +38,12 @@ const Artist = ({ events }: any) => {
                           </div>
                           <div
                             className="date"
-                            style={{ background: "#FFD1FB" }}
+                            style={{
+                              background:
+                                index % 2 == 1
+                                  ? "#FFD1FB"
+                                  : "rgba(104, 243, 243, 0.2)",
+                            }}
                           >
                             {dateFormat(item.attributes.date)}
                           </div>
