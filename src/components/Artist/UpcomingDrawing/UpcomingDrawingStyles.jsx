@@ -172,6 +172,7 @@ export const DrawRow = styled.div`
     .btn-fill {
       justify-content: center;
       max-width: 141px;
+      white-space: normal;
       /* font-size: ${12 / 16}rem; */
       @media ${DEVICE.laptop} {
         max-width: revert;
