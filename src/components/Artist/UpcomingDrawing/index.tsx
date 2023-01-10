@@ -1,3 +1,5 @@
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import {
   BoxDrawing,
   DrawRow,
@@ -33,9 +35,12 @@ const Artist = () => {
                     <span>Chance of winning</span>
                     <p>%65</p>
                   </div>
-                  <button type="button" className="variant">
+                  <CommonPill className="clickable small active light-grey btn-fill">
                     Enter Lottery
-                  </button>
+                  </CommonPill>
+                  {/* <button type="button" className="variant">
+                    Enter Lottery
+                  </button> */}
                 </div>
               </div>
             </div>
