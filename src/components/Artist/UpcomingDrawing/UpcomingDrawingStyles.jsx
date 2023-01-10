@@ -35,7 +35,18 @@ export const DrawRow = styled.div`
     justify-content: space-between;
   }
 
+  .cols-cont {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    @media ${DEVICE.laptop} {
+      flex-direction: row;
+      width: revert;
+    }
+  }
   .column1 {
+    width: 100%;
     display: flex;
     font-weight: 400;
     justify-content: center;
@@ -43,15 +54,27 @@ export const DrawRow = styled.div`
     font-size: ${33 / 16}rem;
     background: transparent;
 
-    img {
-      height: 100%;
+    .img-container {
+      width: 50%;
+      @media ${DEVICE.laptop} {
+        width: revert;
+      }
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     .info {
-      padding: ${40 / 16}rem;
+      padding: ${15 / 16}rem ${8 / 16}rem ${15 / 16}rem ${23 / 16}rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+
+      @media ${DEVICE.laptop} {
+        justify-content: space-between;
+        padding: ${40 / 16}rem;
+      }
       h3 {
         font-weight: 600;
         font-size: ${33 / 16}rem;
@@ -68,14 +91,24 @@ export const DrawRow = styled.div`
     }
   }
   .column2 {
+    margin: 0 ${22 / 16}rem;
+    border-top: solid 2px #000;
     font-weight: 600;
     font-weight: 600;
     font-size: ${32 / 16}rem;
     justify-content: space-between;
-    margin-top: ${40 / 16}rem;
-    margin-bottom: ${40 / 16}rem;
-    padding: 0 ${40 / 16}rem;
-    border-left: solid 2px #000;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding-top: ${15 / 16}rem;
+    @media ${DEVICE.laptop} {
+      border-top: none;
+      border-left: solid 2px #000;
+      padding: 0 ${40 / 16}rem;
+      margin-top: ${40 / 16}rem;
+      margin-bottom: ${40 / 16}rem;
+    }
+
     .time {
       display: flex;
       width: 100%;
@@ -93,11 +126,15 @@ export const DrawRow = styled.div`
     width: ${243 / 16}rem;
     display: flex;
     flex-wrap: wrap;
-    padding: ${40 / 16}rem ${25 / 16}rem ${40 / 16}rem 0rem;
+    padding: 14px 22px;
     justify-content: space-between;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @media ${DEVICE.laptop} {
+      text-align: center;
+      align-items: center;
+      padding: ${40 / 16}rem ${25 / 16}rem ${40 / 16}rem 0rem;
+    }
+
     span {
       font-size: ${20 / 16}rem;
     }

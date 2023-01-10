@@ -47,7 +47,7 @@ export const DropRow = styled.div`
 
     .place {
       margin-top: 0.5rem;
-      font-size: 0.5em;
+      font-size: 0.6em;
       text-align: left;
       width: 100%;
     }
@@ -92,12 +92,11 @@ export const DropRow = styled.div`
     align-items: center;
     justify-content: center;
     background: #f2f2f2;
-
+    padding: ${20 / 16}rem ${21 / 16}rem;
     font-weight: 600;
     margin-left: 0;
     width: 100%;
     flex: 1;
-
     @media ${DEVICE.laptop} {
       width: ${273 / 16}rem;
       margin-left: ${10 / 16}rem;
