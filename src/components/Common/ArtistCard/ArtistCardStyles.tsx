@@ -68,6 +68,8 @@ export const ArtistCardStyles = styled.div`
       right: 0;
       z-index: 1;
       padding: 1rem;
+      display: flex;
+      gap: 5px;
 
       svg {
         width: ${27 / 16}rem;
@@ -83,6 +85,10 @@ export const ArtistCardStyles = styled.div`
       a:hover svg path {
         cursor: pointer;
         transform: scale(1.05);
+      }
+      @media ${DEVICE.laptop} {
+        display: revert;
+        gap: revert;
       }
     }
   }
