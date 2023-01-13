@@ -12,17 +12,34 @@ import { FormStepStyles } from "./FormStepStyles"
 
 import "react-datepicker/dist/react-datepicker.css"
 
-const FormStep = ({ formValues, nextAction, artists }: any) => {
-  const [collectionTitle, setCollectionTitle] = useState("")
+const FormStep = ({
+  formValues,
+  nextAction,
+  artists,
+  nftTitle,
+  nftDescription,
+  setNftTitle,
+  setNftDescription,
+}: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
     dropDate: Yup.date().required("Please enter the mint date"),
     artist: Yup.string().required("Please enter the artist"),
     wallet: Yup.string().required("Please enter your wallet"),
-    size: Yup.number().required("Please enter your collection size."),
+    size: Yup.number()
+      .max(500, "Field must be no bigger than 500")
+      .required("Please enter your collection size."),
     passType: Yup.string().required("Please enter your pass type"),
     saleType: Yup.string().required("Please enter your sale type"),
     price: Yup.number().required("Please enter your price"),
+    charity_name: Yup.string().when("is_charity", {
+      is: true,
+      then: Yup.string().required("Charity name is required"),
+    }),
+    charity_royalty: Yup.number().when("is_charity", {
+      is: true,
+      then: Yup.number().required("Charity royalty is required").positive(),
+    }),
   })
 
   interface FormValues {
@@ -59,7 +76,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
       title = `${sel.attributes.name} ${type} Pass`
     }
     setFieldValue("name", title)
-    setCollectionTitle(title)
+    setNftTitle(title)
   }
 
   const { address, isConnected } = useAccount()
@@ -69,9 +86,7 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
 
   return (
     <FormStepStyles>
-      <h2>
-        Collection Data {collectionTitle && <span> - {collectionTitle}</span>}
-      </h2>
+      <h2>Collection Data {nftTitle && <span> - {nftTitle}</span>}</h2>
       <Formik
         initialValues={formValues}
         onSubmit={submit}
@@ -250,6 +265,28 @@ const FormStep = ({ formValues, nextAction, artists }: any) => {
                 )}
               </div>
             </label>
+            <label className="custom-third-1">
+              <span>Is Charity</span>
+              <Field type="checkbox" name="is_charity" />
+            </label>
+            {values.is_charity && (
+              <>
+                <label className="custom-third">
+                  <span>Charity Name</span>
+                  <Field type="text" name="charity_name" />
+                  {errors.charity_name && touched.charity_name ? (
+                    <div className="alert">{errors.charity_name}</div>
+                  ) : null}
+                </label>
+                <label className="custom-third">
+                  <span>Charity Royalty</span>
+                  <Field type="number" name="charity_royalty" />
+                  {errors.charity_name && touched.charity_name ? (
+                    <div className="alert">{errors.charity_name}</div>
+                  ) : null}
+                </label>
+              </>
+            )}
 
             <div className="buttons">
               <button type="submit">

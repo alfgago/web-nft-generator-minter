@@ -9,6 +9,9 @@ import "dotenv/config"
 // will leave that up to the team to decide
 type CreateContractRequestBody = {
   network: Network
+  name: string
+  wallet: string
+  price: number
   /* TODO - @zac fill in the form data shape */
 }
 
@@ -41,26 +44,23 @@ const transformCreateContractParams = (
       contractName: "PascalCaseContractTitle",
     },
     metadata: {
-      name: "Name",
-      symbol: "SICK",
-      maxSupply: 1000,
+      name: body.name ?? "PlusOne Sample NFT",
+      symbol: "P1",
+      maxSupply: 500,
       royaltyBips: 100,
     },
     paymentSplits: [
       {
-        splitAddress: "0xB9b393363B7394f8766ca5B3c91e020471e830A0",
-        splitBips: 9000,
-      },
-      {
-        splitAddress: "0x5e7610698ba465973C11A607eAf43b7f1733D947",
-        splitBips: 1000,
+        splitAddress:
+          body.wallet ?? "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7",
+        splitBips: 100,
       },
     ],
     lazyMintSettings: {
-      maxMintableAtCurrentState: 100,
-      maxMintsPerWallet: 2,
+      maxMintableAtCurrentState: 500,
+      maxMintsPerWallet: 10,
       maxMintsPerTxn: 2,
-      mintPrice: "0.001",
+      mintPrice: (body.price ?? 0) + "",
     },
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }

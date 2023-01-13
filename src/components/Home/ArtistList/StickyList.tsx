@@ -19,7 +19,14 @@ const StickyList = ({
 
   useEffect(() => {
     const scrollerW = document.getElementById("scroller")?.offsetWidth ?? 0
-    setListSize(scrollerW - width)
+    const items = document.querySelectorAll(".scroller .artist-item")
+    const last = items[items.length - 1]
+
+    const content = document.querySelector(".artist-list .content")
+    setListSize(
+      // @ts-ignore
+      scrollerW - last.offsetWidth - content.getBoundingClientRect().left / 2
+    )
   }, [width])
 
   return (

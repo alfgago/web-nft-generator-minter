@@ -33,8 +33,10 @@ export const getServerSideProps = async ({ req }: any) => {
     }
   }
 
-  // @ts-ignore
-  const { data } = await axios.get(domain + `/api/artists?user=${session.id}`)
+  const { data } = await axios.get(
+    // @ts-ignore
+    domain + `/api/artists?user=${session.id}&limit=10`
+  )
   const artists = data.data
 
   if (artists) {
