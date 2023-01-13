@@ -116,7 +116,7 @@ export const DropRow = styled.div`
     button {
       width: 100%;
       border: none;
-      font-size: ${16 / 16}rem;
+      font-size: ${12 / 16}rem;
       line-height: ${19 / 16}rem;
       padding: ${10 / 16}rem ${34 / 16}rem;
       margin: 0 ${2 / 16}rem;
@@ -128,7 +128,14 @@ export const DropRow = styled.div`
         background: #858585;
         cursor: pointer;
       }
+      @media ${DEVICE.laptop} {
+        font-size: ${18 / 16}rem;
+      }
+      @media ${DEVICE.maxmobile} {
+        padding: ${10 / 16}rem ${18 / 16}rem;
+      }
     }
+
     .variant {
       background: #c2c2c2;
     }

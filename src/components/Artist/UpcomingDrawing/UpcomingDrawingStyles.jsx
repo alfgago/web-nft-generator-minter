@@ -17,9 +17,8 @@ export const UpcomingDrawingStyles = styled.section`
 `
 export const BoxDrawing = styled.div`
   flex-direction: column;
-  @media ${DEVICE.laptop} {
-    display: flex;
-  }
+  display: flex;
+  align-items: center;
 `
 export const DrawRow = styled.div`
   width: 100%;
@@ -30,20 +29,21 @@ export const DrawRow = styled.div`
     rgba(240, 240, 240, 0.5) 50%,
     rgba(249, 215, 255, 0.5) 95%
   );
-
+  max-width: 43.75rem;
   @media ${DEVICE.laptop} {
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
   }
 
   .cols-cont {
-    display: flex;
-    flex-direction: column;
+    display: none;
     width: 50%;
 
     @media ${DEVICE.laptop} {
       flex-direction: row;
       width: revert;
+      display: flex;
     }
   }
   .column1 {
@@ -57,9 +57,11 @@ export const DrawRow = styled.div`
 
     .img-container {
       width: 50%;
+      padding: ${11 / 16}rem 0 ${11 / 16}rem ${22 / 16}rem;
       @media ${DEVICE.laptop} {
         width: 100%;
         max-width: ${260 / 16}rem;
+        padding: 0;
       }
 
       img {
@@ -72,8 +74,10 @@ export const DrawRow = styled.div`
       padding: ${15 / 16}rem ${8 / 16}rem ${15 / 16}rem ${23 / 16}rem;
       display: flex;
       flex-direction: column;
+      width: 50%;
 
       @media ${DEVICE.laptop} {
+        width: revert;
         justify-content: space-between;
         padding: ${40 / 16}rem;
       }
@@ -203,6 +207,12 @@ export const DrawRow = styled.div`
     }
     .variant {
       background: #c2c2c2;
+    }
+  }
+
+  .column2-mob {
+    @media ${DEVICE.laptop} {
+      display: none;
     }
   }
 `

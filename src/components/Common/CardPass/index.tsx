@@ -21,7 +21,7 @@ const CardPass = ({ pass, event }: any) => {
       ? pass.attributes.event.data.attributes
       : false
   }
-  console.log(pass.attributes)
+
   const title = pass.attributes.collection_name
   const price = pass.attributes.initial_price
   const size = pass.attributes.collection_size
