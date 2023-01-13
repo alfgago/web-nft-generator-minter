@@ -56,6 +56,7 @@ export const DrawRow = styled.div`
     background: transparent;
 
     .img-container {
+      max-width: ${194 / 16}rem;
       width: 50%;
       padding: ${11 / 16}rem 0 ${11 / 16}rem ${22 / 16}rem;
       @media ${DEVICE.laptop} {
@@ -74,12 +75,13 @@ export const DrawRow = styled.div`
       padding: ${15 / 16}rem ${8 / 16}rem ${15 / 16}rem ${23 / 16}rem;
       display: flex;
       flex-direction: column;
-      width: 50%;
+      width: 100%;
 
       @media ${DEVICE.laptop} {
         width: revert;
         justify-content: space-between;
         padding: ${40 / 16}rem;
+        width: revert;
       }
       h3 {
         font-weight: 600;
