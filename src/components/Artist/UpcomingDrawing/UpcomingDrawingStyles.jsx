@@ -37,10 +37,10 @@ export const DrawRow = styled.div`
   }
 
   .cols-cont {
-    display: none;
-    width: 50%;
+    width: 100%;
 
     @media ${DEVICE.laptop} {
+      width: 50%;
       flex-direction: row;
       width: revert;
       display: flex;
@@ -54,6 +54,11 @@ export const DrawRow = styled.div`
     font-weight: 600;
     font-size: ${33 / 16}rem;
     background: transparent;
+    flex-direction: column;
+
+    @media ${DEVICE.laptop} {
+      flex-direction: row;
+    }
 
     .img-container {
       max-width: ${194 / 16}rem;
@@ -216,5 +221,9 @@ export const DrawRow = styled.div`
     @media ${DEVICE.laptop} {
       display: none;
     }
+  }
+
+  .main-cont {
+    display: flex;
   }
 `

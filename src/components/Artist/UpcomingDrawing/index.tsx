@@ -14,14 +14,16 @@ const Artist = () => {
         <BoxDrawing>
           <DrawRow>
             <div className="column1">
-              <div className="img-container">
-                <img src="/assets/img/draw-pic-1.png" alt="dropPic" />
-              </div>
-              <div className="info">
-                <h3>Pink Buffalo</h3>
-                <div>
-                  <p>Tour: Winter West Coast</p>
-                  <p>Floor price #12</p>
+              <div className="main-cont">
+                <div className="img-container">
+                  <img src="/assets/img/draw-pic-1.png" alt="dropPic" />
+                </div>
+                <div className="info">
+                  <h3>Pink Buffalo</h3>
+                  <div>
+                    <p>Tour: Winter West Coast</p>
+                    <p>Floor price #12</p>
+                  </div>
                 </div>
               </div>
               <div className="cols-cont">
@@ -42,25 +44,6 @@ const Artist = () => {
                     Enter Lottery
                   </button> */}
                 </div>
-              </div>
-            </div>
-            <div className="column2-mob">
-              <div className="column2">
-                <div className="time">5 hrs 30 min 21 sec</div>
-                <div className="place">Warfield, San Fran</div>
-                <div className="date">June 9</div>
-              </div>
-              <div className="column3">
-                <div>
-                  <span>Chance of winning</span>
-                  <p>%65</p>
-                </div>
-                <CommonPill className="clickable small active light-grey btn-fill">
-                  Enter Lottery
-                </CommonPill>
-                {/* <button type="button" className="variant">
-                    Enter Lottery
-                  </button> */}
               </div>
             </div>
           </DrawRow>
