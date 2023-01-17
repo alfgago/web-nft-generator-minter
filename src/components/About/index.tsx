@@ -1,18 +1,25 @@
 import Button from "../Common/Button"
+import SimpleHeader from "../Common/SimpleHeader"
 
 import { AboutStyles } from "./AboutStyles"
+import GoalHelp from "./GoalHelp"
+import RoadMap from "./RoadMap"
 
-const About = () => {
-  const buttonAction = () => {
-    alert("Cliqueado")
-  }
-
+const About = ({ page }: any) => {
   return (
     <AboutStyles>
-      <main>
-        <h1>Página de about</h1>
-        <Button label="Ejemplo" action={buttonAction} />
-      </main>
+      <SimpleHeader title="About" textAlign="left">
+        <div className="cont">
+          <div className="cont-desc">
+            <p>{page.banner_description}</p>
+          </div>
+          <div className="cont-stars">
+            <span>star</span>
+          </div>
+        </div>
+      </SimpleHeader>
+      <GoalHelp />
+      <RoadMap />
     </AboutStyles>
   )
 }
