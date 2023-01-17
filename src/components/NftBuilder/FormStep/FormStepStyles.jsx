@@ -19,6 +19,10 @@ export const FormStepStyles = styled.div`
     display: none;
   }
 
+  .buttons {
+    width: 100%;
+  }
+
   .description {
     font-size: 0.9rem;
     color: #888;

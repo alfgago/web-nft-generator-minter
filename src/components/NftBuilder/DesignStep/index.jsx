@@ -37,7 +37,7 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
   const [shapes, setShapes] = useState(initialShapes)
   const [activeTemplate, setActiveTemplate] = useState(0)
 
-  const doNext = () => {
+  const saveSession = () => {
     sessionStorage.setItem(
       "collectionData",
       JSON.stringify({
@@ -51,12 +51,31 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
         gutter: gutter,
       })
     )
-
     sessionStorage.setItem("canvasJson", JSON.stringify(window.canvas.toJSON()))
+  }
+
+  const doNext = () => {
+    saveSession()
     nextAction()
   }
 
+  const doPreviousAction = () => {
+    saveSession()
+    previousAction()
+  }
+
   useEffect(() => {
+    const collectionData = sessionStorage.getItem("collectionData")
+    if (collectionData) {
+      const collectionDataJson = JSON.parse(collectionData)
+      setGutter(collectionDataJson.gutter)
+      setActiveTemplate(collectionDataJson.activeTemplate)
+      setBackgroundColor(collectionDataJson.backgroundColor)
+      setShapesColor(collectionDataJson.shapesColor)
+      setImageUrl(collectionDataJson.imageUrl)
+      setGridSize(collectionDataJson.gridSize)
+    }
+
     initCanvas()
   }, [])
 
@@ -103,9 +122,9 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
   const initCanvas = () => {
     // FabricJS creates the .canvas-container, so if it exists, don't do this again
     if (!document.body.querySelector(".canvas-container")) {
-      let json = false
-      if (window.canvas) {
-        json = window.canvas.toJSON()
+      let json = sessionStorage.getItem("canvasJson")
+      if (!json) {
+        json = false
       }
 
       const artistImage = s3url(artist.attributes.banner.data.attributes.url)
@@ -206,7 +225,7 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
       </div>
 
       <div className="buttons">
-        <button onClick={() => previousAction()}>
+        <button onClick={() => doPreviousAction()}>
           <CommonPill className="clickable">Previous</CommonPill>
         </button>
         <button onClick={() => doNext()}>

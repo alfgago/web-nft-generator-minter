@@ -11,6 +11,7 @@ export const DateItemStyles = styled.div`
     background-color: ${COLORS.white};
     width: 100%;
     border-radius: 15px;
+    height: 100%;
 
     .card-content {
       padding: ${20 / 16}rem ${30 / 16}rem;
