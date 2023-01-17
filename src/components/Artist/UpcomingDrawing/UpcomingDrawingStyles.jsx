@@ -225,5 +225,9 @@ export const DrawRow = styled.div`
 
   .main-cont {
     display: flex;
+
+    @media ${DEVICE.laptop} {
+      width: 50%;
+    }
   }
 `
