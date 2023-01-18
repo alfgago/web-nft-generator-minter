@@ -148,7 +148,8 @@ const JuiceExamples = () => {
       body: JSON.stringify({
         contractAddress,
         network: "goerli",
-        folderIPFSUrl: "",
+        folderIPFSUrl:
+          "ipfs://bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u/", // can view contents here: https://nftstorage.link/ipfs/bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u
       }),
     })
 
