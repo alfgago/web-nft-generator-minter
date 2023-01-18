@@ -139,6 +139,48 @@ const JuiceExamples = () => {
     alert("Set Sale State Transaction Hash: " + transactionHash)
   }
 
+  const setFolderStorage = async () => {
+    const res = await fetch("/api/contracts/setFolderStorage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        folderStorage: "",
+      }),
+    })
+
+    if (!res.ok)
+      throw new Error("Set Folder Storage failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    alert("Set Folder Storage Transaction Hash: " + transactionHash)
+  }
+
+  const adminBulkMint = async () => {
+    const res = await fetch("/api/contracts/bulkMint", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        count: 10,
+      }),
+    })
+
+    if (!res.ok)
+      throw new Error("Set Folder Storage failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    alert("Admin Bulk Mint Transaction Hash: " + transactionHash)
+  }
+
   return (
     <div style={{ padding: 100, display: "flex", flexDirection: "column" }}>
       <h1>Juice Examples</h1>
@@ -192,6 +234,23 @@ const JuiceExamples = () => {
       <h4 style={h4Styles}>Airdrop Section</h4>
       <button style={buttonStyles} onClick={airdrop}>
         Airdrop NFT
+      </button>
+      <span>Sends the NFT held by the admin wallet to a specific user</span>
+
+      <hr />
+
+      <h4 style={h4Styles}>Set Folder Storage</h4>
+      <button style={buttonStyles} onClick={setFolderStorage}>
+        Set Folder Storage
+      </button>
+      <span>
+        Set the IPFS folder storage for all NFTs metadata for the contract (you
+        will need to upload them ahead of time)
+      </span>
+
+      <h4 style={h4Styles}>Admin Bulk Mint</h4>
+      <button style={buttonStyles} onClick={adminBulkMint}>
+        Bulk Mint NFTs (10)
       </button>
       <span>Sends the NFT held by the admin wallet to a specific user</span>
     </div>
