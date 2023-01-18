@@ -23,7 +23,7 @@ const About = ({ page }: any) => {
           </div>
         </div>
       </SimpleHeader>
-      <GoalHelp />
+      <GoalHelp goal={page.goal} helpArtists={page.help_artists} />
       <RoadMap />
     </AboutStyles>
   )
