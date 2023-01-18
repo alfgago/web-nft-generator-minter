@@ -119,3 +119,26 @@ export const signMintData = async (
 
   return signature
 }
+
+export type BulkMintParams = {
+  network: Network
+  contractAddress: string
+  toAddress: string
+  count: number
+}
+
+export const bulkMint = async ({
+  network,
+  contractAddress,
+  count,
+  toAddress,
+}: BulkMintParams) => {
+  const jc = await createJuiceClientForAutomation(network, contractAddress)
+
+  if (!jc.baseNFTFacet) throw new Error("Base NFT contract not found")
+
+  const tx = await jc.baseNFTFacet?.devMint(toAddress, count)
+  await tx.wait()
+
+  return tx.hash
+}
