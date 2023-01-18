@@ -12,7 +12,7 @@ const JuiceExamples = () => {
   const [signer, setSigner] = useState<null | JsonRpcSigner>(null)
   const [connectedAddress, setConnectedAddress] = useState("none")
   const [contractAddress, setContractAddress] = useState(
-    "0xD21Cd864C4B73660526526581631Ae3aD7230f0D"
+    "0xb2777bfe02f85305df83509383fc66cb4e5b2d46"
   )
 
   const {
@@ -170,13 +170,13 @@ const JuiceExamples = () => {
       body: JSON.stringify({
         contractAddress,
         network: "goerli",
-        count: 10,
+        count: 3, // note: counts > 8 sometimes are not indexed by opensea, but they are still valid mints
         toAddress: connectedAddress,
       }),
     })
 
     if (!res.ok)
-      throw new Error("Set Folder Storage failed" + (await res.json()))
+      throw new Error("Admin Bulk Mint failed" + (await res.json()).toString())
 
     const { transactionHash } = await res.json()
 
@@ -254,7 +254,9 @@ const JuiceExamples = () => {
       <button style={buttonStyles} onClick={adminBulkMint}>
         Bulk Mint NFTs (10)
       </button>
-      <span>Sends the NFT held by the admin wallet to a specific user</span>
+      <span>
+        Sends the NFT held by the admin wallet to the connected wallet
+      </span>
     </div>
   )
 }
