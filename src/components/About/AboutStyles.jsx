@@ -3,6 +3,11 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const AboutStyles = styled.main`
+  p {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
   .cont {
     display: flex;
     .cont-desc {
