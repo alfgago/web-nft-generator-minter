@@ -1,3 +1,5 @@
+import { ReactSVG } from "react-svg"
+
 import Button from "../Common/Button"
 import SimpleHeader from "../Common/SimpleHeader"
 
@@ -14,7 +16,10 @@ const About = ({ page }: any) => {
             <p>{page.banner_description}</p>
           </div>
           <div className="cont-stars">
-            <span>star</span>
+            <ReactSVG
+              className="white-star"
+              src="/assets/icons/about-stars.svg"
+            />
           </div>
         </div>
       </SimpleHeader>

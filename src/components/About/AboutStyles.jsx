@@ -20,4 +20,17 @@ export const AboutStyles = styled.main`
       }
     }
   }
+
+  .simple-header {
+    padding-bottom: ${100 / 16}rem;
+
+    .white-star {
+      position: absolute;
+      right: ${50 / 16}rem;
+      top: -3%;
+      svg {
+        max-width: ${400 / 16}rem;
+      }
+    }
+  }
 `

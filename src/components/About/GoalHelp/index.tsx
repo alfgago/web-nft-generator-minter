@@ -5,11 +5,12 @@ const GoalHelp = () => {
   return (
     <GoalHelpStyles>
       <div className="cols-cont">
-        <div className="column">
-          <div>
-            <h1>Our Goal</h1>
+        <div className="column col-1">
+          <div className="bg-col1" />
+          <div className="title">
+            <h2>Our Goal Our Goal Our Go</h2>
           </div>
-          <div>
+          <div className="goal-desc">
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia
               perspiciatis modi optio eaque aliquam impedit reprehenderit
@@ -18,11 +19,11 @@ const GoalHelp = () => {
             </p>
           </div>
         </div>
-        <div className="column">
-          <div>
-            <h1>Help Artists</h1>
+        <div className="column col-2">
+          <div className="title">
+            <h2>Help Artists Help Artists </h2>
           </div>
-          <div>
+          <div className="help-desc">
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus
               est consequuntur perferendis minus porro commodi nihil provident
