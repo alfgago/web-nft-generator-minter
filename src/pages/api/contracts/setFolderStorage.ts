@@ -1,39 +1,39 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
 import {
-  setSaleState,
-  SetSaleStateParams,
-} from "@/utils/SmartContracts/setSaleState"
+  SetFolderStorageParams,
+  setMetadataFolderStorage,
+} from "@/utils/SmartContracts/setFolderStorage"
 
 import "dotenv/config"
 
-type SetSaleStateRequestBody = SetSaleStateParams
+type SetFolderStorageRequestBody = SetFolderStorageParams
 
-interface SetSaleStateRequest extends NextApiRequest {
-  body: SetSaleStateRequestBody
+interface SetFolderStorageRequest extends NextApiRequest {
+  body: SetFolderStorageRequestBody
 }
 
 type ErrResponseBody = {
   err: string
 }
 
-type SetSaleStateResponseBody =
+type SetFolderStorageResponseBody =
   | {
       transactionHash: string
     }
   | ErrResponseBody
 
 export default async function handler(
-  req: SetSaleStateRequest,
-  res: NextApiResponse<SetSaleStateResponseBody>
+  req: SetFolderStorageRequest,
+  res: NextApiResponse<SetFolderStorageResponseBody>
 ) {
   try {
-    const { contractAddress, network, saleState } = req.body
+    const { contractAddress, network, folderIPFSUrl } = req.body
 
-    const transactionHash = await setSaleState({
+    const transactionHash = await setMetadataFolderStorage({
       contractAddress,
       network,
-      saleState,
+      folderIPFSUrl,
     })
 
     res.status(200).json({ transactionHash })

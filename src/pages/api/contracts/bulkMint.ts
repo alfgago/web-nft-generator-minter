@@ -1,39 +1,37 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
-import {
-  setSaleState,
-  SetSaleStateParams,
-} from "@/utils/SmartContracts/setSaleState"
+import { bulkMint, BulkMintParams } from "@/utils/SmartContracts/mint"
 
 import "dotenv/config"
 
-type SetSaleStateRequestBody = SetSaleStateParams
+type BulkMintRequestBody = BulkMintParams
 
-interface SetSaleStateRequest extends NextApiRequest {
-  body: SetSaleStateRequestBody
+interface BulkMintRequest extends NextApiRequest {
+  body: BulkMintRequestBody
 }
 
 type ErrResponseBody = {
   err: string
 }
 
-type SetSaleStateResponseBody =
+type BulkMintResponseBody =
   | {
       transactionHash: string
     }
   | ErrResponseBody
 
 export default async function handler(
-  req: SetSaleStateRequest,
-  res: NextApiResponse<SetSaleStateResponseBody>
+  req: BulkMintRequest,
+  res: NextApiResponse<BulkMintResponseBody>
 ) {
   try {
-    const { contractAddress, network, saleState } = req.body
+    const { contractAddress, network, count, toAddress } = req.body
 
-    const transactionHash = await setSaleState({
+    const transactionHash = await bulkMint({
       contractAddress,
       network,
-      saleState,
+      toAddress,
+      count,
     })
 
     res.status(200).json({ transactionHash })

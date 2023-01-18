@@ -148,7 +148,7 @@ const JuiceExamples = () => {
       body: JSON.stringify({
         contractAddress,
         network: "goerli",
-        folderStorage: "",
+        folderIPFSUrl: "",
       }),
     })
 
@@ -170,6 +170,7 @@ const JuiceExamples = () => {
         contractAddress,
         network: "goerli",
         count: 10,
+        toAddress: connectedAddress,
       }),
     })
 
