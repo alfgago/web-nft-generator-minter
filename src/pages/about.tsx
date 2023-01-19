@@ -32,6 +32,49 @@ export const getStaticProps = async () => {
       description:
         "Once plus|one successfully helps artists build their tokenized communities, we plan to create impactful metaverse promotion and production tools to satisfy even the most die-hard live music fan.",
     },
+
+    roadMap: {
+      column_data_1: [
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Thanks to everyone for helping launch plus|one, a platform dedicated to providing new tools for artists to succeed in the coming digital revolution which puts more control in the hands of creatives and less to content-controlling corporations.",
+        },
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Publicly show off your collection of digital passes by making it on our platform leaderboard.",
+        },
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Thanks to everyone for helping launch plus|one, a platform dedicated to providing new tools for artists to succeed in the coming digital revolution which puts more control in the hands of creatives and less to content-controlling corporations.",
+        },
+      ],
+      column_data_2: [
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Thanks to everyone for helping launch plus|one, a platform dedicated to providing new tools for artists to succeed in the coming digital revolution which puts more control in the hands of creatives and less to content-controlling corporations.",
+        },
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Publicly show off your collection of digital passes by making it on our platform leaderboard.",
+        },
+        {
+          date: "January 2023",
+          title: "Plus|One MVP launch",
+          description:
+            "Thanks to everyone for helping launch plus|one, a platform dedicated to providing new tools for artists to succeed in the coming digital revolution which puts more control in the hands of creatives and less to content-controlling corporations.",
+        },
+      ],
+    },
   }
 
   return {

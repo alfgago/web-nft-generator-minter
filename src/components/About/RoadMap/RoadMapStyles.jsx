@@ -18,6 +18,7 @@ export const RoadMapStyles = styled.section`
     align-items: center;
     flex-direction: column;
     padding-top: ${85 / 16}rem;
+    padding-bottom: ${215 / 16}rem;
 
     h2 {
       padding-bottom: 76px;

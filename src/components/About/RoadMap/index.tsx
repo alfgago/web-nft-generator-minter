@@ -2,21 +2,22 @@ import React from "react"
 
 import { RoadMapStyles } from "./RoadMapStyles"
 
-const RoadMap = () => {
+const RoadMap = ({ columnData1, columnData2 }: any) => {
   return (
     <RoadMapStyles>
       <div className="col-1">
         <div className="content">
           <div>
             <h2>Roadmap</h2>
-            <h3>date</h3>
-            <h3>title</h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Architecto sed tenetur iure, atque, quaerat nemo odit vitae quod
-              dicta repudiandae illum, laborum doloremque cumque quis error
-              temporibus impedit eaque commodi.
-            </p>
+            {columnData1.map((data: any, index: number) => {
+              return (
+                <span key={"roadmap1-item" + index}>
+                  <h3>{data.date}</h3>
+                  <h3>{data.title}</h3>
+                  <p className="description">{data.description}</p>
+                </span>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -24,14 +25,15 @@ const RoadMap = () => {
         <div className="content">
           <div>
             <h2 className="spacer">spacer</h2>
-            <h3>date</h3>
-            <h3>title</h3>
-            <p className="description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Architecto sed tenetur iure, atque, quaerat nemo odit vitae quod
-              dicta repudiandae illum, laborum doloremque cumque quis error
-              temporibus impedit eaque commodi.
-            </p>
+            {columnData2.map((data: any, index: number) => {
+              return (
+                <span key={"roadmap2-item" + index}>
+                  <h3>{data.date}</h3>
+                  <h3>{data.title}</h3>
+                  <p className="description">{data.description}</p>
+                </span>
+              )
+            })}
           </div>
         </div>
       </div>

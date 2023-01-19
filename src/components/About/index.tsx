@@ -24,7 +24,11 @@ const About = ({ page }: any) => {
         </div>
       </SimpleHeader>
       <GoalHelp goal={page.goal} helpArtists={page.help_artists} />
-      <RoadMap />
+
+      <RoadMap
+        columnData1={page.roadMap.column_data_1}
+        columnData2={page.roadMap.column_data_2}
+      />
     </AboutStyles>
   )
 }
