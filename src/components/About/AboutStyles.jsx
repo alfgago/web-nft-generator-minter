@@ -4,7 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const AboutStyles = styled.main`
   p {
-    font-size: 24px;
+    font-size: ${24 / 16}rem;
     font-weight: 400;
   }
 

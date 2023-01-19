@@ -1,10 +1,16 @@
 import React from "react"
+import { ReactSVG } from "react-svg"
 
 import { RoadMapStyles } from "./RoadMapStyles"
 
 const RoadMap = ({ columnData1, columnData2 }: any) => {
   return (
     <RoadMapStyles>
+      <ReactSVG
+        src="/assets/icons/roadmap-bg.svg"
+        wrapper="span"
+        className="bg"
+      />
       <div className="col-1">
         <div className="content">
           <div>

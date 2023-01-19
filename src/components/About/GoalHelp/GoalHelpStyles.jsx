@@ -15,7 +15,6 @@ export const GoalHelpStyles = styled.section`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-
     position: absolute;
     content: "";
     width: 90%;

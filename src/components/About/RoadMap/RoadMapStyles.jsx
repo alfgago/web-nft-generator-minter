@@ -5,7 +5,21 @@ import { COLORS, DEVICE } from "@/styles/variables"
 export const RoadMapStyles = styled.section`
   padding: 0;
   display: flex;
+  position: relative;
 
+  .bg {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 63rem;
+    }
+  }
   .col-1,
   .col-2 {
     width: 50%;
@@ -22,6 +36,18 @@ export const RoadMapStyles = styled.section`
 
     h2 {
       padding-bottom: 76px;
+    }
+
+    first-type-of:h3 {
+      padding-top: 3rem;
+    }
+
+    span {
+      margin-bottom: ${79 / 16}rem;
+      p {
+        margin: 0;
+        padding-top: 1rem;
+      }
     }
 
     .description {
