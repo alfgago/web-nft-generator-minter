@@ -53,7 +53,16 @@ export const GoalHelpStyles = styled.section`
     }
 
     .title {
+      width: 100%;
       padding-top: ${100 / 16}rem;
+
+      h2 {
+        padding-left: ${15 / 16}rem;
+      }
+      .white-h {
+        -webkit-text-stroke: 1px ${COLORS.black};
+        color: transparent;
+      }
     }
 
     .col-1 {

@@ -23,7 +23,7 @@ export const getStaticProps = async () => {
     banner_description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dolores possimus ratione? Odio, facilis! Corrupti magni voluptatum eius, aspernatur officia dicta maxime quod at quaerat id, error dolore ipsum perferendis.",
     goal: {
-      title: "Our Goal",
+      title: " Our Goal ",
       description:
         "To bring the fan into the fold by allowing them to make the critical decisions on our technical roadmap, while opening the door to become partners in the products and profits. The new wave of digital music products will be community (not corporation) controlled.",
     },
