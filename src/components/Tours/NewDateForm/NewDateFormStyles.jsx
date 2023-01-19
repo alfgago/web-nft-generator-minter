@@ -5,9 +5,7 @@ export const NewDateFormStyles = styled.div`
 
   p {
     text-align: center;
-    font-weight: 500;
-    @media ${DEVICE.laptop} {
-      padding-top: ${20 / 16}rem;
+    font-weight: 500;g-top: ${20 / 16}rem;
     }
   }
 
@@ -15,6 +13,23 @@ export const NewDateFormStyles = styled.div`
     width: 100%;
     text-align: right;
   }
+
+  .success {
+    text-align: center;
+    svg {
+      width: 5rem;
+      height: 5rem;
+      margin-bottom: 1rem;
+      path {
+        color: green;
+      }
+      polyline {
+        stroke: green;
+      }
+    }
+    font-size: 2rem;
+  }
+
   form {
     .full {
       width: 100%;

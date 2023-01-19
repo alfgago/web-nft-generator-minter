@@ -38,7 +38,7 @@ const Navbar = () => {
   const [openLogin, setOpenLogin] = useState(false)
 
   return (
-    <NavbarStyles hasColor={color} id="navbar">
+    <NavbarStyles hasColor={color} id="navbar" className="navbar">
       <div className={`content ${showMenu ? "is-active" : ""}`}>
         <Link legacyBehavior href="/">
           <a className="logo">

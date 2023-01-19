@@ -39,14 +39,14 @@ const LocationPicker = ({ setFieldValue }: any) => {
     }
 
   const renderSuggestions = () =>
-    data.map((suggestion) => {
+    data.map((suggestion, index) => {
       const {
         placeId,
         structured_formatting: { main_text, secondary_text },
       } = suggestion
 
       return (
-        <li key={placeId} onClick={handleSelect(suggestion)}>
+        <li key={"index-" + placeId} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )

@@ -38,6 +38,7 @@ export const ModalStyles = styled.section`
       height: 100%;
       border-radius: ${12 / 16}rem;
       margin-top: -3rem;
+      padding-top: 5rem;
     }
 
     a {

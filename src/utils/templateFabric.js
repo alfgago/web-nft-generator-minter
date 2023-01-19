@@ -83,34 +83,35 @@ export default class TemplateFabric {
       hasBottom = true
     }
 
+    // Add 2px to widths as fix for white lines
     const templateGroup = new fabric.Group(
       [
         new fabric.Rect({
-          width: canvasRef.width,
-          height: gutter,
+          width: canvasRef.width + 2,
+          height: gutter + 2,
           top: 0,
           left: 0,
           fill: hasTop ? backgroundColor.hex : "",
         }),
         new fabric.Rect({
-          width: canvasRef.width,
-          height: gutter,
-          top: gutterDist,
+          width: canvasRef.width + 2,
+          height: gutter + 3,
+          top: gutterDist - 2,
           left: 0,
           fill: hasBottom ? backgroundColor.hex : "",
         }),
         new fabric.Rect({
-          width: gutter,
-          height: canvasRef.height,
+          width: gutter + 3,
+          height: canvasRef.height + 2,
           top: 0,
           left: 0,
           fill: hasLeft ? backgroundColor.hex : "",
         }),
         new fabric.Rect({
-          width: gutter,
-          height: canvasRef.height,
+          width: gutter + 3,
+          height: canvasRef.height + 2,
           top: 0,
-          left: gutterDist,
+          left: gutterDist - 2,
           fill: hasRight ? backgroundColor.hex : "",
         }),
       ],

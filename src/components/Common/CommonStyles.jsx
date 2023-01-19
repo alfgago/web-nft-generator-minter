@@ -18,10 +18,17 @@ export const CommonPill = styled.span`
   font-weight: 500;
   white-space: nowrap;
 
+  svg {
+    max-height: 16px%;
+  }
+
   .icon {
+    display: inline-block;
     margin-right: ${10 / 16}rem;
-    height: 1em;
-    width: 1em;
+    height: 16px;
+    > span {
+      height: 100%;
+    }
   }
 
   &.small {
@@ -35,10 +42,24 @@ export const CommonPill = styled.span`
     line-height: 1.2;
     padding: ${10 / 16}rem ${30 / 16}rem;
 
+    .icon {
+      height: ${24 / 16}rem;
+      svg {
+        height: ${24 / 16}rem;
+      }
+    }
+
     &.small {
       font-size: ${18 / 16}rem;
       line-height: 1.2;
       padding: ${7 / 16}rem ${15 / 16}rem;
+
+      .icon {
+        height: ${18 / 16}rem;
+        svg {
+          height: ${18 / 16}rem;
+        }
+      }
     }
   }
 
