@@ -15,6 +15,8 @@ export const RoadMapStyles = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
 
     svg {
       width: 63rem;
@@ -32,7 +34,7 @@ export const RoadMapStyles = styled.section`
     align-items: center;
     flex-direction: column;
     padding-top: ${85 / 16}rem;
-    padding-bottom: ${215 / 16}rem;
+    /* padding-bottom: ${215 / 16}rem; */
 
     h2 {
       padding-bottom: 76px;
@@ -42,8 +44,8 @@ export const RoadMapStyles = styled.section`
       padding-top: 3rem;
     }
 
-    span {
-      margin-bottom: ${79 / 16}rem;
+    div {
+      margin-bottom: ${68 / 16}rem;
       p {
         margin: 0;
         padding-top: 1rem;
