@@ -29,10 +29,15 @@ export const GoalHelpStyles = styled.section`
     width: 100%;
     display: flex;
     position: relative;
-    height: ${727 / 16}rem;
+    flex-direction: column;
+    height: 100%;
+    @media ${DEVICE.laptop} {
+      height: ${727 / 16}rem;
+      flex-direction: row;
+    }
 
     .star {
-      z-index: 2;
+      z-index: 0;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -45,11 +50,15 @@ export const GoalHelpStyles = styled.section`
     }
     .column {
       position: relative;
-      width: 50%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: ${91 / 16}rem;
+      gap: ${30 / 16}rem;
+      @media ${DEVICE.laptop} {
+        gap: ${91 / 16}rem;
+        width: 50%;
+      }
     }
 
     .title {
@@ -68,11 +77,14 @@ export const GoalHelpStyles = styled.section`
     .col-1 {
       .goal-desc {
         max-width: ${470 / 16}rem;
-        text-align: start;
+        z-index: 1;
+
+        @media ${DEVICE.laptop} {
+          text-align: start;
+        }
       }
       &:before {
         content: "";
-        z-index: -1;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -91,19 +103,33 @@ export const GoalHelpStyles = styled.section`
         content: "";
         width: 100%;
         height: 100%;
+        z-index: -1;
+        position: absolute;
         background: linear-gradient(
           94.68deg,
-          #e9f7ff 3.08%,
+          #f9e9ff 3.08%,
           rgba(255, 255, 255, 0) 88.15%,
           rgba(255, 255, 255, 0) 88.15%
         );
-        position: absolute;
-        z-index: -1;
+        transform: rotate(180deg);
+
+        @media ${DEVICE.laptop} {
+          transform: rotate(0deg);
+          background: linear-gradient(
+            94.68deg,
+            #e9f7ff 3.08%,
+            rgba(255, 255, 255, 0) 88.15%,
+            rgba(255, 255, 255, 0) 88.15%
+          );
+        }
       }
 
       .help-desc {
         max-width: ${444 / 16}rem;
-        text-align: end;
+        z-index: 1;
+        @media ${DEVICE.laptop} {
+          text-align: end;
+        }
       }
     }
   }

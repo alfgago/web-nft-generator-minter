@@ -4,7 +4,7 @@ import { ReactSVG } from "react-svg"
 
 import { GoalHelpStyles } from "./GoalHelpStyles"
 const GoalHelp = ({ goal, helpArtists }: any) => {
-  const headerAmount = [1, 2, 3, 4]
+  const headerAmount = [1, 2, 3, 4, 5, 6]
   return (
     <GoalHelpStyles>
       <img
