@@ -18,9 +18,11 @@ const RoadMap = ({ columnData1, columnData2 }: any) => {
             {columnData1.map((data: any, index: number) => {
               return (
                 <div key={"roadmap1-item" + index}>
-                  <h3>{data.date}</h3>
-                  <h3>{data.title}</h3>
-                  <p className="description">{data.description}</p>
+                  <h3>{data.dateTitle ? data.dateTitle : ""}</h3>
+                  <h3>{data.title ? data.title : ""}</h3>
+                  <p className="description">
+                    {data.description ? data.description : ""}
+                  </p>
                   <br />
                 </div>
               )
@@ -35,9 +37,11 @@ const RoadMap = ({ columnData1, columnData2 }: any) => {
             {columnData2.map((data: any, index: number) => {
               return (
                 <div key={"roadmap2-item" + index}>
-                  <h3>{data.date}</h3>
-                  <h3>{data.title}</h3>
-                  <p className="description">{data.description}</p>
+                  <h3>{data.dateTitle ? data.dateTitle : ""}</h3>
+                  <h3>{data.title ? data.title : ""}</h3>
+                  <p className="description">
+                    {data.description ? data.description : ""}
+                  </p>
                 </div>
               )
             })}

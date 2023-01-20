@@ -7,13 +7,24 @@ import { AboutStyles } from "./AboutStyles"
 import GoalHelp from "./GoalHelp"
 import RoadMap from "./RoadMap"
 
-const About = ({ page }: any) => {
+const About = ({ page, test }: any) => {
+  const attributes = page.attributes
+
+  const title = attributes.title ? attributes.title : "About"
+  const bannerDescription = attributes.banner_description
+    ? attributes.banner_description
+    : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non perspiciatis cumque quo ad, nam eum."
+  const goal = attributes.goal ? attributes.goal : ""
+  const helpArtists = attributes.help_artists ? attributes.help_artists : ""
+  const roadMapCol1 = attributes.roadMap[0].columnData
+  const roadMapCol2 = attributes.roadMap[1].columnData
+  console.log(roadMapCol1)
   return (
     <AboutStyles>
-      <SimpleHeader title="About" textAlign="left">
+      <SimpleHeader title={title} textAlign="left">
         <div className="cont">
           <div className="cont-desc">
-            <p>{page.banner_description}</p>
+            <p>{bannerDescription}</p>
           </div>
           <div className="cont-stars">
             <ReactSVG
@@ -23,12 +34,9 @@ const About = ({ page }: any) => {
           </div>
         </div>
       </SimpleHeader>
-      <GoalHelp goal={page.goal} helpArtists={page.help_artists} />
+      <GoalHelp goal={goal} helpArtists={helpArtists} />
 
-      <RoadMap
-        columnData1={page.roadMap.column_data_1}
-        columnData2={page.roadMap.column_data_2}
-      />
+      <RoadMap columnData1={roadMapCol1} columnData2={roadMapCol2} />
     </AboutStyles>
   )
 }
