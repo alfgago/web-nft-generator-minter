@@ -7,7 +7,7 @@ import { AboutStyles } from "./AboutStyles"
 import GoalHelp from "./GoalHelp"
 import RoadMap from "./RoadMap"
 
-const About = ({ page, test }: any) => {
+const About = ({ page }: any) => {
   const attributes = page.attributes
 
   const title = attributes.title ? attributes.title : "About"
@@ -18,7 +18,6 @@ const About = ({ page, test }: any) => {
   const helpArtists = attributes.help_artists ? attributes.help_artists : ""
   const roadMapCol1 = attributes.roadMap[0].columnData
   const roadMapCol2 = attributes.roadMap[1].columnData
-  console.log(roadMapCol1)
   return (
     <AboutStyles>
       <SimpleHeader title={title} textAlign="left">
