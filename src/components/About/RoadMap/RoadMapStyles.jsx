@@ -48,7 +48,10 @@ export const RoadMapStyles = styled.section`
     }
 
     div > div {
-      margin-bottom: ${68 / 16}rem;
+      margin-bottom: ${36 / 16}rem;
+      @media ${DEVICE.laptop} {
+        margin-bottom: ${68 / 16}rem;
+      }
       p {
         margin: 0;
         padding-top: 1rem;
@@ -98,6 +101,7 @@ export const RoadMapStyles = styled.section`
 
   .col-2 {
     color: ${COLORS.white};
+    padding-bottom: ${30 / 16}rem;
     @media ${DEVICE.maxlaptop} {
       .content {
         padding-top: 0rem;

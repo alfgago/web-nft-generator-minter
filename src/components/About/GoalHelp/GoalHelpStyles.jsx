@@ -82,10 +82,11 @@ export const GoalHelpStyles = styled.section`
       .goal-desc {
         max-width: ${470 / 16}rem;
         z-index: 1;
-        padding: 0 ${15 / 16}rem;
+        margin: 0 2rem;
 
         @media ${DEVICE.laptop} {
           text-align: start;
+          margin: 0;
         }
       }
       &:before {
@@ -104,6 +105,8 @@ export const GoalHelpStyles = styled.section`
       }
     }
     .col-2 {
+      padding-bottom: ${30 / 16}rem;
+
       &:before {
         content: "";
         width: 100%;
@@ -132,7 +135,7 @@ export const GoalHelpStyles = styled.section`
       .help-desc {
         max-width: ${444 / 16}rem;
         z-index: 1;
-        padding: 0 ${15 / 16}rem;
+        margin: 0 2rem;
         @media ${DEVICE.laptop} {
           text-align: end;
         }

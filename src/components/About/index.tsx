@@ -25,12 +25,10 @@ const About = ({ page }: any) => {
           <div className="cont-desc">
             <p>{bannerDescription}</p>
           </div>
-          <div className="cont-stars">
-            <ReactSVG
-              className="white-star"
-              src="/assets/icons/about-stars.svg"
-            />
-          </div>
+          <ReactSVG
+            className="white-star"
+            src="/assets/icons/about-stars.svg"
+          />
         </div>
       </SimpleHeader>
       <GoalHelp goal={goal} helpArtists={helpArtists} />
