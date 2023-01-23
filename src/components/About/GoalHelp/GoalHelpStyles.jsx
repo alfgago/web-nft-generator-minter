@@ -63,7 +63,11 @@ export const GoalHelpStyles = styled.section`
 
     .title {
       width: 100%;
-      padding-top: ${100 / 16}rem;
+      padding-top: ${52 / 16}rem;
+
+      @media ${DEVICE.laptop} {
+        padding-top: ${100 / 16}rem;
+      }
 
       h2 {
         padding-left: ${15 / 16}rem;
@@ -78,6 +82,7 @@ export const GoalHelpStyles = styled.section`
       .goal-desc {
         max-width: ${470 / 16}rem;
         z-index: 1;
+        padding: 0 ${15 / 16}rem;
 
         @media ${DEVICE.laptop} {
           text-align: start;
@@ -127,6 +132,7 @@ export const GoalHelpStyles = styled.section`
       .help-desc {
         max-width: ${444 / 16}rem;
         z-index: 1;
+        padding: 0 ${15 / 16}rem;
         @media ${DEVICE.laptop} {
           text-align: end;
         }

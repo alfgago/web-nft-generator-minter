@@ -6,6 +6,10 @@ export const RoadMapStyles = styled.section`
   padding: 0;
   display: flex;
   position: relative;
+  flex-direction: column;
+  @media ${DEVICE.laptop} {
+    flex-direction: row;
+  }
 
   .bg {
     position: absolute;
@@ -24,7 +28,7 @@ export const RoadMapStyles = styled.section`
   }
   .col-1,
   .col-2 {
-    width: 50%;
+    width: 100%;
     position: relative;
   }
 
@@ -34,7 +38,6 @@ export const RoadMapStyles = styled.section`
     align-items: center;
     flex-direction: column;
     padding-top: ${85 / 16}rem;
-    /* padding-bottom: ${215 / 16}rem; */
 
     h2 {
       padding-bottom: 76px;
@@ -44,7 +47,7 @@ export const RoadMapStyles = styled.section`
       padding-top: 3rem;
     }
 
-    div {
+    div > div {
       margin-bottom: ${68 / 16}rem;
       p {
         margin: 0;
@@ -57,29 +60,49 @@ export const RoadMapStyles = styled.section`
     }
 
     .spacer {
-      color: transparent;
+      display: none;
+
+      @media ${DEVICE.laptop} {
+        display: block;
+        color: transparent;
+      }
     }
   }
 
   .col-1 {
+    color: ${COLORS.white};
+
+    @media ${DEVICE.laptop} {
+      color: ${COLORS.black};
+    }
+
     &:before {
       content: "";
       z-index: -1;
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        94.68deg,
-        #f9e9ff 3.08%,
-        rgba(255, 255, 255, 0) 88.15%,
-        rgba(255, 255, 255, 0) 88.15%
-      );
       transform-origin: center;
+      background: linear-gradient(90.16deg, #000000 0.12%, #37648d 100%);
+
+      @media ${DEVICE.laptop} {
+        background: linear-gradient(
+          94.68deg,
+          #f9e9ff 3.08%,
+          rgba(255, 255, 255, 0) 88.15%,
+          rgba(255, 255, 255, 0) 88.15%
+        );
+      }
     }
   }
 
   .col-2 {
     color: ${COLORS.white};
+    @media ${DEVICE.maxlaptop} {
+      .content {
+        padding-top: 0rem;
+      }
+    }
 
     &:before {
       content: "";
@@ -94,8 +117,12 @@ export const RoadMapStyles = styled.section`
     .content > div {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      text-align: end;
+      text-align: start;
+      align-items: flex-start;
+      @media ${DEVICE.laptop} {
+        align-items: flex-end;
+        text-align: end;
+      }
     }
   }
 `
