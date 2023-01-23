@@ -17,12 +17,15 @@ export const GoalHelpStyles = styled.section`
     background-position: center center;
     position: absolute;
     content: "";
-    width: 90%;
-    height: 100%;
     left: 50%;
     right: 50%;
     transform: translateX(-50%);
     z-index: -3;
+    width: 100%;
+    height: 100%;
+    @media ${DEVICE.laptop} {
+      width: 90%;
+    }
   }
 
   .cols-cont {
@@ -44,8 +47,13 @@ export const GoalHelpStyles = styled.section`
       transform: translate(-50%, -50%);
 
       svg {
-        width: ${270 / 16}rem;
+        display: block;
         height: ${270 / 16}rem;
+        width: 13.875rem;
+
+        @media ${DEVICE.laptop} {
+          width: ${270 / 16}rem;
+        }
       }
     }
     .column {

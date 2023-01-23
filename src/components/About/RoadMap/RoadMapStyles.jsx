@@ -37,10 +37,17 @@ export const RoadMapStyles = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: ${85 / 16}rem;
+    padding-top: ${45 / 16}rem;
+    @media ${DEVICE.laptop} {
+      padding-top: ${85 / 16}rem;
+    }
 
     h2 {
-      padding-bottom: 76px;
+      padding-bottom: ${40 / 16}rem;
+
+      @media ${DEVICE.laptop} {
+        padding-bottom: ${76 / 16}rem;
+      }
     }
 
     first-type-of:h3 {
