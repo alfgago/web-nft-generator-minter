@@ -58,7 +58,8 @@ const NftBuilder = ({ artists }: any) => {
 
   useEffect(() => {
     if (contractAddress) {
-      // createCollection()
+      console.log("Contract: " + contractAddress)
+      createCollection()
     }
   }, [contractAddress])
 
@@ -179,7 +180,7 @@ const NftBuilder = ({ artists }: any) => {
   }
 
   const deployContract = async () => {
-    const data = {
+    const payload = {
       network: "goerli",
       ...formValues,
     }
@@ -188,7 +189,7 @@ const NftBuilder = ({ artists }: any) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     })
 
     if (!res.ok) {
