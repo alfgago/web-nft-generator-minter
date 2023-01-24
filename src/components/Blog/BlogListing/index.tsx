@@ -3,12 +3,14 @@ import React from "react"
 import { BlogListingStyles } from "@/components/Blog/BlogListing/BlogListingStyles"
 
 import BlogCard from "../BlogCard"
-const BlogListing = () => {
+const BlogListing = ({ allBlogs }: any) => {
   return (
     <BlogListingStyles>
       <div className="content">
         <div className="list">
-          <BlogCard />
+          {allBlogs.map((blog: any, index: number) => {
+            return <BlogCard key={"blog-list" + index} blog={blog} />
+          })}
         </div>
       </div>
     </BlogListingStyles>

@@ -4,12 +4,12 @@ import BlogFilter from "./BlogFilter"
 import BlogListing from "./BlogListing"
 import { BlogStyles } from "./BlogStyles"
 
-const Blog = () => {
+const Blog = ({ allBlogs }: any) => {
   return (
     <BlogStyles>
       <SimpleHeader title="Blog" textAlign="left" />
       <BlogFilter />
-      <BlogListing />
+      <BlogListing allBlogs={allBlogs} />
     </BlogStyles>
   )
 }

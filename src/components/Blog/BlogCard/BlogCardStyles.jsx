@@ -4,7 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 export const BlogCardStyles = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${558 / 16}rem;
+  width: calc(50% - 1rem);
 
   .col-title {
     background-color: #000000;
