@@ -169,6 +169,18 @@ export const CommonPill = styled.span`
       }
     }
   }
+  &.light-grey {
+    color: #fff;
+    background: #c2c2c2;
+    border: 2px solid #c2c2c2;
+    &:hover {
+      color: #858585;
+      background: transparent;
+      path {
+        fill: #858585;
+      }
+    }
+  }
 `
 
 export const AddButtonStyle = styled.button`

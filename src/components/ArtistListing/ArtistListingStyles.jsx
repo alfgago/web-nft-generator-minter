@@ -136,10 +136,22 @@ export const ListingStyles = styled.section`
   position: relative;
   padding: 2rem 0;
 
+  .content {
+    justify-content: center;
+    align-items: center;
+  }
+
   .list {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+    max-width: 43.75rem;
+    width: 100%;
+
+    @media ${DEVICE.laptop} {
+      max-width: 100%;
+    }
+
     .drop-card {
       width: 100%;
       margin-bottom: 0;

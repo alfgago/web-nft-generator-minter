@@ -22,12 +22,12 @@ export const BoxDrops = styled.div`
 export const DropRow = styled.div`
   display: flex;
   width: 100%;
-  font-size: ${22 / 16}rem;
   margin-bottom: ${35 / 16}rem;
   flex-direction: column;
   align-items: center;
 
   @media ${DEVICE.laptop} {
+    font-size: ${24 / 16}rem;
     flex-direction: row;
     align-items: revert;
   }
@@ -37,16 +37,17 @@ export const DropRow = styled.div`
     font-weight: 400;
     background: #000;
     color: ${COLORS.white};
-    padding: ${20 / 16}rem;
+    padding: ${16 / 16}rem;
     flex-wrap: wrap;
     width: 100%;
     @media ${DEVICE.laptop} {
+      padding: ${20 / 16}rem;
       width: ${227 / 16}rem;
     }
 
     .place {
       margin-top: 0.5rem;
-      font-size: 0.5em;
+      font-size: 0.6em;
       text-align: left;
       width: 100%;
     }
@@ -57,9 +58,10 @@ export const DropRow = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    background: #e1fdfd;
+    background: #ffd1fb;
+    padding: ${9 / 16}rem ${16 / 16}rem;
     @media ${DEVICE.laptop} {
-      width: ${156 / 16}rem;
+      width: ${196 / 16}rem;
     }
   }
   .collection {
@@ -90,15 +92,15 @@ export const DropRow = styled.div`
     align-items: center;
     justify-content: center;
     background: #f2f2f2;
-    font-size: ${19 / 16}rem;
+    padding: ${20 / 16}rem ${21 / 16}rem;
     font-weight: 600;
     margin-left: 0;
     width: 100%;
     flex: 1;
-
     @media ${DEVICE.laptop} {
       width: ${273 / 16}rem;
       margin-left: ${10 / 16}rem;
+      font-size: ${19 / 16}rem;
     }
   }
   .actions {
@@ -114,7 +116,7 @@ export const DropRow = styled.div`
     button {
       width: 100%;
       border: none;
-      font-size: ${16 / 16}rem;
+      font-size: ${12 / 16}rem;
       line-height: ${19 / 16}rem;
       padding: ${10 / 16}rem ${34 / 16}rem;
       margin: 0 ${2 / 16}rem;
@@ -126,7 +128,14 @@ export const DropRow = styled.div`
         background: #858585;
         cursor: pointer;
       }
+      @media ${DEVICE.laptop} {
+        font-size: ${18 / 16}rem;
+      }
+      @media ${DEVICE.maxmobile} {
+        padding: ${10 / 16}rem ${18 / 16}rem;
+      }
     }
+
     .variant {
       background: #c2c2c2;
     }
@@ -166,16 +175,17 @@ export const DropRow = styled.div`
       }
       .row-1 {
         display: flex;
-        height: 50%;
+        height: revert;
         @media ${DEVICE.laptop} {
           height: 100%;
         }
       }
       .name-mobile {
-        height: 50%;
+        height: ${51 / 16}rem;
         background-color: #f2f2f2;
         display: flex;
         align-items: center;
+        padding: ${9 / 16}rem ${16 / 16}rem;
         @media ${DEVICE.laptop} {
           display: none;
         }

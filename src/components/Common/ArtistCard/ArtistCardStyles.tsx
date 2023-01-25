@@ -9,6 +9,7 @@ export const ArtistCardStyles = styled.div`
   background: ${COLORS.white};
   box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
+  flex-direction: column;
 
   @media ${DEVICE.laptop} {
     &.home {
@@ -40,13 +41,19 @@ export const ArtistCardStyles = styled.div`
         }
       }
     }
+    flex-direction: row;
   }
 
   .image-container {
     position: relative;
     height: 0;
-    width: 50%;
+    width: 100%;
     padding-bottom: 50%;
+
+    @media ${DEVICE.laptop} {
+      width: 50%;
+    }
+
     img {
       position: absolute;
       display: block;
@@ -68,6 +75,8 @@ export const ArtistCardStyles = styled.div`
       right: 0;
       z-index: 1;
       padding: 1rem;
+      display: flex;
+      gap: 5px;
 
       svg {
         width: ${27 / 16}rem;
@@ -84,11 +93,15 @@ export const ArtistCardStyles = styled.div`
         cursor: pointer;
         transform: scale(1.05);
       }
+      @media ${DEVICE.laptop} {
+        display: revert;
+        gap: revert;
+      }
     }
   }
 
   .inner {
-    width: 50%;
+    width: 100%;
     padding: 20px 15px;
     color: #000;
 
