@@ -33,18 +33,20 @@ const BlogFilter = () => {
                   </CommonPill>
                 </li>
                 <li>
-                  <CommonPill className="clickable small">Tour Pass</CommonPill>
+                  <CommonPill className="clickable small">News</CommonPill>
+                </li>
+                <li>
+                  <CommonPill className="clickable small">Learn</CommonPill>
                 </li>
                 <li>
                   <CommonPill className="clickable small">
-                    Single Event
+                    Guest Post
                   </CommonPill>
                 </li>
                 <li>
-                  <CommonPill className="clickable small">Lottery</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Lifetime</CommonPill>
+                  <CommonPill className="clickable small">
+                    Safety & Security
+                  </CommonPill>
                 </li>
               </ul>
             </div>

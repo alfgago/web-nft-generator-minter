@@ -52,8 +52,12 @@ export const FilterStyles = styled.div`
           top: 100%;
           right: 0;
           width: 100vw;
-          height: 1.5rem;
           background: #0c0c0c;
+          height: 57.5vh;
+
+          @media ${DEVICE.laptop} {
+            height: 1.5rem;
+          }
         }
       }
       img {

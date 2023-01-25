@@ -10,6 +10,9 @@ const BlogCard = ({ blog }: any) => {
   const getSrc = attributes.featured_image.data[0].attributes.formats.small.url
   const imgSrc = getSrc ? getSrc : "/assets/img/sample2.jpg"
   const slug = attributes.slug
+  const excerpt = attributes.slug
+    ? attributes.slug
+    : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam iure autem asperiores saepe nostrum. Quaerat!"
   return (
     <BlogCardStyles>
       <div className="col-title">

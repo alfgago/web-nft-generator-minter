@@ -4,7 +4,10 @@ import { COLORS, DEVICE } from "@/styles/variables"
 export const BlogCardStyles = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(50% - 1rem);
+  width: 100%;
+  @media ${DEVICE.laptop} {
+    width: calc(50% - 1rem);
+  }
 
   .col-title {
     background-color: #000000;
@@ -13,6 +16,7 @@ export const BlogCardStyles = styled.div`
     gap: ${20 / 16}rem;
     display: flex;
     flex-direction: column;
+    min-height: ${200 / 16}rem;
 
     span {
       padding: ${9 / 16}rem ${14 / 16}rem;

@@ -9,6 +9,10 @@ export const BlogListingStyles = styled.section`
     gap: ${32 / 16}rem;
     flex-wrap: wrap;
     align-items: center;
+    flex-direction: column;
+    @media ${DEVICE.laptop} {
+      flex-direction: row;
+    }
   }
   .content {
     display: flex;
