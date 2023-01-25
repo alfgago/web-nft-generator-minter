@@ -1,10 +1,10 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import { Field, FieldArray, Form, Formik } from "formik"
 import { ReactSVG } from "react-svg"
 import sanitizeHtml from "sanitize-html"
-import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"

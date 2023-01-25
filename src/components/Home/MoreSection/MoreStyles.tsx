@@ -14,9 +14,6 @@ export const MoreStyles = styled.div`
     flex-direction: column;
     z-index: 5;
     align-items: flex-start;
-    @media ${DEVICE.laptop} {
-      display: block;
-    }
 
     h2 {
       max-width: ${940 / 16}rem;
@@ -33,11 +30,10 @@ export const MoreStyles = styled.div`
       order: 2;
       margin-bottom: 2rem;
       @media ${DEVICE.laptop} {
-        max-width: ${572 / 16}rem;
+        max-width: ${650 / 16}rem;
         font-size: ${36 / 16}rem;
-        margin-top: 3rem;
         margin-bottom: 3rem;
-        margin-left: 13rem;
+        margin-left: 0;
       }
       @media ${DEVICE.desktop} {
         margin-left: auto;

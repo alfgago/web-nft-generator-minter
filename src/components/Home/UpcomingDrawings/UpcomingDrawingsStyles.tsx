@@ -45,4 +45,29 @@ export const UpcomingDrawingsStyles = styled.section`
       }
     }
   }
+
+  .counter {
+    margin-top: ${25 / 16}rem;
+    display: flex;
+    gap: 0.5rem;
+    button {
+      display: block;
+      width: ${27 / 16}rem;
+      height: ${27 / 16}rem;
+      line-height: ${27 / 16}rem;
+      font-size: ${16 / 16}rem;
+      background: #fff;
+      color: #000;
+      margin: 0;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      transition: 0.5s ease all;
+      &.is-active-true {
+        background: #000;
+        color: #fff;
+      }
+      &:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0);
+      }
+    }
+  }
 `
