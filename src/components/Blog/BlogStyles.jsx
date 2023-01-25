@@ -24,7 +24,9 @@ export const BlogStyles = styled.div`
   }
 
   .title {
-    font-size: 2.25rem;
     font-weight: 600;
+    @media ${DEVICE.laptop} {
+      font-size: 2.25rem;
+    }
   }
 `

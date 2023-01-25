@@ -5,6 +5,7 @@ export const BlogCardStyles = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: #f3f3f3;
   @media ${DEVICE.laptop} {
     width: calc(50% - 1rem);
   }
