@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const BlogFilterStyles = styled.section`
-  padding-top: 0;
+  padding: 0;
 
   .triangle-container:before {
     background-color: #0c0c0c;
