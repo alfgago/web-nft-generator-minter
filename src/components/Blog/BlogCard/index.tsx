@@ -10,8 +10,8 @@ const BlogCard = ({ blog }: any) => {
   const getSrc = attributes.featured_image.data[0].attributes.formats.small.url
   const imgSrc = getSrc ? getSrc : "/assets/img/sample2.jpg"
   const slug = attributes.slug
-  const excerpt = attributes.slug
-    ? attributes.slug
+  const excerpt = attributes.excerpt
+    ? attributes.excerpt
     : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam iure autem asperiores saepe nostrum. Quaerat!"
   return (
     <BlogCardStyles>
@@ -25,10 +25,7 @@ const BlogCard = ({ blog }: any) => {
         <img src={imgSrc} alt="" />
       </div>
       <div className="col-summary">
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-          laboriosam!
-        </p>
+        <p>{excerpt}</p>
         <Link legacyBehavior href={"/resources/blog/" + slug}>
           <CommonPill className="clickable black small active">
             View post

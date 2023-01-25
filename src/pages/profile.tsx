@@ -8,8 +8,6 @@ import TourManagerLogin from "@/components/Tours/TourManagerLogin"
 const TourManagerPage = ({ user }: any) => {
   const title = "Tour Manager"
 
-  console.log(user)
-
   return (
     <>
       <Head>

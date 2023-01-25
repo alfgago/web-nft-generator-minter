@@ -30,6 +30,7 @@ const NftBuilder = ({ artists }: any) => {
   const [nftTitle, setNftTitle] = useState("")
   const [nftDescription, setNftDescription] = useState("")
   const [images, setImages] = useState([])
+  const [memberImage, setMemberImage] = useState("")
   const [activeStep, setActiveStep] = useState(1)
   const [uploading, setUploading] = useState(false)
   const [uploaded, setUploaded] = useState(0)
@@ -88,8 +89,6 @@ const NftBuilder = ({ artists }: any) => {
 
   const onFormSave = (values: any) => {
     nextStep()
-    const sel = artists.find((obj: any) => obj.id == values.artist)
-    setSelectedArtist(sel)
     setFormValues(values)
   }
 
@@ -217,6 +216,9 @@ const NftBuilder = ({ artists }: any) => {
               nftTitle={nftTitle}
               nftDescription={nftDescription}
               setNftDescription={setNftDescription}
+              setMemberImage={setMemberImage}
+              setSelectedArtist={setSelectedArtist}
+              selectedArtist={selectedArtist}
             />
           )}
           {activeStep == 2 && (
@@ -225,6 +227,7 @@ const NftBuilder = ({ artists }: any) => {
               nextAction={nextStep}
               previousAction={previousStep}
               artist={selectedArtist}
+              memberImage={memberImage}
             />
           )}
           {activeStep == 3 && (

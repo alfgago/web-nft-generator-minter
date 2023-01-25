@@ -23,7 +23,13 @@ const canvasWidth = 600
 const canvasHeight = 600
 const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
 
-const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
+const DesignStep = ({
+  previousAction,
+  nextAction,
+  artist,
+  memberImage = "",
+  nftName,
+}) => {
   const [templateFabric, setTemplateFabric] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
@@ -110,10 +116,7 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
     if (templateFabric) {
       let imgUrl = imageUrl
       if (!imageUrl.length) {
-        imgUrl = artist.attributes.banner.data.attributes.url
-          ? artist.attributes.banner.data.attributes.url
-          : ""
-        imgUrl = s3url(imgUrl)
+        imgUrl = s3url(memberImage)
       }
       templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
     }
@@ -126,9 +129,8 @@ const DesignStep = ({ previousAction, nextAction, artist, nftName }) => {
       if (!json) {
         json = false
       }
-
-      const artistImage = s3url(artist.attributes.banner.data.attributes.url)
-
+      const artistImage = s3url(memberImage)
+      console.log(artistImage)
       window.canvas = new fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,

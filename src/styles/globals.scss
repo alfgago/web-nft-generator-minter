@@ -146,8 +146,12 @@ form {
     line-height: 1.1;
     @media screen and (min-width: 1080px) {
       padding: 1rem 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
+  }
+
+  input::placeholder {
+    color: #717171;
   }
 
   &.cols-2 {
@@ -173,17 +177,20 @@ form {
       }
     }
   }
+}
 
-  &.in-popup {
-    margin-bottom: 1rem;
+.in-popup form {
+  margin-bottom: 1rem;
+  @media screen and (min-width: 1080px) {
     label {
-      @media screen and (min-width: 1080px) {
-        width: calc(50% - 1rem);
-        select,
-        textarea,
-        input {
-          font-size: 1.1rem;
-        }
+      width: calc(50% - 1rem);
+      select,
+      textarea,
+      input {
+        font-size: 1.1rem;
+      }
+      &.third {
+        width: calc(33% - 1rem);
       }
     }
   }

@@ -37,7 +37,6 @@ const GuestListNFT = ({ artist }: any) => {
   // Fetch the data in the useEffect hook
   useEffect(() => {
     function filterByPassType(item: any) {
-      console.log(item.attributes)
       return item.attributes.pass_type == types[selectedPassType].value
     }
 

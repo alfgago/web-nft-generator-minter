@@ -8,8 +8,6 @@ export const BlogListingStyles = styled.section`
     display: flex;
     gap: ${32 / 16}rem;
     flex-wrap: wrap;
-    align-items: center;
-    flex-direction: column;
     @media ${DEVICE.laptop} {
       flex-direction: row;
     }

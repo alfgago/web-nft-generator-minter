@@ -7,8 +7,10 @@ export const RoadMapStyles = styled.section`
   display: flex;
   position: relative;
   flex-direction: column;
+  text-shadow: 2px 2px 15px rgb(0 0 0);
   @media ${DEVICE.laptop} {
     flex-direction: row;
+    text-shadow: none;
   }
 
   .bg {
@@ -62,6 +64,12 @@ export const RoadMapStyles = styled.section`
       p {
         margin: 0;
         padding-top: 1rem;
+        font-size: 18px;
+        font-weight: 500;
+
+        @media ${DEVICE.laptop} {
+          font-size: ${18 / 16}rem;
+        }
       }
     }
 

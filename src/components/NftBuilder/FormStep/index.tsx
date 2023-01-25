@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Field, Form, Formik } from "formik"
 import DatePicker from "react-datepicker"
 import { useAccount, useConnect } from "wagmi"
@@ -20,11 +20,15 @@ const FormStep = ({
   nftDescription,
   setNftTitle,
   setNftDescription,
+  setMemberImage,
+  selectedArtist,
+  setSelectedArtist,
 }: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
     dropDate: Yup.date().required("Please enter the mint date"),
     artist: Yup.string().required("Please enter the artist"),
+    member: Yup.string().required("Please enter the member"),
     wallet: Yup.string().required("Please enter your wallet"),
     size: Yup.number()
       .max(500, "Field must be no bigger than 500")
@@ -41,7 +45,13 @@ const FormStep = ({
       then: Yup.number().required("Charity royalty is required").positive(),
     }),
   })
+  const [members, setMembers] = useState([])
 
+  useEffect(() => {
+    if (selectedArtist) {
+      setMembers(selectedArtist.attributes.members)
+    }
+  }, [selectedArtist])
   interface FormValues {
     name: string
     dropDate: Date
@@ -51,6 +61,7 @@ const FormStep = ({
     passType: string
     saleType: string
     artist: number
+    member: number
     show: string
     duration: number
     price: number
@@ -60,23 +71,54 @@ const FormStep = ({
   }
 
   const submit = async (values: FormValues) => {
-    console.log(values)
     nextAction(values)
   }
 
-  const generateName = (
+  const selectArtist = (
     artistId: number,
     passType: any,
     setFieldValue: any
   ) => {
+    setFieldValue("artist", artistId)
     const type = passType.charAt(0).toUpperCase() + passType.slice(1)
     const sel = artists.find((obj: any) => obj.id == artistId)
     let title = ""
     if (sel) {
       title = `${sel.attributes.name} ${type} Pass`
+      setSelectedArtist(sel)
+
+      const artistImg = sel.attributes.banner.data.attributes.url
+        ? sel.attributes.banner.data.attributes.url
+        : ""
+      setMemberImage(artistImg)
     }
     setFieldValue("name", title)
     setNftTitle(title)
+
+    window.canvas = false
+    window.uploadedNfts = 0
+    sessionStorage.removeItem("collectionData")
+    sessionStorage.removeItem("canvasJson")
+  }
+
+  const selectMember = (memberId: number, setFieldValue: any) => {
+    if (memberId) {
+      setFieldValue("member", memberId)
+      const member = members.find((m: any) => m.id == memberId)
+      const artistImg = selectedArtist.attributes.banner.data.attributes.url
+        ? selectedArtist.attributes.banner.data.attributes.url
+        : ""
+      const image = member.nft_default_image.data?.attributes
+        ? member.nft_default_image.data?.attributes.url
+        : artistImg
+      console.log(image)
+      setMemberImage(image)
+
+      window.canvas = false
+      window.uploadedNfts = 0
+      sessionStorage.removeItem("collectionData")
+      sessionStorage.removeItem("canvasJson")
+    }
   }
 
   const { address, isConnected } = useAccount()
@@ -114,8 +156,7 @@ const FormStep = ({
                 name="artist"
                 as="select"
                 onChange={(e: any) => {
-                  setFieldValue("artist", e.target.value),
-                    generateName(e.target.value, values.passType, setFieldValue)
+                  selectArtist(e.target.value, values.passType, setFieldValue)
                 }}
               >
                 <option value="">-</option>
@@ -123,6 +164,27 @@ const FormStep = ({
                   artists.map((item: any, index: number) => (
                     <option key={"artist-item" + index} value={item.id}>
                       {item.attributes.name}
+                    </option>
+                  ))}
+              </Field>
+            </label>
+            <label>
+              <span>Band Member</span>
+              {errors.member ? (
+                <div className="alert">{errors.member}</div>
+              ) : null}
+              <Field
+                name="member"
+                as="select"
+                onChange={(e: any) => {
+                  selectMember(e.target.value, setFieldValue)
+                }}
+              >
+                <option value="">-</option>
+                {members.length &&
+                  members.map((item: any, index: number) => (
+                    <option key={"member-item" + index} value={item.id}>
+                      {item.name}
                     </option>
                   ))}
               </Field>

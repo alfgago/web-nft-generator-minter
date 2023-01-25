@@ -7,11 +7,6 @@ const GoalHelp = ({ goal, helpArtists }: any) => {
   const headerAmount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   return (
     <GoalHelpStyles>
-      <img
-        src="/assets/img/top-triangle.png"
-        alt="border-top"
-        className="top-triangle"
-      />
       <div className="cols-cont">
         <div className="column col-1">
           <div className="title">

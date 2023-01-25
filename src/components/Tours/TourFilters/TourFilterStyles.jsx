@@ -19,6 +19,7 @@ export const TourFilterStyles = styled.section`
     text-decoration: underline;
     padding 0px;
     align-items: center;
+    display: none;
 
     li {
       cursor: pointer;

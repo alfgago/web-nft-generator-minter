@@ -32,7 +32,7 @@ const LotteryRow = ({ nft, color }: any) => {
           <span>{nft.attributes.winner_wallet}</span>
         </div>
         <div className="actions">
-          <Link legacyBehavior href="/" as="a">
+          <Link legacyBehavior href="/">
             <CommonPill className="clickable small">Make Offer</CommonPill>
           </Link>
         </div>

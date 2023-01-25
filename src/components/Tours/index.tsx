@@ -4,6 +4,7 @@ import TourFilters from "@/components/Tours/TourFilters"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
+import EditArtistProfile from "./EditArtistProfile"
 import GuestsList from "./GuestsList"
 import NftCollections from "./NftCollections"
 import { TourStyles } from "./TourStyles"
@@ -15,7 +16,9 @@ const Tours = () => {
         title="Tour Manager"
         backgroundColor="blue"
         textAlign="center"
-      />
+      >
+        <EditArtistProfile />
+      </SimpleHeader>
       <TourFilters />
       <NftCollections />
       <GuestsList />
