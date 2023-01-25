@@ -4,7 +4,6 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
-  console.log(item)
   return (
     <CollectionItemStyles>
       <div key={item.id} className="itemWrapper">

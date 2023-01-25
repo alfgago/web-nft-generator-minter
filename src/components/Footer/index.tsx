@@ -8,7 +8,7 @@ const Footer = () => {
     <FooterStyles>
       <section className="footer">
         <div className="content">
-          <Link as="a" href="/">
+          <Link href="/">
             <img
               src="/assets/img/long-logo.svg"
               alt="plusOne-vertical"
@@ -18,19 +18,13 @@ const Footer = () => {
           <FooterNav>
             <ul>
               <li>
-                <Link as="a" href="/artists">
-                  Explore Artists
-                </Link>
+                <Link href="/resources/artists">Explore Artists</Link>
               </li>
               <li>
-                <Link as="a" href="/passes">
-                  Explore Passes
-                </Link>
+                <Link href="/resources/passes">Explore Passes</Link>
               </li>
               <li>
-                <Link as="a" href="/about">
-                  About Us
-                </Link>
+                <Link href="/about">About Us</Link>
               </li>
             </ul>
           </FooterNav>

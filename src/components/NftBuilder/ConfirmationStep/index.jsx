@@ -17,6 +17,7 @@ const ConfirmationStep = ({
   previousAction,
   nextAction,
   uploading,
+  uploaded = 0,
 }) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
@@ -173,15 +174,18 @@ const ConfirmationStep = ({
 
       {uploading ? (
         <div className="collection-minting">
-          <span>
+          <div>
             Your collection is being minted, this may take a few minutes. Please
-            do not close this window
+            do not close this window.
+            <div className="uploaded">
+              {uploaded} / {previewImages.length}
+            </div>
             <img
               src="/assets/img/spinner.svg"
               className="spinner"
               alt="loader"
             />
-          </span>
+          </div>
         </div>
       ) : (
         <div className="buttons">

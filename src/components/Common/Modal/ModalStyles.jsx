@@ -38,6 +38,7 @@ export const ModalStyles = styled.section`
       height: 100%;
       border-radius: ${12 / 16}rem;
       margin-top: -3rem;
+      padding-top: 5rem;
     }
 
     a {
@@ -85,10 +86,11 @@ export const ModalStyles = styled.section`
 
     .modal-container {
       position: relative;
-      width: ${780 / 16}rem;
+      width: ${980 / 16}rem;
       height: auto;
       max-width: 95%;
       max-height: 95%;
+      overflow-y: auto;
     }
   }
 

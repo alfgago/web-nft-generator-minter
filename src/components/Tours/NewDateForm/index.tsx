@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
-import Strapi from "strapi-sdk-js"
+import { ReactSVG } from "react-svg"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -80,9 +80,7 @@ const NewDateForm = () => {
   ) => {
     createShow(values)
       .then((response) => {
-        // Clear the form and show a success message
         resetForm()
-        alert("Event created successfully")
       })
       .catch((error) => {
         // Show an error message
@@ -90,64 +88,76 @@ const NewDateForm = () => {
       })
       .finally(() => {
         setSubmitting(false)
+        window.location.reload()
       })
   }
   return (
     <NewDateFormStyles className="content">
       <div>
-        <div>
-          <p>Add a new date to the tour </p>
-        </div>
         <div className="form-container">
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={valuesSchema}
           >
-            {({ errors, touched, setFieldValue }) => (
-              <Form className="cols-2 in-popup">
-                <label>
-                  <span>Date</span>
-                  {errors.date && touched.date ? (
-                    <div className="alert">{errors.date}</div>
-                  ) : null}
-                  <Field name="date" type="date" placeholder="" />
-                </label>
-                <label>
-                  <span>Name</span>
-                  {errors.name && touched.name ? (
-                    <div className="alert">{errors.name}</div>
-                  ) : null}
-                  <Field name="name" type="text" placeholder="" />
-                </label>
-                <label className="full">
-                  <span>Venue</span>
-                  <LocationPicker setFieldValue={setFieldValue} />
-                </label>
-                <label>
-                  <span>Artist</span>
-                  {errors.artist && touched.artist ? (
-                    <div className="alert">{errors.artist}</div>
-                  ) : null}
+            {({ isSubmitting, errors, touched, setFieldValue }) => (
+              <div className="in-popup">
+                {!isSubmitting ? (
+                  <>
+                    <div>
+                      <p>Add a new date to the tour </p>
+                    </div>
+                    <Form className="cols-2">
+                      <label>
+                        <span>Date</span>
+                        {errors.date && touched.date ? (
+                          <div className="alert">{errors.date}</div>
+                        ) : null}
+                        <Field name="date" type="date" placeholder="" />
+                      </label>
+                      <label>
+                        <span>Name</span>
+                        {errors.name && touched.name ? (
+                          <div className="alert">{errors.name}</div>
+                        ) : null}
+                        <Field name="name" type="text" placeholder="" />
+                      </label>
+                      <label className="full">
+                        <span>Venue</span>
+                        <LocationPicker setFieldValue={setFieldValue} />
+                      </label>
+                      <label>
+                        <span>Artist</span>
+                        {errors.artist && touched.artist ? (
+                          <div className="alert">{errors.artist}</div>
+                        ) : null}
 
-                  <Field name="artist" as="select">
-                    <option value="">- Select an artist -</option>
-                    {artists.map((item: any) => {
-                      return (
-                        <option key={item.id} value={item.id}>
-                          {item.attributes.name}
-                        </option>
-                      )
-                    })}
-                  </Field>
-                </label>
+                        <Field name="artist" as="select">
+                          <option value="">- Select an artist -</option>
+                          {artists.map((item: any) => {
+                            return (
+                              <option key={item.id} value={item.id}>
+                                {item.attributes.name}
+                              </option>
+                            )
+                          })}
+                        </Field>
+                      </label>
 
-                <div className="buttons">
-                  <button type="submit">
-                    <CommonPill className="clickable">Confirm</CommonPill>
-                  </button>
-                </div>
-              </Form>
+                      <div className="buttons">
+                        <button type="submit">
+                          <CommonPill className="clickable">Confirm</CommonPill>
+                        </button>
+                      </div>
+                    </Form>
+                  </>
+                ) : (
+                  <div className="success">
+                    <ReactSVG src="/assets/icons/check-circle.svg" />
+                    Event created successfully
+                  </div>
+                )}
+              </div>
             )}
           </Formik>
         </div>

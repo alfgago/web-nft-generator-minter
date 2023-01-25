@@ -69,12 +69,12 @@ img {
 textarea,
 select,
 input {
-  -webkit-appearance: none;
   border-radius: 0;
 }
 
 form {
   label {
+    position: relative;
     width: 100%;
     margin-bottom: 1.8rem;
 
@@ -97,6 +97,36 @@ form {
     input {
       margin-top: 0.5rem;
     }
+
+    input[type="checkbox"] {
+      position: absolute;
+      width: 4rem;
+      height: 2rem;
+      left: 0;
+      top: 0;
+      margin-top: 1.5rem;
+      padding: 0;
+      -webkit-appearance: none;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2rem;
+        height: 100%;
+        background: #fff;
+        border-radius: 25px;
+        border: 1px solid #ddd;
+      }
+
+      &:checked {
+        background: rgb(41, 172, 100);
+        &:before {
+          left: 2rem;
+        }
+      }
+    }
   }
 
   select,
@@ -116,8 +146,12 @@ form {
     line-height: 1.1;
     @media screen and (min-width: 1080px) {
       padding: 1rem 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
+  }
+
+  input::placeholder {
+    color: #717171;
   }
 
   &.cols-2 {
@@ -131,20 +165,32 @@ form {
         &.full {
           width: 100%;
         }
+        &.third {
+          width: calc(33% - 1.8rem);
+        }
+        &.custom-third {
+          width: calc(50% - 8.8rem);
+        }
+        &.custom-third-1 {
+          width: 10rem;
+        }
       }
     }
   }
+}
 
-  &.in-popup {
-    margin-bottom: 1rem;
+.in-popup form {
+  margin-bottom: 1rem;
+  @media screen and (min-width: 1080px) {
     label {
-      @media screen and (min-width: 1080px) {
-        width: calc(50% - 1rem);
-        select,
-        textarea,
-        input {
-          font-size: 1.1rem;
-        }
+      width: calc(50% - 1rem);
+      select,
+      textarea,
+      input {
+        font-size: 1.1rem;
+      }
+      &.third {
+        width: calc(33% - 1rem);
       }
     }
   }

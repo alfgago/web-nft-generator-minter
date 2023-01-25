@@ -19,14 +19,16 @@ export const TourDateStyles = styled.div`
   }
 
   .tour-dates {
-    display: block;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${30 / 16}rem;
+
+    > .item {
+      width: 100%;
+    }
 
     @media ${DEVICE.laptop} {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      gap: ${30 / 16}rem;
-
       > .item {
         width: calc(33% - ${30 / 16}rem);
       }
@@ -58,10 +60,6 @@ export const TourDateStyles = styled.div`
       @media ${DEVICE.laptop} {
         margin-top: 0px;
       }
-    }
-
-    div > span {
-      font-size: 20px;
     }
 
     a.cog {

@@ -21,7 +21,6 @@ const CardPass = ({ pass, event }: any) => {
       ? pass.attributes.event.data.attributes
       : false
   }
-
   const title = pass.attributes.collection_name
   const price = pass.attributes.initial_price
   const size = pass.attributes.collection_size
@@ -50,7 +49,7 @@ const CardPass = ({ pass, event }: any) => {
         <>
           <Image
             src={s3url(imgCardPass())}
-            alt={pass.collection_name}
+            alt={title + " preview"}
             quality={90}
             width={300}
             height={300}
@@ -82,7 +81,9 @@ const CardPass = ({ pass, event }: any) => {
                 pass.attributes.artist.data.attributes.banner.data.attributes
                   .url
               )}
-              alt={pass.title}
+              alt={
+                pass.attributes.artist.data.attributes.name + " Plus One image"
+              }
               quality={90}
               width={300}
               height={300}

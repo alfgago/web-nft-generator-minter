@@ -13,7 +13,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "banner,profile_picture,passes,events",
+    populate: "banner,profile_picture,passes,events,members.nft_default_image",
     randomSort: random,
   }
   if (user) {

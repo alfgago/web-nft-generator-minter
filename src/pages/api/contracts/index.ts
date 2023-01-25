@@ -9,6 +9,9 @@ import "dotenv/config"
 // will leave that up to the team to decide
 type CreateContractRequestBody = {
   network: Network
+  name: string
+  wallet: string
+  price: number
   /* TODO - @zac fill in the form data shape */
 }
 
@@ -36,31 +39,37 @@ const transformCreateContractParams = (
   // this is an example client lib payload
   return {
     contract: {
-      asciiArt:
-        "super cool ascii art that goes in the source code of the smart contract",
-      contractName: "PascalCaseContractTitle",
+      asciiArt: `\n
+    ____  __           ____                __  ___           _         _   ______________     \n
+   / __ \/ /_  _______/ __ \____  ___     /  |/  /_  _______(_)____   / | / / ____/_  __/____ \n
+  / /_/ / / / / / ___/ / / / __ \/ _ \   / /|_/ / / / / ___/ / ___/  /  |/ / /_    / / / ___/ \n
+ / ____/ / /_/ (__  ) /_/ / / / /  __/  / /  / / /_/ (__  ) / /__   / /|  / __/   / / (__  )  \n
+/_/   /_/\__,_/____/\____/_/ /_/\___/  /_/  /_/\__,_/____/_/\___/  /_/ |_/_/     /_/ /____/   \n 
+`,
+      contractName: toPascalCase("P1" + body.name),
     },
     metadata: {
-      name: "Name",
-      symbol: "SICK",
-      maxSupply: 1000,
-      royaltyBips: 100,
+      name: body.name ?? "PlusOne Sample NFT",
+      symbol: "P1",
+      maxSupply: 500,
+      royaltyBips: 10000,
     },
     paymentSplits: [
       {
-        splitAddress: "0xB9b393363B7394f8766ca5B3c91e020471e830A0",
-        splitBips: 9000,
+        splitAddress:
+          body.wallet ?? "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Artist wallet
+        splitBips: 5000,
       },
       {
-        splitAddress: "0x5e7610698ba465973C11A607eAf43b7f1733D947",
-        splitBips: 1000,
+        splitAddress: "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Admin wallet
+        splitBips: 5000,
       },
     ],
     lazyMintSettings: {
-      maxMintableAtCurrentState: 100,
-      maxMintsPerWallet: 2,
+      maxMintableAtCurrentState: 500,
+      maxMintsPerWallet: 10,
       maxMintsPerTxn: 2,
-      mintPrice: "0.001",
+      mintPrice: (body.price ?? 0) + "",
     },
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }
@@ -79,4 +88,16 @@ export default async function handler(
     const msg = e instanceof Error ? e.message : e
     res.status(400).send({ err: "Bad Request:" + msg })
   }
+}
+
+function toPascalCase(string: string) {
+  return `${string}`
+    .toLowerCase()
+    .replace(new RegExp(/[-_]+/, "g"), " ")
+    .replace(new RegExp(/[^\w\s]/, "g"), "")
+    .replace(
+      new RegExp(/\s+(.)(\w*)/, "g"),
+      ($1, $2, $3) => `${$2.toUpperCase() + $3}`
+    )
+    .replace(new RegExp(/\w/), (s) => s.toUpperCase())
 }

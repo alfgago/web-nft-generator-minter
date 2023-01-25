@@ -20,7 +20,7 @@ const TourDates = ({ tourDates }: any) => {
           <h2>Verify upcoming shows</h2>
           <div>
             <CommonPill
-              className="clickable fill small pink"
+              className="clickable fill pink"
               onClick={() => setOpen(!isOpen)}
             >
               <ReactSVG

@@ -7,7 +7,7 @@ const MyNftsPage = () => {
   return (
     <>
       <Head>
-        <title>My Nfts - PlusOne</title>
+        <title>My Passes - PlusOne</title>
       </Head>
       <MyNfts />
     </>

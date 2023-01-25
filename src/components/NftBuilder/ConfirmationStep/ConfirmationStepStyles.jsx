@@ -83,13 +83,19 @@ export const ConfirmationStepStyles = styled.div`
     font-size: ${30 / 16}rem;
     font-weight: 300;
 
-    span {
+    > div {
       display: block;
       max-width: 90%;
       width: ${500 / 16}rem;
       padding: 1rem;
       background: #fff;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+      .uploaded {
+        display: block;
+        text-align: center;
+        font-size: 3rem;
+      }
     }
 
     img {

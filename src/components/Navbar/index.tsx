@@ -38,7 +38,7 @@ const Navbar = () => {
   const [openLogin, setOpenLogin] = useState(false)
 
   return (
-    <NavbarStyles hasColor={color} id="navbar">
+    <NavbarStyles hasColor={color} id="navbar" className="navbar">
       <div className={`content ${showMenu ? "is-active" : ""}`}>
         <Link legacyBehavior href="/">
           <a className="logo">
@@ -88,6 +88,9 @@ const Navbar = () => {
                     <Link href="/resources/artists">For Artists</Link>
                   </li>
                   <li>
+                    <Link href="/resources/about">About Us</Link>
+                  </li>
+                  <li>
                     <Link href="/resources/blog">Blog</Link>
                   </li>
                 </ul>
@@ -120,15 +123,15 @@ const Navbar = () => {
                   )}
                   {isConnected && (
                     <li className="li-account">
-                      <Link href="/my-nfts">
-                        <span>My NFTs</span>
+                      <Link href="/my-passes">
+                        <span>My Passes</span>
                       </Link>
                     </li>
                   )}
                   {!isConnected && (
                     <li className="li-account">
                       <a href="#" onClick={() => connect()}>
-                        My NFTs
+                        My Passes
                       </a>
                     </li>
                   )}
