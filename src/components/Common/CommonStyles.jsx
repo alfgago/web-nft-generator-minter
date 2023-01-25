@@ -92,6 +92,19 @@ export const CommonPill = styled.span`
     }
   }
 
+  &.white {
+    color: ${COLORS.black};
+    background: ${COLORS.white};
+    border: 2px solid ${COLORS.white};
+    &:hover {
+      color: ${COLORS.white};
+      background: transparent;
+      path {
+        fill: ${COLORS.white};
+      }
+    }
+  }
+
   &.blue {
     color: #fff;
     background: #1415ff;

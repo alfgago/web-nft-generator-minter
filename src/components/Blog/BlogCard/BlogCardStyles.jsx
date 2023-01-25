@@ -17,23 +17,6 @@ export const BlogCardStyles = styled.div`
     display: flex;
     flex-direction: column;
     min-height: ${200 / 16}rem;
-
-    span {
-      padding: ${9 / 16}rem ${14 / 16}rem;
-      width: fit-content;
-      background-color: #0131ff;
-      p {
-        font-size: ${16 / 16}rem;
-        font-weight: 100;
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    h2 {
-      font-size: ${36 / 16}rem;
-      font-weight: 600;
-    }
   }
 
   .col-img {
