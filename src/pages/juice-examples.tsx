@@ -12,7 +12,7 @@ const JuiceExamples = () => {
   const [signer, setSigner] = useState<null | JsonRpcSigner>(null)
   const [connectedAddress, setConnectedAddress] = useState("none")
   const [contractAddress, setContractAddress] = useState(
-    "0xD21Cd864C4B73660526526581631Ae3aD7230f0D"
+    "0xb2777bfe02f85305df83509383fc66cb4e5b2d46"
   )
 
   const {
@@ -139,6 +139,50 @@ const JuiceExamples = () => {
     alert("Set Sale State Transaction Hash: " + transactionHash)
   }
 
+  const setFolderStorage = async () => {
+    const res = await fetch("/api/contracts/setFolderStorage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        folderIPFSUrl:
+          "ipfs://bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u/", // can view contents here: https://nftstorage.link/ipfs/bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u
+      }),
+    })
+
+    if (!res.ok)
+      throw new Error("Set Folder Storage failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    alert("Set Folder Storage Transaction Hash: " + transactionHash)
+  }
+
+  const adminBulkMint = async () => {
+    const res = await fetch("/api/contracts/bulkMint", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        count: 3, // note: counts > 8 sometimes are not indexed by opensea, but they are still valid mints
+        toAddress: connectedAddress,
+      }),
+    })
+
+    if (!res.ok)
+      throw new Error("Admin Bulk Mint failed" + (await res.json()).toString())
+
+    const { transactionHash } = await res.json()
+
+    alert("Admin Bulk Mint Transaction Hash: " + transactionHash)
+  }
+
   return (
     <div style={{ padding: 100, display: "flex", flexDirection: "column" }}>
       <h1>Juice Examples</h1>
@@ -194,6 +238,25 @@ const JuiceExamples = () => {
         Airdrop NFT
       </button>
       <span>Sends the NFT held by the admin wallet to a specific user</span>
+
+      <hr />
+
+      <h4 style={h4Styles}>Set Folder Storage</h4>
+      <button style={buttonStyles} onClick={setFolderStorage}>
+        Set Folder Storage
+      </button>
+      <span>
+        Set the IPFS folder storage for all NFTs metadata for the contract (you
+        will need to upload them ahead of time)
+      </span>
+
+      <h4 style={h4Styles}>Admin Bulk Mint</h4>
+      <button style={buttonStyles} onClick={adminBulkMint}>
+        Bulk Mint NFTs (10)
+      </button>
+      <span>
+        Sends the NFT held by the admin wallet to the connected wallet
+      </span>
     </div>
   )
 }
