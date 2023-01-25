@@ -51,7 +51,7 @@ export const CommonPill = styled.span`
 
     &.small {
       font-size: ${18 / 16}rem;
-      line-height: 1.2;
+      line-height: ${18 / 16}rem;
       padding: ${7 / 16}rem ${15 / 16}rem;
 
       .icon {

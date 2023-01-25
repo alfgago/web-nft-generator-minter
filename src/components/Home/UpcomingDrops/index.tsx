@@ -1,8 +1,8 @@
 import Link from "next/link"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import DropCard from "@/components/Common/DropCard"
 
+import DropCard from "./DropCard"
 import { UpcomingDropsStyles } from "./UpcomingDropsStyles"
 
 const today = new Date()

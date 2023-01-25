@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react"
+import axios from "axios"
+
+import { CommonPill } from "@/components/Common/CommonStyles"
+import SimpleHeader from "@/components/Common/SimpleHeader"
+
 import ArtistCard from "../Common/ArtistCard"
-import { CommonPill } from "../Common/CommonStyles"
-import SimpleHeader from "../Common/SimpleHeader"
 
 import {
   ArtistListingStyles,
@@ -8,7 +12,23 @@ import {
   ListingStyles,
 } from "./ArtistListingStyles"
 
-const ArtistListing = ({ artists }: any) => {
+const ArtistListing = () => {
+  const [artists, setArtists] = useState([])
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/api/artists?limit=200&sort=name")
+        const artists = data.data
+        setArtists(artists)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <ArtistListingStyles>
       <SimpleHeader title="Artists" textAlign="left" />
@@ -25,7 +45,7 @@ const ArtistListing = ({ artists }: any) => {
         <section className="filter-section">
           <div className="abs">
             <div className="content">
-              <span className="title trap">Filter by pass type:</span>
+              <span className="title trap">Filter by genre:</span>
               <ul className="filters">
                 <li>
                   <CommonPill className="clickable small active">
@@ -33,18 +53,24 @@ const ArtistListing = ({ artists }: any) => {
                   </CommonPill>
                 </li>
                 <li>
-                  <CommonPill className="clickable small">Tour Pass</CommonPill>
+                  <CommonPill className="clickable small">Rock</CommonPill>
+                </li>
+                <li>
+                  <CommonPill className="clickable small">Pop</CommonPill>
+                </li>
+                <li>
+                  <CommonPill className="clickable small">Reggae</CommonPill>
+                </li>
+                <li>
+                  <CommonPill className="clickable small">Reggaeton</CommonPill>
+                </li>
+                <li>
+                  <CommonPill className="clickable small">Hip hop</CommonPill>
                 </li>
                 <li>
                   <CommonPill className="clickable small">
-                    Single Event
+                    Too many possible genres, need to tweak design
                   </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Lottery</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Lifetime</CommonPill>
                 </li>
               </ul>
             </div>

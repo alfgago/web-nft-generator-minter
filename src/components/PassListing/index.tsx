@@ -1,14 +1,34 @@
-import { CommonPill } from "../Common/CommonStyles"
-import DropCard from "../Common/DropCard"
+import { useEffect, useState } from "react"
+import axios from "axios"
+
+import { CommonPill } from "@/components/Common/CommonStyles"
+
 import SimpleHeader from "../Common/SimpleHeader"
 
+import PassCard from "./PassCard"
 import {
   BrowseStyles,
   ListingStyles,
   PassListingStyles,
 } from "./PassListingStyles"
 
-const PassListing = ({ passes }: any) => {
+const PassListing = () => {
+  const [passes, setPasses] = useState([])
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/api/passes?limit=200&sort=drop_date")
+        const passes = data.data
+        setPasses(passes)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <PassListingStyles>
       <SimpleHeader title="Pass Collections" textAlign="left" />
@@ -55,7 +75,7 @@ const PassListing = ({ passes }: any) => {
         <div className="content">
           <div className="list">
             {passes.map((item: any, index: number) => {
-              return <DropCard key={"lottery-row" + index} pass={item} />
+              return <PassCard key={"lottery-row" + index} pass={item} />
             })}
           </div>
         </div>

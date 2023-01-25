@@ -3,13 +3,13 @@ import axios from "axios"
 
 import PassListing from "@/components/PassListing"
 
-const Nfts = ({ passes }: any) => {
+const Nfts = () => {
   return (
     <>
       <Head>
         <title>Pass Collections - PlusOne</title>
       </Head>
-      <PassListing passes={passes.data} />
+      <PassListing />
     </>
   )
 }
@@ -17,20 +17,3 @@ const Nfts = ({ passes }: any) => {
 Nfts.requireAuth = false
 
 export default Nfts
-
-export const getServerSideProps = async () => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
-
-  const passesResponse = await axios.get(`${apiURL}/api/passes?populate=*`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  return {
-    props: {
-      passes: passesResponse.data,
-    },
-  }
-}

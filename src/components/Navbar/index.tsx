@@ -71,7 +71,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link legacyBehavior href="/passes">
-                      <a>By NFTs</a>
+                      <a>By Passes</a>
                     </Link>
                   </li>
                 </ul>
@@ -88,7 +88,7 @@ const Navbar = () => {
                     <Link href="/resources/artists">For Artists</Link>
                   </li>
                   <li>
-                    <Link href="/resources/about">About Us</Link>
+                    <Link href="/about">About Us</Link>
                   </li>
                   <li>
                     <Link href="/resources/blog">Blog</Link>

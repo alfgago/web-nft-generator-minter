@@ -8,6 +8,7 @@ const fetchData = async ({
   user = 0,
   type = false,
   future = true,
+  sort = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -39,6 +40,10 @@ const fetchData = async ({
   if (user) {
     // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
+  }
+  if (sort) {
+    // @ts-ignore
+    params["sort[0]"] = sort
   }
 
   const response = await axios.get(`${apiURL}/api/passes`, {

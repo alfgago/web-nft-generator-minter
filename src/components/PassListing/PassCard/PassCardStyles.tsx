@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const DropCardStyles = styled.div`
+export const PassCardStyles = styled.div`
   position: relative;
   display: flex;
   width: 100%;
@@ -112,13 +112,21 @@ export const DropCardStyles = styled.div`
         font-size: ${18 / 16}rem;
       }
     }
-
+    .date,
     .price {
-      font-size: ${18 / 16}rem;
+      font-size: ${16 / 16}rem;
       font-weight: 400;
       margin-bottom: 1rem;
       @media ${DEVICE.laptop} {
-        font-size: ${20 / 16}rem;
+        font-size: ${18 / 16}rem;
+      }
+      span {
+        font-size: ${14 / 16}rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        @media ${DEVICE.laptop} {
+          font-size: ${15 / 16}rem;
+        }
       }
     }
 

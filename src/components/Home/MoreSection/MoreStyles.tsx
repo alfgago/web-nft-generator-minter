@@ -35,9 +35,6 @@ export const MoreStyles = styled.div`
         margin-bottom: 3rem;
         margin-left: 0;
       }
-      @media ${DEVICE.desktop} {
-        margin-left: auto;
-      }
     }
 
     .btn {

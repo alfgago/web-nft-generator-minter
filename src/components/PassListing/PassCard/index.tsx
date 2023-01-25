@@ -1,19 +1,17 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
 import s3url from "@/utils/s3url"
 
-import { CommonPill } from "../CommonStyles"
-
-import { DropCardStyles } from "./DropCardStyles"
+import { PassCardStyles } from "./PassCardStyles"
 
 const today = new Date()
 const yesterday = new Date(today)
 yesterday.setDate(yesterday.getDate() - 1)
 
-const DropCard = ({ pass, classes = "" }: any) => {
+const PassCard = ({ pass, classes = "" }: any) => {
   const [timer, setTimer] = useState("")
   const dropDate = new Date(pass.attributes.drop_date)
   const upcoming = yesterday < dropDate
@@ -51,21 +49,26 @@ const DropCard = ({ pass, classes = "" }: any) => {
     pass.attributes.preview_image_url ??
     pass.attributes.collection_preview_image?.data?.attributes.url
 
-  const imageW =
-    pass.attributes.collection_preview_image?.data?.attributes.width ?? 600
-
-  const imageH =
-    pass.attributes.collection_preview_image?.data?.attributes.height ?? 600
-
   return (
-    <DropCardStyles className={"drop-card " + classes}>
+    <PassCardStyles className={"drop-card " + classes}>
       <div className="image-container">
         <img src={s3url(imageUrl)} alt="Collection Preview Image" />
       </div>
       <div className="inner">
         <div className="titles">
           <div className="title">{pass.attributes.collection_name}</div>
-          <div className="price">{pass.attributes.initial_price} ETH</div>
+          <div className="price">
+            <b>Floor: </b>
+            <span>{pass.attributes.initial_price} ETH</span>
+          </div>
+          <div className="date">
+            <b>Drop date: </b>
+            <span>{dropDate.toLocaleString("en-US")}</span>
+          </div>
+          <div className="date">
+            <b>Countdown: </b>
+            <span>{timer}</span>
+          </div>
         </div>
         {upcoming ? (
           <div className="actions with-time">
@@ -76,7 +79,6 @@ const DropCard = ({ pass, classes = "" }: any) => {
                 </CommonPill>
               </a>
             </Link>
-            <span className="time">{timer}</span>
           </div>
         ) : (
           <div className="actions no-time">
@@ -95,8 +97,8 @@ const DropCard = ({ pass, classes = "" }: any) => {
           </div>
         )}
       </div>
-    </DropCardStyles>
+    </PassCardStyles>
   )
 }
 
-export default DropCard
+export default PassCard
