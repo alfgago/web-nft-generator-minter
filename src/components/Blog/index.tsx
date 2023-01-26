@@ -14,7 +14,6 @@ const Blog = ({ allBlogs }: any) => {
   const [filteredBlogs, setFilteredBlogs] = useState([])
   const [blogs, setBlogs] = useState(allBlogs)
   const uniqueCat: { name: string }[] = [{ name: "All" }]
-
   const firstBlog = blogs[0]
 
   /*  useEffect(() => {
