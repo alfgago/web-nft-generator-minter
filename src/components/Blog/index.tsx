@@ -16,19 +16,6 @@ const Blog = ({ allBlogs }: any) => {
   const uniqueCat: { name: string }[] = [{ name: "All" }]
   const firstBlog = blogs[0]
 
-  /*  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { data } = await axios.get("/api/blog-posts?populate=*")
-        const getBlogs = data.data
-        setBlogs(getBlogs)
-      } catch (err: any) {
-        console.log(err)
-      }
-    }
-    fetchData()
-  }, [])*/
-
   const filterList = blogs.filter((element: any) => {
     // validate if the filter exist
     const isDuplicated = uniqueCat.some((el) => {
