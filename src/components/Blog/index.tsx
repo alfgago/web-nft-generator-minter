@@ -14,9 +14,10 @@ const Blog = ({ allBlogs }: any) => {
   const [filteredBlogs, setFilteredBlogs] = useState([])
   const [blogs, setBlogs] = useState(allBlogs)
   const uniqueCat: { name: string }[] = [{ name: "All" }]
-  // get category the from all the posts
 
-  useEffect(() => {
+  const firstBlog = blogs[0]
+
+  /*  useEffect(() => {
     async function fetchData() {
       try {
         const { data } = await axios.get("/api/blog-posts?populate=*")
@@ -27,7 +28,7 @@ const Blog = ({ allBlogs }: any) => {
       }
     }
     fetchData()
-  }, [])
+  }, [])*/
 
   const filterList = blogs.filter((element: any) => {
     // validate if the filter exist
@@ -52,15 +53,14 @@ const Blog = ({ allBlogs }: any) => {
         ? blogs
         : blogs.filter(filterByBlogCat)
     )
-    console.log(filteredBlogs)
   }, [selectedType])
 
   return (
     <BlogStyles>
       <SimpleHeader title="Blog" textAlign="left" />
       <BlogFilter categories={uniqueCat} onSelected={setSelectedType} />
-      <FirstBlog blog={blogs[0]} />
-      <BlogListing allBlogs={filteredBlogs} />
+      <FirstBlog blog={firstBlog} />
+      <BlogListing firstBlog={firstBlog} allBlogs={filteredBlogs} />
     </BlogStyles>
   )
 }
