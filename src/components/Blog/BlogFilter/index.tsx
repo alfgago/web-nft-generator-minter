@@ -6,7 +6,7 @@ import { CommonPill } from "../../Common/CommonStyles"
 
 import { BlogFilterStyles } from "./BlogFilterStyles"
 
-const BlogFilter = () => {
+const BlogFilter = ({ categories, onSelected, selected }: any) => {
   return (
     <BlogFilterStyles>
       <FilterStyles>
@@ -27,27 +27,16 @@ const BlogFilter = () => {
             <div className="content">
               <span className="title trap">Filter by:</span>
               <ul className="filters">
-                <li>
-                  <CommonPill className="clickable small active">
-                    All
-                  </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">News</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Learn</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">
-                    Guest Post
-                  </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">
-                    Safety & Security
-                  </CommonPill>
-                </li>
+                {categories.map((cat: any, index: number) => (
+                  <li
+                    key={"BlogCate" + index}
+                    onClick={() => onSelected(index)}
+                  >
+                    <CommonPill className="clickable small active">
+                      {cat.name}
+                    </CommonPill>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
