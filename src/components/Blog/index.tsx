@@ -54,10 +54,18 @@ const Blog = ({ allBlogs }: any) => {
     )
   }, [selectedType])
 
+  const onSelected = (index: any) => {
+    setSelectedType(index)
+  }
+
   return (
     <BlogStyles>
       <SimpleHeader title="Blog" textAlign="left" />
-      <BlogFilter categories={uniqueCat} onSelected={setSelectedType} />
+      <BlogFilter
+        categories={uniqueCat}
+        onSelected={onSelected}
+        selected={selectedType}
+      />
       <FirstBlog blog={firstBlog} />
       <BlogListing firstBlog={firstBlog} allBlogs={filteredBlogs} />
     </BlogStyles>

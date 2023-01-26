@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import { FilterStyles } from "@/components/Blog/BlogFilter/BlogFilterStyles"
 
@@ -7,6 +7,7 @@ import { CommonPill } from "../../Common/CommonStyles"
 import { BlogFilterStyles } from "./BlogFilterStyles"
 
 const BlogFilter = ({ categories, onSelected, selected }: any) => {
+  const [isActive, setIsActive] = useState(false)
   return (
     <BlogFilterStyles>
       <FilterStyles>
@@ -30,9 +31,12 @@ const BlogFilter = ({ categories, onSelected, selected }: any) => {
                 {categories.map((cat: any, index: number) => (
                   <li
                     key={"BlogCate" + index}
-                    onClick={() => onSelected(index)}
+                    onClick={() => {
+                      onSelected(index)
+                    }}
+                    className={`${selected == index ? "active" : ""}`}
                   >
-                    <CommonPill className="clickable small active">
+                    <CommonPill className="clickable small">
                       {cat.name}
                     </CommonPill>
                   </li>

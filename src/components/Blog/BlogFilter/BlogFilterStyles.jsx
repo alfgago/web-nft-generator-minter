@@ -7,6 +7,12 @@ export const BlogFilterStyles = styled.section`
   .triangle-container:before {
     background-color: #0c0c0c;
   }
+
+  .active {
+    span {
+      background-color: #a0a0a0;
+    }
+  }
 `
 
 export const FilterStyles = styled.div`
