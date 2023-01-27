@@ -17,6 +17,14 @@ export const BrowseStyles = styled.div`
   margin-top: -4.5rem;
   overflow: hidden;
 
+  .filters {
+    .clickable.active {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+  }
+
   .top-triangle {
     padding: 0;
 

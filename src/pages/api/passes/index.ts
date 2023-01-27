@@ -25,7 +25,7 @@ const fetchData = async ({
     populate: "artist.banner,event,tour,collection_preview_image",
     sort: "drop_date:desc",
   }
-  if (type) {
+  if (type && type != "All") {
     // @ts-ignore
     params["filters[pass_type][$eq]"] = type
   }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
+import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
 import s3url from "@/utils/s3url"
 
@@ -61,13 +62,11 @@ const DropCard = ({ pass, classes = "" }: any) => {
         </div>
         {upcoming ? (
           <div className="actions with-time">
-            <Link legacyBehavior href="/">
-              <a>
-                <CommonPill className="clickable blue small">
-                  Set a reminder
-                </CommonPill>
-              </a>
-            </Link>
+            <AddToCalendar
+              id={pass.id}
+              title={pass.attributes.collection_name}
+              date={dropDate}
+            />
             <span className="time">{timer}</span>
           </div>
         ) : (

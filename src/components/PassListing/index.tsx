@@ -14,12 +14,16 @@ import {
 
 const PassListing = () => {
   const [passes, setPasses] = useState([])
+  const [activeFilter, setActiveFilter] = useState("All")
+  const filters = ["All", "Tour", "Single", "Lottery", "Lifetime"]
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/passes?limit=200&sort=drop_date")
+        const { data } = await axios.get(
+          `/api/passes?limit=200&sort=drop_date&type=${activeFilter}`
+        )
         const passes = data.data
         setPasses(passes)
       } catch (err: any) {
@@ -27,7 +31,7 @@ const PassListing = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [activeFilter])
 
   return (
     <PassListingStyles>
@@ -47,25 +51,20 @@ const PassListing = () => {
             <div className="content">
               <span className="title trap">Filter by pass type:</span>
               <ul className="filters">
-                <li>
-                  <CommonPill className="clickable small active">
-                    All
-                  </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Tour Pass</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">
-                    Single Event
-                  </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Lottery</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Lifetime</CommonPill>
-                </li>
+                {filters.map((item: any, index: number) => {
+                  return (
+                    <li key={"filter-" + index}>
+                      <CommonPill
+                        className={`clickable small ${
+                          item == activeFilter ? "active" : ""
+                        }`}
+                        onClick={() => setActiveFilter(item)}
+                      >
+                        {item}
+                      </CommonPill>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>

@@ -27,7 +27,8 @@
     "src/utils/templateFabric.js",
     "src/components/NftBuilder/ConfirmationStep/index.jsx",
     "src/components/NftBuilder/DesignStep/index.jsx",
-    "src/utils/generateShapes.jsx"
+    "src/utils/generateShapes.jsx",
+    "src/components/Common/AddToCalendar/index.tsx"
   ],
   "exclude": ["node_modules"]
 }

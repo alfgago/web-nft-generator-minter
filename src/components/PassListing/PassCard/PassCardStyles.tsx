@@ -142,6 +142,24 @@ export const PassCardStyles = styled.div`
           padding: 3px 5px;
         }
       }
+      .atcb-button {
+        @media ${DEVICE.laptop} {
+          &:hover {
+            color: rgb(20, 21, 255) !important;
+            background: none;
+            border-color: rgb(20, 21, 255);
+            .atcb-text {
+              color: blue;
+            }
+          }
+          &.atcb-active {
+            .atcb-text,
+            .atcb-icon {
+              color: blue;
+            }
+          }
+        }
+      }
     }
 
     .time {

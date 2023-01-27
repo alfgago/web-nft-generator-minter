@@ -25,12 +25,12 @@ export default async function handler(
   res: NextApiResponse<BulkMintResponseBody>
 ) {
   try {
-    const { contractAddress, network, count, toAddress } = req.body
+    const { contractAddress, network, count } = req.body
 
     const transactionHash = await bulkMint({
       contractAddress,
       network,
-      toAddress,
+      toAddress: process.env.CUSTODIAL_WALLET_ADDRESS ?? "",
       count,
     })
 

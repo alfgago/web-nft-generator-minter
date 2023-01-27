@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
 import axios from "axios"
 import { NFTStorage } from "nft.storage"
 import pLimit from "p-limit"
-
-import { updateNFTMeta } from "@/utils/SmartContracts/assetMetaUpdate"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
@@ -16,7 +13,7 @@ import { NftBuilderStyles } from "./NftBuilderStyles"
 import StepsHeader from "./StepsHeader"
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
-const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 
 declare global {
   interface Window {
@@ -26,7 +23,6 @@ declare global {
 }
 
 const NftBuilder = ({ artists }: any) => {
-  const router = useRouter()
   const [nftTitle, setNftTitle] = useState("")
   const [nftDescription, setNftDescription] = useState("")
   const [images, setImages] = useState([])
@@ -107,13 +103,16 @@ const NftBuilder = ({ artists }: any) => {
       const batchSize = 10
       // Upload first image to use as preview
       const blob = b64toBlob(images[0])
-      const nftKey = await client.storeBlob(blob)
+      const nftKey = await storage.storeBlob(blob)
       // Creates the pass, to then associate NFTs to it
       const passResponse = await axios.post("/api/passes/create", {
         ...formValues,
+        contract_address: contractAddress,
         preview_image_url: "https://plusonemusic.io/ipfs/" + nftKey,
       })
 
+      // Array used to store the metadata files that will be later uploaded
+      const metadatas: any[] = []
       const limit = pLimit(batchSize)
       for (let i = 0; i < images.length; i += batchSize) {
         const batch = images.slice(i, i + batchSize)
@@ -121,7 +120,7 @@ const NftBuilder = ({ artists }: any) => {
           if (image) {
             setUploaded(i + j)
             return limit(() =>
-              uploadNft(image, passResponse.data.data.id, i + j)
+              uploadNft(image, passResponse.data.data.id, i + j, metadatas)
             )
           }
         })
@@ -129,14 +128,30 @@ const NftBuilder = ({ artists }: any) => {
         // NFT Storage limits to 10 requests every 5 seconds, add wait
         await new Promise((resolve) => setTimeout(resolve, 5 * 1000))
       }
-
+      const folderCid = await uploadFolder(metadatas)
+      await setFolderStorage(folderCid)
+      await bulkMint()
       setUploading(false)
     }
   }
 
-  const uploadNft = async (image: any, passId: any, index: any) => {
+  const uploadFolder = async (metadatas: any) => {
+    const { data } = await axios.post("/api/nfts/create-folder", {
+      folderName: contractAddress,
+      metadatas: JSON.stringify(metadatas),
+    })
+
+    return data.cid
+  }
+
+  const uploadNft = async (
+    image: any,
+    passId: any,
+    index: any,
+    metadatas: any
+  ) => {
     const blob = b64toBlob(image)
-    const nftKey = await client.storeBlob(blob)
+    const nftKey = await storage.storeBlob(blob)
     const name = formValues.name + " " + (index + 1)
     const imageUrl = "https://plusonemusic.io/ipfs/" + nftKey
     await axios.post("/api/nfts/create", {
@@ -148,39 +163,65 @@ const NftBuilder = ({ artists }: any) => {
 
     const metadata = {
       name: name,
-      image: imageUrl,
+      image: "ipfs://" + nftKey,
       description: "PlusOne NFT for " + nftTitle,
-      external_url: "https://plusonemusic.io",
-      attributes: [],
+      external_url: imageUrl,
+      attributes: [
+        {
+          pass_type: formValues.passType,
+        },
+      ],
     }
 
-    updateNFTMeta(metadata, nftKey)
-    mintNft(nftKey)
+    metadatas.push(metadata)
   }
 
-  const mintNft = async (metadataCid: string) => {
-    const res = await fetch("/api/mints", {
+  const setFolderStorage = async (folderCid: string) => {
+    const res = await fetch("/api/contracts/setFolderStorage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        metadataCid,
         contractAddress,
         network: "goerli",
+        folderIPFSUrl: "ipfs://" + folderCid + "/",
       }),
     })
 
-    if (!res.ok) throw new Error("Dev mint failed" + (await res.json()))
+    if (!res.ok)
+      throw new Error("Set Folder Storage failed" + (await res.json()))
 
     const { transactionHash } = await res.json()
 
-    alert("Mint Transaction Hash: " + transactionHash)
+    alert("Set Folder Storage Transaction Hash: " + transactionHash)
+  }
+
+  const bulkMint = async () => {
+    const res = await fetch("/api/contracts/bulkMint", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        count: formValues.size,
+      }),
+    })
+
+    if (!res.ok)
+      throw new Error("Admin Bulk Mint failed" + (await res.json()).toString())
+
+    const { transactionHash } = await res.json()
+
+    alert("Admin Bulk Mint Transaction Hash: " + transactionHash)
   }
 
   const deployContract = async () => {
     const payload = {
       network: "goerli",
+      premint: true,
       ...formValues,
     }
     const res = await fetch("/api/contracts", {
@@ -190,6 +231,7 @@ const NftBuilder = ({ artists }: any) => {
       },
       body: JSON.stringify(payload),
     })
+    console.log("testing")
 
     if (!res.ok) {
       const { err } = await res.json()

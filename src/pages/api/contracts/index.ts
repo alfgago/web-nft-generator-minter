@@ -12,6 +12,8 @@ type CreateContractRequestBody = {
   name: string
   wallet: string
   price: number
+  size: number
+  premint: boolean
   /* TODO - @zac fill in the form data shape */
 }
 
@@ -51,7 +53,7 @@ const transformCreateContractParams = (
     metadata: {
       name: body.name ?? "PlusOne Sample NFT",
       symbol: "P1",
-      maxSupply: 500,
+      maxSupply: body.size ?? 500,
       royaltyBips: 10000,
     },
     paymentSplits: [
@@ -61,15 +63,17 @@ const transformCreateContractParams = (
         splitBips: 5000,
       },
       {
-        splitAddress: "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Admin wallet
+        splitAddress:
+          process.env.CUSTODIAL_WALLET_ADDRESS ??
+          "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Admin wallet
         splitBips: 5000,
       },
     ],
     lazyMintSettings: {
-      maxMintableAtCurrentState: 500,
-      maxMintsPerWallet: 10,
-      maxMintsPerTxn: 2,
-      mintPrice: (body.price ?? 0) + "",
+      maxMintableAtCurrentState: body.size ?? 50,
+      maxMintsPerWallet: body.premint ? body.size : 50,
+      maxMintsPerTxn: body.premint ? body.size : 2,
+      mintPrice: body.premint ? "0" : `${body.price ?? 0}`, // if premint, price is free for custodial
     },
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }
@@ -82,6 +86,7 @@ export default async function handler(
   try {
     const { network } = req.body
     const createParams = transformCreateContractParams(req.body)
+    console.log(createParams)
     const requestId = await deployContract(createParams, network)
     res.status(200).json({ requestId: requestId })
   } catch (e) {

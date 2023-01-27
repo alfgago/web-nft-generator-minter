@@ -22,7 +22,9 @@ const createPass = async (values: any) => {
 
   const pass = await strapi.create("passes", {
     collection_name: values.name,
-    collection_key: "NO-KEY-YET",
+    contract_address: values.contract_address
+      ? values.contract_address
+      : "NO-KEY-YET",
     collection_size: values.size,
     drop_date: values.dropDate,
     initial_price: values.price,
