@@ -3,7 +3,7 @@ import { ReactSVG } from "react-svg"
 import Button from "../Common/Button"
 import SimpleHeader from "../Common/SimpleHeader"
 
-import { AboutStyles } from "./AboutStyles"
+import { AboutStyles, PoweredByStyles } from "./AboutStyles"
 import GoalHelp from "./GoalHelp"
 import RoadMap from "./RoadMap"
 
@@ -34,6 +34,11 @@ const About = ({ page }: any) => {
       <GoalHelp goal={goal} helpArtists={helpArtists} />
 
       <RoadMap columnData1={roadMapCol1} columnData2={roadMapCol2} />
+      <PoweredByStyles>
+        <div className="content">
+          <h2>Powered by JuiceLabs</h2>
+        </div>
+      </PoweredByStyles>
     </AboutStyles>
   )
 }

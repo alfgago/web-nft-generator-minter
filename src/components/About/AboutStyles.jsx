@@ -52,3 +52,14 @@ export const AboutStyles = styled.main`
     }
   }
 `
+
+export const PoweredByStyles = styled.section`
+  background-color: #181818;
+  color: ${COLORS.white};
+  z-index: 0;
+  position: relative;
+  padding: ${107 / 16}rem 0 ${97 / 16}rem 0;
+  h2 {
+    font-weight: 400;
+  }
+`
