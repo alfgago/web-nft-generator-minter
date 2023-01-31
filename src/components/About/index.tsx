@@ -6,6 +6,7 @@ import SimpleHeader from "../Common/SimpleHeader"
 import { AboutStyles, PoweredByStyles } from "./AboutStyles"
 import GoalHelp from "./GoalHelp"
 import RoadMap from "./RoadMap"
+import Team from "./Team"
 
 const About = ({ page }: any) => {
   const attributes = page.attributes
@@ -18,6 +19,26 @@ const About = ({ page }: any) => {
   const helpArtists = attributes.help_artists ? attributes.help_artists : ""
   const roadMapCol1 = attributes.roadMap[0].columnData
   const roadMapCol2 = attributes.roadMap[1].columnData
+
+  const teamList = [
+    {
+      row: [
+        { image: "/assets/img/sample2.jpg", name: "Alfredo", role: "Dev" },
+        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
+        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
+      ],
+    },
+    {
+      row: [
+        { image: "/assets/img/sample2.jpg", name: "Alfredo", role: "Dev" },
+        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
+        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
+      ],
+    },
+  ]
+
+  const retRow1 = teamList[0].row
+  const retRow2 = teamList[1].row
   return (
     <AboutStyles>
       <SimpleHeader title={title} textAlign="left">
@@ -39,6 +60,7 @@ const About = ({ page }: any) => {
           <h2>Powered by JuiceLabs</h2>
         </div>
       </PoweredByStyles>
+      <Team rowData1={retRow1} />
     </AboutStyles>
   )
 }
