@@ -23,9 +23,12 @@ export const RoadMapStyles = styled.section`
     align-items: center;
     width: 100%;
     height: 100%;
-
+    bottom: -4rem;
     svg {
-      width: 63rem;
+      width: 53rem;
+     display: block;
+    height: 53rem;
+}
     }
   }
   .col-1,

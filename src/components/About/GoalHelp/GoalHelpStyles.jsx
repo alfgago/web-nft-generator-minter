@@ -89,7 +89,7 @@ export const GoalHelpStyles = styled.section`
     .col-1 {
       .goal-desc {
         max-width: ${470 / 16}rem;
-        z-index: 1;
+        z-index: 3;
         margin: 0 2rem;
 
         @media ${DEVICE.laptop} {
@@ -99,7 +99,9 @@ export const GoalHelpStyles = styled.section`
       }
       &:before {
         content: "";
+        right: -1px;
         position: absolute;
+        z-index: 2;
         width: 100%;
         height: 100%;
         background: linear-gradient(
@@ -117,9 +119,9 @@ export const GoalHelpStyles = styled.section`
 
       &:before {
         content: "";
+        z-index: 2;
         width: 100%;
         height: 100%;
-        z-index: -1;
         position: absolute;
         background: linear-gradient(
           94.68deg,
@@ -142,7 +144,7 @@ export const GoalHelpStyles = styled.section`
 
       .help-desc {
         max-width: ${444 / 16}rem;
-        z-index: 1;
+        z-index: 3;
         margin: 0 2rem;
         @media ${DEVICE.laptop} {
           text-align: end;
