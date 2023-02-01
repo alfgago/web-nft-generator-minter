@@ -19,8 +19,11 @@ const About = ({ page }: any) => {
   const helpArtists = attributes.help_artists ? attributes.help_artists : ""
   const roadMapCol1 = attributes.roadMap[0].columnData
   const roadMapCol2 = attributes.roadMap[1].columnData
-
-  const teamList = [
+  const poweredTitle = attributes.poweredByTitle
+  const teamList = attributes.team
+  const teamDescrip = attributes.teamDescription
+  // console.log(attributes.team)
+  const teamArray = [
     {
       row: [
         { image: "/assets/img/sample2.jpg", name: "Alfredo", role: "Dev" },
@@ -37,8 +40,6 @@ const About = ({ page }: any) => {
     },
   ]
 
-  const retRow1 = teamList[0].row
-  const retRow2 = teamList[1].row
   return (
     <AboutStyles>
       <SimpleHeader title={title} textAlign="left">
@@ -57,10 +58,10 @@ const About = ({ page }: any) => {
       <RoadMap columnData1={roadMapCol1} columnData2={roadMapCol2} />
       <PoweredByStyles>
         <div className="content">
-          <h2>Powered by JuiceLabs</h2>
+          <h2>{poweredTitle}</h2>
         </div>
       </PoweredByStyles>
-      <Team rowData1={retRow1} />
+      <Team teamDescription={teamDescrip} team={teamList} />
     </AboutStyles>
   )
 }

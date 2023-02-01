@@ -7,7 +7,7 @@ export const TeamStyles = styled.section`
   justify-content: center;
   flex-direction: column;
 
-  .row1:before {
+  /* .row1:before {
     z-index: -1;
     top: 0;
     content: "";
@@ -42,19 +42,33 @@ export const TeamStyles = styled.section`
     );
     transform: rotate(-180deg);
     right: -24%;
-  }
+  } */
 `
 
 export const AboutTeamStyles = styled.div`
   display: flex;
-  align-items: center;
-  gap: ${154 / 16}rem;
-  padding-bottom: ${96 / 16}rem !important;
+  flex-direction: column;
+  padding-bottom: ${60 / 16}rem !important;
+
+  @media ${DEVICE.laptop} {
+    padding-bottom: ${96 / 16}rem !important;
+    gap: ${154 / 16}rem;
+    flex-direction: row;
+    align-items: center;
+  }
 `
 export const TeamListStyles = styled.div`
   display: flex;
   align-items: center;
   gap: ${33 / 16}rem;
-  row-gap: ${100 / 16}rem;
   flex-wrap: wrap;
+  /* row-gap: ${5 / 16}rem; */
+  justify-content: center;
+  flex-direction: column;
+
+  @media ${DEVICE.laptop} {
+    justify-content: start;
+    row-gap: ${100 / 16}rem;
+    flex-direction: row;
+  }
 `
