@@ -88,7 +88,7 @@ export const GoalHelpStyles = styled.section`
 
     .col-1 {
       .goal-desc {
-        max-width: ${470 / 16}rem;
+        max-width: ${444 / 16}rem;
         z-index: 3;
         margin: 0 2rem;
 

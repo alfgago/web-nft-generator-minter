@@ -7,14 +7,13 @@ export const TeamStyles = styled.section`
   justify-content: center;
   flex-direction: column;
 
-  /* .row1:before {
+  .row1:before {
     z-index: -1;
     top: 0;
     content: "";
     position: absolute;
     display: block;
     width: 100%;
-    height: 61%;
     right: -20px;
     background: linear-gradient(
       94.68deg,
@@ -23,6 +22,10 @@ export const TeamStyles = styled.section`
       rgba(255, 255, 255, 0) 88.15%
     );
     left: -24%;
+    height: 100%;
+    @media ${DEVICE.laptop} {
+      height: 26rem;
+    }
   }
 
   .row2:before {
@@ -32,7 +35,6 @@ export const TeamStyles = styled.section`
     position: absolute;
     display: block;
     width: 100%;
-    height: 61%;
     right: -20px;
     background: linear-gradient(
       94.68deg,
@@ -42,7 +44,11 @@ export const TeamStyles = styled.section`
     );
     transform: rotate(-180deg);
     right: -24%;
-  } */
+    height: 100%;
+    @media ${DEVICE.laptop} {
+      height: 26rem;
+    }
+  }
 `
 
 export const AboutTeamStyles = styled.div`

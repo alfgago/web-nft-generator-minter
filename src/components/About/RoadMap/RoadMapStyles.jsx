@@ -23,14 +23,43 @@ export const RoadMapStyles = styled.section`
     align-items: center;
     width: 100%;
     height: 100%;
-    bottom: -4rem;
+    /* bottom: -4rem; */
     svg {
+      /* display: block; */
       width: 53rem;
-     display: block;
-    height: 53rem;
-}
+      display: block;
+      height: 50rem;
     }
   }
+
+  .items-cont {
+    width: 100%;
+
+    .content {
+      padding-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .bg-2 {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* bottom: -4rem; */
+    svg {
+      /* display: block; */
+      display: block;
+      width: 25rem;
+      height: 36rem;
+    }
+  }
+
   .col-1,
   .col-2 {
     width: 100%;

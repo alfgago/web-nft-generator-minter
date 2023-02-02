@@ -20,8 +20,8 @@ const About = ({ page }: any) => {
   const roadMapCol1 = attributes.roadMap[0].columnData
   const roadMapCol2 = attributes.roadMap[1].columnData
   const poweredTitle = attributes.poweredByTitle
-  const teamList = attributes.team
-  const teamDescrip = attributes.teamDescription
+  const teamList = attributes.teamRow
+  const teamPageDescrip = attributes.team
   // console.log(attributes.team)
   const teamArray = [
     {
@@ -39,6 +39,12 @@ const About = ({ page }: any) => {
       ],
     },
   ]
+
+  const pageData = {
+    id: 1,
+    title: "title of the team",
+    description: "desc of the team",
+  }
 
   return (
     <AboutStyles>
@@ -61,7 +67,7 @@ const About = ({ page }: any) => {
           <h2>{poweredTitle}</h2>
         </div>
       </PoweredByStyles>
-      <Team teamDescription={teamDescrip} team={teamList} />
+      <Team pageData={pageData} teamList={teamArray} />
     </AboutStyles>
   )
 }

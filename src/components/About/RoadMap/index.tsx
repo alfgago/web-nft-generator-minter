@@ -7,10 +7,16 @@ const RoadMap = ({ columnData1, columnData2 }: any) => {
   return (
     <RoadMapStyles>
       <ReactSVG
-        src="/assets/icons/roadmap-bg.svg"
+        src="/assets/icons/stars-cloud.svg"
         wrapper="span"
         className="bg"
       />
+      <ReactSVG
+        src="/assets/icons/stars-group.svg"
+        wrapper="span"
+        className="bg-2"
+      />
+
       <div className="col-1">
         <div className="content">
           <div>
