@@ -5,9 +5,7 @@ import TeamCard from "../TeamCard"
 import { AboutTeamStyles, TeamListStyles, TeamStyles } from "./TeamStyles"
 const Team = ({ pageData, teamList }: any) => {
   const descripValidation = pageData.description
-    ? pageData.description
-    : "Our team is made up of a community of technology and music fans always looking for new members to add value to our platform. Reach out and tell us how you’d like to be a part of the team!"
-  const title = pageData.title ? pageData.title : "Team"
+  const title = pageData.title
   return (
     <TeamStyles>
       <AboutTeamStyles className="content">

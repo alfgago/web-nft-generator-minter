@@ -4,12 +4,15 @@ import { TeamCardStyles } from "./TeamCardStyles"
 const TeamCard = ({ cardData }: any) => {
   //   console.log(cardData.image.data.attributes.url)
   // const image = cardData.image.data.attributes.url
+  const image = cardData.image
+  const name = cardData.name
+  const role = cardData.role
   return (
     <TeamCardStyles>
-      <img src={cardData.image} alt="" />
+      <img src={image} alt="" />
 
-      <p>{cardData.name}</p>
-      <p>{cardData.role}</p>
+      <p>{name}</p>
+      <p>{role}</p>
     </TeamCardStyles>
   )
 }
