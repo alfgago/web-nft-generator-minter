@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import atob from "atob"
-import Blob from "cross-blob"
 import { NFTStorage } from "nft.storage"
 import Strapi from "strapi-sdk-js"
 

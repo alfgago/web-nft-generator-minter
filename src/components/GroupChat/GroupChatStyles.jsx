@@ -23,23 +23,23 @@ export const GroupChatStyles = styled.section`
     width: 350px;
     max-width: 350px;
     display: flex;
-    align-items: center; 
-    align-content: center; 
+    align-items: center;
+    align-content: center;
     justify-content: center;
   }
   .chat-container {
     height: 500px;
     width: 300px;
     flex-direction: column;
-    display: flex; 
+    display: flex;
   }
   .close-button {
     position: absolute;
     top: 0px;
     right: 0px;
-        svg {
-        width: 30px;
-        height: 30px;
+    svg {
+      width: 30px;
+      height: 30px;
     }
   }
   .chat-button {
@@ -47,8 +47,8 @@ export const GroupChatStyles = styled.section`
     right: 10px;
     bottom: 10px;
     svg {
-        width: 50px;
-        height: 50px;
+      width: 50px;
+      height: 50px;
     }
   }
 `
