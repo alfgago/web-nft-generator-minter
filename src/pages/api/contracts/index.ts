@@ -38,7 +38,28 @@ type CreateContractResponseBody =
 const transformCreateContractParams = (
   body: CreateContractRequestBody
 ): CreateContractParams => {
-  // this is an example client lib payload
+  const totalRoyaltyBlips = 10000
+  const splitBips =
+    process.env.ADMIN_WALLET_ADDRESS != body.wallet
+      ? totalRoyaltyBlips / 2
+      : totalRoyaltyBlips
+
+  const paymentSplits = [
+    {
+      splitAddress:
+        process.env.ADMIN_WALLET_ADDRESS ??
+        "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Admin wallet
+      splitBips: splitBips,
+    },
+  ]
+
+  if (process.env.ADMIN_WALLET_ADDRESS != body.wallet) {
+    paymentSplits.push({
+      splitAddress: body.wallet ?? "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Artist wallet
+      splitBips: splitBips,
+    })
+  }
+
   return {
     contract: {
       asciiArt: `\n
@@ -51,30 +72,19 @@ const transformCreateContractParams = (
       contractName: toPascalCase("P1" + body.name),
     },
     metadata: {
-      name: body.name ?? "PlusOne Sample NFT",
+      name: body.name || "PlusOne Sample NFT",
       symbol: "P1",
-      maxSupply: body.size ?? 500,
-      royaltyBips: 10000,
+      maxSupply: body.size || 500,
+      royaltyBips: totalRoyaltyBlips,
     },
-    paymentSplits: [
-      {
-        splitAddress:
-          body.wallet ?? "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Artist wallet
-        splitBips: 5000,
-      },
-      {
-        splitAddress:
-          process.env.CUSTODIAL_WALLET_ADDRESS ??
-          "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Admin wallet
-        splitBips: 5000,
-      },
-    ],
+    paymentSplits: paymentSplits,
     lazyMintSettings: {
-      maxMintableAtCurrentState: body.size ?? 50,
-      maxMintsPerWallet: body.premint ? body.size : 50,
-      maxMintsPerTxn: body.premint ? body.size : 2,
-      mintPrice: body.premint ? "0" : `${body.price ?? 0}`, // if premint, price is free for custodial
+      maxMintableAtCurrentState: 50,
+      maxMintsPerWallet: 50,
+      maxMintsPerTxn: 5,
+      mintPrice: `${body.price || 0}`,
     },
+    ownerAddress: process.env.ADMIN_WALLET_ADDRESS || "",
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }
 }

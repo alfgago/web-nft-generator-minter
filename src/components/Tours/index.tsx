@@ -7,6 +7,8 @@ import SimpleHeader from "../Common/SimpleHeader"
 import EditArtistProfile from "./EditArtistProfile"
 import GuestsList from "./GuestsList"
 import NftCollections from "./NftCollections"
+import GroupChat from "../GroupChat"
+
 import { TourStyles } from "./TourStyles"
 
 const Tours = () => {
@@ -22,6 +24,7 @@ const Tours = () => {
       <TourFilters />
       <NftCollections />
       <GuestsList />
+      <GroupChat/>
     </TourStyles>
   )
 }

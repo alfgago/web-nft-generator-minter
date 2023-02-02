@@ -92,7 +92,6 @@ export const FooterNav = styled.div`
       font-weight: 600;
       font-size: ${15 / 16}rem;
       text-transform: uppercase;
-      font-weight: 600;
       margin: ${5 / 16}rem ${30 / 16}rem;
     }
   }

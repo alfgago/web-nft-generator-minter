@@ -30,7 +30,7 @@ export default async function handler(
     const transactionHash = await bulkMint({
       contractAddress,
       network,
-      toAddress: process.env.CUSTODIAL_WALLET_ADDRESS ?? "",
+      toAddress: process.env.ADMIN_WALLET_ADDRESS ?? "",
       count,
     })
 

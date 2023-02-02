@@ -18,6 +18,8 @@ const ConfirmationStep = ({
   nextAction,
   uploading,
   uploaded = 0,
+  contractAddress,
+  contractDeployed,
 }) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
@@ -188,19 +190,28 @@ const ConfirmationStep = ({
           </div>
         </div>
       ) : (
-        <div className="buttons">
-          <button onClick={() => previousAction()}>
-            <CommonPill className="clickable">Previous</CommonPill>
-          </button>
-          <button onClick={() => onClickGenerate()}>
-            <CommonPill className="clickable">Generate Previews</CommonPill>
-          </button>
-          {render && (
-            <button onClick={() => nextAction(previewImages)}>
-              <CommonPill className="clickable fill">Confirm</CommonPill>
-            </button>
+        <>
+          {!contractDeployed && contractAddress ? (
+            <div className="buttons">
+              <button onClick={() => previousAction()}>
+                <CommonPill className="clickable">Previous</CommonPill>
+              </button>
+              <button onClick={() => onClickGenerate()}>
+                <CommonPill className="clickable">Generate Previews</CommonPill>
+              </button>
+              {render && (
+                <button onClick={() => nextAction(previewImages)}>
+                  <CommonPill className="clickable fill">Confirm</CommonPill>
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="deployment-success">
+              Your NFT passes contract has been deployed with Contract Address:{" "}
+              <span className="contract-address">{contractAddress}</span>
+            </div>
           )}
-        </div>
+        </>
       )}
     </ConfirmationStepStyles>
   )

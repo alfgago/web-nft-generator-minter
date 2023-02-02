@@ -31,7 +31,14 @@ const FormStep = ({
     member: Yup.string().required("Please enter the member"),
     wallet: Yup.string().required("Please enter your wallet"),
     size: Yup.number()
-      .max(500, "Field must be no bigger than 500")
+      .when("saleType", {
+        is: "Auction",
+        then: Yup.number().max(
+          10,
+          "Size must be no bigger than 10 when using Auction type"
+        ),
+        otherwise: Yup.number().max(500, "Size must be no bigger than 500"),
+      })
       .required("Please enter your collection size."),
     passType: Yup.string().required("Please enter your pass type"),
     saleType: Yup.string().required("Please enter your sale type"),
