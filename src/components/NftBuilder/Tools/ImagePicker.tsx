@@ -6,7 +6,6 @@ const ImagePicker = ({ setImageUrl }: any) => {
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0]
-      console.log(i)
       setImage(i)
       setImageUrl(URL.createObjectURL(i))
     }

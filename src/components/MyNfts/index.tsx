@@ -10,7 +10,6 @@ import OwnedLottery from "./OwnedLottery/OwnedLottery"
 import MyNftGuestsList from "./GuestsList"
 import { MyNtfStyles } from "./MyNftStyles"
 import ShowNfts from "./ShowMyNfts"
-import GroupChat from "../GroupChat"
 
 const MyNfts = () => {
   const { address, isConnected } = useAccount()
@@ -41,7 +40,6 @@ const MyNfts = () => {
           <ShowNfts />
           <MyNftGuestsList />
           <OwnedLottery />
-          <GroupChat />
         </>
       ) : (
         <section className="disconnected">

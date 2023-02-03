@@ -26,9 +26,12 @@ const RoadMap = ({ columnData1, columnData2 }: any) => {
                 <div key={"roadmap1-item" + index}>
                   <h3>{data.dateTitle ? data.dateTitle : ""}</h3>
                   <h3>{data.title ? data.title : ""}</h3>
-                  <p className="description">
-                    {data.description ? data.description : ""}
-                  </p>
+                  <p
+                    className="description"
+                    dangerouslySetInnerHTML={{
+                      __html: data.description ? data.description : "",
+                    }}
+                  />
                   <br />
                 </div>
               )
@@ -45,9 +48,12 @@ const RoadMap = ({ columnData1, columnData2 }: any) => {
                 <div key={"roadmap2-item" + index}>
                   <h3>{data.dateTitle ? data.dateTitle : ""}</h3>
                   <h3>{data.title ? data.title : ""}</h3>
-                  <p className="description">
-                    {data.description ? data.description : ""}
-                  </p>
+                  <p
+                    className="description"
+                    dangerouslySetInnerHTML={{
+                      __html: data.description ? data.description : "",
+                    }}
+                  />
                 </div>
               )
             })}

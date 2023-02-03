@@ -79,9 +79,9 @@ const transformCreateContractParams = (
     },
     paymentSplits: paymentSplits,
     lazyMintSettings: {
-      maxMintableAtCurrentState: 50,
-      maxMintsPerWallet: 50,
-      maxMintsPerTxn: 5,
+      maxMintableAtCurrentState: body.size > 50 ? 50 : 1,
+      maxMintsPerWallet: body.size > 50 ? 50 : 1,
+      maxMintsPerTxn: body.size > 5 ? 5 : 1,
       mintPrice: `${body.price || 0}`,
     },
     ownerAddress: process.env.ADMIN_WALLET_ADDRESS || "",

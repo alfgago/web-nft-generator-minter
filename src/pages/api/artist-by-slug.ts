@@ -16,7 +16,7 @@ const fetchData = async ({ slug }: any) => {
   })
 
   if (response.data) {
-    https: return {
+    return {
       props: {
         artist: response.data.data[0],
       },

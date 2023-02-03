@@ -15,4 +15,10 @@ export const NftBuilderStyles = styled.div`
     gap: ${15 / 16}rem;
     margin-top: ${50 / 16}rem;
   }
+
+  .contract-failed {
+    padding: 1rem 0;
+    font-size: 0.8em;
+    color: red;
+  }
 `

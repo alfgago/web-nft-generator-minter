@@ -27,13 +27,18 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
           alt="plusOne-vertical"
           className="watermark-logo"
         />
-        <div className="overlay" />
+        <div className="image-overlay" />
       </ArtistImage>
       <div className="content">
         <div className="artist-info">
           <h1 className="title">{title}</h1>
           <div className="name">{artistName}</div>
-          <div className="bio">{bio}</div>
+          <div
+            className="bio"
+            dangerouslySetInnerHTML={{
+              __html: bio,
+            }}
+          />
           <div className="socials">
             <a href="#" target="_blank" rel="noreferrer">
               <ReactSVG src="/assets/icons/spotify.svg" />

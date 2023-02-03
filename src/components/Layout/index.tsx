@@ -1,8 +1,9 @@
 import { useRouter } from "next/router"
 import { AnimatePresence, motion } from "framer-motion"
+import { useAccount } from "wagmi"
 
-import AnimatedCursor from "../Common/AnimatedCursor"
 import Footer from "../Footer"
+import GroupChat from "../GroupChat"
 import Navbar from "../Navbar"
 
 import { LayoutStyles } from "./LayoutStyles"
@@ -28,6 +29,7 @@ const onExitCompleteHandler = () => {
 
 const Layout = ({ children }: { children: JSX.Element }) => {
   const { asPath } = useRouter()
+  const { address, isConnected } = useAccount()
 
   return (
     <LayoutStyles className="page-content">
@@ -45,6 +47,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         </motion.div>
       </AnimatePresence>
       <Footer />
+      {isConnected && <GroupChat userId={address} />}
     </LayoutStyles>
   )
 }

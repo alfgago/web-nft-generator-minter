@@ -29,7 +29,11 @@ const GoalHelp = ({ goal, helpArtists }: any) => {
             </Marquee>
           </div>
           <div className="goal-desc">
-            <p>{goal.description}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: goal.description,
+              }}
+            />
           </div>
         </div>
         <ReactSVG className="star" src="/assets/icons/star.svg" />
@@ -54,7 +58,11 @@ const GoalHelp = ({ goal, helpArtists }: any) => {
             </Marquee>
           </div>
           <div className="help-desc">
-            <p>{helpArtists.description}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: helpArtists.description,
+              }}
+            />
           </div>
         </div>
       </div>

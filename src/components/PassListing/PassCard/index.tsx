@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import LazyLoad from "react-lazyload"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -16,6 +17,7 @@ const PassCard = ({ pass, classes = "" }: any) => {
   const [timer, setTimer] = useState("")
   const dropDate = new Date(pass.attributes.drop_date)
   const upcoming = yesterday < dropDate
+  console.log(pass)
 
   const _second = 1000
   const _minute = _second * 60
@@ -52,50 +54,48 @@ const PassCard = ({ pass, classes = "" }: any) => {
 
   return (
     <PassCardStyles className={"drop-card " + classes}>
-      <div className="image-container">
-        <img src={s3url(imageUrl)} alt="Collection Preview Image" />
-      </div>
-      <div className="inner">
-        <div className="titles">
-          <div className="title">{pass.attributes.collection_name}</div>
-          <div className="price">
-            <b>Floor: </b>
-            <span>{pass.attributes.initial_price} ETH</span>
-          </div>
-          <div className="date">
-            <b>Drop date: </b>
-            <span>{dropDate.toLocaleString("en-US")}</span>
-          </div>
-          <div className="date">
-            <b>Countdown: </b>
-            <span>{timer}</span>
-          </div>
+      <LazyLoad height={200}>
+        <div className="image-container">
+          <img src={s3url(imageUrl)} alt="Collection Preview Image" />
         </div>
-        {upcoming ? (
-          <div className="actions with-time">
-            <AddToCalendar
-              id={pass.id}
-              title={pass.attributes.collection_name}
-              date={dropDate}
-            />
+        <div className="inner">
+          <div className="titles">
+            <div className="title">{pass.attributes.collection_name}</div>
+            <div className="price">
+              <b>Floor: </b>
+              <span>{pass.attributes.initial_price} ETH</span>
+            </div>
+            <div className="date">
+              <b>Drop date: </b>
+              <span>{dropDate.toLocaleString("en-US")}</span>
+            </div>
+            <div className="date">
+              <b>Countdown: </b>
+              <span>{timer}</span>
+            </div>
           </div>
-        ) : (
-          <div className="actions no-time">
-            <Link legacyBehavior href="/">
-              <a>
+          {upcoming ? (
+            <div className="actions with-time">
+              <AddToCalendar
+                id={pass.id}
+                title={pass.attributes.collection_name}
+                date={dropDate}
+              />
+            </div>
+          ) : (
+            <div className="actions no-time">
+              <Link href="/">
                 <CommonPill className="clickable blue small">
                   Buy Now
                 </CommonPill>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/">
-              <a>
+              </Link>
+              <Link href={`/pass/${pass.attributes.contract_address}`}>
                 <CommonPill className="clickable blue small">View</CommonPill>
-              </a>
-            </Link>
-          </div>
-        )}
-      </div>
+              </Link>
+            </div>
+          )}
+        </div>
+      </LazyLoad>
     </PassCardStyles>
   )
 }

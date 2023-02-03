@@ -130,7 +130,6 @@ const DesignStep = ({
         json = false
       }
       const artistImage = s3url(memberImage)
-      console.log(artistImage)
       window.canvas = new fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,

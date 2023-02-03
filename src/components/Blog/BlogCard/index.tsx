@@ -23,7 +23,11 @@ const BlogCard = ({ blog }: any) => {
         <img src={imgSrc} alt="" />
       </div>
       <div className="col-summary">
-        <p>{excerpt}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: excerpt,
+          }}
+        />
         <Link legacyBehavior href={"/resources/blog/" + slug}>
           <CommonPill className="clickable black small active">
             View post

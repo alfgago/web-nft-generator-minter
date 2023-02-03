@@ -81,12 +81,7 @@ const FormStep = ({
     nextAction(values)
   }
 
-  const selectArtist = (
-    artistId: number,
-    passType: any,
-    setFieldValue: any
-  ) => {
-    setFieldValue("artist", artistId)
+  const generateName = (artistId: any, passType: any, setFieldValue: any) => {
     const type = passType.charAt(0).toUpperCase() + passType.slice(1)
     const sel = artists.find((obj: any) => obj.id == artistId)
     let title = ""
@@ -101,11 +96,33 @@ const FormStep = ({
     }
     setFieldValue("name", title)
     setNftTitle(title)
+  }
+
+  const selectArtist = (
+    artistId: number,
+    passType: any,
+    setFieldValue: any
+  ) => {
+    setFieldValue("artist", artistId)
+    generateName(artistId, passType, setFieldValue)
 
     window.canvas = false
     window.uploadedNfts = 0
     sessionStorage.removeItem("collectionData")
     sessionStorage.removeItem("canvasJson")
+  }
+
+  const selectPassType = (
+    artistId: number,
+    passType: any,
+    setFieldValue: any
+  ) => {
+    setFieldValue("passType", passType)
+    generateName(artistId, passType, setFieldValue)
+
+    if (passType == "Lottery") {
+      setFieldValue("saleType", "Auction")
+    }
   }
 
   const selectMember = (memberId: number, setFieldValue: any) => {
@@ -118,7 +135,6 @@ const FormStep = ({
       const image = member.nft_default_image.data?.attributes
         ? member.nft_default_image.data?.attributes.url
         : artistImg
-      console.log(image)
       setMemberImage(image)
 
       window.canvas = false
@@ -197,13 +213,6 @@ const FormStep = ({
               </Field>
             </label>
             <label>
-              <span>Collection size</span>
-              {errors.size && touched.size ? (
-                <div className="alert">{errors.size}</div>
-              ) : null}
-              <Field type="number" name="size" max="500" />
-            </label>
-            <label>
               <span>Pass Type</span>
               {errors.passType && touched.passType ? (
                 <div className="alert">{errors.passType}</div>
@@ -212,8 +221,7 @@ const FormStep = ({
                 name="passType"
                 as="select"
                 onChange={(e: any) => {
-                  setFieldValue("passType", e.target.value),
-                    generateName(values.artist, e.target.value, setFieldValue)
+                  selectPassType(values.artist, e.target.value, setFieldValue)
                 }}
               >
                 <option value="">-</option>
@@ -223,12 +231,6 @@ const FormStep = ({
                 <option value="Single Event">Single Event</option>
               </Field>
             </label>
-            {values.passType == "Lottery" && (
-              <label>
-                <span>How many winners per lottery?</span>
-                <Field type="number" name="winners" />
-              </label>
-            )}
             <label>
               <span>Sale Type</span>
               {errors.saleType && touched.saleType ? (
@@ -237,9 +239,24 @@ const FormStep = ({
               <Field name="saleType" as="select">
                 <option value="">-</option>
                 <option value="Auction">Auction</option>
-                <option value="Fixed">Fixed Price</option>
+                {values.passType != "Lottery" && (
+                  <option value="Fixed">Fixed Price</option>
+                )}
               </Field>
             </label>
+            <label>
+              <span>Collection size</span>
+              {errors.size && touched.size ? (
+                <div className="alert">{errors.size}</div>
+              ) : null}
+              <Field type="number" name="size" max="500" />
+            </label>
+            {values.passType == "Lottery" && (
+              <label>
+                <span>How many winners per lottery?</span>
+                <Field type="number" name="winners" />
+              </label>
+            )}
             <label>
               <span>Drop date</span>
               {errors.dropDate ? (

@@ -50,7 +50,7 @@ export const getServerSideProps = async ({ query }: any) => {
   })
 
   if (response.data) {
-    https: return {
+    return {
       props: {
         artist: response.data.data[0],
       },

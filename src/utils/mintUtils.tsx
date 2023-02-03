@@ -35,6 +35,8 @@ export const uploadNft = async (
     attributes: [
       {
         pass_type: formValues.passType,
+        member: formValues.member,
+        artist: formValues.artist,
       },
     ],
   }
@@ -92,7 +94,7 @@ export const bulkMint = async (contractAddress: string, size: string) => {
 
   const { transactionHash } = await res.json()
 
-  alert("Admin Bulk Mint Transaction Hash: " + transactionHash)
+  console.log("Admin Bulk Mint Transaction Hash: " + transactionHash)
 }
 
 export const deployContract = async (formValues: any) => {

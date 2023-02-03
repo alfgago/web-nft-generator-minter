@@ -16,7 +16,6 @@ const dateFormat = (value: any) => {
 }
 
 const CardPass = ({ pass, event }: any) => {
-  console.log(pass)
   if (!event) {
     event = pass.attributes.event.data
       ? pass.attributes.event.data.attributes

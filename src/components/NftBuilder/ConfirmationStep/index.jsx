@@ -20,6 +20,7 @@ const ConfirmationStep = ({
   uploaded = 0,
   contractAddress,
   contractDeployed,
+  errorMessage,
 }) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
@@ -174,11 +175,11 @@ const ConfirmationStep = ({
         <img src="/assets/img/spinner.svg" className="spinner" alt="loader" />
       )}
 
-      {uploading ? (
+      {uploading && !errorMessage ? (
         <div className="collection-minting">
           <div>
             Your collection is being minted, this may take a few minutes. Please
-            do not close this window.
+            do not close this window...
             <div className="uploaded">
               {uploaded} / {previewImages.length}
             </div>
@@ -191,7 +192,7 @@ const ConfirmationStep = ({
         </div>
       ) : (
         <>
-          {!contractDeployed && contractAddress ? (
+          {!contractDeployed || errorMessage ? (
             <div className="buttons">
               <button onClick={() => previousAction()}>
                 <CommonPill className="clickable">Previous</CommonPill>
@@ -209,6 +210,12 @@ const ConfirmationStep = ({
             <div className="deployment-success">
               Your NFT passes contract has been deployed with Contract Address:{" "}
               <span className="contract-address">{contractAddress}</span>
+            </div>
+          )}
+          {errorMessage && (
+            <div className="contract-failed">
+              The contract deployment has failed, please contact support team.{" "}
+              {errorMessage}
             </div>
           )}
         </>

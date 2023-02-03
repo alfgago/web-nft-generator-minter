@@ -143,8 +143,9 @@ export const ArtistImage = styled.div<Props>`
     }
   }
 
-  .overlay {
+  .image-overlay {
     display: none;
+    transform: none !important;
 
     @media ${DEVICE.laptop} {
       display: block;

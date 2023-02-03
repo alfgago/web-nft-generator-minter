@@ -29,7 +29,12 @@ const MoreSection = ({
               {buttonTitle}
             </CommonPill>
           </Link>
-          <div className="description">{description}</div>
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{
+              __html: description,
+            }}
+          />
         </div>
       </section>
     </MoreStyles>

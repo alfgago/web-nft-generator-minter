@@ -22,7 +22,6 @@ const About = ({ page }: any) => {
   const poweredTitle = attributes.poweredByTitle
   const teamList = attributes.teamRow
   const teamPageDescrip = attributes.team
-  // console.log(attributes.team)
   const teamArray = [
     {
       row: [
@@ -51,7 +50,11 @@ const About = ({ page }: any) => {
       <SimpleHeader title={title} textAlign="left">
         <div className="cont">
           <div className="cont-desc">
-            <p>{bannerDescription}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: bannerDescription,
+              }}
+            />
           </div>
           <ReactSVG
             className="white-star"

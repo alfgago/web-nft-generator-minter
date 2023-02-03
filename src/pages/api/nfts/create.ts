@@ -25,6 +25,8 @@ const createNft = async (values: any) => {
     image_url: values.image_url,
     ipfs_token: values.ipfs_token,
     pass_collection: values.pass_id,
+    metadata: values.metadata,
+    is_minted: values.premint,
   })
 
   return nft

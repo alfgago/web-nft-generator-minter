@@ -24,7 +24,11 @@ const FirstBlog = ({ blog }: any) => {
               <p>{category}</p>
             </span>
             <h2 className="title">{title}</h2>
-            <p>{excerpt}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: excerpt,
+              }}
+            />
             <Link legacyBehavior href={"/resources/blog/" + slug}>
               <CommonPill className="clickable small white active btn">
                 View post

@@ -18,7 +18,7 @@ const ChatModal = (props: any) => {
   const pubnub = new PubNub({
     publishKey: "pub-c-d8a00ae2-e3f9-453b-9f71-c90069a72351",
     subscribeKey: "sub-c-74dfeb98-4fe0-4319-b7c1-e9e3fd5f007a",
-    userId: "myFirstUser",
+    userId: props.userId,
   })
   const currentChannel = "Default"
   const theme = "light"
@@ -57,21 +57,19 @@ const ChatModal = (props: any) => {
   )
 }
 
-const ChatIcon = (props: any) => {
-  if (props.showChat) return null
+const ChatIcon = ({ setShowChat, showChat }: any) => {
+  if (showChat) return null
   return (
     <GroupChatStyles>
-      <button
-        className="chat-button"
-        onClick={() => props.setShowChat(!props.showChat)}
-      >
+      <button className="chat-button" onClick={() => setShowChat(!showChat)}>
         <ReactSVG src="/assets/icons/message-circle.svg" />
+        <span>Messaging</span>
       </button>
     </GroupChatStyles>
   )
 }
 
-const GroupChat: React.FC<{}> = () => {
+const GroupChat = ({ userId, type }: any) => {
   const [showChat, setShowChat] = useState<any>(false)
   const ref = useRef<any>(null)
 
@@ -89,12 +87,14 @@ const GroupChat: React.FC<{}> = () => {
   }, [])
 
   return (
-    <GroupChatStyles>
-      <div className="groupChat">
-        <ChatIcon showChat={showChat} setShowChat={setShowChat} />
-        <div ref={ref}>
-          <ChatModal showChat={showChat} setShowChat={setShowChat} />
-        </div>
+    <GroupChatStyles className="group-chat">
+      <ChatIcon showChat={showChat} setShowChat={setShowChat} />
+      <div ref={ref}>
+        <ChatModal
+          userId={userId}
+          showChat={showChat}
+          setShowChat={setShowChat}
+        />
       </div>
     </GroupChatStyles>
   )
