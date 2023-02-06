@@ -162,10 +162,32 @@ const NftBuilder = ({ artists }: any) => {
         } catch (error) {
           setErrorMessage(JSON.stringify(error))
         }
+      } else {
+        setSaleState()
       }
       setUploading(false)
       setContractDeployed(true)
     }
+  }
+
+  const setSaleState = async () => {
+    const res = await fetch("/api/contracts/setSaleState", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contractAddress,
+        network: "goerli",
+        saleState: 6, // the state that opens the sale
+      }),
+    })
+
+    if (!res.ok) throw new Error("Set Sale State failed" + (await res.json()))
+
+    const { transactionHash } = await res.json()
+
+    console.log("Set Sale State Transaction Hash: " + transactionHash)
   }
 
   return (

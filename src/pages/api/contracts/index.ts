@@ -84,6 +84,7 @@ const transformCreateContractParams = (
       maxMintsPerTxn: body.size > 5 ? 5 : 1,
       mintPrice: `${body.price || 0}`,
     },
+    operatorAddress: process.env.JUICE_WALLET_ADDRESS || "",
     ownerAddress: process.env.ADMIN_WALLET_ADDRESS || "",
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
   }

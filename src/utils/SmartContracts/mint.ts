@@ -63,7 +63,8 @@ export const userDynamicMint = async ({
 }: UserMintParams) => {
   const jc = createLocalJuiceClient(network, contractAddress, signer)
   await jc.waitForInit()
-
+  console.log(network)
+  console.log(signer)
   if (!jc.onDemandFacet) throw new Error("On Demand Minting contract not found")
 
   const minterAddress = await signer.getAddress()
