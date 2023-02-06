@@ -14,6 +14,8 @@ import {
 
 const ArtistListing = () => {
   const [artists, setArtists] = useState([])
+  const uniqueCat: { name: string }[] = [{ name: "All" }]
+  const [filters, setFilters] = useState(uniqueCat)
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
@@ -22,6 +24,22 @@ const ArtistListing = () => {
         const { data } = await axios.get("/api/artists?limit=200&sort=name")
         const artists = data.data
         setArtists(artists)
+
+        const filterList = artists.filter((element: any) => {
+          // validate if the filter exist
+          const isDuplicated = uniqueCat.some((el) => {
+            // console.log(el.name)
+            if (el.name === element.attributes.genre) {
+              return true
+            }
+            return false
+          })
+
+          if (!isDuplicated) {
+            uniqueCat.push({ name: element.attributes.genre })
+            setFilters(uniqueCat)
+          }
+        })
       } catch (err: any) {
         console.log(err)
       }
@@ -47,31 +65,15 @@ const ArtistListing = () => {
             <div className="content">
               <span className="title trap">Filter by genre:</span>
               <ul className="filters">
-                <li>
-                  <CommonPill className="clickable small active">
-                    All
-                  </CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Rock</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Pop</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Reggae</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Reggaeton</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">Hip hop</CommonPill>
-                </li>
-                <li>
-                  <CommonPill className="clickable small">
-                    Too many possible genres, need to tweak design
-                  </CommonPill>
-                </li>
+                {filters.map((item: any, index: number) => {
+                  return (
+                    <li key={"filter-artist" + index}>
+                      <CommonPill className="clickable small active">
+                        {item.name}
+                      </CommonPill>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>
