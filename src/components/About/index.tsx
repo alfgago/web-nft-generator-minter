@@ -22,28 +22,6 @@ const About = ({ page }: any) => {
   const poweredTitle = attributes.poweredByTitle
   const teamList = attributes.teamRow
   const teamPageDescrip = attributes.team
-  const teamArray = [
-    {
-      row: [
-        { image: "/assets/img/sample2.jpg", name: "Alfredo", role: "Dev" },
-        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
-        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
-      ],
-    },
-    {
-      row: [
-        { image: "/assets/img/sample2.jpg", name: "Alfredo", role: "Dev" },
-        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
-        { image: "/assets/img/sample2.jpg", name: "Esteban", role: "Dessing" },
-      ],
-    },
-  ]
-
-  const pageData = {
-    id: 1,
-    title: "title of the team",
-    description: "desc of the team",
-  }
 
   return (
     <AboutStyles>
@@ -70,7 +48,7 @@ const About = ({ page }: any) => {
           <h2>{poweredTitle}</h2>
         </div>
       </PoweredByStyles>
-      <Team pageData={pageData} teamList={teamArray} />
+      <Team pageData={teamPageDescrip} teamList={teamList} />
     </AboutStyles>
   )
 }

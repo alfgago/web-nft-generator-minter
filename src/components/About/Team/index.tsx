@@ -17,10 +17,10 @@ const Team = ({ pageData, teamList }: any) => {
       {teamList.map((item: any, index: number) => {
         return (
           <TeamListStyles
-            key={"teamlist" + 1}
+            key={"teamlist" + index}
             className={`content ${index % 2 === 0 ? "row1" : "row2"}`}
           >
-            {item.row.map((member: any, indexM: number) => {
+            {item.members.map((member: any, indexM: number) => {
               return <TeamCard key={"team-card" + indexM} cardData={member} />
             })}
           </TeamListStyles>

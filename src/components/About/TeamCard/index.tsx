@@ -2,9 +2,7 @@ import React from "react"
 
 import { TeamCardStyles } from "./TeamCardStyles"
 const TeamCard = ({ cardData }: any) => {
-  //   console.log(cardData.image.data.attributes.url)
-  // const image = cardData.image.data.attributes.url
-  const image = cardData.image
+  const image = cardData.image.data.attributes.url
   const name = cardData.name
   const role = cardData.role
   return (
