@@ -16,6 +16,8 @@ const ArtistListing = () => {
   const [artists, setArtists] = useState([])
   const uniqueCat: { name: string }[] = [{ name: "All" }]
   const [filters, setFilters] = useState(uniqueCat)
+  const [selectedType, setSelectedType] = useState(0)
+  const [filteredArtists, setFilteredArtists] = useState([])
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
@@ -47,6 +49,23 @@ const ArtistListing = () => {
     fetchData()
   }, [])
 
+  useEffect(() => {
+    function filterByGenre(item: any) {
+      return item.attributes.genre == filters[selectedType].name
+    }
+
+    setFilteredArtists(
+      filters[selectedType].name == "All"
+        ? artists
+        : artists.filter(filterByGenre)
+    )
+  }, [selectedType])
+
+  const onSelected = (index: any) => {
+    setSelectedType(index)
+  }
+  console.log(filters[selectedType].name)
+
   return (
     <ArtistListingStyles>
       <SimpleHeader title="Artists" textAlign="left" />
@@ -67,7 +86,12 @@ const ArtistListing = () => {
               <ul className="filters">
                 {filters.map((item: any, index: number) => {
                   return (
-                    <li key={"filter-artist" + index}>
+                    <li
+                      key={"filter-artist" + index}
+                      onClick={() => {
+                        onSelected(index)
+                      }}
+                    >
                       <CommonPill className="clickable small active">
                         {item.name}
                       </CommonPill>
@@ -82,7 +106,7 @@ const ArtistListing = () => {
       <ListingStyles>
         <div className="content">
           <div className="list">
-            {artists.map((item: any, index: number) => {
+            {filteredArtists.map((item: any, index: number) => {
               return <ArtistCard key={"artist" + index} artist={item} />
             })}
           </div>
