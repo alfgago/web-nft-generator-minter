@@ -6,6 +6,7 @@ const fetchData = async ({
   limit = 2,
   random = false,
   user = 0,
+  genre = 0,
   sort = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
@@ -20,6 +21,10 @@ const fetchData = async ({
   if (user) {
     // @ts-ignore
     params["filters[user][id][$eq]"] = user
+  }
+  if (genre && genre != "All") {
+    // @ts-ignore
+    params["filters[genre][$eq]"] = genre
   }
   if (sort) {
     // @ts-ignore

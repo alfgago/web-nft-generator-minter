@@ -10,6 +10,11 @@ export const PassListingStyles = styled.div`
   .simple-header {
     padding-bottom: 4.5rem;
   }
+
+  .loading,
+  .loadmore {
+    text-align: center;
+  }
 `
 
 export const BrowseStyles = styled.div`

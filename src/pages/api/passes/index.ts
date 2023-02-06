@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 
 const fetchData = async ({
-  page,
+  page = 1,
   limit = 6,
   artist = 0,
   user = 0,

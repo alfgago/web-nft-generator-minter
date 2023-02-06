@@ -16,22 +16,34 @@ const PassListing = () => {
   const [passes, setPasses] = useState([])
   const [activeFilter, setActiveFilter] = useState("All")
   const filters = ["All", "Tour", "Single", "Lottery", "Lifetime"]
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(true)
+  const [pageCount, setPageCount] = useState(1)
 
-  // Fetch the data in the useEffect hook
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(
-          `/api/passes?limit=200&sort=drop_date&type=${activeFilter}`
-        )
-        const passes = data.data
-        setPasses(passes)
-      } catch (err: any) {
-        console.log(err)
-      }
+  const fetchData = async (prevPasses = [], nextPage = 1) => {
+    try {
+      setLoading(true)
+      setPage(nextPage)
+      const { data } = await axios.get(
+        `/api/passes?limit=10&sort=drop_date&type=${activeFilter}&page=${nextPage}`
+      )
+      const nextPasses = data.data
+      setPasses(prevPasses.concat(nextPasses))
+      setPageCount(data.meta.pagination.pageCount)
+      setLoading(false)
+    } catch (err: any) {
+      console.log(err)
     }
-    fetchData()
+  }
+
+  useEffect(() => {
+    fetchData([], 1)
   }, [activeFilter])
+
+  const loadMore = () => {
+    const nextPage = page + 1
+    fetchData(passes, nextPage)
+  }
 
   return (
     <PassListingStyles>
@@ -77,6 +89,25 @@ const PassListing = () => {
               return <PassCard key={"lottery-row" + index} pass={item} />
             })}
           </div>
+          {page < pageCount ? (
+            <div className="loadmore">
+              <span onClick={() => loadMore()}>
+                <CommonPill className="clickable small">Load More</CommonPill>
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {loading && (
+            <div className="loading">
+              <img
+                src="/assets/img/spinner.svg"
+                className="spinner"
+                alt="loader"
+              />
+            </div>
+          )}
         </div>
       </ListingStyles>
     </PassListingStyles>

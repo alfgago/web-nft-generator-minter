@@ -141,6 +141,11 @@ export const ListingStyles = styled.section`
     align-items: center;
   }
 
+  .loading,
+  .loadmore {
+    text-align: center;
+  }
+
   .list {
     display: flex;
     flex-wrap: wrap;

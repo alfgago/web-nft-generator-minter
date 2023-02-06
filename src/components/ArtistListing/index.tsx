@@ -14,57 +14,36 @@ import {
 
 const ArtistListing = () => {
   const [artists, setArtists] = useState([])
-  const uniqueCat: { name: string }[] = [{ name: "All" }]
-  const [filters, setFilters] = useState(uniqueCat)
-  const [selectedType, setSelectedType] = useState(0)
-  const [filteredArtists, setFilteredArtists] = useState([])
+  const [activeFilter, setActiveFilter] = useState("All")
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(true)
+  const [pageCount, setPageCount] = useState(1)
+  const filters = ["All", "Pop", "Rock", "Hip Hop", "EDM", "Latin"]
 
-  // Fetch the data in the useEffect hook
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get("/api/artists?limit=200&sort=name")
-        const artists = data.data
-        setArtists(artists)
-
-        const filterList = artists.filter((element: any) => {
-          // validate if the filter exist
-          const isDuplicated = uniqueCat.some((el) => {
-            // console.log(el.name)
-            if (el.name === element.attributes.genre) {
-              return true
-            }
-            return false
-          })
-
-          if (!isDuplicated) {
-            uniqueCat.push({ name: element.attributes.genre })
-            setFilters(uniqueCat)
-          }
-        })
-      } catch (err: any) {
-        console.log(err)
-      }
+  const fetchData = async (prevArtists = [], nextPage = 1) => {
+    try {
+      setLoading(true)
+      setPage(nextPage)
+      const { data } = await axios.get(
+        `/api/artists?limit=10&sort=name&genre=${activeFilter}&page=${nextPage}`
+      )
+      const nextArtists = data.data
+      setArtists(prevArtists.concat(nextArtists))
+      setPageCount(data.meta.pagination.pageCount)
+      setLoading(false)
+    } catch (err: any) {
+      console.log(err)
     }
-    fetchData()
-  }, [])
-
-  useEffect(() => {
-    function filterByGenre(item: any) {
-      return item.attributes.genre == filters[selectedType].name
-    }
-
-    setFilteredArtists(
-      filters[selectedType].name == "All"
-        ? artists
-        : artists.filter(filterByGenre)
-    )
-  }, [selectedType])
-
-  const onSelected = (index: any) => {
-    setSelectedType(index)
   }
-  console.log(filters[selectedType].name)
+
+  useEffect(() => {
+    fetchData([], 1)
+  }, [activeFilter])
+
+  const loadMore = () => {
+    const nextPage = page + 1
+    fetchData(artists, nextPage)
+  }
 
   return (
     <ArtistListingStyles>
@@ -86,14 +65,14 @@ const ArtistListing = () => {
               <ul className="filters">
                 {filters.map((item: any, index: number) => {
                   return (
-                    <li
-                      key={"filter-artist" + index}
-                      onClick={() => {
-                        onSelected(index)
-                      }}
-                    >
-                      <CommonPill className="clickable small active">
-                        {item.name}
+                    <li key={"filter-artist" + index}>
+                      <CommonPill
+                        className={`clickable small ${
+                          item == activeFilter ? "active" : ""
+                        }`}
+                        onClick={() => setActiveFilter(item)}
+                      >
+                        {item}
                       </CommonPill>
                     </li>
                   )
@@ -106,10 +85,29 @@ const ArtistListing = () => {
       <ListingStyles>
         <div className="content">
           <div className="list">
-            {filteredArtists.map((item: any, index: number) => {
+            {artists.map((item: any, index: number) => {
               return <ArtistCard key={"artist" + index} artist={item} />
             })}
           </div>
+          {page < pageCount ? (
+            <div className="loadmore">
+              <span onClick={() => loadMore()}>
+                <CommonPill className="clickable small">Load More</CommonPill>
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {loading && (
+            <div className="loading">
+              <img
+                src="/assets/img/spinner.svg"
+                className="spinner"
+                alt="loader"
+              />
+            </div>
+          )}
         </div>
       </ListingStyles>
     </ArtistListingStyles>
