@@ -20,7 +20,7 @@ export const getStaticProps = async () => {
   const token = process.env.API_TOKEN
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
-  const postResponse = await axios.get(`${apiURL}/api/about?populate=deep,3`)
+  const postResponse = await axios.get(`${apiURL}/api/about?populate=deep,4`)
 
   return {
     props: {
