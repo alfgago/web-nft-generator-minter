@@ -121,7 +121,7 @@ const FormStep = ({
     generateName(artistId, passType, setFieldValue)
 
     if (passType == "Lottery") {
-      setFieldValue("saleType", "Auction")
+      setFieldValue("saleType", "Fixed")
     }
   }
 
@@ -238,9 +238,9 @@ const FormStep = ({
               ) : null}
               <Field name="saleType" as="select">
                 <option value="">-</option>
-                <option value="Auction">Auction</option>
+                <option value="Fixed">Fixed Price</option>
                 {values.passType != "Lottery" && (
-                  <option value="Fixed">Fixed Price</option>
+                  <option value="Auction">Auction</option>
                 )}
               </Field>
             </label>

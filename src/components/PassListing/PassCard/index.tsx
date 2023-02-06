@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import LazyLoad from "react-lazyload"
 
@@ -17,7 +18,6 @@ const PassCard = ({ pass, classes = "" }: any) => {
   const [timer, setTimer] = useState("")
   const dropDate = new Date(pass.attributes.drop_date)
   const upcoming = yesterday < dropDate
-  console.log(pass)
 
   const _second = 1000
   const _minute = _second * 60
@@ -56,7 +56,13 @@ const PassCard = ({ pass, classes = "" }: any) => {
     <PassCardStyles className={"drop-card " + classes}>
       <LazyLoad height={200}>
         <div className="image-container">
-          <img src={s3url(imageUrl)} alt="Collection Preview Image" />
+          <Image
+            src={s3url(imageUrl)}
+            alt={pass.attributes.collection_name}
+            quality={90}
+            width={350}
+            height={350}
+          />
         </div>
         <div className="inner">
           <div className="titles">

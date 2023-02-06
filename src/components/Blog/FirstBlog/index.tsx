@@ -1,23 +1,35 @@
 import React from "react"
+import Image from "next/image"
 import Link from "next/link"
 
 import { FirstBlogStyle } from "@/components/Blog/FirstBlog/FirstBlogStyle"
 import { CommonPill } from "@/components/Common/CommonStyles"
+import s3url from "@/utils/s3url"
 const FirstBlog = ({ blog }: any) => {
   const attributes = blog.attributes
   const title = attributes.title
   const category = attributes.category
-  const getSrc = attributes.featured_image.data[0].attributes.formats.medium.url
-  const imgSrc = getSrc ? getSrc : "/assets/img/sample2.jpg"
   const slug = attributes.slug
   const excerpt = attributes.excerpt ? attributes.excerpt : ""
+
+  const img = attributes.featured_image.data[0].attributes
+  const getSrc = img.formats.medium.url
+  const imgSrc = getSrc ? getSrc : "/assets/img/sample2.jpg"
+  const imageW = img.formats.medium.width
+  const imageH = img.formats.medium.height
 
   return (
     <FirstBlogStyle>
       <div className="content">
         <div className="wrapper">
           <div className="col-img">
-            <img src={imgSrc} alt="" />
+            <Image
+              src={s3url(imgSrc)}
+              alt={title + " featured image"}
+              quality={90}
+              width={imageW}
+              height={imageH}
+            />
           </div>
           <div className="col-text">
             <span className="category">

@@ -8,9 +8,9 @@ import { CommonPill } from "../CommonStyles"
 import { LotteryRowStyles } from "./LotteryRowStyles"
 
 const LotteryRow = ({ nft, color }: any) => {
-  const imageUrl = nft.attributes?.art?.data[0]?.attributes?.url
-  const imageW = nft.attributes?.art?.data[0]?.attributes?.width
-  const imageH = nft.attributes?.art?.data[0]?.attributes?.height
+  const imageUrl = nft.attributes?.image_url
+  const imageW = 150
+  const imageH = 150
 
   return (
     <LotteryRowStyles className={color}>

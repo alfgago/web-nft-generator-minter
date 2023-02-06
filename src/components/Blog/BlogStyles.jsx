@@ -29,4 +29,8 @@ export const BlogStyles = styled.div`
       font-size: 2.25rem;
     }
   }
+
+  img {
+    object-fit: cover;
+  }
 `

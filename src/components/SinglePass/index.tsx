@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -39,9 +40,12 @@ const SinglePass = ({ pass }: any) => {
     <SinglePassStyles>
       <SimpleHeader className="pass-header">
         <div className="flex">
-          <img
+          <Image
             src={pass.attributes.preview_image_url}
             alt="PlusOne collection preview image"
+            quality={90}
+            width={400}
+            height={400}
           />
           <div className="inner">
             <h1>{pass.attributes.collection_name}</h1>

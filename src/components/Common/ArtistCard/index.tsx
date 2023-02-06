@@ -21,8 +21,8 @@ const ArtistCard = ({ artist, classes = "" }: any) => {
             src={s3url(picture)}
             alt={artist.attributes.name}
             quality={90}
-            width={300}
-            height={300}
+            width={350}
+            height={350}
           />
           <div className="socials">
             <a

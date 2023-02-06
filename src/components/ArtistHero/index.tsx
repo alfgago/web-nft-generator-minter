@@ -18,8 +18,8 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
             src={s3url(image.url)}
             alt={title}
             quality={90}
-            width={width * 0.8}
-            height={height}
+            width={1600}
+            height={1200}
           />
         </div>
         <img

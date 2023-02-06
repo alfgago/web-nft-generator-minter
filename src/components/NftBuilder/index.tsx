@@ -49,7 +49,7 @@ const NftBuilder = ({ artists }: any) => {
     wallet: "",
     size: "10",
     passType: "Lottery",
-    saleType: "Auction",
+    saleType: "Fixed",
     price: "0.1",
     duration: "24",
     winners: "5",
