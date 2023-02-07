@@ -7,6 +7,7 @@ import { GroupChatStyles } from "@/components/GroupChat/GroupChatStyles"
 import pickerData from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
 import {
+  ChannelList,
   Chat,
   MessageInput,
   MessageList,
@@ -20,6 +21,7 @@ const ChatModal = (props: any) => {
     subscribeKey: "sub-c-74dfeb98-4fe0-4319-b7c1-e9e3fd5f007a",
     userId: props.userId,
   })
+
   const currentChannel = "Default"
   const theme = "light"
 
@@ -27,12 +29,40 @@ const ChatModal = (props: any) => {
   return (
     <GroupChatStyles>
       <div className="container">
-        <button
-          className="close-button"
-          onClick={() => props.setShowChat(!props.showChat)}
-        >
-          <ReactSVG src="/assets/icons/close.svg" />
-        </button>
+        <div className="chat-opts">
+          <button
+            className="close-button"
+            onClick={() => props.setShowChat(!props.showChat)}
+          >
+            <ReactSVG src="/assets/icons/close.svg" />
+          </button>
+          <ChannelList
+            channels={[
+              {
+                name: "Movies",
+                custom: {
+                  profileUrl:
+                    "_next/image?url=https%3A%2F%2Fplusonemusic.io%2Faws%2Fbad_b_profile_ede8ca38f3.jpg&w=384&q=90",
+                },
+                description: "Everything about movies",
+                eTag: "AbOx6N+6vu3zoAE",
+                id: "space.149e60f311749f2a7c6515f7b34",
+                updated: "2020-09-23T09:23:37.175764Z",
+              },
+              {
+                name: "Daily Standup",
+                custom: {
+                  profileUrl:
+                    "https://www.gravatar.com/avatar/2ada61db17878cd388f95da34f9?s=256&d=identicon",
+                },
+                description: "Async virtual standup",
+                eTag: "Ab+2+deSmdf/Fw",
+                id: "space.2ada61db17878cd388f95da34f9",
+                updated: "2020-09-23T09:23:36.960491Z",
+              },
+            ]}
+          />
+        </div>
 
         <div className="chat-container">
           <PubNubProvider client={pubnub}>

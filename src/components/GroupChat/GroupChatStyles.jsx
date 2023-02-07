@@ -6,13 +6,12 @@ export const GroupChatStyles = styled.div`
   right: 0;
   bottom: 0;
   height: ${450 / 16}rem;
-  width: ${350 / 16}rem;
+  width: ${420 / 16}rem;
 
   .container {
     position: absolute;
     right: 0px;
     bottom: 0px;
-    border-top-left-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     background-color: #fff;
     height: 100%;
@@ -29,8 +28,37 @@ export const GroupChatStyles = styled.div`
     flex-direction: column;
     display: flex;
   }
-  .close-button {
+
+  .chat-opts {
+    border-top-left-radius: ${10 / 16}rem;
+    background: ${COLORS.white};
+    display: flex;
     position: absolute;
+    top: -4.5rem;
+    right: 0;
+    left: 0;
+    justify-content: space-between;
+    .pn-channel-list {
+      display: flex;
+    }
+
+    .pn-channel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .pn-channel__description {
+        display: none;
+      }
+
+      .pn-channel__thumb {
+        margin: 0;
+        padding-bottom: ${5 / 16}rem;
+      }
+    }
+  }
+
+  .close-button {
+    margin-left: ${14 / 16}rem;
     top: 0px;
     right: 0px;
     svg {
