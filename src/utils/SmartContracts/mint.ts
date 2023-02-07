@@ -97,10 +97,12 @@ export const userDynamicMint = async ({
     )
 
   const { signature } = await res.json()
+  const mintPrice = (await jc.lazyMintFacet?.publicMintPrice()) || 0
 
   // actually mint the NFT with the tokenUri and signature
   const tx = await jc.onDemandFacet.onDemandMint(tokenUri, signature, {
     gasLimit: 400000,
+    value: mintPrice,
   })
   await tx.wait()
 
