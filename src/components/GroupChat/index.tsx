@@ -7,6 +7,7 @@ import { GroupChatStyles } from "@/components/GroupChat/GroupChatStyles"
 import pickerData from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
 import {
+  ChannelEntity,
   ChannelList,
   Chat,
   MessageInput,
@@ -22,10 +23,51 @@ const ChatModal = (props: any) => {
     userId: props.userId,
   })
 
-  const currentChannel = "Default"
+  type ChannelType = ChannelEntity
+
+  const defaultChannel = {
+    id: "default",
+    name: "Default Channel",
+    description: "This is the default channel",
+  } as Pick<ChannelType, "id" | "name" | "description">
+
+  const list = [
+    {
+      name: "Movies",
+      custom: {
+        profileUrl:
+          "_next/image?url=https%3A%2F%2Fplusonemusic.io%2Faws%2Fbad_b_profile_ede8ca38f3.jpg&w=384&q=90",
+      },
+      description: "Everything about movies",
+      eTag: "AbOx6N+6vu3zoAE",
+      id: "space.149e60f311749f2a7c6515f7b34",
+      updated: "2020-09-23T09:23:37.175764Z",
+    },
+    {
+      name: "Daily Standup",
+      custom: {
+        profileUrl:
+          "https://www.gravatar.com/avatar/2ada61db17878cd388f95da34f9?s=256&d=identicon",
+      },
+      description: "Async virtual standup",
+      eTag: "Ab+2+deSmdf/Fw",
+      id: "space.2ada61db17878cd388f95da34f9",
+      updated: "2020-09-23T09:23:36.960491Z",
+    },
+  ]
+  const [currentChannel, setCurrentChannel] = useState(defaultChannel)
+
+  const [channelList, setChannelList] = useState(list)
   const theme = "light"
 
+  useEffect(() => {
+    console.log(currentChannel)
+  }, [currentChannel])
+
   if (!props.showChat) return null
+
+  console.log(currentChannel)
+
   return (
     <GroupChatStyles>
       <div className="container">
@@ -37,36 +79,16 @@ const ChatModal = (props: any) => {
             <ReactSVG src="/assets/icons/close.svg" />
           </button>
           <ChannelList
-            channels={[
-              {
-                name: "Movies",
-                custom: {
-                  profileUrl:
-                    "_next/image?url=https%3A%2F%2Fplusonemusic.io%2Faws%2Fbad_b_profile_ede8ca38f3.jpg&w=384&q=90",
-                },
-                description: "Everything about movies",
-                eTag: "AbOx6N+6vu3zoAE",
-                id: "space.149e60f311749f2a7c6515f7b34",
-                updated: "2020-09-23T09:23:37.175764Z",
-              },
-              {
-                name: "Daily Standup",
-                custom: {
-                  profileUrl:
-                    "https://www.gravatar.com/avatar/2ada61db17878cd388f95da34f9?s=256&d=identicon",
-                },
-                description: "Async virtual standup",
-                eTag: "Ab+2+deSmdf/Fw",
-                id: "space.2ada61db17878cd388f95da34f9",
-                updated: "2020-09-23T09:23:36.960491Z",
-              },
-            ]}
+            channels={channelList}
+            onChannelSwitched={(channel: any) => {
+              setCurrentChannel(channel)
+            }}
           />
         </div>
 
         <div className="chat-container">
           <PubNubProvider client={pubnub}>
-            <Chat {...{ currentChannel, theme }}>
+            <Chat currentChannel={currentChannel.id} theme={theme}>
               <MessageList
                 fetchMessages={25}
                 enableReactions={true}
