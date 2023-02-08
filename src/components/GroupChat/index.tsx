@@ -20,9 +20,6 @@ import {
 } from "@pubnub/react-chat-components"
 
 const ChatModal = (props: any) => {
-  console.log("props.setChannels")
-  console.log(props.setChannels)
-
   const pubnub = new PubNub({
     publishKey: "pub-c-d8a00ae2-e3f9-453b-9f71-c90069a72351",
     subscribeKey: "sub-c-74dfeb98-4fe0-4319-b7c1-e9e3fd5f007a",
@@ -43,35 +40,21 @@ const ChatModal = (props: any) => {
       custom: {
         profileUrl: obj.attributes.image_url,
       },
-      description: "Everything about movies",
-      eTag: "AbOx6N+6vu3zoAE",
+      description: obj.attributes.metadata.description,
+      eTag: "channel" + Math.random(),
       id: "single." + obj.attributes.name.replace(/ /g, ""),
-      updated: "2020-09-23T09:23:37.175764Z",
+      updated: new Date(),
     }
   })
 
-  const list = [
-    {
-      name: "Movies",
-      custom: {
-        profileUrl:
-          "_next/image?url=https%3A%2F%2Fplusonemusic.io%2Faws%2Fbad_b_profile_ede8ca38f3.jpg&w=384&q=90",
-      },
-      description: "Everything about movies",
-      eTag: "AbOx6N+6vu3zoAE",
-      id: "space.149e60f311749f2a7c6515f7b34",
-      updated: "2020-09-23T09:23:37.175764Z",
-    },
-  ]
-
-  const [currentChannel, setCurrentChannel] = useState(defaultChannel)
+  const [currentChannel, setCurrentChannel] = useState(customList[0])
 
   const [channelList, setChannelList] = useState(customList)
   const theme = "light"
 
-  useEffect(() => {
-    console.log(currentChannel)
-  }, [currentChannel])
+  // useEffect(() => {
+  //   console.log(currentChannel)
+  // }, [currentChannel])
 
   if (!props.showChat) return null
 
