@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { log } from "console"
 import PubNub from "pubnub"
 import { PubNubProvider } from "pubnub-react"
 import { ReactSVG } from "react-svg"
@@ -7,6 +8,7 @@ import { GroupChatStyles } from "@/components/GroupChat/GroupChatStyles"
 import pickerData from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
 import {
+  Avatar,
   ChannelEntity,
   ChannelList,
   Chat,
@@ -14,13 +16,17 @@ import {
   MessageList,
   MessagePayload,
   TypingIndicator,
+  UserInitialsAvatar,
 } from "@pubnub/react-chat-components"
 
 const ChatModal = (props: any) => {
+  console.log("props.setChannels")
+  console.log(props.setChannels)
+
   const pubnub = new PubNub({
     publishKey: "pub-c-d8a00ae2-e3f9-453b-9f71-c90069a72351",
     subscribeKey: "sub-c-74dfeb98-4fe0-4319-b7c1-e9e3fd5f007a",
-    userId: props.userId,
+    userId: "user" + props.userId,
   })
 
   type ChannelType = ChannelEntity
@@ -30,6 +36,19 @@ const ChatModal = (props: any) => {
     name: "Default Channel",
     description: "This is the default channel",
   } as Pick<ChannelType, "id" | "name" | "description">
+
+  const customList = props.setChannels.map((obj: any) => {
+    return {
+      name: obj.attributes.name,
+      custom: {
+        profileUrl: obj.attributes.image_url,
+      },
+      description: "Everything about movies",
+      eTag: "AbOx6N+6vu3zoAE",
+      id: "single." + obj.attributes.name.replace(/ /g, ""),
+      updated: "2020-09-23T09:23:37.175764Z",
+    }
+  })
 
   const list = [
     {
@@ -43,21 +62,11 @@ const ChatModal = (props: any) => {
       id: "space.149e60f311749f2a7c6515f7b34",
       updated: "2020-09-23T09:23:37.175764Z",
     },
-    {
-      name: "Daily Standup",
-      custom: {
-        profileUrl:
-          "https://www.gravatar.com/avatar/2ada61db17878cd388f95da34f9?s=256&d=identicon",
-      },
-      description: "Async virtual standup",
-      eTag: "Ab+2+deSmdf/Fw",
-      id: "space.2ada61db17878cd388f95da34f9",
-      updated: "2020-09-23T09:23:36.960491Z",
-    },
   ]
+
   const [currentChannel, setCurrentChannel] = useState(defaultChannel)
 
-  const [channelList, setChannelList] = useState(list)
+  const [channelList, setChannelList] = useState(customList)
   const theme = "light"
 
   useEffect(() => {
@@ -65,8 +74,6 @@ const ChatModal = (props: any) => {
   }, [currentChannel])
 
   if (!props.showChat) return null
-
-  console.log(currentChannel)
 
   return (
     <GroupChatStyles>
@@ -121,7 +128,7 @@ const ChatIcon = ({ setShowChat, showChat }: any) => {
   )
 }
 
-const GroupChat = ({ userId, type }: any) => {
+const GroupChat = ({ userId, type, userEvents }: any) => {
   const [showChat, setShowChat] = useState<any>(false)
   const ref = useRef<any>(null)
 
@@ -146,6 +153,7 @@ const GroupChat = ({ userId, type }: any) => {
           userId={userId}
           showChat={showChat}
           setShowChat={setShowChat}
+          setChannels={userEvents}
         />
       </div>
     </GroupChatStyles>
