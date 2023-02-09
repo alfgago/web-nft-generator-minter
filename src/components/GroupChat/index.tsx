@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useSession } from "next-auth/react"
 import { log } from "console"
 import PubNub from "pubnub"
 import { PubNubProvider } from "pubnub-react"
@@ -8,7 +9,6 @@ import { GroupChatStyles } from "@/components/GroupChat/GroupChatStyles"
 import pickerData from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
 import {
-  Avatar,
   ChannelEntity,
   ChannelList,
   Chat,
@@ -16,7 +16,6 @@ import {
   MessageList,
   MessagePayload,
   TypingIndicator,
-  UserInitialsAvatar,
 } from "@pubnub/react-chat-components"
 
 const ChatModal = (props: any) => {
@@ -78,7 +77,7 @@ const ChatModal = (props: any) => {
 
         <div className="chat-container">
           <PubNubProvider client={pubnub}>
-            <Chat currentChannel={currentChannel.id} theme={theme}>
+            <Chat currentChannel={defaultChannel.id} theme={theme}>
               <MessageList
                 fetchMessages={25}
                 enableReactions={true}

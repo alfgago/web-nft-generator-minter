@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import { useSession } from "next-auth/react"
 import axios from "axios"
 import { AnimatePresence, motion } from "framer-motion"
 import { useAccount } from "wagmi"
@@ -33,6 +34,9 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const { asPath } = useRouter()
   const { address, isConnected } = useAccount()
   const [userPasses, setUserPasses] = useState([])
+  const { data: user } = useSession()
+  const userEmail = user?.user?.email
+
   // Fetch the data in the useEffect hook
   useEffect(() => {
     async function fetchData() {
@@ -54,7 +58,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
     fetchData()
   }, [])
 
-  // console.log(userPasses)
   return (
     <LayoutStyles className="page-content">
       <Navbar />
@@ -71,9 +74,19 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         </motion.div>
       </AnimatePresence>
       <Footer />
-      {isConnected && userPasses.length > 0 && (
-        <GroupChat userEvents={userPasses} userId={address} />
+
+      {user ? (
+        <GroupChat userEvents={userPasses} userId={111 + userEmail!} />
+      ) : (
+        isConnected &&
+        userPasses.length > 0 && (
+          <GroupChat userEvents={userPasses} userId={address} />
+        )
       )}
+
+      {/* {isConnected && userPasses.length > 0 && (
+        <GroupChat userEvents={userPasses} userId={address} />
+      )} */}
     </LayoutStyles>
   )
 }
