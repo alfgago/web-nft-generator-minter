@@ -36,11 +36,38 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const [userPasses, setUserPasses] = useState([])
   const { data: user } = useSession()
   const userEmail = user?.user?.email
+  const userId = user?.id
+  const [managerEvents, setManagerEvents] = useState([])
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
+    console.log(userId)
+
     async function fetchData() {
       try {
+        // if the user is loged in
+        if (user) {
+          /* get all the shows of the loged in user 
+          that contains passes of single events */
+          const { data } = await axios.get(
+            "/api/shows?passType=Single Event&user=" + userId
+          )
+
+          console.log("data.data")
+          console.log(data.data)
+          setManagerEvents(
+            data.data.map((event: any) => {
+              return {
+                name: event.attributes.name,
+                // need to be changed
+                image: "/assets/img/ariana.jpg",
+                description: event.attributes.description,
+                id: event.attributes.name.replace(/ /g, ""),
+              }
+            })
+          )
+        }
+
         // change the route to get the passes of the actual user
         const { data } = await axios.get("/api/chat?nft=" + 886)
         const responseData = data.data
@@ -57,6 +84,11 @@ const Layout = ({ children }: { children: JSX.Element }) => {
     }
     fetchData()
   }, [])
+
+  console.log("managerEvents")
+  console.log(managerEvents)
+  // console.log("userPasses")
+  // console.log(userPasses)
 
   return (
     <LayoutStyles className="page-content">
@@ -76,11 +108,19 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       <Footer />
 
       {user ? (
-        <GroupChat userEvents={userPasses} userId={111 + userEmail!} />
+        <GroupChat
+          type="forManager"
+          userEvents={managerEvents}
+          userId={userEmail!}
+        />
       ) : (
         isConnected &&
         userPasses.length > 0 && (
-          <GroupChat userEvents={userPasses} userId={address} />
+          <GroupChat
+            type="forWallet"
+            userEvents={userPasses}
+            userId={address}
+          />
         )
       )}
 

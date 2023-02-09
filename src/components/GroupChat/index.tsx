@@ -35,25 +35,24 @@ const ChatModal = (props: any) => {
 
   const customList = props.setChannels.map((obj: any) => {
     return {
-      name: obj.attributes.name,
+      name: obj.name,
       custom: {
-        profileUrl: obj.attributes.image_url,
+        profileUrl: obj.image,
       },
-      description: obj.attributes.metadata.description,
+      description: obj.description,
       eTag: "channel" + Math.random(),
-      id: "single." + obj.attributes.name.replace(/ /g, ""),
+      id: "single." + obj.id,
       updated: new Date(),
     }
   })
 
+  // customList.push(defaultChannel)
+
   const [currentChannel, setCurrentChannel] = useState(customList[0])
 
-  const [channelList, setChannelList] = useState(customList)
-  const theme = "light"
+  const [channelList, setChannelList] = useState([])
 
-  // useEffect(() => {
-  //   console.log(currentChannel)
-  // }, [currentChannel])
+  const theme = "light"
 
   if (!props.showChat) return null
 
@@ -68,16 +67,22 @@ const ChatModal = (props: any) => {
             <ReactSVG src="/assets/icons/close.svg" />
           </button>
           <ChannelList
-            channels={channelList}
+            channels={customList}
             onChannelSwitched={(channel: any) => {
               setCurrentChannel(channel)
             }}
           />
         </div>
-
         <div className="chat-container">
           <PubNubProvider client={pubnub}>
-            <Chat currentChannel={defaultChannel.id} theme={theme}>
+            <Chat
+              currentChannel={
+                currentChannel === undefined
+                  ? customList[0].id
+                  : currentChannel.id
+              }
+              theme={theme}
+            >
               <MessageList
                 fetchMessages={25}
                 enableReactions={true}

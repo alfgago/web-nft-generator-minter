@@ -6,6 +6,7 @@ const fetchData = async ({
   limit = 10,
   artist = 0,
   user = 0,
+  passType = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -21,6 +22,11 @@ const fetchData = async ({
   if (user) {
     // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
+  }
+
+  if (passType) {
+    // @ts-ignore
+    params["filters[passes][pass_type][$eq]"] = passType
   }
 
   const response = await axios.get(`${apiURL}/api/events`, {
