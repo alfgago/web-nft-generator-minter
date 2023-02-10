@@ -50,17 +50,20 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           /* get all the shows of the loged in user 
           that contains passes of single events */
           const { data } = await axios.get(
-            "/api/shows?passType=Single Event&user=" + userId
+            "/api/shows?passType=Single Event&user=" + userId + "&deep=" + 3
           )
 
-          console.log("data.data")
-          console.log(data.data)
           setManagerEvents(
             data.data.map((event: any) => {
+              const respImage =
+                event.attributes.artist.data.attributes.profile_picture.data
+                  .attributes.url
+
               return {
                 name: event.attributes.name,
                 // need to be changed
-                image: "/assets/img/ariana.jpg",
+
+                image: respImage,
                 description: event.attributes.description,
                 id: event.attributes.name.replace(/ /g, ""),
               }
@@ -68,27 +71,32 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           )
         }
 
-        // change the route to get the passes of the actual user
-        const { data } = await axios.get("/api/chat?nft=" + 886)
-        const responseData = data.data
+        if (!user) {
+          // change the route to get the nft of the actual user
+          const { data } = await axios.get("/api/shows?nft=886&deep=3")
+          const responseData = data.data
 
-        const filteredArray = responseData.filter(
-          (obj: any) =>
-            obj.attributes.metadata &&
-            obj.attributes.metadata.attributes[0].pass_type === "Single Event"
-        )
-        setUserPasses(filteredArray)
+          setUserPasses(
+            responseData.map((event: any) => {
+              const respImage =
+                event.attributes.artist.data.attributes.profile_picture.data
+                  .attributes.url
+
+              return {
+                name: event.attributes.name,
+                image: respImage,
+                description: event.attributes.description,
+                id: event.attributes.name.replace(/ /g, ""),
+              }
+            })
+          )
+        }
       } catch (err: any) {
         console.log(err)
       }
     }
     fetchData()
   }, [])
-
-  console.log("managerEvents")
-  console.log(managerEvents)
-  // console.log("userPasses")
-  // console.log(userPasses)
 
   return (
     <LayoutStyles className="page-content">

@@ -7,6 +7,9 @@ const fetchData = async ({
   artist = 0,
   user = 0,
   passType = false,
+  passId = 0,
+  deep = false,
+  nft = 0,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -27,6 +30,21 @@ const fetchData = async ({
   if (passType) {
     // @ts-ignore
     params["filters[passes][pass_type][$eq]"] = passType
+  }
+
+  if (passId) {
+    // @ts-ignore
+    params["filters[passes][id][$eq]"] = passId
+  }
+
+  if (nft) {
+    // @ts-ignore
+    params["filters[passes][nfts][id][$eq]"] = nft
+  }
+
+  if (deep) {
+    // @ts-ignore
+    params["populate"] = "deep," + deep
   }
 
   const response = await axios.get(`${apiURL}/api/events`, {
