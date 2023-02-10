@@ -48,67 +48,68 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
     return { hours: hours, minutes: minutes, seconds: seconds }
   }
-
-  // Fetch the data in the useEffect hook
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // if the user is loged in
-        if (user) {
-          /* get all the shows of the loged in user 
+  async function fetchData() {
+    try {
+      // if the user is loged in
+      if (user) {
+        /* get all the shows of the loged in user 
           that contains passes of single events */
-          const { data } = await axios.get(
-            // @ts-ignore
-            "/api/shows?passType=Single Event&user=" + user.id + "&deep=" + 3
-          )
+        const { data } = await axios.get(
+          // @ts-ignore
+          "/api/shows?passType=Single Event&user=" + user.id + "&deep=" + 3
+        )
 
-          setManagerEvents(
-            data.data.map((event: any) => {
+        setManagerEvents(
+          data.data.map((event: any) => {
+            const respImage =
+              event.attributes.artist.data.attributes.profile_picture.data
+                .attributes.url
+
+            return {
+              name: event.attributes.name,
+              image: respImage,
+              description: event.attributes.description,
+              id: event.attributes.name.replace(/ /g, ""),
+            }
+          })
+        )
+      }
+
+      if (!user) {
+        // change the route to get the nft of the actual user
+        const { data } = await axios.get("/api/shows?nft=886&deep=3")
+        const responseData = data.data
+
+        setUserPasses(
+          responseData.map((event: any) => {
+            const total = getTime(new Date(event.attributes.date), new Date())
+
+            console.log(total)
+
+            if (total.minutes <= 2880 && total.minutes > 0) {
+              setValidTime(true)
+
               const respImage =
                 event.attributes.artist.data.attributes.profile_picture.data
                   .attributes.url
-
               return {
                 name: event.attributes.name,
                 image: respImage,
                 description: event.attributes.description,
                 id: event.attributes.name.replace(/ /g, ""),
               }
-            })
-          )
-        }
-
-        if (!user) {
-          // change the route to get the nft of the actual user
-          const { data } = await axios.get("/api/shows?nft=886&deep=3")
-          const responseData = data.data
-
-          setUserPasses(
-            responseData.map((event: any) => {
-              const total = getTime(new Date(event.attributes.date), new Date())
-
-              if (total.hours <= 48 && total.hours > 0) {
-                setValidTime(true)
-
-                const respImage =
-                  event.attributes.artist.data.attributes.profile_picture.data
-                    .attributes.url
-                return {
-                  name: event.attributes.name,
-                  image: respImage,
-                  description: event.attributes.description,
-                  id: event.attributes.name.replace(/ /g, ""),
-                }
-              }
-            })
-          )
-        }
-      } catch (err: any) {
-        console.log(err)
+            }
+          })
+        )
       }
+    } catch (err: any) {
+      console.log(err)
     }
+  }
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
     fetchData()
-  }, [])
+  }, [user, isConnected])
 
   return (
     <LayoutStyles className="page-content">
