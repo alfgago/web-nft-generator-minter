@@ -5,11 +5,11 @@ export const MyNftCardStyles = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width:  ${378 / 16}rem;    
 
-  
-  @media ${DEVICE.laptop}{
-      max-width:  ${378 / 16}rem;      
+  width: calc(50% - 1rem);
+  margin-bottom: 0;
+  @media ${DEVICE.laptop} {
+    width: calc(25% - 1.5rem);
   }
 
   .head-cont {
@@ -17,7 +17,7 @@ export const MyNftCardStyles = styled.div`
     padding: ${14 / 16}rem;
 
     @media ${DEVICE.laptop} {
-      padding: ${20 / 16}rem ${34 / 16}rem; ; 
+      padding: ${20 / 16}rem ${34 / 16}rem;
     }
 
     h3 {
@@ -25,7 +25,8 @@ export const MyNftCardStyles = styled.div`
       padding-bottom: ${2 / 16}rem;
     }
 
-    p, h3 {
+    p,
+    h3 {
       margin: 0px;
       color: ${COLORS.white};
     }
@@ -42,26 +43,14 @@ export const MyNftCardStyles = styled.div`
       object-fit: cover;
     }
 
+    .clickable {
+      background: none;
+    }
+
     .info-cont {
       display: flex;
       padding-top: ${15 / 16}rem;
       justify-content: space-between;
-      div p {
-        font-weight: 600;
-        margin: 0px;
-
-        @media ${DEVICE.laptop} {
-          font-size: ${24 / 16}rem;
-        }
-      }
-
-      a span {
-        padding ${8 / 16}rem ${22 / 16}rem;
-
-        @media ${DEVICE.laptop} {
-            padding: ${8 / 16}rem ${40 / 16}rem;
-        }
-      }
     }
   }
 `

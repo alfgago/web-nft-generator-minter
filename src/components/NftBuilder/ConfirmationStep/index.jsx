@@ -6,6 +6,7 @@ import { fabric } from "fabric-pure-browser"
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
 import TemplateFabric from "@/utils/templateFabric"
+import Link from "next/link"
 
 import { ConfirmationStepStyles } from "./ConfirmationStepStyles"
 
@@ -210,6 +211,11 @@ const ConfirmationStep = ({
             <div className="deployment-success">
               Your NFT passes contract has been deployed with Contract Address:{" "}
               <span className="contract-address">{contractAddress}</span>
+              <div className="links">
+                <Link href={"/pass/" + contractAddress}>
+                  Check your collection here
+                </Link>
+              </div>
             </div>
           )}
           {errorMessage && (

@@ -57,6 +57,8 @@ const NftBuilder = ({ artists }: any) => {
     is_charity: false,
     charity_name: "",
     charity_royalty: "",
+    artistName: "",
+    memberName: "",
   })
 
   const {
@@ -159,6 +161,10 @@ const NftBuilder = ({ artists }: any) => {
           const folderCid = await uploadFolder(contractAddress, metadatas)
           await setFolderStorage(contractAddress, folderCid)
           await bulkMint(contractAddress, formValues.size)
+          await axios.post("/api/passes/update-folder", {
+            id: passResponse.data.data.id,
+            folderCid: folderCid,
+          })
         } catch (error) {
           setErrorMessage(JSON.stringify(error))
         }

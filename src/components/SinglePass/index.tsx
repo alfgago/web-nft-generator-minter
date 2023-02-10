@@ -3,6 +3,7 @@ import Image from "next/image"
 import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import { getPassDescription } from "@/utils/getPassDescription"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
@@ -14,18 +15,16 @@ import {
 } from "./SinglePassStyles"
 
 const SinglePass = ({ pass }: any) => {
-  const dropDate = new Date(pass.drop_date)
+  const dropDate = new Date(pass.attributes.drop_date)
 
   const [nfts, setNfts] = useState([])
-  const [mintedFilter, setMintedFilter] = useState("Unminted")
-  const filters = ["All", "Unminted", "Minted"]
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/nfts?limit=200&sort=name&pass=${pass.id}&minted=${mintedFilter}`
+          `/api/nfts?limit=200&sort=name&pass=${pass.id}`
         )
         const arr = data.data
         setNfts(arr)
@@ -34,7 +33,7 @@ const SinglePass = ({ pass }: any) => {
       }
     }
     fetchData()
-  }, [mintedFilter])
+  }, [])
 
   return (
     <SinglePassStyles>
@@ -87,23 +86,12 @@ const SinglePass = ({ pass }: any) => {
         <section className="filter-section">
           <div className="abs">
             <div className="content">
-              <span className="title trap">Filter by: </span>
-              <ul className="filters">
-                {filters.map((item: any, index: number) => {
-                  return (
-                    <li key={"filter-" + index}>
-                      <CommonPill
-                        className={`clickable small ${
-                          item == mintedFilter ? "active" : ""
-                        }`}
-                        onClick={() => setMintedFilter(item)}
-                      >
-                        {item}
-                      </CommonPill>
-                    </li>
-                  )
-                })}
-              </ul>
+              <div
+                className="desc"
+                dangerouslySetInnerHTML={{
+                  __html: getPassDescription(pass.attributes),
+                }}
+              />
             </div>
           </div>
         </section>

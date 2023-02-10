@@ -23,7 +23,7 @@ const createNft = async (values: any) => {
   const nft = await strapi.create("nfts", {
     name: values.name,
     image_url: values.image_url,
-    ipfs_token: values.premint ? "" : values.ipfs_token,
+    ipfs_token: values.ipfs_token,
     pass_collection: values.pass_id,
     order: values.order,
     metadata: values.metadata,

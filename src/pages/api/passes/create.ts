@@ -34,9 +34,12 @@ const createPass = async (values: any) => {
     event: values.event ? values.event : null,
     pass_type: values.passType,
     sale_type: values.saleType,
-    is_lottery: true,
-    winners: values.winners,
+    is_lottery: values.passType == "Lottery",
     preview_image_url: values.preview_image_url,
+    is_charity: values.is_charity,
+    charity_name: values.charity_name,
+    charity_royalty: values.charity_royalty,
+    description: "",
   })
 
   return pass

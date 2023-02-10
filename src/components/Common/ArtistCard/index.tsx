@@ -3,7 +3,7 @@ import Link from "next/link"
 import LazyLoad from "react-lazyload"
 import { ReactSVG } from "react-svg"
 
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -18,7 +18,7 @@ const ArtistCard = ({ artist, classes = "" }: any) => {
       <LazyLoad height={300}>
         <div className="image-container">
           <Image
-            src={s3url(picture)}
+            src={cleanUrl(picture)}
             alt={artist.attributes.name}
             quality={90}
             width={350}

@@ -1,3 +1,4 @@
+import axios from "axios"
 import { Signer } from "ethers"
 
 import { Network } from "@juicelabs/client"
@@ -44,6 +45,7 @@ export type UserMintParams = {
   contractAddress: string
   signer: Signer // acquired once wallet is connected
   metadataCid: string
+  nftId: number
 }
 
 export type MintDataForSignature = {
@@ -60,11 +62,10 @@ export const userDynamicMint = async ({
   contractAddress,
   signer,
   metadataCid,
+  nftId,
 }: UserMintParams) => {
   const jc = createLocalJuiceClient(network, contractAddress, signer)
   await jc.waitForInit()
-  console.log(network)
-  console.log(signer)
   if (!jc.onDemandFacet) throw new Error("On Demand Minting contract not found")
 
   const minterAddress = await signer.getAddress()
@@ -107,6 +108,10 @@ export const userDynamicMint = async ({
   })
   await tx.wait()
 
+  await axios.post("/api/nfts/update-status", {
+    id: nftId,
+  })
+  console.log(tx.hash)
   return tx.hash
 }
 

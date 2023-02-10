@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
@@ -19,7 +19,7 @@ const BlogPost = ({ title, body, image, author, category }: any) => {
       <section>
         <div className="content">
           <Image
-            src={s3url(imageUrl)}
+            src={cleanUrl(imageUrl)}
             alt={title + " Featured Image"}
             quality={90}
             width={imageW}

@@ -1,6 +1,9 @@
 import axios from "axios"
 import { NFTStorage } from "nft.storage"
 
+import cleanUrl from "@/utils/cleanUrl"
+import { MetaDataClient } from "@juicelabs/client"
+
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 
@@ -21,31 +24,52 @@ export const uploadNft = async (
   formValues: any,
   nftTitle: any
 ) => {
+  const order = index + 1
   const blob = b64toBlob(image)
-  const nftKey = await storage.storeBlob(blob)
-  const name = formValues.name + " " + (index + 1)
-  const imageUrl = "https://plusonemusic.io/ipfs/" + nftKey
+  const file = new File([blob], order + ".jpg")
+
+  const name = formValues.name + " " + order
+  const desc = "PlusOne NFT for " + nftTitle
 
   const premint = formValues.saleType == "Auction"
+  const storageResponse = await storage.store({
+    name: name,
+    description: desc,
+    image: file,
+  })
+  const imageUrl = storageResponse.data.image.href
+
   const metadata = {
     name: name,
-    image: "ipfs://" + nftKey,
-    description: "PlusOne NFT for " + nftTitle,
-    external_url: imageUrl,
+    description: desc,
+    image: imageUrl,
+    order: order,
+    external_url: cleanUrl(imageUrl),
     attributes: [
       {
-        pass_type: formValues.passType,
-        member: formValues.member,
-        artist: formValues.artist,
+        trait_type: "pass_type",
+        value: formValues.passType,
+      },
+      {
+        trait_type: "member",
+        value: formValues.member,
+      },
+      {
+        trait_type: "artist",
+        value: formValues.artist,
       },
     ],
   }
+  // upload the image and metadata to IPFS
+  const metadataClient = new MetaDataClient(NFT_STORAGE_TOKEN)
+  const metaCID = await metadataClient.uploadMeta(metadata)
 
   await axios.post("/api/nfts/create", {
     name: name,
     image_url: imageUrl,
-    ipfs_token: nftKey,
+    ipfs_token: metaCID,
     pass_id: passId,
+    order: order,
     metadata: metadata,
     is_minted: premint,
   })

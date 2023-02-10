@@ -20,6 +20,7 @@ const nextConfig = {
   },
   images: {
     domains: [
+      "gateway.pinata.cloud",
       "plusone-public.s3.amazonaws.com",
       "plusone-frontend.vercel.app",
       "plusonemusic.io",

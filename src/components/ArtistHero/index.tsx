@@ -3,7 +3,7 @@ import Image from "next/image"
 import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
 
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { ArtistHeroStyled, ArtistImage } from "./ArtistHeroStyles"
 
@@ -15,7 +15,7 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
       <ArtistImage overlay="/assets/img/bg-artist-base.png">
         <div className="background-image">
           <Image
-            src={s3url(image.url)}
+            src={cleanUrl(image.url)}
             alt={title}
             quality={90}
             width={1600}

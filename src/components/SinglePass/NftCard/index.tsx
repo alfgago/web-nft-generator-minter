@@ -4,7 +4,7 @@ import { useAccount, useConnect, useSigner } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 import { userDynamicMint } from "@/utils/SmartContracts/mint"
 
 import { NftCardStyles } from "./NftCardStyles"
@@ -24,18 +24,13 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       return
     }
     if (!signer) throw new Error("Connect metamask before attempting to mint")
-    console.log({
-      network: "goerli",
-      metadataCid: nft.attributes.ipfs_token,
-      contractAddress: pass.attributes.contract_address,
-      signer,
-    })
 
     const txHash = await userDynamicMint({
       network: "goerli",
       metadataCid: nft.attributes.ipfs_token,
       contractAddress: pass.attributes.contract_address,
       signer,
+      nftId: nft.id,
     })
 
     console.log("Mint Transaction Hash: " + txHash)
@@ -46,7 +41,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       <LazyLoad height={200}>
         <div className="image-container">
           <Image
-            src={s3url(nft.attributes.image_url)}
+            src={cleanUrl(nft.attributes.image_url)}
             alt={`${nft.attributes.name} NFT Preview Image`}
             quality={90}
             width={400}
@@ -56,13 +51,33 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
         <div className="inner">
           <h2 className="title">{nft.attributes.name}</h2>
           <div className="info">
-            <div className="price">
-              <b>Price</b>
-              <span>{pass.attributes.initial_price} ETH</span>
-            </div>
-            <CommonPill className="clickable blue small" onClick={() => mint()}>
-              Buy Now
-            </CommonPill>
+            {!nft.attributes.is_minted ? (
+              <>
+                <div className="price">
+                  <b>Price</b>
+                  <span>{pass.attributes.initial_price} ETH</span>
+                </div>
+                <CommonPill
+                  className="clickable blue small"
+                  onClick={() => mint()}
+                >
+                  Buy Now
+                </CommonPill>
+              </>
+            ) : (
+              <>
+                <div className="price">
+                  <b>Price</b>
+                  <span>{pass.attributes.initial_price} ETH</span>
+                </div>
+                <CommonPill
+                  className="clickable blue small"
+                  onClick={() => mint()}
+                >
+                  Bid
+                </CommonPill>
+              </>
+            )}
           </div>
         </div>
       </LazyLoad>

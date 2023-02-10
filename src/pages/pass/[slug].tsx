@@ -37,7 +37,6 @@ export const getServerSideProps = async ({ query }: any) => {
       Authorization: `Bearer ${token}`,
     },
   })
-  console.log(response)
 
   if (response.data) {
     return {

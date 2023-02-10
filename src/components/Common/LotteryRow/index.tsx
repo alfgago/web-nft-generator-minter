@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -16,7 +16,7 @@ const LotteryRow = ({ nft, color }: any) => {
     <LotteryRowStyles className={color}>
       <div className="image">
         <Image
-          src={s3url(imageUrl)}
+          src={cleanUrl(imageUrl)}
           alt={nft.attributes.name}
           quality={90}
           width={imageW}

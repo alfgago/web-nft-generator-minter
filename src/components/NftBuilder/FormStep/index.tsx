@@ -74,6 +74,7 @@ const FormStep = ({
     price: number
     tourFrom: Date
     tourTo: Date
+    tourName: Date
     lotteryDate: Date
   }
 
@@ -88,6 +89,7 @@ const FormStep = ({
     if (sel) {
       title = `${sel.attributes.name} ${type} Pass`
       setSelectedArtist(sel)
+      setFieldValue("artistName", sel.attributes.name)
 
       const artistImg = sel.attributes.banner.data.attributes.url
         ? sel.attributes.banner.data.attributes.url
@@ -136,6 +138,8 @@ const FormStep = ({
         ? member.nft_default_image.data?.attributes.url
         : artistImg
       setMemberImage(image)
+
+      setFieldValue("memberName", member.name)
 
       window.canvas = false
       window.uploadedNfts = 0
@@ -280,6 +284,10 @@ const FormStep = ({
             )}
             {values.passType == "Tour" && (
               <>
+                <label>
+                  <span>Tour Name</span>
+                  <Field name="tourName" />
+                </label>
                 <label>
                   <span>Tour start date</span>
                   {errors.tourFrom && touched.tourFrom ? (

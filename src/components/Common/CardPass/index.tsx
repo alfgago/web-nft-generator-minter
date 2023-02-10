@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -48,7 +48,7 @@ const CardPass = ({ pass, event }: any) => {
       <CardPassStyles>
         <>
           <Image
-            src={s3url(imgCardPass())}
+            src={cleanUrl(imgCardPass())}
             alt={title + " preview"}
             quality={90}
             width={300}
@@ -65,19 +65,17 @@ const CardPass = ({ pass, event }: any) => {
               {price && <div className="price">Floor: {price} eth</div>}
             </div>
             <div className="action">
-              <Link legacyBehavior href="/">
-                <a>
-                  <CommonPill className="clickable fill small">
-                    Enter Lottery
-                  </CommonPill>
-                </a>
+              <Link href={`/pass/${pass.attributes.contract_address}`}>
+                <CommonPill className="clickable fill small">
+                  Enter Lottery
+                </CommonPill>
               </Link>
             </div>
           </div>
           <div className="more">
             <Image
               className="artist-pic"
-              src={s3url(
+              src={cleanUrl(
                 pass.attributes.artist.data.attributes.banner.data.attributes
                   .url
               )}
