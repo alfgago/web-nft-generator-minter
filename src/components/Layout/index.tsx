@@ -36,13 +36,21 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const [userPasses, setUserPasses] = useState([])
   const { data: user } = useSession()
   const userEmail = user?.user?.email
-  const userId = user?.id
   const [managerEvents, setManagerEvents] = useState([])
+  const [apiResponse, setApiResponse] = useState([])
+  const [validTime, setValidTime] = useState(false)
+
+  const getTime = (targetTime: any, now: any) => {
+    const remainingTime = targetTime.getTime() - now.getTime()
+    const seconds = Math.floor(remainingTime / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+
+    return { hours: hours, minutes: minutes, seconds: seconds }
+  }
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
-    console.log(userId)
-
     async function fetchData() {
       try {
         // if the user is loged in
@@ -50,7 +58,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           /* get all the shows of the loged in user 
           that contains passes of single events */
           const { data } = await axios.get(
-            "/api/shows?passType=Single Event&user=" + userId + "&deep=" + 3
+            // @ts-ignore
+            "/api/shows?passType=Single Event&user=" + user.id + "&deep=" + 3
           )
 
           setManagerEvents(
@@ -61,8 +70,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
               return {
                 name: event.attributes.name,
-                // need to be changed
-
                 image: respImage,
                 description: event.attributes.description,
                 id: event.attributes.name.replace(/ /g, ""),
@@ -78,15 +85,20 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
           setUserPasses(
             responseData.map((event: any) => {
-              const respImage =
-                event.attributes.artist.data.attributes.profile_picture.data
-                  .attributes.url
+              const total = getTime(new Date(event.attributes.date), new Date())
 
-              return {
-                name: event.attributes.name,
-                image: respImage,
-                description: event.attributes.description,
-                id: event.attributes.name.replace(/ /g, ""),
+              if (total.hours <= 48 && total.hours > 0) {
+                setValidTime(true)
+
+                const respImage =
+                  event.attributes.artist.data.attributes.profile_picture.data
+                    .attributes.url
+                return {
+                  name: event.attributes.name,
+                  image: respImage,
+                  description: event.attributes.description,
+                  id: event.attributes.name.replace(/ /g, ""),
+                }
               }
             })
           )
@@ -122,6 +134,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           userId={userEmail!}
         />
       ) : (
+        validTime &&
         isConnected &&
         userPasses.length > 0 && (
           <GroupChat
