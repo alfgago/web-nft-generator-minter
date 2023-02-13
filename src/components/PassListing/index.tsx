@@ -15,7 +15,7 @@ import {
 const PassListing = () => {
   const [passes, setPasses] = useState([])
   const [activeFilter, setActiveFilter] = useState("All")
-  const filters = ["All", "Tour", "Single", "Lottery", "Lifetime"]
+  const filters = ["All", "Tour", "Single Event", "Lottery", "Lifetime"]
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [pageCount, setPageCount] = useState(1)

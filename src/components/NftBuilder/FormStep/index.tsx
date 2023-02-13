@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
+import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import DatePicker from "react-datepicker"
 import { useAccount, useConnect } from "wagmi"
@@ -23,6 +24,8 @@ const FormStep = ({
   setMemberImage,
   selectedArtist,
   setSelectedArtist,
+  selectedShow,
+  setSelectedShow,
 }: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
@@ -69,23 +72,36 @@ const FormStep = ({
     saleType: string
     artist: number
     member: number
-    show: string
+    show: number
     duration: number
     price: number
     tourFrom: Date
     tourTo: Date
-    tourName: Date
+    tourName: string
     lotteryDate: Date
+    artistName: string
   }
 
   const submit = async (values: FormValues) => {
     nextAction(values)
   }
 
+  const [shows, setShows] = useState([])
+  const fetchShows = async (artistId) => {
+    // @ts-ignore
+    const res = await axios.get("/api/shows?artist=" + artistId)
+    const artistShows = res.data.data
+    setShows(artistShows)
+  }
+
   const generateName = (artistId: any, passType: any, setFieldValue: any) => {
     const type = passType.charAt(0).toUpperCase() + passType.slice(1)
     const sel = artists.find((obj: any) => obj.id == artistId)
     let title = ""
+
+    if (type == "Single Event") {
+      console.log(formValues)
+    }
     if (sel) {
       title = `${sel.attributes.name} ${type} Pass`
       setSelectedArtist(sel)
@@ -107,11 +123,16 @@ const FormStep = ({
   ) => {
     setFieldValue("artist", artistId)
     generateName(artistId, passType, setFieldValue)
+    fetchShows(artistId)
 
     window.canvas = false
     window.uploadedNfts = 0
     sessionStorage.removeItem("collectionData")
     sessionStorage.removeItem("canvasJson")
+  }
+
+  const selectShow = (showId: number, setFieldValue: any) => {
+    setFieldValue("show", showId)
   }
 
   const selectPassType = (
@@ -277,8 +298,20 @@ const FormStep = ({
             {values.passType == "Single Event" && (
               <label>
                 <span>Show</span>
-                <Field name="show" as="select">
+                <Field
+                  name="show"
+                  as="select"
+                  onChange={(e: any) => {
+                    selectShow(e.target.value, setFieldValue)
+                  }}
+                >
                   <option value="">-</option>
+                  {shows.length &&
+                    shows.map((item: any, index: number) => (
+                      <option key={"artist-item-" + index} value={item.id}>
+                        {item.attributes.name}
+                      </option>
+                    ))}
                 </Field>
               </label>
             )}

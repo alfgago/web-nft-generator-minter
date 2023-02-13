@@ -6,6 +6,7 @@ import cleanUrl from "@/utils/cleanUrl"
 import { MyNftCardStyles } from "./MyNftCardStyles"
 
 const MyNftCard = ({ nft }: any) => {
+  console.log(nft)
   return (
     <MyNftCardStyles className="nft-card">
       <div className="head-cont">
@@ -16,7 +17,12 @@ const MyNftCard = ({ nft }: any) => {
           <img src={cleanUrl(nft.media[0].gateway)} alt="" />
         </div>
         <div className="info-cont">
-          <a>
+          <a
+            title={"Sell " + nft.title + " on OpenSea"}
+            href="https://opensea.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <CommonPill className="clickable small">Sell</CommonPill>
           </a>
         </div>

@@ -23,7 +23,7 @@ export const getPassDescription = (pass: any) => {
     platform which will provide future perks to fans as the pass has no expiration.  Learn more about the utility and restrictions <a href="https://plusonemusic.io/resources/fans">here</a>.`
   }
 
-  if (pass.pass_type == "Single") {
+  if (pass.pass_type == "Single Event") {
     desc = `This plus|one single event pass provides the digital utility via <a href="/artist/${artist.slug}">${artist.name}'s profile page</a> 
     to directly send ${artist.name} guest list requests for the ${event.name} show at ${event.address} on ${event.date}. When a guest list request is submitted via the plus|one 
     platform, it provides the owner two spots on ${artist.name}'s guest list, which, depending on the particular show, will provide GA access or 

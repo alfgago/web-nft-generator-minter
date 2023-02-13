@@ -104,13 +104,6 @@ const Navbar = () => {
               )}
               <div className="submenu">
                 <ul>
-                  {!session && (
-                    <li className="li-account">
-                      <a href="#" onClick={() => setOpenLogin(true)}>
-                        <span>Login</span>
-                      </a>
-                    </li>
-                  )}
                   {session && (
                     <li className="li-account">
                       <Link href="/profile">Profile</Link>
@@ -140,6 +133,13 @@ const Navbar = () => {
                       <a href="#" onClick={() => connect()}>
                         <ReactSVG src="/assets/icons/wallet.svg" />
                         <span>Connect your wallet</span>
+                      </a>
+                    </li>
+                  )}
+                  {!session && (
+                    <li className="li-account">
+                      <a href="#" onClick={() => setOpenLogin(true)}>
+                        <span>Tour Manager Login</span>
                       </a>
                     </li>
                   )}

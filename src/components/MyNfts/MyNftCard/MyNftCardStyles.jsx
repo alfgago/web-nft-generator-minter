@@ -17,12 +17,13 @@ export const MyNftCardStyles = styled.div`
     padding: ${14 / 16}rem;
 
     @media ${DEVICE.laptop} {
+      height: 5.5rem;
       padding: ${20 / 16}rem ${34 / 16}rem;
     }
 
     h3 {
       font-weight: 500;
-      padding-bottom: ${2 / 16}rem;
+      font-size: ${23 / 16}rem;
     }
 
     p,
@@ -41,10 +42,6 @@ export const MyNftCardStyles = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .clickable {
-      background: none;
     }
 
     .info-cont {

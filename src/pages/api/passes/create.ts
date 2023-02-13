@@ -31,7 +31,7 @@ const createPass = async (values: any) => {
     royalty_wallet_address: values.wallet,
     artist: values.artist ? values.artist : null,
     tour: values.tour ? values.tour : null,
-    event: values.event ? values.event : null,
+    event: values.event ? values.show : null,
     pass_type: values.passType,
     sale_type: values.saleType,
     is_lottery: values.passType == "Lottery",

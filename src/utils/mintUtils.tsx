@@ -52,11 +52,11 @@ export const uploadNft = async (
       },
       {
         trait_type: "member",
-        value: formValues.member,
+        value: formValues.memberName,
       },
       {
         trait_type: "artist",
-        value: formValues.artist,
+        value: formValues.artistName,
       },
     ],
   }
