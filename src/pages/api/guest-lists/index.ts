@@ -5,15 +5,14 @@ const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   page = 1,
-  limit = 2,
-  random = false,
-  user = 0,
-  type = "Lottery",
+  limit = 3,
+  pass = 0,
+  minted = "All",
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const cacheKey = `tours_${page}_${limit}_${random}_${user}_${type}`
+  const cacheKey = `guests_${page}_${limit}_${pass}_${minted}`
   const cached = cache.get(cacheKey)
   if (cached) {
     return cached
@@ -22,27 +21,30 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "banner,profile_picture,passes",
-    randomSort: random,
-  }
-  if (type) {
-    // @ts-ignore
-    params["filters[pass_type][$eq]"] = type
-  }
-  if (user) {
-    // @ts-ignore
-    params["filters[user][$eq]"] = user
+    populate: "*",
+    sort: "name",
   }
 
-  const response = await axios.get(`${apiURL}/api/artists`, {
-    params: params,
+  if (pass) {
+    // @ts-ignore
+    params["filters[pass_collection][id][$eq]"] = pass
+  }
+
+  if (minted && minted != "All") {
+    const isMinted = minted == "Minted"
+    // @ts-ignore
+    params["filters[is_minted][$ne]"] = !isMinted
+  }
+
+  const nftsResponse = await axios.get(`${apiURL}/api/nfts`, {
+    params,
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
 
-  cache.set(cacheKey, response.data)
-  return response.data
+  cache.set(cacheKey, nftsResponse.data)
+  return nftsResponse.data
 }
 
 export default async function handler(
@@ -53,7 +55,6 @@ export default async function handler(
     const data = await fetchData(req.query)
     res.status(200).json(data)
   } catch (e) {
-    console.log(e)
-    res.status(400).send({ err: "There was an error fetching the data" })
+    res.status(400).send({ err: "There was an error fetching the data", e })
   }
 }

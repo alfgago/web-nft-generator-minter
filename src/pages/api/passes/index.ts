@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
+import NodeCache from "node-cache"
+const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   page = 1,
@@ -12,6 +14,12 @@ const fetchData = async ({
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
+
+  const cacheKey = `passes_${page}_${limit}_${artist}_${user}_${type}_${future}_${sort}`
+  const cached = cache.get(cacheKey)
+  if (cached) {
+    return cached
+  }
 
   const today = new Date()
   const dd = String(today.getDate()).padStart(2, "0")
@@ -45,6 +53,8 @@ const fetchData = async ({
     // @ts-ignore
     params["sort[0]"] = sort
   }
+  // @ts-ignore
+  params["filters[contract_address][$notNull]"] = true
 
   const response = await axios.get(`${apiURL}/api/passes`, {
     params: params,
@@ -53,6 +63,7 @@ const fetchData = async ({
     },
   })
 
+  cache.set(cacheKey, response.data)
   return response.data
 }
 

@@ -21,7 +21,7 @@ const uploadFolder = async ({ folderName, metadatas }: any) => {
     // convert the object to a string
     const jsonString = JSON.stringify(metadataArray[i])
     // write the string to a file
-    fs.writeFileSync(`${folderName}/${i}`, jsonString)
+    fs.writeFileSync(`${folderName}/${metadataArray[i].order}`, jsonString)
   }
 
   // upload the folder to IPFS

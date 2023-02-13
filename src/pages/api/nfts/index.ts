@@ -1,14 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
+import NodeCache from "node-cache"
+const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
-  page,
+  page = 1,
   limit = 3,
   pass = 0,
   minted = "All",
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
+
+  const cacheKey = `nfts_${page}_${limit}_${pass}_${minted}`
+  const cached = cache.get(cacheKey)
+  if (cached) {
+    return cached
+  }
 
   const params = {
     "pagination[page]": page,
@@ -23,8 +31,9 @@ const fetchData = async ({
   }
 
   if (minted && minted != "All") {
+    const isMinted = minted == "Minted"
     // @ts-ignore
-    params["filters[is_minted][$eq]"] = minted == "Minted"
+    params["filters[is_minted][$ne]"] = !isMinted
   }
 
   const nftsResponse = await axios.get(`${apiURL}/api/nfts`, {
@@ -34,6 +43,7 @@ const fetchData = async ({
     },
   })
 
+  cache.set(cacheKey, nftsResponse.data)
   return nftsResponse.data
 }
 

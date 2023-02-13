@@ -1,27 +1,29 @@
 import React from "react"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { MyNftCardStyles } from "./MyNftCardStyles"
 
-const MyNftCard = ({ nftData }: any) => {
+const MyNftCard = ({ nft }: any) => {
+  console.log(nft)
   return (
-    <MyNftCardStyles>
+    <MyNftCardStyles className="nft-card">
       <div className="head-cont">
-        <h3>{nftData.name}</h3>
-        <p>{nftData.info}</p>
+        <h3>{nft.title}</h3>
       </div>
       <div className="content-cont">
         <div>
-          <img src={nftData.image} alt="" />
+          <img src={cleanUrl(nft.media[0].gateway)} alt="" />
         </div>
         <div className="info-cont">
-          <div>
-            <p>Price: {nftData.price}</p>
-            <p>Amount: {nftData.amount}</p>
-          </div>
-          <a>
-            <CommonPill className="btn clickable black small">Sell</CommonPill>
+          <a
+            title={"Sell " + nft.title + " on OpenSea"}
+            href="https://opensea.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <CommonPill className="clickable small">Sell</CommonPill>
           </a>
         </div>
       </div>

@@ -105,4 +105,16 @@ export const ConfirmationStepStyles = styled.div`
       margin-top: 1rem;
     }
   }
+
+  .deployment-success {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #000;
+    background: #f7fff7;
+
+    a {
+      text-decoration: underline;
+    }
+  }
 `

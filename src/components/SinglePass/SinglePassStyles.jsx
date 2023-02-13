@@ -57,7 +57,7 @@ export const BrowseStyles = styled.div`
     .triangle-container {
       position: relative;
       display: inline-block;
-      height: 6rem;
+      height: 9rem;
       &:before {
         content: "";
         position: absolute;
@@ -128,6 +128,23 @@ export const BrowseStyles = styled.div`
         min-height: 6rem;
         display: flex;
         align-items: center;
+      }
+    }
+
+    .desc {
+      width: 100%;
+      font-size: 0.95rem;
+      @media ${DEVICE.laptop} {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 12rem;
+        margin-left: auto;
+        margin-bottom: 0;
+      }
+
+      a {
+        text-decoration: underline;
+        font-weight: 600;
       }
     }
 

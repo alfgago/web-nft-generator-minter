@@ -79,9 +79,9 @@ const transformCreateContractParams = (
     },
     paymentSplits: paymentSplits,
     lazyMintSettings: {
-      maxMintableAtCurrentState: body.size > 50 ? 50 : 1,
-      maxMintsPerWallet: body.size > 50 ? 50 : 1,
-      maxMintsPerTxn: body.size > 5 ? 5 : 1,
+      maxMintableAtCurrentState: body.size > 50 ? 50 : 5,
+      maxMintsPerWallet: body.size > 50 ? 50 : 5,
+      maxMintsPerTxn: body.size > 5 ? 5 : 5,
       mintPrice: `${body.price || 0}`,
     },
     operatorAddress: process.env.JUICE_WALLET_ADDRESS || "",
@@ -97,7 +97,6 @@ export default async function handler(
   try {
     const { network } = req.body
     const createParams = transformCreateContractParams(req.body)
-    console.log(createParams)
     const requestId = await deployContract(createParams, network)
     res.status(200).json({ requestId: requestId })
   } catch (e) {

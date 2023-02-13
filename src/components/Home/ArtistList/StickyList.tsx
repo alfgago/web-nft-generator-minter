@@ -5,7 +5,7 @@ import { Tween } from "react-gsap"
 import { Controller, Scene } from "react-scrollmagic"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 const StickyList = ({
   artists,
@@ -84,7 +84,7 @@ const StickyList = ({
                             <div className="inner">
                               <div className="image-container">
                                 <Image
-                                  src={s3url(image)}
+                                  src={cleanUrl(image)}
                                   alt={slug}
                                   quality={90}
                                   width={imageW}

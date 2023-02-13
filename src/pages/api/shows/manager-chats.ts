@@ -5,15 +5,14 @@ const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   page = 1,
-  limit = 2,
-  random = false,
+  limit = 10,
+  artist = 0,
   user = 0,
-  type = "Lottery",
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const cacheKey = `tours_${page}_${limit}_${random}_${user}_${type}`
+  const cacheKey = `managed_shows_${page}_${limit}_${artist}_${user}`
   const cached = cache.get(cacheKey)
   if (cached) {
     return cached
@@ -22,19 +21,15 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "banner,profile_picture,passes",
-    randomSort: random,
-  }
-  if (type) {
-    // @ts-ignore
-    params["filters[pass_type][$eq]"] = type
+    "filters[passes][pass_type][$eq]": "Single Event",
+    populate: "artist.profile_picture,artist.user.",
   }
   if (user) {
     // @ts-ignore
-    params["filters[user][$eq]"] = user
+    params["filters[artist][user][id][$eq]"] = user
   }
 
-  const response = await axios.get(`${apiURL}/api/artists`, {
+  const response = await axios.get(`${apiURL}/api/events`, {
     params: params,
     headers: {
       Authorization: `Bearer ${token}`,

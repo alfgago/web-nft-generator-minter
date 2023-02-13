@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 import { ReactSVG } from "react-svg"
-import { useAccount, useConnect, useDisconnect, useEnsName } from "wagmi"
+import { useAccount, useConnect, useDisconnect } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "../Common/CommonStyles"
@@ -12,14 +13,22 @@ import { MyNtfStyles } from "./MyNftStyles"
 import ShowNfts from "./ShowMyNfts"
 
 const MyNfts = () => {
+  const [nfts, setNfts] = useState([])
   const { address, isConnected } = useAccount()
-  const { data: ensName } = useEnsName({ address })
 
   const { disconnect } = useDisconnect()
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
+
+  useEffect(() => {
+    async function getNFTs() {
+      const { data } = await axios.get("/api/nfts/owned?address=" + address)
+      setNfts(data)
+    }
+    getNFTs()
+  }, [])
 
   return (
     <MyNtfStyles>
@@ -37,7 +46,7 @@ const MyNfts = () => {
       </SimpleHeader>
       {isConnected ? (
         <>
-          <ShowNfts />
+          <ShowNfts items={nfts} />
           <MyNftGuestsList />
           <OwnedLottery />
         </>

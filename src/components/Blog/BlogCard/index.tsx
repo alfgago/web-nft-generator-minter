@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { BlogCardStyles } from "@/components/Blog/BlogCard/BlogCardStyles"
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 const BlogCard = ({ blog }: any) => {
   const attributes = blog.attributes
   const title = attributes.title
@@ -27,7 +27,7 @@ const BlogCard = ({ blog }: any) => {
       </div>
       <div className="col-img">
         <Image
-          src={s3url(imgSrc)}
+          src={cleanUrl(imgSrc)}
           alt={title + " featured image"}
           quality={90}
           width={imageW}

@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { FirstBlogStyle } from "@/components/Blog/FirstBlog/FirstBlogStyle"
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 const FirstBlog = ({ blog }: any) => {
   const attributes = blog.attributes
   const title = attributes.title
@@ -24,7 +24,7 @@ const FirstBlog = ({ blog }: any) => {
         <div className="wrapper">
           <div className="col-img">
             <Image
-              src={s3url(imgSrc)}
+              src={cleanUrl(imgSrc)}
               alt={title + " featured image"}
               quality={90}
               width={imageW}

@@ -41,6 +41,7 @@ const NftBuilder = ({ artists }: any) => {
   const [uploading, setUploading] = useState(false)
   const [uploadedCount, setUploadedCount] = useState(0)
   const [selectedArtist, setSelectedArtist] = useState(artists[0])
+  const [selectedShow, setSelectedShow] = useState(artists[0])
   const [errorMessage, setErrorMessage] = useState("")
   const [contractAddress, setContractAddress] = useState("")
   const [contractDeployed, setContractDeployed] = useState(false)
@@ -57,6 +58,8 @@ const NftBuilder = ({ artists }: any) => {
     is_charity: false,
     charity_name: "",
     charity_royalty: "",
+    artistName: "",
+    memberName: "",
   })
 
   const {
@@ -159,6 +162,10 @@ const NftBuilder = ({ artists }: any) => {
           const folderCid = await uploadFolder(contractAddress, metadatas)
           await setFolderStorage(contractAddress, folderCid)
           await bulkMint(contractAddress, formValues.size)
+          await axios.post("/api/passes/update-folder", {
+            id: passResponse.data.data.id,
+            folderCid: folderCid,
+          })
         } catch (error) {
           setErrorMessage(JSON.stringify(error))
         }
@@ -208,6 +215,8 @@ const NftBuilder = ({ artists }: any) => {
               setMemberImage={setMemberImage}
               setSelectedArtist={setSelectedArtist}
               selectedArtist={selectedArtist}
+              setSelectedShow={setSelectedShow}
+              selectedShow={selectedShow}
             />
           )}
           {activeStep == 2 && (

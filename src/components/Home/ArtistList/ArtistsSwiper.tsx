@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Swiper, SwiperSlide } from "swiper/react" // Import Swiper styles
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import "swiper/css"
 
@@ -52,7 +52,7 @@ const ArtistsSwiper = ({ artists, title, buttonTitle, buttonLink }: any) => {
                               scroll={false}
                             >
                               <Image
-                                src={s3url(image)}
+                                src={cleanUrl(image)}
                                 alt={slug}
                                 quality={90}
                                 width={imageW}

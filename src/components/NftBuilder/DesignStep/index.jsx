@@ -8,7 +8,7 @@ import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 import TemplateFabric from "@/utils/templateFabric"
 
 import ColorsPicker from "../Tools/ColorsPicker"
@@ -116,7 +116,7 @@ const DesignStep = ({
     if (templateFabric) {
       let imgUrl = imageUrl
       if (!imageUrl.length) {
-        imgUrl = s3url(memberImage)
+        imgUrl = cleanUrl(memberImage)
       }
       templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
     }
@@ -129,7 +129,7 @@ const DesignStep = ({
       if (!json) {
         json = false
       }
-      const artistImage = s3url(memberImage)
+      const artistImage = cleanUrl(memberImage)
       window.canvas = new fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,

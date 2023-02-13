@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { DropCardStyles } from "./DropCardStyles"
 
@@ -53,7 +53,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <img src={s3url(imageUrl)} alt="Collection Preview Image" />
+        <img src={cleanUrl(imageUrl)} alt="Collection Preview Image" />
       </div>
       <div className="inner">
         <div className="titles">
@@ -71,17 +71,10 @@ const DropCard = ({ pass, classes = "" }: any) => {
           </div>
         ) : (
           <div className="actions no-time">
-            <Link legacyBehavior href="/">
-              <a>
-                <CommonPill className="clickable blue small">
-                  Buy Now
-                </CommonPill>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/">
-              <a>
-                <CommonPill className="clickable blue small">View</CommonPill>
-              </a>
+            <Link href={`/pass/${pass.attributes.contract_address}`}>
+              <CommonPill className="clickable blue small">
+                View more
+              </CommonPill>
             </Link>
           </div>
         )}

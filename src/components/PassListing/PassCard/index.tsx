@@ -6,7 +6,7 @@ import LazyLoad from "react-lazyload"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
-import s3url from "@/utils/s3url"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { PassCardStyles } from "./PassCardStyles"
 
@@ -57,7 +57,7 @@ const PassCard = ({ pass, classes = "" }: any) => {
       <LazyLoad height={200}>
         <div className="image-container">
           <Image
-            src={s3url(imageUrl)}
+            src={cleanUrl(imageUrl)}
             alt={pass.attributes.collection_name}
             quality={90}
             width={350}
@@ -90,13 +90,10 @@ const PassCard = ({ pass, classes = "" }: any) => {
             </div>
           ) : (
             <div className="actions no-time">
-              <Link href="/">
-                <CommonPill className="clickable blue small">
-                  Buy Now
-                </CommonPill>
-              </Link>
               <Link href={`/pass/${pass.attributes.contract_address}`}>
-                <CommonPill className="clickable blue small">View</CommonPill>
+                <CommonPill className="clickable blue small">
+                  View more
+                </CommonPill>
               </Link>
             </div>
           )}
