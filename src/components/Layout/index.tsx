@@ -39,6 +39,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const [managerEvents, setManagerEvents] = useState([])
   const [apiResponse, setApiResponse] = useState([])
   const [validTime, setValidTime] = useState(false)
+  const [mangerValidTime, setMangerValidTime] = useState(false)
 
   const getTime = (targetTime: any, now: any) => {
     const remainingTime = targetTime.getTime() - now.getTime()
@@ -61,15 +62,22 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
         setManagerEvents(
           data.data.map((event: any) => {
-            const respImage =
-              event.attributes.artist.data.attributes.profile_picture.data
-                .attributes.url
-
-            return {
-              name: event.attributes.name,
-              image: respImage,
-              description: event.attributes.description,
-              id: event.attributes.name.replace(/ /g, ""),
+            const totalTime = getTime(
+              new Date(event.attributes.date),
+              new Date()
+            )
+            console.log(totalTime)
+            if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
+              setMangerValidTime(true)
+              const respImage =
+                event.attributes.artist.data.attributes.profile_picture.data
+                  .attributes.url
+              return {
+                name: event.attributes.name,
+                image: respImage,
+                description: event.attributes.description,
+                id: event.attributes.name.replace(/ /g, ""),
+              }
             }
           })
         )
@@ -82,11 +90,13 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
         setUserPasses(
           responseData.map((event: any) => {
-            const total = getTime(new Date(event.attributes.date), new Date())
+            const totalTime = getTime(
+              new Date(event.attributes.date),
+              new Date()
+            )
+            console.log(totalTime)
 
-            console.log(total)
-
-            if (total.minutes <= 2880 && total.minutes > 0) {
+            if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
               setValidTime(true)
 
               const respImage =
@@ -128,7 +138,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       </AnimatePresence>
       <Footer />
 
-      {user ? (
+      {user && mangerValidTime ? (
         <GroupChat
           type="forManager"
           userEvents={managerEvents}
