@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
 import { log } from "console"
-import PubNub from "pubnub"
+import { userInfo } from "os"
+import PubNub, { ObjectCustom, UUIDMetadataObject } from "pubnub"
 import { PubNubProvider } from "pubnub-react"
 import { ReactSVG } from "react-svg"
 
@@ -18,14 +19,23 @@ import {
   TypingIndicator,
 } from "@pubnub/react-chat-components"
 
+type UserEntity = UUIDMetadataObject<ObjectCustom>
+type ChannelType = ChannelEntity
+
 const ChatModal = (props: any) => {
   const pubnub = new PubNub({
     publishKey: "pub-c-d8a00ae2-e3f9-453b-9f71-c90069a72351",
     subscribeKey: "sub-c-74dfeb98-4fe0-4319-b7c1-e9e3fd5f007a",
-    userId: "user" + props.userId,
+    userId: props.userInfo.id,
   })
 
-  type ChannelType = ChannelEntity
+  const userSender: UserEntity = {
+    id: props.userInfo.id,
+    name: props.userInfo.name,
+    profileUrl: props.userInfo.profileUrl,
+    eTag: "user" + props.userInfo.id,
+    updated: new Date().toString(),
+  }
 
   const defaultChannel = {
     id: "default",
@@ -81,6 +91,7 @@ const ChatModal = (props: any) => {
                   ? customList[0].id
                   : currentChannel.id
               }
+              users={[userSender]}
               theme={theme}
             >
               <MessageList
@@ -93,6 +104,7 @@ const ChatModal = (props: any) => {
                 typingIndicator
                 fileUpload="image"
                 placeholder={"Send message"}
+                senderInfo={true}
                 emojiPicker={<Picker data={pickerData} theme={theme} />}
               />
             </Chat>
@@ -115,7 +127,7 @@ const ChatIcon = ({ setShowChat, showChat }: any) => {
   )
 }
 
-const GroupChat = ({ userId, type, userEvents }: any) => {
+const GroupChat = ({ userId, type, userEvents, userInfo }: any) => {
   const [showChat, setShowChat] = useState<any>(false)
   const ref = useRef<any>(null)
 
@@ -137,6 +149,7 @@ const GroupChat = ({ userId, type, userEvents }: any) => {
       <ChatIcon showChat={showChat} setShowChat={setShowChat} />
       <div ref={ref}>
         <ChatModal
+          userInfo={userInfo}
           userId={userId}
           showChat={showChat}
           setShowChat={setShowChat}

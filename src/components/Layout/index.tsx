@@ -30,15 +30,23 @@ const onExitCompleteHandler = () => {
   window.scrollTo(0, 0)
 }
 
+export interface UserInfo {
+  id: string
+  email: string | null
+  profileUrl: string | null
+  name: string | null
+}
+
 const Layout = ({ children }: { children: JSX.Element }) => {
   const { asPath } = useRouter()
   const { address, isConnected } = useAccount()
   const [userPasses, setUserPasses] = useState([])
   const { data: user } = useSession()
   const userEmail = user?.user?.email
-  const [managerEvents, setManagerEvents] = useState([])
   const [apiResponse, setApiResponse] = useState([])
   const [validTime, setValidTime] = useState(false)
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
+  const [managerEvents, setManagerEvents] = useState([])
   const [mangerValidTime, setMangerValidTime] = useState(false)
 
   const getTime = (targetTime: any, now: any) => {
@@ -60,13 +68,22 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           "/api/shows?passType=Single Event&user=" + user.id + "&deep=" + 3
         )
 
+        const userData =
+          data.data[0].attributes.artist.data.attributes.user.data.attributes
+
+        setUserInfo({
+          id: "id_" + userData.email,
+          name: userData.name,
+          email: userData.email,
+          profileUrl: "https://randomuser.me/api/portraits/men/1.jpg",
+        })
+
         setManagerEvents(
           data.data.map((event: any) => {
             const totalTime = getTime(
               new Date(event.attributes.date),
               new Date()
             )
-            console.log(totalTime)
             if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
               setMangerValidTime(true)
               const respImage =
@@ -88,13 +105,19 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         const { data } = await axios.get("/api/shows?nft=886&deep=3")
         const responseData = data.data
 
+        setUserInfo({
+          id: "id_" + address?.toString()!,
+          name: address?.toString()!,
+          email: "",
+          profileUrl: "",
+        })
+
         setUserPasses(
           responseData.map((event: any) => {
             const totalTime = getTime(
               new Date(event.attributes.date),
               new Date()
             )
-            console.log(totalTime)
 
             if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
               setValidTime(true)
@@ -142,7 +165,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         <GroupChat
           type="forManager"
           userEvents={managerEvents}
-          userId={userEmail!}
+          userInfo={userInfo}
         />
       ) : (
         validTime &&
@@ -151,7 +174,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           <GroupChat
             type="forWallet"
             userEvents={userPasses}
-            userId={address}
+            userInfo={userInfo}
           />
         )
       )}
