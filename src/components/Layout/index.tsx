@@ -90,6 +90,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
                 event.attributes.artist.data.attributes.profile_picture.data
                   .attributes.url
               return {
+                artistName: event.attributes.artist.data.attributes.name,
                 name: event.attributes.name,
                 image: respImage,
                 description: event.attributes.description,

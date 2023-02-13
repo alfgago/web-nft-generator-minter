@@ -43,8 +43,10 @@ const ChatModal = (props: any) => {
     description: "This is the default channel",
   } as Pick<ChannelType, "id" | "name" | "description">
 
-  const customList = props.setChannels.map((obj: any) => {
+  const channelList = props.setChannels.map((obj: any) => {
+    console.log(obj)
     return {
+      artistName: obj.artistName,
       name: obj.name,
       custom: {
         profileUrl: obj.image,
@@ -56,11 +58,19 @@ const ChatModal = (props: any) => {
     }
   })
 
-  // customList.push(defaultChannel)
+  channelList.push(defaultChannel)
 
-  const [currentChannel, setCurrentChannel] = useState(customList[0])
+  const [currentChannel, setCurrentChannel] = useState(channelList[0])
 
-  const [channelList, setChannelList] = useState([])
+  // chanage user data depending on the chat
+  useEffect(() => {
+    if (currentChannel.artistName != undefined) {
+      userSender.name = currentChannel.artistName
+      userSender.profileUrl = currentChannel.custom
+        ? currentChannel.custom.profileUrl
+        : ""
+    }
+  }, [currentChannel])
 
   const theme = "light"
 
@@ -77,9 +87,10 @@ const ChatModal = (props: any) => {
             <ReactSVG src="/assets/icons/close.svg" />
           </button>
           <ChannelList
-            channels={customList}
+            channels={channelList}
             onChannelSwitched={(channel: any) => {
               setCurrentChannel(channel)
+              console.log(channel)
             }}
           />
         </div>
@@ -88,7 +99,7 @@ const ChatModal = (props: any) => {
             <Chat
               currentChannel={
                 currentChannel === undefined
-                  ? customList[0].id
+                  ? channelList[0].id
                   : currentChannel.id
               }
               users={[userSender]}
