@@ -61,7 +61,7 @@ const ChatModal = (props: any) => {
     id: props.userInfo.id,
     name:
       "forManager" === props.type
-        ? currentChannel.artistName
+        ? currentChannel.artistName + " - Manager"
         : props.userInfo.name,
     profileUrl:
       "forManager" === props.type ? currentChannel.custom.profileUrl : "",
@@ -72,7 +72,7 @@ const ChatModal = (props: any) => {
   // chanage user data depending on the chat
   useEffect(() => {
     if ("forManager" === props.type) {
-      userSender.name = currentChannel.artistName
+      userSender.name = currentChannel.artistName + " - Manager"
       userSender.profileUrl = currentChannel.custom
         ? currentChannel.custom.profileUrl
         : ""
