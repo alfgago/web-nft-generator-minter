@@ -65,7 +65,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           that contains passes of single events */
         const { data } = await axios.get(
           // @ts-ignore
-          "/api/shows?passType=Single Event&user=" + user.id + "&deep=" + 3
+          "/api/shows/manager-chats?user=" + user.id
         )
 
         const userData =
@@ -79,12 +79,15 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         })
 
         setManagerEvents(
-          data.data.map((event: any) => {
-            const totalTime = getTime(
-              new Date(event.attributes.date),
-              new Date()
-            )
-            if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
+          data.data
+            .map((event: any) => {
+              const totalTime = getTime(
+                new Date(event.attributes.date),
+                new Date()
+              )
+              if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
+                return null
+              }
               setMangerValidTime(true)
               const respImage =
                 event.attributes.artist.data.attributes.profile_picture.data
@@ -96,8 +99,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
                 description: event.attributes.description,
                 id: event.attributes.name.replace(/ /g, ""),
               }
-            }
-          })
+            })
+            .filter((event: any) => event !== null)
         )
       }
 
@@ -114,13 +117,16 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         })
 
         setUserPasses(
-          responseData.map((event: any) => {
-            const totalTime = getTime(
-              new Date(event.attributes.date),
-              new Date()
-            )
+          responseData
+            .map((event: any) => {
+              const totalTime = getTime(
+                new Date(event.attributes.date),
+                new Date()
+              )
 
-            if (totalTime.minutes <= 2880 && totalTime.minutes > 0) {
+              if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
+                return null
+              }
               setValidTime(true)
 
               const respImage =
@@ -132,8 +138,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
                 description: event.attributes.description,
                 id: event.attributes.name.replace(/ /g, ""),
               }
-            }
-          })
+            })
+            .filter((event: any) => event !== null)
         )
       }
     } catch (err: any) {
