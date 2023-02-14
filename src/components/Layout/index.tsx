@@ -40,14 +40,10 @@ export interface UserInfo {
 const Layout = ({ children }: { children: JSX.Element }) => {
   const { asPath } = useRouter()
   const { address, isConnected } = useAccount()
-  const [userPasses, setUserPasses] = useState([])
   const { data: user } = useSession()
-  const userEmail = user?.user?.email
-  const [apiResponse, setApiResponse] = useState([])
   const [validTime, setValidTime] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
-  const [managerEvents, setManagerEvents] = useState([])
-  const [mangerValidTime, setMangerValidTime] = useState(false)
+  const [events, setEvents] = useState([])
 
   const getTime = (targetTime: any, now: any) => {
     const remainingTime = targetTime.getTime() - now.getTime()
@@ -60,6 +56,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   async function fetchData() {
     try {
       // if the user is loged in
+      let apiResponse
+
       if (user) {
         /* get all the shows of the loged in user 
           that contains passes of single events */
@@ -68,8 +66,9 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           "/api/shows/manager-chats?user=" + user.id
         )
 
+        apiResponse = data.data
         const userData =
-          data.data[0].attributes.artist.data.attributes.user.data.attributes
+          apiResponse[0].attributes.artist.data.attributes.user.data.attributes
 
         setUserInfo({
           id: "id_" + userData.email,
@@ -77,37 +76,12 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           email: userData.email,
           profileUrl: "",
         })
-
-        setManagerEvents(
-          data.data
-            .map((event: any) => {
-              const totalTime = getTime(
-                new Date(event.attributes.date),
-                new Date()
-              )
-              if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
-                return null
-              }
-              setMangerValidTime(true)
-              const respImage =
-                event.attributes.artist.data.attributes.profile_picture.data
-                  .attributes.url
-              return {
-                artistName: event.attributes.artist.data.attributes.name,
-                name: event.attributes.name,
-                image: respImage,
-                description: event.attributes.description,
-                id: event.attributes.name.replace(/ /g, ""),
-              }
-            })
-            .filter((event: any) => event !== null)
-        )
       }
 
       if (!user) {
         // change the route to get the nft of the actual user
         const { data } = await axios.get("/api/shows?nft=886&deep=3")
-        const responseData = data.data
+        apiResponse = data.data
 
         setUserInfo({
           id: "id_" + address?.toString()!,
@@ -115,33 +89,32 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           email: "",
           profileUrl: "",
         })
-
-        setUserPasses(
-          responseData
-            .map((event: any) => {
-              const totalTime = getTime(
-                new Date(event.attributes.date),
-                new Date()
-              )
-
-              if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
-                return null
-              }
-              setValidTime(true)
-
-              const respImage =
-                event.attributes.artist.data.attributes.profile_picture.data
-                  .attributes.url
-              return {
-                name: event.attributes.name,
-                image: respImage,
-                description: event.attributes.description,
-                id: event.attributes.name.replace(/ /g, ""),
-              }
-            })
-            .filter((event: any) => event !== null)
-        )
       }
+
+      setEvents(
+        apiResponse
+          .map((event: any) => {
+            const totalTime = getTime(
+              new Date(event.attributes.date),
+              new Date()
+            )
+            if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
+              return null
+            }
+            setValidTime(true)
+            const respImage =
+              event.attributes.artist.data.attributes.profile_picture.data
+                .attributes.url
+            return {
+              artistName: event.attributes.artist.data.attributes.name,
+              name: event.attributes.name,
+              image: respImage,
+              description: event.attributes.description,
+              id: event.attributes.name.replace(/ /g, ""),
+            }
+          })
+          .filter((event: any) => event !== null)
+      )
     } catch (err: any) {
       console.log(err)
     }
@@ -168,21 +141,13 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       </AnimatePresence>
       <Footer />
 
-      {user && mangerValidTime ? (
-        <GroupChat
-          type="forManager"
-          userEvents={managerEvents}
-          userInfo={userInfo}
-        />
+      {user && validTime ? (
+        <GroupChat type="forManager" userEvents={events} userInfo={userInfo} />
       ) : (
         validTime &&
         isConnected &&
-        userPasses.length > 0 && (
-          <GroupChat
-            type="forWallet"
-            userEvents={userPasses}
-            userInfo={userInfo}
-          />
+        events.length > 0 && (
+          <GroupChat type="forWallet" userEvents={events} userInfo={userInfo} />
         )
       )}
 
