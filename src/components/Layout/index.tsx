@@ -75,7 +75,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           id: "id_" + userData.email,
           name: userData.name,
           email: userData.email,
-          profileUrl: "https://randomuser.me/api/portraits/men/1.jpg",
+          profileUrl: "",
         })
 
         setManagerEvents(
