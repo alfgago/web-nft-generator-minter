@@ -29,22 +29,17 @@ const ChatModal = (props: any) => {
     userId: props.userInfo.id,
   })
 
-  const userSender: UserEntity = {
-    id: props.userInfo.id,
-    name: props.userInfo.name,
-    profileUrl: props.userInfo.profileUrl,
-    eTag: "user" + props.userInfo.id,
-    updated: new Date().toString(),
-  }
-
   const defaultChannel = {
     id: "default",
+    artistName: "defalut",
     name: "Default Channel",
     description: "This is the default channel",
+    custom: {
+      profileUrl: "",
+    },
   } as Pick<ChannelType, "id" | "name" | "description">
 
   const channelList = props.setChannels.map((obj: any) => {
-    console.log(obj)
     return {
       artistName: obj.artistName,
       name: obj.name,
@@ -62,9 +57,21 @@ const ChatModal = (props: any) => {
 
   const [currentChannel, setCurrentChannel] = useState(channelList[0])
 
+  const userSender: UserEntity = {
+    id: props.userInfo.id,
+    name:
+      "forManager" === props.type
+        ? currentChannel.artistName
+        : props.userInfo.name,
+    profileUrl:
+      "forManager" === props.type ? currentChannel.custom.profileUrl : "",
+    eTag: "user" + props.userInfo.id,
+    updated: new Date().toString(),
+  }
+
   // chanage user data depending on the chat
   useEffect(() => {
-    if (currentChannel.artistName != undefined) {
+    if ("forManager" === props.type) {
       userSender.name = currentChannel.artistName
       userSender.profileUrl = currentChannel.custom
         ? currentChannel.custom.profileUrl
@@ -160,6 +167,7 @@ const GroupChat = ({ userId, type, userEvents, userInfo }: any) => {
       <ChatIcon showChat={showChat} setShowChat={setShowChat} />
       <div ref={ref}>
         <ChatModal
+          type={type}
           userInfo={userInfo}
           userId={userId}
           showChat={showChat}
