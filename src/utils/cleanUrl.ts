@@ -4,12 +4,8 @@ const clean = (src: string) => {
       "https://plusone-public.s3.amazonaws.com",
       process.env.NEXT_PUBLIC_DOMAIN + "/aws"
     )
-    .replace(
-      "https://plusonemusic.io/ipfs",
-      "https://gateway.pinata.cloud/ipfs"
-    )
-    .replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
-  console.log(cleaned)
+    .replace("ipfs://", "https://plusonemusic.io/ipfs/")
+
   return cleaned
 }
 export default clean
