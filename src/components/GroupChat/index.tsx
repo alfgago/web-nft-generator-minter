@@ -53,7 +53,7 @@ const ChatModal = (props: any) => {
     }
   })
 
-  channelList.push(defaultChannel)
+  // channelList.push(defaultChannel)
   const [currentChannel, setCurrentChannel] = useState(channelList[0])
 
   const userSender: UserEntity = {
