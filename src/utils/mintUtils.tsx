@@ -39,26 +39,35 @@ export const uploadNft = async (
   })
   const imageUrl = storageResponse.data.image.href
 
+  const atts = [
+    {
+      trait_type: "pass_type",
+      value: formValues.passType,
+    },
+    {
+      trait_type: "member",
+      value: formValues.memberName,
+    },
+    {
+      trait_type: "artist",
+      value: formValues.artistName,
+    },
+  ]
+
+  if (formValues.passType == "Single Event") {
+    atts.push({
+      trait_type: "event",
+      value: formValues.show,
+    })
+  }
+
   const metadata = {
     name: name,
     description: desc,
     image: imageUrl,
     order: order,
     external_url: cleanUrl(imageUrl),
-    attributes: [
-      {
-        trait_type: "pass_type",
-        value: formValues.passType,
-      },
-      {
-        trait_type: "member",
-        value: formValues.memberName,
-      },
-      {
-        trait_type: "artist",
-        value: formValues.artistName,
-      },
-    ],
+    attributes: atts,
   }
   // upload the image and metadata to IPFS
   const metadataClient = new MetaDataClient(NFT_STORAGE_TOKEN)

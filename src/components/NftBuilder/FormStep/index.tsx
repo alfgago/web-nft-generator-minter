@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 // @ts-nocheck
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import DatePicker from "react-datepicker"
@@ -82,6 +83,8 @@ const FormStep = ({
     artistName: string
   }
 
+  const formikRef = useRef(null) as any
+
   const submit = async (values: FormValues) => {
     nextAction(values)
   }
@@ -94,63 +97,69 @@ const FormStep = ({
     setShows(artistShows)
   }
 
-  const generateName = (artistId: any, passType: any, setFieldValue: any) => {
-    const type = passType.charAt(0).toUpperCase() + passType.slice(1)
-    const sel = artists.find((obj: any) => obj.id == artistId)
+  const generateName = (artist: number, passType: string, show: number) => {
+    let type = passType.charAt(0).toUpperCase() + passType.slice(1)
     let title = ""
 
     if (type == "Single Event") {
-      console.log(formValues)
+      const sel = shows.find((obj: any) => obj.id == show)
+      if (sel) {
+        setSelectedShow(sel)
+        type = sel.attributes.name
+      }
     }
-    if (sel) {
-      title = `${sel.attributes.name} ${type} Pass`
-      setSelectedArtist(sel)
-      setFieldValue("artistName", sel.attributes.name)
 
-      const artistImg = sel.attributes.banner.data.attributes.url
-        ? sel.attributes.banner.data.attributes.url
-        : ""
-      setMemberImage(artistImg)
+    const sel = artists.find((obj: any) => obj.id == artist)
+    if (sel) {
+      setSelectedArtist(sel)
+      formikRef.current.setFieldValue("artistName", sel.attributes.name)
+      title = `${sel.attributes.name} ${type} Pass`
     }
-    setFieldValue("name", title)
+    formikRef.current.setFieldValue("name", title)
     setNftTitle(title)
   }
 
-  const selectArtist = (
-    artistId: number,
-    passType: any,
-    setFieldValue: any
-  ) => {
-    setFieldValue("artist", artistId)
-    generateName(artistId, passType, setFieldValue)
+  const selectArtist = (artistId: number) => {
     fetchShows(artistId)
+    formikRef.current.setFieldValue("artist", artistId)
 
     window.canvas = false
     window.uploadedNfts = 0
     sessionStorage.removeItem("collectionData")
     sessionStorage.removeItem("canvasJson")
+
+    generateName(
+      artistId,
+      formikRef.current.values.passType,
+      formikRef.current.values.show
+    )
   }
 
-  const selectShow = (showId: number, setFieldValue: any) => {
-    setFieldValue("show", showId)
+  const selectShow = (showId: number) => {
+    formikRef.current.setFieldValue("show", showId)
+
+    generateName(
+      formikRef.current.values.artist,
+      formikRef.current.values.passType,
+      showId
+    )
   }
 
-  const selectPassType = (
-    artistId: number,
-    passType: any,
-    setFieldValue: any
-  ) => {
-    setFieldValue("passType", passType)
-    generateName(artistId, passType, setFieldValue)
-
+  const selectPassType = (passType: any) => {
+    formikRef.current.setFieldValue("passType", passType)
     if (passType == "Lottery") {
-      setFieldValue("saleType", "Fixed")
+      formikRef.current.setFieldValue("saleType", "Fixed")
     }
+
+    generateName(
+      formikRef.current.values.artist,
+      passType,
+      formikRef.current.values.show
+    )
   }
 
-  const selectMember = (memberId: number, setFieldValue: any) => {
+  const selectMember = (memberId: number) => {
     if (memberId) {
-      setFieldValue("member", memberId)
       const member = members.find((m: any) => m.id == memberId)
       const artistImg = selectedArtist.attributes.banner.data.attributes.url
         ? selectedArtist.attributes.banner.data.attributes.url
@@ -160,7 +169,8 @@ const FormStep = ({
         : artistImg
       setMemberImage(image)
 
-      setFieldValue("memberName", member.name)
+      formikRef.current.setFieldValue("member", memberId)
+      formikRef.current.setFieldValue("memberName", member.name)
 
       window.canvas = false
       window.uploadedNfts = 0
@@ -181,6 +191,7 @@ const FormStep = ({
         initialValues={formValues}
         onSubmit={submit}
         validationSchema={validationSchema}
+        innerRef={formikRef}
       >
         {({ values, setFieldValue, errors, touched }) => (
           <Form className="generator-form trap cols-2">
@@ -204,7 +215,7 @@ const FormStep = ({
                 name="artist"
                 as="select"
                 onChange={(e: any) => {
-                  selectArtist(e.target.value, values.passType, setFieldValue)
+                  selectArtist(e.target.value)
                 }}
               >
                 <option value="">-</option>
@@ -225,7 +236,7 @@ const FormStep = ({
                 name="member"
                 as="select"
                 onChange={(e: any) => {
-                  selectMember(e.target.value, setFieldValue)
+                  selectMember(e.target.value)
                 }}
               >
                 <option value="">-</option>
@@ -246,7 +257,7 @@ const FormStep = ({
                 name="passType"
                 as="select"
                 onChange={(e: any) => {
-                  selectPassType(values.artist, e.target.value, setFieldValue)
+                  selectPassType(e.target.value)
                 }}
               >
                 <option value="">-</option>
@@ -302,7 +313,7 @@ const FormStep = ({
                   name="show"
                   as="select"
                   onChange={(e: any) => {
-                    selectShow(e.target.value, setFieldValue)
+                    selectShow(e.target.value)
                   }}
                 >
                   <option value="">-</option>

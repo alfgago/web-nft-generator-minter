@@ -101,6 +101,7 @@ const NftBuilder = ({ artists }: any) => {
   const onFormSave = (values: any) => {
     nextStep()
     setFormValues(values)
+    console.log(values)
   }
 
   const submit = async (imges: any) => {

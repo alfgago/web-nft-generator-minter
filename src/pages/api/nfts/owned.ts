@@ -9,7 +9,7 @@ const fetchData = async ({ address }: any) => {
   const cacheKey = `owned_nfts_${address}`
   const ownedNfts = cache.get(cacheKey)
   if (ownedNfts) {
-    // return ownedNfts
+    return ownedNfts
   }
 
   const response = await axios.get(
