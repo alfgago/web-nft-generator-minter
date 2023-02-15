@@ -80,7 +80,13 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
       if (!user) {
         // change the route to get the nft of the actual user
-        const { data } = await axios.get("/api/shows?nft=886&deep=3")
+
+        const eventsArray = [17, 10]
+        const jsonArray = JSON.stringify(eventsArray)
+
+        const { data } = await axios.get(
+          "/api/shows/manager-chats?eventList=" + jsonArray
+        )
         apiResponse = data.data
 
         setUserInfo({
