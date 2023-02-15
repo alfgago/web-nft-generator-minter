@@ -65,7 +65,6 @@ export const GroupChatStyles = styled.div`
       width: 30px;
       height: 30px;
     }
-    z-index: 9;
   }
   .chat-button {
     position: absolute;
@@ -104,5 +103,17 @@ export const GroupChatStyles = styled.div`
 
   .pn-msg__title {
     margin-bottom: 0.25rem;
+  }
+
+  .pn-msg-list__emoji-picker {
+    display: none;
+  }
+
+  .pn-msg-input__emoji-picker {
+    left: -2rem;
+    bottom: -0.5rem;
+  }
+  .pn-channel__title {
+    max-width: ${100 / 16}rem;
   }
 `
