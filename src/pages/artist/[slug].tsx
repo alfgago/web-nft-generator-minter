@@ -11,7 +11,11 @@ const ArtistPage = ({ artist }: any) => {
   const bio = artist.attributes.bio
   const genre = false
   const artistName = false
-  const image = artist.attributes.banner.data.attributes
+  console.log(artist.attributes)
+  const image =
+    artist.attributes.banner.data != null
+      ? artist.attributes.banner.data.attributes.url
+      : "https://plusone-public.s3.amazonaws.com/default_BG_edf8345a11.png?updated_at=2023-02-16T22:00:41.634Z"
   const ogTitle = title + " - PlusOne"
 
   return (

@@ -15,7 +15,7 @@ const ArtistHero = ({ title, artistName, bio, genre, image }: any) => {
       <ArtistImage overlay="/assets/img/bg-artist-base.png">
         <div className="background-image">
           <Image
-            src={cleanUrl(image.url)}
+            src={cleanUrl(image)}
             alt={title}
             quality={90}
             width={1600}
