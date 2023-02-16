@@ -86,7 +86,7 @@ const ChatModal = (props: any) => {
   return (
     <GroupChatStyles>
       <div className="container">
-        <div className="chat-opts" ref={channelRef}>
+        <div className="chat-opts">
           <button
             className="close-button"
             onClick={() => props.setShowChat(!props.showChat)}

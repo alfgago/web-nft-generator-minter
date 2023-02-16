@@ -100,7 +100,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
             !filteredEventArr.includes(parseInt(el[0])) &&
             filteredEventArr.push(parseInt(el[0]))
         })
-
         // format the array to send in url
         const jsonArray = JSON.stringify(filteredEventArr)
 
