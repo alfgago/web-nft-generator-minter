@@ -83,8 +83,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           "/api/nfts/owned?address=" + address
         )
 
-        console.log(walletEvents)
-
+        // by the list of the shows get only the event attribute
         const eventsArray = walletEvents.data.map((el: any) => {
           return el.metadata.attributes
             .map((item: any) => {
@@ -92,14 +91,17 @@ const Layout = ({ children }: { children: JSX.Element }) => {
             })
             .filter((event: any) => event !== false)
         })
-        const filteredEventArr: number[] = []
 
+        const filteredEventArr: number[] = []
+        // remove the repeated values and undefined
         eventsArray.map((el: any) => {
-          el[0] != undefined && filteredEventArr.push(parseInt(el[0]))
+          el[0] != undefined &&
+            el !== false &&
+            !filteredEventArr.includes(parseInt(el[0])) &&
+            filteredEventArr.push(parseInt(el[0]))
         })
 
-        console.log(filteredEventArr)
-
+        // format the array to send in url
         const jsonArray = JSON.stringify(filteredEventArr)
 
         const { data } = await axios.get(
