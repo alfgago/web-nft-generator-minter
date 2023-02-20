@@ -11,6 +11,7 @@ const fetchData = async ({
   type = false,
   future = true,
   sort = false,
+  eventDate = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -52,6 +53,10 @@ const fetchData = async ({
   if (sort) {
     // @ts-ignore
     params["sort[0]"] = sort
+  }
+  if (eventDate) {
+    // @ts-ignore
+    params["filters[event][date][$gte]"] = eventDate
   }
   // @ts-ignore
   params["filters[contract_address][$notNull]"] = true

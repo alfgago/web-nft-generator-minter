@@ -11,7 +11,6 @@ const ArtistPage = ({ artist }: any) => {
   const bio = artist.attributes.bio
   const genre = false
   const artistName = false
-  console.log(artist.attributes)
   const image =
     artist.attributes.banner.data != null
       ? artist.attributes.banner.data.attributes.url
