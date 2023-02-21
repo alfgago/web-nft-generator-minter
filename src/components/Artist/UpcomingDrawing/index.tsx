@@ -15,10 +15,23 @@ const Artist = ({ artistId }: any) => {
   const [drawing, setDrawing] = useState([])
   let haveDrawings = false
 
+  const localDate = new Date()
+  /* used in the request to return 
+  only the posible passes that end in more than 48h*/
+  const formatedDate =
+    localDate.getFullYear() +
+    "-" +
+    localDate.toLocaleString("default", { month: "2-digit" }) +
+    "-" +
+    localDate.toLocaleString("default", { day: "2-digit" })
+
   async function fetchData() {
     try {
       const { data } = await axios.get(
-        "/api/passes?type=Lottery&future=true&artist=" + artistId
+        "/api/passes?type=Lottery&future=true&artist=" +
+          artistId +
+          "&eventDate=" +
+          formatedDate
       )
       // Update the state with the response data
       const passes = data.data
