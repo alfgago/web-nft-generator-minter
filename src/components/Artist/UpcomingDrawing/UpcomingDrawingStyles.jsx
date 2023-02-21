@@ -223,4 +223,8 @@ export const DrawRow = styled.div`
       width: 50%;
     }
   }
+
+  .disable {
+    display: none;
+  }
 `

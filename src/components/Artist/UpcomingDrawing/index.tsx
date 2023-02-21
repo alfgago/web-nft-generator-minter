@@ -41,6 +41,11 @@ const Artist = ({ artistId }: any) => {
     return { hours: hours, minutes: minutes, seconds: seconds }
   }
 
+  const [canGetLottery, setCanGetLottery] = useState(true)
+  const timeCountEnd = () => {
+    setCanGetLottery(false)
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -101,7 +106,10 @@ const Artist = ({ artistId }: any) => {
                           <div className="cols-cont">
                             <div className="column2">
                               <div className="time">
-                                <Countdown targetDate={dateBeforeCurrent} />
+                                <Countdown
+                                  triggerAction={timeCountEnd}
+                                  targetDate={dateBeforeCurrent}
+                                />
                               </div>
                               <div className="place">{shoWLocation}</div>
                               <div className="date">{month + " " + day}</div>
@@ -111,7 +119,11 @@ const Artist = ({ artistId }: any) => {
                                 <span>Chance of winning</span>
                                 <p>%{(passesAmount / winnersAmount) * 100}</p>
                               </div>
-                              <CommonPill className="clickable small active light-grey btn-fill">
+                              <CommonPill
+                                className={`clickable small active light-grey btn-fill ${
+                                  !canGetLottery ? "disable" : ""
+                                }`}
+                              >
                                 Enter Lottery
                               </CommonPill>
                               {/* <button type="button" className="variant">
