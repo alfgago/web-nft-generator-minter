@@ -4,15 +4,8 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const UpcomingDrawingStyles = styled.section`
   background: ${COLORS.white};
-  padding-top: 0;
-
   h2 {
     margin-bottom: ${40 / 16}rem;
-  }
-
-  @media ${DEVICE.laptop} {
-    padding-top: 0;
-    padding-bottom: 8rem;
   }
 `
 export const BoxDrawing = styled.div`

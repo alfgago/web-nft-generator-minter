@@ -12,6 +12,7 @@ import {
 
 const Artist = ({ artistId }: any) => {
   const [drawing, setDrawing] = useState([])
+  let haveDrawings = false
 
   async function fetchData() {
     try {
@@ -40,7 +41,6 @@ const Artist = ({ artistId }: any) => {
     return { hours: hours, minutes: minutes, seconds: seconds }
   }
 
-  console.log(drawing)
   useEffect(() => {
     fetchData()
   }, [])
@@ -49,7 +49,7 @@ const Artist = ({ artistId }: any) => {
     <UpcomingDrawingStyles>
       <div className="content">
         <h2 className="title">Upcoming Drawing</h2>
-        <>
+        <div>
           {drawing.map((el: any, index: number) => {
             {
               if (el.attributes.event.data != null) {
@@ -67,6 +67,7 @@ const Artist = ({ artistId }: any) => {
                 /* validate if the lotery time havent end 
                 and the lotery is in less than 5 days */
                 if (totalTime.minutes > 0 && totalTime.minutes < 7200) {
+                  haveDrawings = true
                   const image = el.attributes.preview_image_url
                   const namePass = el.attributes.collection_name
                   const price = el.attributes.initial_price
@@ -126,7 +127,12 @@ const Artist = ({ artistId }: any) => {
               }
             }
           })}
-        </>
+          {!haveDrawings && (
+            <h3 className="not-found">
+              No upcoming drawing found for this artist.
+            </h3>
+          )}
+        </div>
       </div>
     </UpcomingDrawingStyles>
   )
