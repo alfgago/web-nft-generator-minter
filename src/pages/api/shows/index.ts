@@ -10,7 +10,6 @@ const fetchData = async ({
   user = 0,
   passType = false,
   passId = 0,
-  deep = false,
   nft = 0,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
@@ -48,11 +47,6 @@ const fetchData = async ({
   if (nft) {
     // @ts-ignore
     params["filters[passes][nfts][id][$eq]"] = nft
-  }
-
-  if (deep) {
-    // @ts-ignore
-    params["populate"] = "deep," + deep
   }
 
   const response = await axios.get(`${apiURL}/api/events`, {
