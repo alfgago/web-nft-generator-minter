@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -78,6 +79,7 @@ const Artist = ({ artistId }: any) => {
                   const price = el.attributes.initial_price
                   const shoWLocation =
                     el.attributes.event.data.attributes.venue_name
+                  const contactAddres = el.attributes.contract_address
 
                   const month = new Date(date).toLocaleString("default", {
                     month: "long",
@@ -119,16 +121,15 @@ const Artist = ({ artistId }: any) => {
                                 <span>Chance of winning</span>
                                 <p>%{(passesAmount / winnersAmount) * 100}</p>
                               </div>
-                              <CommonPill
-                                className={`clickable small active light-grey btn-fill ${
-                                  !canGetLottery ? "disable" : ""
-                                }`}
-                              >
-                                Enter Lottery
-                              </CommonPill>
-                              {/* <button type="button" className="variant">
-                      Enter Lottery
-                    </button> */}
+                              <Link href={`/pass/${contactAddres}`}>
+                                <CommonPill
+                                  className={`clickable small active light-grey btn-fill ${
+                                    !canGetLottery ? "disable" : ""
+                                  }`}
+                                >
+                                  Enter Lottery
+                                </CommonPill>
+                              </Link>
                             </div>
                           </div>
                         </div>
