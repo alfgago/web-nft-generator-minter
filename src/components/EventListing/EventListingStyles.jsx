@@ -8,5 +8,6 @@ export const ListingStyles = styled.section`
   .list {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 `

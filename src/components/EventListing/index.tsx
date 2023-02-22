@@ -11,7 +11,7 @@ const EventListing = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(`/api/shows?limit=10&sort=date&page=1`)
+      const { data } = await axios.get(`/api/shows?limit=10&page=1`)
       const eventsReponse = data.data
       setEvents(eventsReponse)
 
