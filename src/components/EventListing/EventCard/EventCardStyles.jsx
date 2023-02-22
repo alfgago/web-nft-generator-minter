@@ -3,7 +3,10 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const EventCardStyles = styled.div`
-  width: calc(50% - 1rem);
+  width: 100%;
+  @media ${DEVICE.laptop} {
+    width: calc(50% - 1rem);
+  }
   .lazyload-wrapper {
     display: flex;
     position: relative;

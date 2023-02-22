@@ -74,6 +74,11 @@ const Navbar = () => {
                       <a>By Passes</a>
                     </Link>
                   </li>
+                  <li>
+                    <Link legacyBehavior href="/events">
+                      <a>By Events</a>
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </li>
