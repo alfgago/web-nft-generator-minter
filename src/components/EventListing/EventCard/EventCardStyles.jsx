@@ -14,14 +14,22 @@ export const EventCardStyles = styled.div`
     background: ${COLORS.white};
     box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
     margin-bottom: 2rem;
+    flex-direction: column;
+
+    @media ${DEVICE.laptop} {
+      flex-direction: row;
+    }
 
     .data-cont {
       display: inline-flex;
       flex-direction: column;
       border-bottom-left-radius: 50px;
       transition: 0.5s ease all;
-      width: 50%;
       padding: ${25 / 16}rem ${20 / 16}rem;
+      width: 100%;
+      @media ${DEVICE.laptop} {
+        width: 50%;
+      }
 
       .title {
         font-size: ${20 / 16}rem;
@@ -55,8 +63,12 @@ export const EventCardStyles = styled.div`
     .img-cont {
       position: relative;
       height: 0;
-      width: 45%;
       padding-bottom: 45%;
+      width: 100%;
+
+      @media ${DEVICE.laptop} {
+        width: 45%;
+      }
 
       /* padding-bottom: 45%; */
       img {
