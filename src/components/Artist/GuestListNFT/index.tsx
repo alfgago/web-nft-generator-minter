@@ -84,7 +84,7 @@ const GuestListNFT = ({ artist }: any) => {
       ) : (
         <div className="content no-data">
           <h2>Guest list NFTs</h2>
-          <p className="not-found">This artist has no NFTs yet</p>
+          <h3 className="not-found">This artist has no NFTs yet</h3>
         </div>
       )}
     </GuestListNFTStyles>

@@ -30,7 +30,7 @@ const ChatModal = (props: any) => {
   })
 
   const defaultChannel = {
-    id: "default",
+    id: "default1",
     artistName: "defalut",
     name: "Default Channel",
     description: "This is the default channel",
@@ -53,8 +53,7 @@ const ChatModal = (props: any) => {
     }
   })
 
-  channelList.push(defaultChannel)
-
+  // channelList.push(defaultChannel)
   const [currentChannel, setCurrentChannel] = useState(channelList[0])
 
   const userSender: UserEntity = {
@@ -80,6 +79,7 @@ const ChatModal = (props: any) => {
   }, [currentChannel])
 
   const theme = "light"
+  const channelRef = useRef<any>(null)
 
   if (!props.showChat) return null
 
@@ -93,11 +93,11 @@ const ChatModal = (props: any) => {
           >
             <ReactSVG src="/assets/icons/close.svg" />
           </button>
+
           <ChannelList
             channels={channelList}
             onChannelSwitched={(channel: any) => {
               setCurrentChannel(channel)
-              console.log(channel)
             }}
           />
         </div>

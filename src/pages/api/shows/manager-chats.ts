@@ -8,6 +8,7 @@ const fetchData = async ({
   limit = 10,
   artist = 0,
   user = 0,
+  eventList = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -27,6 +28,14 @@ const fetchData = async ({
   if (user) {
     // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
+  }
+
+  if (eventList) {
+    const jsomArray = JSON.parse(eventList)
+    jsomArray.map((event: any, index: number) => {
+      // @ts-ignore
+      params["filters[id][$in][" + index + "]"] = event
+    })
   }
 
   const response = await axios.get(`${apiURL}/api/events`, {

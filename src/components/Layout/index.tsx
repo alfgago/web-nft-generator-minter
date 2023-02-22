@@ -78,9 +78,34 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         })
       }
 
-      if (!user) {
-        // change the route to get the nft of the actual user
-        const { data } = await axios.get("/api/shows?nft=886&deep=3")
+      if (!user && address) {
+        const walletEvents = await axios.get(
+          "/api/nfts/owned?address=" + address
+        )
+
+        // by the list of the shows get only the event attribute
+        const eventsArray = walletEvents.data.map((el: any) => {
+          return el.metadata.attributes
+            .map((item: any) => {
+              return item.trait_type === "event" && item.value
+            })
+            .filter((event: any) => event !== false)
+        })
+
+        const filteredEventArr: number[] = []
+        // remove the repeated values and undefined
+        eventsArray.map((el: any) => {
+          el[0] != undefined &&
+            el !== false &&
+            !filteredEventArr.includes(parseInt(el[0])) &&
+            filteredEventArr.push(parseInt(el[0]))
+        })
+        // format the array to send in url
+        const jsonArray = JSON.stringify(filteredEventArr)
+
+        const { data } = await axios.get(
+          "/api/shows/manager-chats?eventList=" + jsonArray
+        )
         apiResponse = data.data
 
         setUserInfo({
