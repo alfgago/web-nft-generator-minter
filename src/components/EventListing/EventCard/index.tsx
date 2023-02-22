@@ -16,9 +16,10 @@ const EventCard = ({ eventData }: any) => {
 
   const alt = eventData.attributes.artist.data.attributes.name + " banner"
   const eventName = eventData.attributes.name
-  const eventDate = eventData.attributes.date
+  const eventDate = new Date(eventData.attributes.date)
   const eventAddress = eventData.attributes.address
   const eventDesc = eventData.attributes.description
+  const eventArtist = eventData.attributes.artist.data.attributes.name
   return (
     <EventCardStyles>
       <LazyLoad height={200}>
@@ -32,25 +33,34 @@ const EventCard = ({ eventData }: any) => {
           />
         </div>
         <div className="data-cont">
-          <div className="title">{eventName}</div>
+          <div className="titles">
+            <div className="title">{eventName}</div>
+            <div className="artist">
+              <b>Artist: </b>
+              <span>{eventArtist}</span>
+            </div>
 
-          <div className="date">
-            <b>Event date: </b>
-            <span>{eventDate}</span>
+            {eventDate && (
+              <div className="date">
+                <b>Event date: </b>
+                <span>{eventDate.toLocaleString("en-US")}</span>
+              </div>
+            )}
+
+            {eventAddress && (
+              <div className="address">
+                <b>Address: </b>
+                <span>{eventAddress}</span>
+              </div>
+            )}
+
+            {/* {eventDesc && (
+              <div className="descrip">
+                <b>Description: </b>
+                <span>{eventDesc}</span>
+              </div>
+            )} */}
           </div>
-          {eventAddress && (
-            <div className="date">
-              <b>Address: </b>
-              <span>{eventAddress}</span>
-            </div>
-          )}
-
-          {eventDesc && (
-            <div className="descrip">
-              <b>Description: </b>
-              <span>{eventDesc}</span>
-            </div>
-          )}
         </div>
       </LazyLoad>
     </EventCardStyles>
