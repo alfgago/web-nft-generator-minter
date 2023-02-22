@@ -10,4 +10,9 @@ export const ListingStyles = styled.section`
     flex-wrap: wrap;
     gap: 2rem;
   }
+
+  .loading,
+  .loadmore {
+    text-align: center;
+  }
 `
