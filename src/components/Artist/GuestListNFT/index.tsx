@@ -41,7 +41,7 @@ const GuestListNFT = ({ artist }: any) => {
     }
 
     setFilteredPasses(passes.filter(filterByPassType))
-  }, [selectedPassType])
+  }, [selectedPassType, passes])
 
   return (
     <GuestListNFTStyles>

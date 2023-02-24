@@ -20,16 +20,49 @@ export const HomeHeroStyles = styled.section`
     padding-top: 7rem;
   }
 
+  .abs {
+    width: 100%;
+    pointer-events: none;
+    z-index: 9;
+    padding-top: 1rem;
+
+    .content {
+      padding: 0;
+    }
+
+    @media ${DEVICE.laptop} {
+      position: absolute;
+      top: 5rem;
+      right: 0;
+      height: 100%;
+      padding-top: 0;
+    }
+
+    .right {
+      width: 100%;
+      height: 100%;
+      margin-left: auto;
+      @media ${DEVICE.laptop} {
+        width: 35%;
+      }
+    }
+  }
+
   .content {
+    position: relative;
     margin: 0 auto;
     padding-top: 0;
     padding-bottom: 2rem;
-    mix-blend-mode: screen;
     @media ${DEVICE.laptop} {
       padding-bottom: 6rem;
+      .left {
+        width: 60%;
+      }
     }
 
-    z-index: 5;
+    &.screen {
+      mix-blend-mode: screen;
+    }
 
     h1 {
       font-size: 40px;
@@ -103,6 +136,7 @@ export const HomeHeroStyles = styled.section`
     background-size: contain;
     background-position: bottom right;
     z-index: 5;
+    pointer-events: none;
 
     @media ${DEVICE.laptop} {
       right: 0;

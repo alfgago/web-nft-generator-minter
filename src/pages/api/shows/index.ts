@@ -18,12 +18,13 @@ const fetchData = async ({
   const cacheKey = `shows_${page}_${limit}_${artist}_${user}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    return cached
+    // return cached
   }
 
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
+    "sort[0]": "date:desc",
     populate: "artist.profile_picture",
   }
   if (artist) {

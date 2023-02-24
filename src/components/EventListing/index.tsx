@@ -41,7 +41,7 @@ const EventListing = () => {
         <div className="content">
           <div className="list">
             {events.map((event: any, index: number) => {
-              return <EventCard key={"EnventItem" + index} eventData={event} />
+              return <EventCard key={"ShowItem" + index} eventData={event} />
             })}
           </div>
           {currentPage < pageCount ? (
