@@ -12,7 +12,7 @@ export const HomeHeroStyles = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-top: 12rem;
+  padding-top: 8rem;
 
   @media ${DEVICE.laptop} {
     height: 90vh;

@@ -19,7 +19,10 @@ const ShowRow = ({ item, index }: any) => {
   const imageUrl = item.attributes.passes.data.length
     ? pass.attributes.preview_image_url
     : "/assets/img/drop-pic-2.png"
-  const dropDate = new Date(pass.attributes.drop_date)
+
+  const dropDate = item.attributes.passes.data.length
+    ? new Date(pass.attributes.drop_date)
+    : today
 
   const dateFormat = (value: any) => {
     const date = new Date(value)
@@ -146,7 +149,7 @@ const ShowRow = ({ item, index }: any) => {
             </div>
           </div>
         </div>
-        {pass.attributes.pass_type == "Lottery" ? (
+        {pass?.attributes.pass_type == "Lottery" ? (
           <div className="wrap-end">
             <div className="time">
               <span className="timer-title">Time until drawing</span>
@@ -173,7 +176,7 @@ const ShowRow = ({ item, index }: any) => {
               {timer}
             </div>
             <div className="actions">
-              <Link href={"/pass/" + pass.attributes.contract_address}>
+              <Link href={"/pass/" + pass?.attributes.contract_address}>
                 <CommonPill className="clickable blue small">
                   Buy pass
                 </CommonPill>
