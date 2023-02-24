@@ -12,6 +12,7 @@ const GuestListNFT = ({ artist }: any) => {
   const [selectedPassType, setSelectedPassType] = useState(0)
   const [passes, setPasses] = useState([])
   const [filteredPasses, setFilteredPasses] = useState([])
+  const [selectedPassNav, setSelectedPassNav] = useState(0)
 
   const types = [
     { name: "Lottery", value: "Lottery" },
@@ -41,7 +42,14 @@ const GuestListNFT = ({ artist }: any) => {
     }
 
     setFilteredPasses(passes.filter(filterByPassType))
+    setSelectedPassNav(0)
   }, [selectedPassType, passes])
+
+  const onSelectType = (sel: any) => {
+    setSelectedPassNav(0)
+  }
+
+  console.log(passes[selectedPassType])
 
   return (
     <GuestListNFTStyles>
@@ -61,13 +69,31 @@ const GuestListNFT = ({ artist }: any) => {
           <div className="column1">
             {filteredPasses.length ? (
               filteredPasses.map((item: any, index: number) => {
-                return <CardPass key={"pass" + index} pass={item} />
+                return selectedPassNav == index ? (
+                  <CardPass key={"pass" + index} pass={item} />
+                ) : (
+                  ""
+                )
               })
             ) : (
               <h3 className="not-found">
                 No {types[selectedPassType].name} passes found for this artist.
               </h3>
             )}
+
+            <div className="counter">
+              {filteredPasses.map((pass: any, index: number) => {
+                return (
+                  <button
+                    key={"home-pass-counter" + selectedPassType + "-" + index}
+                    className={`counter is-active-${index == selectedPassNav}`}
+                    onClick={() => setSelectedPassNav(index)}
+                  >
+                    {index + 1}
+                  </button>
+                )
+              })}
+            </div>
           </div>
           {width > 1080 && (
             <div className="column2">
