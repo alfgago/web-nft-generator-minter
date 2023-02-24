@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react"
+import axios from "axios"
+import { useAccount } from "wagmi"
 
 import ItemPagination from "@/components/Common/ItemPagination"
 
@@ -131,6 +133,45 @@ const lotteryItemsList = [
 const OwnedLottery = () => {
   const [lotteryNfts, setLotteryNfts] = useState(lotteryItemsList)
   const [filter, setFilter] = useState("")
+  const { address, isConnected } = useAccount()
+  const [testResponse, setTestResponse] = useState([])
+
+  const fetchData = async () => {
+    try {
+      const walletData = await axios.get("/api/nfts/owned?address=" + address)
+
+      const filteredArray = walletData.data
+        .map((nft: any) => {
+          const valesp = nft.metadata.attributes
+            .map((item: any) => {
+              if (item.trait_type === "pass_type" && item.value === "Lottery") {
+                return true
+              }
+              return false
+            })
+            .filter((event: any) => event !== false)
+
+          return {
+            name: nft.title,
+            event: valesp[0] === true ? nft.metadata.image : "",
+          }
+        })
+        .filter((event: any) => event.event != "")
+
+      filteredArray.forEach(async (element: any, index: number) => {
+        const { data } = await axios.get(
+          `/api/artists/wallet-lottery?nftImage=${element.event}`
+        )
+        setTestResponse(data)
+      })
+    } catch (error) {}
+  }
+
+  console.log(testResponse)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   useEffect(() => {
     let filteredList = lotteryItemsList

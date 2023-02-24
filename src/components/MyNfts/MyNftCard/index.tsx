@@ -6,7 +6,6 @@ import cleanUrl from "@/utils/cleanUrl"
 import { MyNftCardStyles } from "./MyNftCardStyles"
 
 const MyNftCard = ({ nft }: any) => {
-  console.log(nft)
   return (
     <MyNftCardStyles className="nft-card">
       <div className="head-cont">
