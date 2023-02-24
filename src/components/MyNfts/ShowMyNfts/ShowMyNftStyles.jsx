@@ -13,9 +13,21 @@ export const ShowMyNftStyles = styled.section`
     gap: 2rem;
     max-width: 43.75rem;
     width: 100%;
+    flex-direction: column;
 
     @media ${DEVICE.laptop} {
       max-width: 100%;
     }
+  }
+
+  .items-cont {
+    display: flex;
+
+    gap: ${129 / 16}rem;
+  }
+
+  .previous,
+  .next {
+    display: none;
   }
 `
