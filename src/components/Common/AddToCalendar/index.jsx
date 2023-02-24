@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 import { AddToCalendarStyles } from "./AddToCalendarStyles"
 
-const AddToCalendar = ({ date, title, id }) => {
+const AddToCalendar = ({ date, title, id, label = "Add reminder" }) => {
   useEffect(() => {
     atcb_init()
   }, [])
@@ -30,6 +30,7 @@ const AddToCalendar = ({ date, title, id }) => {
             ],
             timeZone: "America/New_York",
             trigger: "click",
+            label: label,
           })}
         </div>
       </div>

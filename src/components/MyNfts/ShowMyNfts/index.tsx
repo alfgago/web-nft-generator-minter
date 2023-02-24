@@ -6,7 +6,7 @@ import { ShowMyNftStyles } from "./ShowMyNftStyles"
 
 const ShowMyNfts = ({ items }: any) => {
   return (
-    <ShowMyNftStyles className="MyNfts">
+    <ShowMyNftStyles className="my-nfts">
       <div className="content">
         <div className="list">
           {items.map((nft: any, index: number) => {

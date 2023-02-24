@@ -5,6 +5,8 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
 import cleanUrl from "@/utils/cleanUrl"
 
+import ShowsCarousel from "../ShowsCarousel"
+
 import { HomeHeroStyles } from "./HomeHeroStyles"
 
 const HomeHero = ({ title, copy, image }: any) => {
@@ -25,14 +27,23 @@ const HomeHero = ({ title, copy, image }: any) => {
       <div className="banner-logo content">
         <ReactSVG src="/assets/img/logo-hero.svg" />
       </div>
-      <div className="content">
-        <h1 className="title">{title}</h1>
-        {copy && <div className="copy">{copy}</div>}
-        <Link legacyBehavior href="/">
-          <a>
-            <CommonPill className="btn clickable fill">Sign Up</CommonPill>
-          </a>
-        </Link>
+      <div className="content screen">
+        <div className="left">
+          <h1 className="title">{title}</h1>
+          {copy && <div className="copy">{copy}</div>}
+          <Link legacyBehavior href="/">
+            <a>
+              <CommonPill className="btn clickable fill">Sign Up</CommonPill>
+            </a>
+          </Link>
+        </div>
+      </div>
+      <div className="abs">
+        <div className="content">
+          <div className="right">
+            <ShowsCarousel />
+          </div>
+        </div>
       </div>
     </HomeHeroStyles>
   )

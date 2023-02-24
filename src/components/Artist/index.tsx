@@ -3,7 +3,7 @@ import UpcomingDrawing from "@/components/Artist/UpcomingDrawing"
 import { ArtistStyles } from "./ArtistStyles"
 import GuestListNFT from "./GuestListNFT"
 import SuggestedArtists from "./SuggestedArtists"
-import UpcomingDrops from "./"
+import UpcomingShows from "./UpcomingShows"
 
 const Artist = ({ artist }: any) => {
   return (
@@ -11,7 +11,7 @@ const Artist = ({ artist }: any) => {
       {artist != undefined && (
         <>
           <GuestListNFT artist={artist} />
-          <UpcomingDrops events={artist.attributes.events} />
+          <UpcomingShows events={artist.attributes.events} />
           <UpcomingDrawing artistId={artist.id} />
           <SuggestedArtists title="Suggested Artists" />
         </>

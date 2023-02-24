@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { COLORS, DEVICE } from "@/styles/variables"
 
-export const UpcomingDropsStyles = styled.section`
+export const UpcomingShowStyles = styled.section`
   background: ${COLORS.white};
 
   h2 {
@@ -11,6 +11,10 @@ export const UpcomingDropsStyles = styled.section`
 
   @media ${DEVICE.laptop} {
     padding-top: 8rem;
+  }
+
+  @media ${DEVICE.maxlaptop} {
+    padding-bottom: 0;
   }
 `
 export const BoxDrops = styled.div`
@@ -82,11 +86,17 @@ export const DropRow = styled.div`
       }
     }
     img {
-      height: 100%;
-      width: 7.25rem;
+      height: ${130 / 16}rem;
+      width: ${130 / 16}rem;
       object-fit: cover;
+
+      @media ${DEVICE.laptop} {
+        height: ${190 / 16}rem;
+        width: ${190 / 16}rem;
+      }
     }
   }
+
   .time {
     display: flex;
     align-items: center;

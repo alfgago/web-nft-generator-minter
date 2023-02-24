@@ -132,11 +132,11 @@ const Artist = ({ artistId }: any) => {
                             <div className="column3">
                               <div>
                                 <span>Chance of winning</span>
-                                <p>%{(passesAmount / winnersAmount) * 100}</p>
+                                <p>{(passesAmount / winnersAmount) * 100}%</p>
                               </div>
                               <Link href={`/pass/${contactAddres}`}>
                                 <CommonPill
-                                  className={`clickable small active light-grey btn-fill ${
+                                  className={`clickable small active ${
                                     !canGetLottery ? "disable" : ""
                                   }`}
                                 >

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
@@ -24,6 +23,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
 
   const dropDateTimer = () => {
     const now = new Date()
+    // @ts-ignore
     const distance = dropDate - now
     if (distance < 0) {
       setTimer("DROPPED")
