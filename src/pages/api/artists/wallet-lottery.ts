@@ -21,7 +21,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "passes",
+    populate: "events.passes",
   }
   if (passType) {
     // @ts-ignore
@@ -29,12 +29,11 @@ const fetchData = async ({
   }
 
   if (nftImage) {
-    console.log(nftImage)
     // @ts-ignore
-    params["filters[artist][passes][nfts][image_url][$eq]"] = nftImage
+    params["filters[passes][nfts][image_url][$eq]"] = nftImage
   }
 
-  const response = await axios.get(`${apiURL}/api/events`, {
+  const response = await axios.get(`${apiURL}/api/artists`, {
     params: params,
     headers: {
       Authorization: `Bearer ${token}`,

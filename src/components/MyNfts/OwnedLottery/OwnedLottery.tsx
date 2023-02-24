@@ -160,13 +160,14 @@ const OwnedLottery = () => {
 
       filteredArray.forEach(async (element: any, index: number) => {
         const { data } = await axios.get(
-          `/api/shows/wallet-lottery?nftImage=${element.event}`
+          `/api/artists/wallet-lottery?nftImage=${element.event}`
         )
-        console.log(index, data, element.event)
         setTestResponse(data)
       })
     } catch (error) {}
   }
+
+  console.log(testResponse)
 
   useEffect(() => {
     fetchData()
