@@ -1,4 +1,4 @@
 module.exports = {
-  siteUrl: process.env.DOMAIN || "plusonemusic.io",
+  siteUrl: process.env.DOMAIN || "https://plusonemusic.io",
   generateRobotsTxt: true,
 }

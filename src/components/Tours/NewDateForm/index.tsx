@@ -104,9 +104,6 @@ const NewDateForm = () => {
               <div className="in-popup">
                 {!isSubmitting ? (
                   <>
-                    <div>
-                      <p>Add a new date to the tour </p>
-                    </div>
                     <Form className="cols-2">
                       <label>
                         <span>Date</span>
@@ -116,14 +113,14 @@ const NewDateForm = () => {
                         <Field name="date" type="date" placeholder="" />
                       </label>
                       <label>
-                        <span>Name</span>
+                        <span>Venue/Festival Name</span>
                         {errors.name && touched.name ? (
                           <div className="alert">{errors.name}</div>
                         ) : null}
                         <Field name="name" type="text" placeholder="" />
                       </label>
                       <label className="full">
-                        <span>Venue</span>
+                        <span>Location</span>
                         <LocationPicker setFieldValue={setFieldValue} />
                       </label>
                       <label>

@@ -14,7 +14,7 @@ export const ModalStyles = styled.section`
   padding: 0;
   width: 100%;
   height: 100%;
-  z-index: 9000;
+  z-index: 9999999;
   background-color: ${COLORS.white};
 
   @media ${DEVICE.laptop} {
