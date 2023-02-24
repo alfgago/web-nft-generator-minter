@@ -45,12 +45,6 @@ const GuestListNFT = ({ artist }: any) => {
     setSelectedPassNav(0)
   }, [selectedPassType, passes])
 
-  const onSelectType = (sel: any) => {
-    setSelectedPassNav(0)
-  }
-
-  console.log(passes[selectedPassType])
-
   return (
     <GuestListNFTStyles>
       {passes.length > 0 ? (
@@ -81,19 +75,25 @@ const GuestListNFT = ({ artist }: any) => {
               </h3>
             )}
 
-            <div className="counter">
-              {filteredPasses.map((pass: any, index: number) => {
-                return (
-                  <button
-                    key={"home-pass-counter" + selectedPassType + "-" + index}
-                    className={`counter is-active-${index == selectedPassNav}`}
-                    onClick={() => setSelectedPassNav(index)}
-                  >
-                    {index + 1}
-                  </button>
-                )
-              })}
-            </div>
+            {filteredPasses.length > 1 ? (
+              <div className="counter">
+                {filteredPasses.map((pass: any, index: number) => {
+                  return (
+                    <button
+                      key={"home-pass-counter" + selectedPassType + "-" + index}
+                      className={`counter is-active-${
+                        index == selectedPassNav
+                      }`}
+                      onClick={() => setSelectedPassNav(index)}
+                    >
+                      {index + 1}
+                    </button>
+                  )
+                })}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {width > 1080 && (
             <div className="column2">
