@@ -5,9 +5,8 @@ export const MyNftCardStyles = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  width: calc(50% - 1rem);
   margin-bottom: 0;
+  width: 50%;
   @media ${DEVICE.laptop} {
     width: calc(36% - ${129 / 16}rem);
   }
@@ -15,6 +14,7 @@ export const MyNftCardStyles = styled.div`
   .head-cont {
     background-color: ${COLORS.black};
     padding: ${14 / 16}rem;
+    height: ${65 / 16}rem;
 
     @media ${DEVICE.laptop} {
       height: 5.5rem;
@@ -23,7 +23,11 @@ export const MyNftCardStyles = styled.div`
 
     h3 {
       font-weight: 500;
-      font-size: ${23 / 16}rem;
+
+      font-size: ${15 / 16}rem;
+      @media ${DEVICE.laptop} {
+        font-size: ${23 / 16}rem;
+      }
     }
 
     p,
