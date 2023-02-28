@@ -42,4 +42,8 @@ export const ShowMyNftStyles = styled.section`
   .next {
     display: none;
   }
+
+  .carousel {
+    width: 100%;
+  }
 `

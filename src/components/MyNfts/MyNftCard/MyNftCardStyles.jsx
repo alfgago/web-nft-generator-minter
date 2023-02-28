@@ -6,7 +6,6 @@ export const MyNftCardStyles = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 0;
-  width: 50%;
   @media ${DEVICE.laptop} {
     width: calc(36% - ${129 / 16}rem);
   }
