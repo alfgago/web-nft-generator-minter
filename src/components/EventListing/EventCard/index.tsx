@@ -1,13 +1,14 @@
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import LazyLoad from "react-lazyload"
 
+import { CommonPill } from "@/components/Common/CommonStyles"
 import cleanUrl from "@/utils/cleanUrl"
 
 import { EventCardStyles } from "./EventCardStyles"
 
 const EventCard = ({ eventData }: any) => {
-  console.log(eventData)
   const imageUrl =
     eventData.attributes.artist.data.attributes.profile_picture.data != null
       ? eventData.attributes.artist.data.attributes.profile_picture.data
@@ -20,6 +21,7 @@ const EventCard = ({ eventData }: any) => {
   const eventAddress = eventData.attributes.address
   const eventDesc = eventData.attributes.description
   const eventArtist = eventData.attributes.artist.data.attributes.name
+  const artistPage = eventData.attributes.artist.data.attributes.slug
   return (
     <EventCardStyles>
       <LazyLoad height={200}>
@@ -60,6 +62,18 @@ const EventCard = ({ eventData }: any) => {
                 <span>{eventDesc}</span>
               </div>
             )} */}
+          </div>
+          <div className="bnt-cont">
+            <Link
+              legacyBehavior
+              href={`/artist/${artistPage}/#upcoming-section`}
+            >
+              <a>
+                <CommonPill className="clickable blue small">
+                  View more
+                </CommonPill>
+              </a>
+            </Link>
           </div>
         </div>
       </LazyLoad>

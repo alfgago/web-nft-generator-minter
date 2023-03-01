@@ -27,10 +27,14 @@ export const EventCardStyles = styled.div`
       transition: 0.5s ease all;
       padding: ${25 / 16}rem ${20 / 16}rem;
       width: 100%;
+      justify-content: space-between;
       @media ${DEVICE.laptop} {
         width: 50%;
       }
 
+      .bnt-cont {
+        margin-left: auto;
+      }
       .title {
         font-size: ${20 / 16}rem;
         font-weight: 600;
