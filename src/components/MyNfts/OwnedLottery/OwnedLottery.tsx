@@ -209,43 +209,34 @@ const OwnedLottery = () => {
             )
           }}
         /> */}
-        <div className="items-cont">
+        {/* <div className="items-cont">
           {lotteryNfts.map((data: any) => {
             return <OwnedItem key={data.id} itemData={data} />
           })}
-        </div>
-      </div>
+        </div> */}
 
-      <div>
-        {/* Get the artist data */}
-        {artistData.map((item: any, index: number) => {
-          // All the events of the artist
-          return item.attributes.events.data.map(
-            (event: any, indexItem: number) => {
-              // validate if the event contains passes
-              const passes = event.attributes.passes.data
+        <div className="items-cont">
+          {/* Get the artist data */}
+          {artistData.map((item: any, index: number) => {
+            // All the events of the artist
+            return item.attributes.events.data.map(
+              (event: any, indexEvent: number) => {
+                const passes = event.attributes.passes.data
+                const currentEvent = event
 
-              if (passes.length > 0) {
-                console.log("THiis")
-                console.log(passes)
-
-                passes.map((pass: any) => {
-                  console.log("pass")
-                  console.log(pass)
+                return passes.map((pass: any, index: number) => {
                   return (
                     <OwnedItem
-                      key={"ownedNft" + indexItem}
-                      itemData={event}
-                      passData={pass}
+                      key={pass.id}
+                      eventData={currentEvent}
+                      itemData={pass}
                     />
                   )
                 })
               }
-
-              // return <p key={index}>{el.attributes.name}</p>
-            }
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </OwnedLotteryStyles>
   )
