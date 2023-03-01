@@ -134,7 +134,7 @@ const OwnedLottery = () => {
   const [lotteryNfts, setLotteryNfts] = useState(lotteryItemsList)
   const [filter, setFilter] = useState("")
   const { address, isConnected } = useAccount()
-  const [testResponse, setTestResponse] = useState([])
+  const [artistData, setArtistData] = useState([])
 
   const fetchData = async () => {
     try {
@@ -162,12 +162,10 @@ const OwnedLottery = () => {
         const { data } = await axios.get(
           `/api/artists/wallet-lottery?nftImage=${element.event}`
         )
-        setTestResponse(data)
+        setArtistData(data.data)
       })
     } catch (error) {}
   }
-
-  console.log(testResponse)
 
   useEffect(() => {
     fetchData()
@@ -180,6 +178,9 @@ const OwnedLottery = () => {
     }
     setLotteryNfts(filteredList)
   }, [filter])
+
+  console.log("RESPONSE")
+  console.log(artistData)
 
   return (
     <OwnedLotteryStyles>
@@ -213,6 +214,38 @@ const OwnedLottery = () => {
             return <OwnedItem key={data.id} itemData={data} />
           })}
         </div>
+      </div>
+
+      <div>
+        {/* Get the artist data */}
+        {artistData.map((item: any, index: number) => {
+          // All the events of the artist
+          return item.attributes.events.data.map(
+            (event: any, indexItem: number) => {
+              // validate if the event contains passes
+              const passes = event.attributes.passes.data
+
+              if (passes.length > 0) {
+                console.log("THiis")
+                console.log(passes)
+
+                passes.map((pass: any) => {
+                  console.log("pass")
+                  console.log(pass)
+                  return (
+                    <OwnedItem
+                      key={"ownedNft" + indexItem}
+                      itemData={event}
+                      passData={pass}
+                    />
+                  )
+                })
+              }
+
+              // return <p key={index}>{el.attributes.name}</p>
+            }
+          )
+        })}
       </div>
     </OwnedLotteryStyles>
   )

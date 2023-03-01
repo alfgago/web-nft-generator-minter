@@ -4,10 +4,18 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
-const OwnedItem = ({ itemData }: any) => {
+const OwnedItem = ({ itemData, passData }: any) => {
+  const event = itemData.attributes
+  const passes = itemData.passes
+  // console.log("itemData")
+  // console.log(itemData)
+
+  // console.log("passData")
+  // console.log(passData)
   return (
     <OwnedItemStyles>
-      <div className="half-cont nft">
+      <div>{itemData.id}</div>
+      {/* <div className="half-cont nft">
         <div className="image">
           <img src={itemData.nft.image} alt={itemData.nft.title} />
         </div>
@@ -41,7 +49,7 @@ const OwnedItem = ({ itemData }: any) => {
             Chance of winning <span>{itemData.chanceOfWinning}%</span>
           </p>
         </div>
-      </div>
+      </div> */}
     </OwnedItemStyles>
   )
 }
