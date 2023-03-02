@@ -132,7 +132,7 @@ const lotteryItemsList = [
 ]
 
 const OwnedLottery = () => {
-  const [lotteryNfts, setLotteryNfts] = useState(lotteryItemsList)
+  const [lotteryNfts, setLotteryNfts] = useState([])
   const [filter, setFilter] = useState("")
   const { address, isConnected } = useAccount()
   const [artistData, setArtistData] = useState([])
@@ -179,15 +179,35 @@ const OwnedLottery = () => {
     fetchData()
   }, [])
 
+  const getTime = (targetTime: any, now: any = new Date()) => {
+    const remainingTime = targetTime.getTime() - now.getTime()
+    const seconds = Math.floor(remainingTime / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+
+    return { hours: hours, minutes: minutes, seconds: seconds }
+  }
+
   useEffect(() => {
     let filteredList = artistData
-    if (filter) {
-      filteredList = artistData.filter((el) => el.origin == filter)
+    // const remainingTime = getTime(new Date(el.attributes.date))
+
+    // validate if the time is more than 48h
+    if (filter === "upcoming") {
+      filteredList = artistData.filter(
+        (el: any) => getTime(new Date(el.attributes.date)).minutes > 2880
+      )
+    } else if (filter === "active") {
+      // validate if is in valid time to be active
+      filteredList = artistData.filter(
+        (el: any) => getTime(new Date(el.attributes.date)).minutes < 2880
+      )
     }
     setLotteryNfts(filteredList)
-  }, [filter])
+  }, [filter, artistData])
 
-  console.log(artistData)
+  console.log(lotteryNfts)
+
   return (
     <OwnedLotteryStyles>
       <div className="content">
@@ -223,7 +243,7 @@ const OwnedLottery = () => {
 
         <div className="items-cont">
           {/* iterate the events */}
-          {artistData.map((event: any, indexEvent: number) => {
+          {lotteryNfts.map((event: any, indexEvent: number) => {
             // get the passes of the event
             const passes = event.attributes.passes.data
             // iterate the passes of the event
