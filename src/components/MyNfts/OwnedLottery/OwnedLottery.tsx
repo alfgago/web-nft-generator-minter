@@ -138,17 +138,21 @@ const OwnedLottery = () => {
 
   const fetchData = async () => {
     try {
+      // get the nft of the actual wallet
       const walletData = await axios.get("/api/nfts/owned?address=" + address)
 
       const filteredArray = walletData.data
         .map((nft: any) => {
           const valesp = nft.metadata.attributes
+            // iterate over the metadata objs
             .map((item: any) => {
+              // validate if the pass is lottery
               if (item.trait_type === "pass_type" && item.value === "Lottery") {
                 return true
               }
               return false
             })
+            // only need the info of the true elements
             .filter((event: any) => event !== false)
 
           return {
@@ -158,6 +162,7 @@ const OwnedLottery = () => {
         })
         .filter((event: any) => event.event != "")
 
+      // get the artist info based on the image of the nft
       filteredArray.forEach(async (element: any, index: number) => {
         const { data } = await axios.get(
           `/api/artists/wallet-lottery?nftImage=${element.event}`
@@ -178,9 +183,6 @@ const OwnedLottery = () => {
     }
     setLotteryNfts(filteredList)
   }, [filter])
-
-  console.log("RESPONSE")
-  console.log(artistData)
 
   return (
     <OwnedLotteryStyles>

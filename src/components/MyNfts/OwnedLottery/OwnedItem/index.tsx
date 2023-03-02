@@ -6,12 +6,6 @@ import Countdown from "@/components/Common/CountDown"
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
 const OwnedItem = ({ itemData, eventData }: any) => {
-  const event = itemData.attributes
-  const passes = itemData.passes
-  console.log("itemData")
-  console.log(eventData)
-  console.log(itemData)
-
   const passInfo = itemData.attributes
   const image = passInfo.preview_image_url
   const passTitle = passInfo.collection_name
@@ -29,6 +23,16 @@ const OwnedItem = ({ itemData, eventData }: any) => {
   const day = new Date(eventDate).toLocaleString("default", {
     day: "2-digit",
   })
+  const getTime = (targetTime: any, now: any = new Date()) => {
+    const remainingTime = targetTime.getTime() - now.getTime()
+    const seconds = Math.floor(remainingTime / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+
+    return { hours: hours, minutes: minutes, seconds: seconds }
+  }
+
+  const remainingTime = getTime(new Date(eventDate))
 
   return (
     <OwnedItemStyles>
@@ -60,10 +64,13 @@ const OwnedItem = ({ itemData, eventData }: any) => {
           <p>
             Staked: {9} of {10}
           </p>
-          <CommonPill className="clickable fill">Stake to enter</CommonPill>
+          {remainingTime.minutes < 2880 && remainingTime.minutes > 0 && (
+            <CommonPill className="clickable fill">Stake to enter</CommonPill>
+          )}
+
           <p>
             Chance of winning{" "}
-            <span>{(totalPasses / winnersAmount) * 100}%</span>
+            <span>{Math.round((totalPasses / winnersAmount) * 100)}%</span>
           </p>
         </div>
       </div>
