@@ -47,6 +47,7 @@ const OwnedLottery = () => {
         )
 
         setArtistData(data.data[index].attributes.events.data)
+        setLotteryNfts(artistData)
       })
     } catch (error) {}
   }
@@ -80,8 +81,13 @@ const OwnedLottery = () => {
         (el: any) => getTime(new Date(el.attributes.date)).minutes < 2880
       )
     }
-    setLotteryNfts(filteredList)
+    setLotteryNfts(
+      filteredList.filter((item: any) => item.attributes.passes.data.length > 0)
+    )
   }, [filter, artistData])
+
+  console.log("lotteryNfts")
+  console.log(lotteryNfts)
 
   return (
     <OwnedLotteryStyles>
@@ -97,38 +103,34 @@ const OwnedLottery = () => {
           </ul>
         </div>
 
-        {/* <ItemPagination
-          itemsPerPage={3}
-          values={lotteryNfts}
-          render={(items: any) => {
-            return (
-              <div className="items-cont">
-                {items.map((data: any) => {
-                  return <OwnedItem key={data.id} itemData={data} />
-                })}
-              </div>
-            )
-          }}
-        /> */}
-        {/* <div className="items-cont">
-          {lotteryNfts.map((data: any) => {
-            return <OwnedItem key={data.id} itemData={data} />
-          })}
-        </div> */}
-
-        <div className="items-cont">
-          {/* iterate the events */}
-          {lotteryNfts.map((event: any, indexEvent: number) => {
-            // get the passes of the event
-            const passes = event.attributes.passes.data
-            // iterate the passes of the event
-            return passes.map((pass: any, index: number) => {
+        {lotteryNfts.length > 0 && (
+          <ItemPagination
+            itemsPerPage={3}
+            values={lotteryNfts}
+            render={(items: any) => {
               return (
-                <OwnedItem key={pass.id} eventData={event} itemData={pass} />
+                <div className="items-cont">
+                  {/* iterate the events */}
+                  {items.map((event: any) => {
+                    return event.attributes.passes.data.map(
+                      (pass: any, indexEvent: number) => {
+                        // get the passes of the event
+
+                        return (
+                          <OwnedItem
+                            key={"owned" + indexEvent}
+                            eventData={event}
+                            itemData={pass}
+                          />
+                        )
+                      }
+                    )
+                  })}
+                </div>
               )
-            })
-          })}
-        </div>
+            }}
+          />
+        )}
       </div>
     </OwnedLotteryStyles>
   )

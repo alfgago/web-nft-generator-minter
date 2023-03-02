@@ -24,7 +24,7 @@ const ItemPagination = ({ itemsPerPage, values, render }: any) => {
 
     setCurrentItems(items.slice(itemOffset, endOffset))
     setPageCount(Math.ceil(items.length / itemsPerPage))
-  }, [itemOffset, itemsPerPage])
+  }, [itemOffset, itemsPerPage, values])
 
   // handle the click on the page
   const handlePageClick = (event: any) => {
