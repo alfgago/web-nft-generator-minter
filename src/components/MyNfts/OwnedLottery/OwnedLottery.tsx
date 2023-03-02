@@ -3,6 +3,7 @@ import axios from "axios"
 import { useAccount } from "wagmi"
 
 import ItemPagination from "@/components/Common/ItemPagination"
+import Index from "@/pages"
 
 import OwnedItem from "./OwnedItem"
 import { OwnedLotteryStyles } from "./OwnedLotteryStyles"
@@ -167,7 +168,9 @@ const OwnedLottery = () => {
         const { data } = await axios.get(
           `/api/artists/wallet-lottery?nftImage=${element.event}`
         )
-        setArtistData(data.data)
+
+        // console.log(data.data[index].attributes.events)
+        setArtistData(data.data[index].attributes.events.data)
       })
     } catch (error) {}
   }
@@ -177,13 +180,14 @@ const OwnedLottery = () => {
   }, [])
 
   useEffect(() => {
-    let filteredList = lotteryItemsList
+    let filteredList = artistData
     if (filter) {
-      filteredList = lotteryItemsList.filter((el) => el.origin == filter)
+      filteredList = artistData.filter((el) => el.origin == filter)
     }
     setLotteryNfts(filteredList)
   }, [filter])
 
+  console.log(artistData)
   return (
     <OwnedLotteryStyles>
       <div className="content">
@@ -218,25 +222,16 @@ const OwnedLottery = () => {
         </div> */}
 
         <div className="items-cont">
-          {/* Get the artist data */}
-          {artistData.map((item: any, index: number) => {
-            // All the events of the artist
-            return item.attributes.events.data.map(
-              (event: any, indexEvent: number) => {
-                const passes = event.attributes.passes.data
-                const currentEvent = event
-
-                return passes.map((pass: any, index: number) => {
-                  return (
-                    <OwnedItem
-                      key={pass.id}
-                      eventData={currentEvent}
-                      itemData={pass}
-                    />
-                  )
-                })
-              }
-            )
+          {/* iterate the events */}
+          {artistData.map((event: any, indexEvent: number) => {
+            // get the passes of the event
+            const passes = event.attributes.passes.data
+            // iterate the passes of the event
+            return passes.map((pass: any, index: number) => {
+              return (
+                <OwnedItem key={pass.id} eventData={event} itemData={pass} />
+              )
+            })
           })}
         </div>
       </div>
