@@ -81,13 +81,12 @@ const OwnedLottery = () => {
         (el: any) => getTime(new Date(el.attributes.date)).minutes < 2880
       )
     }
+
+    // set only events that contains passes
     setLotteryNfts(
       filteredList.filter((item: any) => item.attributes.passes.data.length > 0)
     )
   }, [filter, artistData])
-
-  console.log("lotteryNfts")
-  console.log(lotteryNfts)
 
   return (
     <OwnedLotteryStyles>
