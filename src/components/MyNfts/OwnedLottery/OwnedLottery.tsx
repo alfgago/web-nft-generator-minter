@@ -47,7 +47,6 @@ const OwnedLottery = () => {
         )
 
         setArtistData(data.data[index].attributes.events.data)
-        setLotteryNfts(artistData)
       })
     } catch (error) {}
   }
@@ -96,9 +95,24 @@ const OwnedLottery = () => {
             <h2>Owned Lottery Nft's</h2>
           </div>
           <ul className="filters">
-            <li onClick={() => setFilter("")}>All</li>
-            <li onClick={() => setFilter("active")}>Active</li>
-            <li onClick={() => setFilter("upcoming")}>Upcoming</li>
+            <li
+              className={filter === "" ? "active-filter" : ""}
+              onClick={() => setFilter("")}
+            >
+              All
+            </li>
+            <li
+              className={filter === "active" ? "active-filter" : ""}
+              onClick={() => setFilter("active")}
+            >
+              Active
+            </li>
+            <li
+              className={filter === "upcoming" ? "active-filter" : ""}
+              onClick={() => setFilter("upcoming")}
+            >
+              Upcoming
+            </li>
           </ul>
         </div>
 

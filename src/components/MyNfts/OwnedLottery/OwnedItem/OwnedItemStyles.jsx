@@ -4,9 +4,9 @@ export const OwnedItemStyles = styled.div`
   display: flex;
   margin-bottom: ${62 / 16}rem;
 
-  h3 {
+  /* h3 {
     font-size: ${28 / 16}rem;
-  }
+  } */
 
   .grey-card {
     background-color: #f3f3f3;
