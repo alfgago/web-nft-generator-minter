@@ -5,7 +5,10 @@ type CountdownProps = {
   triggerAction: any
 }
 
-const Countdown: React.FC<CountdownProps> = ({ targetDate, triggerAction }) => {
+const Countdown: React.FC<CountdownProps> = ({
+  targetDate,
+  triggerAction = false,
+}) => {
   const [timeRemaining, setTimeRemaining] = useState<number>(0.1)
 
   useEffect(() => {
@@ -26,7 +29,9 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate, triggerAction }) => {
     if (timeRemaining <= 0) {
       console.log(timeRemaining)
       // Perform the action you want here
-      triggerAction()
+      if (triggerAction != false) {
+        triggerAction()
+      }
     }
   }, [timeRemaining])
 
