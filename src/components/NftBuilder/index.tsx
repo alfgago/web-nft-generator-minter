@@ -18,6 +18,7 @@ import SimpleHeader from "../Common/SimpleHeader"
 import { useRequestStatus } from "./Hooks/useRequestStatus"
 import ConfirmationStep from "./ConfirmationStep"
 import DesignStep from "./DesignStep"
+import DesignStepSingle from "./DesignStepSingle"
 import FormStep from "./FormStep"
 import { NftBuilderStyles } from "./NftBuilderStyles"
 import StepsHeader from "./StepsHeader"
@@ -221,13 +222,25 @@ const NftBuilder = ({ artists }: any) => {
             />
           )}
           {activeStep == 2 && (
-            <DesignStep
-              nftName={formValues.name}
-              nextAction={nextStep}
-              previousAction={previousStep}
-              artist={selectedArtist}
-              memberImage={memberImage}
-            />
+            <>
+              {formValues.passType == "Single Event" ? (
+                <DesignStepSingle
+                  nftName={formValues.name}
+                  nextAction={nextStep}
+                  previousAction={previousStep}
+                  artist={selectedArtist}
+                  memberImage={memberImage}
+                />
+              ) : (
+                <DesignStep
+                  nftName={formValues.name}
+                  nextAction={nextStep}
+                  previousAction={previousStep}
+                  artist={selectedArtist}
+                  memberImage={memberImage}
+                />
+              )}
+            </>
           )}
           {activeStep == 3 && (
             <>

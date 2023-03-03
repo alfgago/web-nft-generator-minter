@@ -3,7 +3,7 @@ import { fabric } from "fabric-pure-browser"
 export default class TemplateFabric {
   layers
 
-  constructor(canvasRef, json, shapes, artistImage) {
+  constructor(canvasRef, json, shapes, artistImage, type = "full") {
     const layers = []
     fabric.Object.prototype.objectCaching = true
     if (json) {
@@ -44,8 +44,12 @@ export default class TemplateFabric {
       canvasRef = canvasRef
       this.layers = layers
       this.changeImage({ canvasRef, imageUrl: artistImage })
-      this.pickTemplate({ canvasRef })
-      this.pickBackground({ canvasRef, shapes })
+      if (type != "single") {
+        this.pickTemplate({ canvasRef })
+        this.pickBackground({ canvasRef, shapes })
+      } else {
+        this.setSingleTemplate({ canvasRef })
+      }
     }
     canvasRef.preserveObjectStacking = true
   }
@@ -127,6 +131,31 @@ export default class TemplateFabric {
     templateGroup.set("evented", false)
     canvasRef.add(templateGroup)
     this.layers[3] = templateGroup // Template is the 3rd layer
+  }
+
+  setSingleTemplate = ({ canvasRef }) => {
+    canvasRef.getObjects().forEach(function (el) {
+      if (el.get("type") == "group") {
+        canvasRef.remove(el)
+      }
+    })
+    const self = this
+    fabric.Image.fromURL(
+      imageUrl,
+      function (oImg) {
+        oImg.scaleToWidth(canvasRef.width)
+        canvasRef.add(oImg)
+        const templateGroup = new fabric.Group([oImg])
+        templateGroup.set("selectable", false)
+        templateGroup.set("evented", false)
+        canvasRef.add(templateGroup)
+        self.layers[3] = templateGroup
+      },
+      { crossOrigin: "anonymous" }
+    )
+    // Add 2px to widths as fix for white lines
+
+    // Template is the 3rd layer
   }
 
   changeImage = ({ canvasRef, imageUrl }) => {

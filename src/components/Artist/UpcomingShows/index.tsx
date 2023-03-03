@@ -8,7 +8,7 @@ const UpcomingShows = ({ events }: any) => {
 
   useEffect(() => {
     const sectionId = window.decodeURIComponent(window.location.hash)
-    sectionId === "#upcoming-section" &&
+    sectionId === "#upcoming" &&
       upcSectionRef.current.scrollIntoView({ behavior: "smooth" })
   }, [])
 

@@ -37,7 +37,10 @@ const EventCard = ({ eventData }: any) => {
             <div className="date">{eventDate.toLocaleString("en-US")}</div>
           )}
         </div>
-        <Link href={"/artist/" + artistSlug} title={"Access " + eventName}>
+        <Link
+          href={"/artist/" + artistSlug + "#upcoming"}
+          title={"Access " + eventName}
+        >
           <CommonPill className="clickable small">Access</CommonPill>
         </Link>
       </div>

@@ -262,8 +262,6 @@ const FormStep = ({
               >
                 <option value="">-</option>
                 <option value="Lifetime">Lifetime</option>
-                <option value="Lottery">Lottery</option>
-                <option value="Tour">Tour</option>
                 <option value="Single Event">Single Event</option>
               </Field>
             </label>

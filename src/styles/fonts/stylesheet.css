@@ -1,70 +1,193 @@
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Black.woff2') format('woff2'),
-        url('Trap-Black.woff') format('woff'),
-        url('Trap-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-Black.woff2") format("woff2"),
+    url("Trap-Black.woff") format("woff"),
+    url("Trap-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Medium.woff2') format('woff2'),
-        url('Trap-Medium.woff') format('woff'),
-        url('Trap-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-Medium.woff2") format("woff2"),
+    url("Trap-Medium.woff") format("woff"),
+    url("Trap-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Bold.woff2') format('woff2'),
-        url('Trap-Bold.woff') format('woff'),
-        url('Trap-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-Bold.woff2") format("woff2"),
+    url("Trap-Bold.woff") format("woff"),
+    url("Trap-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-SemiBold.woff2') format('woff2'),
-        url('Trap-SemiBold.woff') format('woff'),
-        url('Trap-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-SemiBold.woff2") format("woff2"),
+    url("Trap-SemiBold.woff") format("woff"),
+    url("Trap-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Light.woff2') format('woff2'),
-        url('Trap-Light.woff') format('woff'),
-        url('Trap-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-Light.woff2") format("woff2"),
+    url("Trap-Light.woff") format("woff"),
+    url("Trap-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-ExtraBold.woff2') format('woff2'),
-        url('Trap-ExtraBold.woff') format('woff'),
-        url('Trap-ExtraBold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-ExtraBold.woff2") format("woff2"),
+    url("Trap-ExtraBold.woff") format("woff"),
+    url("Trap-ExtraBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Regular.woff2') format('woff2'),
-        url('Trap-Regular.woff') format('woff'),
-        url('Trap-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Trap";
+  src: url("Trap-Regular.woff2") format("woff2"),
+    url("Trap-Regular.woff") format("woff"),
+    url("Trap-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-italic.woff2") format("woff2"),
+    url("Tickerbit-italic.woff") format("woff"),
+    url("Tickerbit-italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-regular.woff2") format("woff2"),
+    url("Tickerbit-regular.woff") format("woff"),
+    url("Tickerbit-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerpixel mono";
+  src: url("Tickerpixel-monoitalic.woff2") format("woff2"),
+    url("Tickerpixel-monoitalic.woff") format("woff"),
+    url("Tickerpixel-monoitalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-italic_1.woff2") format("woff2"),
+    url("Tickerbit-italic_1.woff") format("woff"),
+    url("Tickerbit-italic_1.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-regular_1.woff2") format("woff2"),
+    url("Tickerbit-regular_1.woff") format("woff"),
+    url("Tickerbit-regular_1.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit mono";
+  src: url("Tickerbit-mono.woff2") format("woff2"),
+    url("Tickerbit-mono.woff") format("woff"),
+    url("Tickerbit-mono.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerpixel mono";
+  src: url("Tickerpixel-monoitalic_1.woff2") format("woff2"),
+    url("Tickerpixel-monoitalic_1.woff") format("woff"),
+    url("Tickerpixel-monoitalic_1.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-regular_2.woff2") format("woff2"),
+    url("Tickerbit-regular_2.woff") format("woff"),
+    url("Tickerbit-regular_2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit mono";
+  src: url("Tickerbit-mono_1.woff2") format("woff2"),
+    url("Tickerbit-mono_1.woff") format("woff"),
+    url("Tickerbit-mono_1.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerpixel mono";
+  src: url("Tickerpixel-monoitalic_2.woff2") format("woff2"),
+    url("Tickerpixel-monoitalic_2.woff") format("woff"),
+    url("Tickerpixel-monoitalic_2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit mono";
+  src: url("Tickerbit-mono_2.woff2") format("woff2"),
+    url("Tickerbit-mono_2.woff") format("woff"),
+    url("Tickerbit-mono_2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tickerbit";
+  src: url("Tickerbit-italic_2.woff2") format("woff2"),
+    url("Tickerbit-italic_2.woff") format("woff"),
+    url("Tickerbit-italic_2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+.tickerbit {
+  font-family: "Tickerbit", "Trap", sans-serif;
+}

@@ -64,10 +64,7 @@ const EventCard = ({ eventData }: any) => {
             )} */}
           </div>
           <div className="bnt-cont">
-            <Link
-              legacyBehavior
-              href={`/artist/${artistPage}/#upcoming-section`}
-            >
+            <Link legacyBehavior href={`/artist/${artistPage}/#upcoming`}>
               <a>
                 <CommonPill className="clickable blue small">
                   View more
