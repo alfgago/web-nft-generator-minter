@@ -32,7 +32,13 @@ const MyNfts = () => {
 
   return (
     <MyNtfStyles>
-      <SimpleHeader title="My NFT's" backgroundColor="blue" textAlign="left">
+      <SimpleHeader
+        title="My NFT's"
+        backgroundColor="blue"
+        textAlign="left"
+        subt-container
+        id="scroll-trigger"
+      >
         <div className="subt-container">
           <h3>{address}</h3>
           {isConnected && (

@@ -211,15 +211,34 @@ export const Pagination = styled.div`
     gap: 5px;
     list-style: none;
 
+    .previous,
+    .next {
+      display: none;
+    }
+
     .page-link {
-      padding: 5px 6px;
+      /* padding: 5px 6px; */
+      display: flex;
+      justify-content: center;
       background-color: #d9d9d9;
       width: ${20 / 16}rem;
       height: ${20 / 16}rem;
+      width: ${27 / 16}rem;
+      height: ${27 / 16}rem;
+      line-height: ${27 / 16}rem;
+      font-size: ${14 / 16}rem;
+      color: #000;
+      margin: 0;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      transition: 0.5s ease all;
+
+      @media ${DEVICE.laptop} {
+        font-size: ${16 / 16}rem;
+      }
     }
     .active {
       color: ${COLORS.white};
-      background-color: #4d4d4d;
+      background-color: #000000;
     }
   }
 `
