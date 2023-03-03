@@ -1,4 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
+import axios from "axios"
 
 import ItemPagination from "@/components/Common/ItemPagination"
 import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles"
@@ -76,6 +78,29 @@ const items = [
 ]
 
 const GuestsList = () => {
+  const [eventData, setEventData] = useState([])
+
+  const { data: user } = useSession()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get(
+          // @ts-ignore
+          "/api/shows/tourManager?user=" + user.id
+        )
+        const events = data.data
+        setEventData(events)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
+    if (user) {
+      fetchData()
+    }
+  }, [])
+
+  console.log(eventData)
   return (
     <GuestsListStyles>
       <div className="content">
@@ -84,12 +109,12 @@ const GuestsList = () => {
         </div>
         <ItemPagination
           itemsPerPage={3}
-          values={items}
-          render={(items: any) => {
+          values={eventData}
+          render={(items: any, index: number) => {
             return (
               <div className="drops-container">
                 {items.map((data: any) => {
-                  return <DropItem key={data.id} data={data} />
+                  return <DropItem key={"guestList" + index} data={data} />
                 })}
               </div>
             )

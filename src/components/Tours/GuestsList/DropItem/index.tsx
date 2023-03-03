@@ -6,14 +6,24 @@ import { ReactSVG } from "react-svg"
 import DropGuestList from "./DropGuestList"
 import { DropItemStyles } from "./DropItemStyles"
 const DropItem = ({ data }: any) => {
+  console.log(data)
   const [collapsed, setCollapsed] = useState(false)
-  const location = data.state + ", " + data.city
+  const location = data.attributes.venue_name
+  const date = data.attributes.date
+  const month = new Date(date).toLocaleString("default", {
+    month: "long",
+  })
+  const day = new Date(date).toLocaleString("default", {
+    day: "2-digit",
+  })
+  const passes = data.attributes.passes.data
+
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
       <div className={`content drop-container ${collapsed ? "bg-opned" : ""}`}>
         <div className="unc-content">
           <p>
-            {location}, {data.date}
+            {location ? location + "," : ""} {`${month} ${day}`}
           </p>
         </div>
         <div className="">
