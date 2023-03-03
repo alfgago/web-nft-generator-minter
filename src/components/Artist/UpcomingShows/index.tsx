@@ -1,9 +1,19 @@
+import { useEffect, useRef } from "react"
+
 import ShowRow from "./ShowRow"
 import { BoxDrops, UpcomingShowStyles } from "./UpcomingShowStyles"
 
 const UpcomingShows = ({ events }: any) => {
+  const upcSectionRef = useRef<any>(null)
+
+  useEffect(() => {
+    const sectionId = window.decodeURIComponent(window.location.hash)
+    sectionId === "#upcoming-section" &&
+      upcSectionRef.current.scrollIntoView({ behavior: "smooth" })
+  }, [])
+
   return (
-    <UpcomingShowStyles>
+    <UpcomingShowStyles ref={upcSectionRef}>
       <div className="content">
         <h2 className="title">Upcoming Shows</h2>
         {events.data && events.data.length ? (
