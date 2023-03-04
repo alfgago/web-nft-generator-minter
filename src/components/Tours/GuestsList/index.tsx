@@ -103,50 +103,40 @@ const GuestsList = () => {
   const orderList: { event: any; guests: any }[] = []
 
   guestsList.forEach((element: any) => {
-    const event = element.attributes.event.data
-    const guests = element.attributes.Guests
+    const currentevent = element.attributes.event.data
+    const currentGuests = element.attributes.Guests
     // validar si el evento existe en el array order
     if (orderList.length < 1) {
-      orderList.push({ event: event, guests: guests })
+      orderList.push({ event: currentevent, guests: currentGuests })
     }
 
     const containsEvent = orderList.every(
-      (obj: any) => obj.event.id == event.id
+      (obj: any) => obj.event.id == currentevent.id
     )
 
     if (containsEvent) {
-      // si existe se debe de intentar agregar el current guest al evento
-      // validar si existen los uaurios
-      console.log("guests")
-      console.log(guests)
-
       // recorre orderlist
       orderList.forEach((item: any) => {
         // unicamente valida los usuarios del evento actual
-        if (item.event.id === event.id) {
-          // recorre todos los guests del evento actual
-          guests.forEach((guest: any) => {
-            const attribute = "id"
-            const value = guest.id
-            const containsObjectWithAttribute = orderList.some(
-              (obj: any) =>
-                obj.hasOwnProperty(attribute) && obj[attribute] === value
+        if (item.event.id === currentevent.id) {
+          // recorre todos los guests del guestlist actual
+          currentGuests.forEach((guest: any) => {
+            const containsGuest = item.guests.some(
+              (obj: any) => obj.hasOwnProperty("id") && obj["id"] === guest.id
             )
-            if (!containsObjectWithAttribute) {
+
+            if (!containsGuest) {
               item.guests.push(guest)
             }
           })
         }
       })
-
       // sino agregar
     } else {
       // si no existe hace un push de un nuevo objeto
-      orderList.push({ event: event, guests: guests })
+      orderList.push({ event: currentevent, guests: currentGuests })
     }
   })
-  console.log("orderList")
-  console.log(orderList)
 
   return (
     <GuestsListStyles>
