@@ -39,7 +39,9 @@ const DropItem = ({ data }: any) => {
             )}
           </button>
         </div>
-        {collapsed && <DropGuestList key={generateKey} data={data} />}
+        {!collapsed && (
+          <DropGuestList key={"item" + Math.random()} data={passes} />
+        )}
       </div>
     </DropItemStyles>
   )

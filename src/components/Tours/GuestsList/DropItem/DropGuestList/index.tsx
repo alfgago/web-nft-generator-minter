@@ -14,10 +14,12 @@ import { DropGuestListStyles } from "./DropGuestListStyles"
 
 const DropGuestList = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false)
+  console.log("data")
+  console.log(data)
 
   return (
     <DropGuestListStyles>
-      <ItemPagination
+      {/* <ItemPagination
         itemsPerPage={3}
         values={data.users}
         render={(items: any) => {
@@ -53,7 +55,7 @@ const DropGuestList = ({ data }: any) => {
         <Modal setIsOpen={setIsOpen} title="Add guests">
           <NewGuestForm className="content" />
         </Modal>
-      )}
+      )} */}
     </DropGuestListStyles>
   )
 }

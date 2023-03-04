@@ -87,10 +87,10 @@ const GuestsList = () => {
       try {
         const { data } = await axios.get(
           // @ts-ignore
-          "/api/shows/tourManager?user=" + user.id
+          "/api/guest-lists?user=" + user.id
         )
-        const events = data.data
-        setEventData(events)
+        const gestList = data.data
+        setEventData(gestList)
       } catch (err: any) {
         console.log(err)
       }

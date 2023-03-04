@@ -8,6 +8,7 @@ const fetchData = async ({
   limit = 3,
   pass = 0,
   minted = "All",
+  user = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
@@ -21,8 +22,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "*",
-    sort: "name",
+    populate: "event,Guests",
   }
 
   if (pass) {
@@ -36,7 +36,12 @@ const fetchData = async ({
     params["filters[is_minted][$ne]"] = !isMinted
   }
 
-  const nftsResponse = await axios.get(`${apiURL}/api/nfts`, {
+  if (user) {
+    // @ts-ignore
+    params["filters[event][artist][user][id][$eq]"] = user
+  }
+
+  const nftsResponse = await axios.get(`${apiURL}/api/guest-lists`, {
     params,
     headers: {
       Authorization: `Bearer ${token}`,
