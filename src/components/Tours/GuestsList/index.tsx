@@ -138,6 +138,8 @@ const GuestsList = () => {
     }
   })
 
+  console.log(orderList)
+
   return (
     <GuestsListStyles>
       <div className="content">
