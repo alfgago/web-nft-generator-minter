@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import { generateKey } from "crypto"
 import { ReactSVG } from "react-svg"
@@ -16,7 +16,6 @@ const DropItem = ({ data }: any) => {
   const day = new Date(date).toLocaleString("default", {
     day: "2-digit",
   })
-  const passes = data.attributes.passes.data
 
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
@@ -39,9 +38,9 @@ const DropItem = ({ data }: any) => {
             )}
           </button>
         </div>
-        {!collapsed && (
+        {/* {!collapsed && (
           <DropGuestList key={"item" + Math.random()} data={passes} />
-        )}
+        )} */}
       </div>
     </DropItemStyles>
   )

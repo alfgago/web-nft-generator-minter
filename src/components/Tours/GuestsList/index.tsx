@@ -78,7 +78,7 @@ const items = [
 ]
 
 const GuestsList = () => {
-  const [eventData, setEventData] = useState([])
+  const [guestsList, setGuestsList] = useState([])
 
   const { data: user } = useSession()
 
@@ -90,7 +90,7 @@ const GuestsList = () => {
           "/api/guest-lists?user=" + user.id
         )
         const gestList = data.data
-        setEventData(gestList)
+        setGuestsList(gestList)
       } catch (err: any) {
         console.log(err)
       }
@@ -100,14 +100,61 @@ const GuestsList = () => {
     }
   }, [])
 
-  console.log(eventData)
+  const orderList: { event: any; guests: any }[] = []
+
+  guestsList.forEach((element: any) => {
+    const event = element.attributes.event.data
+    const guests = element.attributes.Guests
+    // validar si el evento existe en el array order
+    if (orderList.length < 1) {
+      orderList.push({ event: event, guests: guests })
+    }
+
+    const containsEvent = orderList.every(
+      (obj: any) => obj.event.id == event.id
+    )
+
+    if (containsEvent) {
+      // si existe se debe de intentar agregar el current guest al evento
+      // validar si existen los uaurios
+      console.log("guests")
+      console.log(guests)
+
+      // recorre orderlist
+      orderList.forEach((item: any) => {
+        // unicamente valida los usuarios del evento actual
+        if (item.event.id === event.id) {
+          // recorre todos los guests del evento actual
+          guests.forEach((guest: any) => {
+            const attribute = "id"
+            const value = guest.id
+            const containsObjectWithAttribute = orderList.some(
+              (obj: any) =>
+                obj.hasOwnProperty(attribute) && obj[attribute] === value
+            )
+            if (!containsObjectWithAttribute) {
+              item.guests.push(guest)
+            }
+          })
+        }
+      })
+
+      // sino agregar
+    } else {
+      // si no existe hace un push de un nuevo objeto
+      orderList.push({ event: event, guests: guests })
+    }
+  })
+  console.log("orderList")
+  console.log(orderList)
+
   return (
     <GuestsListStyles>
       <div className="content">
         <div>
           <h1>Manage guest lists</h1>
         </div>
-        <ItemPagination
+        {/* <ItemPagination
           itemsPerPage={3}
           values={eventData}
           render={(items: any, index: number) => {
@@ -119,7 +166,7 @@ const GuestsList = () => {
               </div>
             )
           }}
-        />
+        /> */}
       </div>
     </GuestsListStyles>
   )
