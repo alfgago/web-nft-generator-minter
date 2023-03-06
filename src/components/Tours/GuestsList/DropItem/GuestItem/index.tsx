@@ -26,7 +26,7 @@ const GuestItem = ({ data }: any) => {
         <div className="black-header">
           <p>{nftName}</p>
         </div>
-        <div>
+        <div className="mid-cont">
           <p>{guestName}</p>
         </div>
         <div>

@@ -8,8 +8,10 @@ export const GuestItemStyles = styled.div`
 
   .container {
     width: 75%;
+    background: #f5f5f5;
 
     @media ${DEVICE.laptop} {
+      background: #fff;
       width: 100%;
       display: flex;
       text-align: center;
@@ -37,6 +39,10 @@ export const GuestItemStyles = styled.div`
 
   .black-header ~ div {
     background: #f5f5f5;
+  }
+
+  .mid-cont {
+    border-bottom: ${1 / 16}rem #fff solid;
   }
 
   div > img {
