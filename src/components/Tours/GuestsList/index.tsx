@@ -145,8 +145,6 @@ const GuestsList = () => {
     createOrderList()
   }, [guestsList])
 
-  console.log(filteredGuests)
-
   return (
     <GuestsListStyles>
       <div className="content">
