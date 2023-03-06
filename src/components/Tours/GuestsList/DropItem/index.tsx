@@ -6,8 +6,6 @@ import { ReactSVG } from "react-svg"
 import DropGuestList from "./DropGuestList"
 import { DropItemStyles } from "./DropItemStyles"
 const DropItem = ({ data }: any) => {
-  console.log("data")
-  console.log(data)
   const [collapsed, setCollapsed] = useState(false)
   const location = data.event.attributes.venue_name
   const date = data.event.attributes.date
@@ -17,6 +15,8 @@ const DropItem = ({ data }: any) => {
   const day = new Date(date).toLocaleString("default", {
     day: "2-digit",
   })
+
+  const guestsList = data.guests
 
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
@@ -39,9 +39,9 @@ const DropItem = ({ data }: any) => {
             )}
           </button>
         </div>
-        {/* {!collapsed && (
-          <DropGuestList key={"item" + Math.random()} data={passes} />
-        )} */}
+        {collapsed && (
+          <DropGuestList key={"item" + Math.random()} data={guestsList} />
+        )}
       </div>
     </DropItemStyles>
   )

@@ -2,6 +2,8 @@ import React from "react"
 import { useState } from "react"
 import { ReactSVG } from "react-svg"
 
+import cleanUrl from "@/utils/cleanUrl"
+
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ data }: any) => {
   const [check, setIsChecked] = useState(true)
@@ -9,20 +11,26 @@ const GuestItem = ({ data }: any) => {
   const handleChange = () => {
     setIsChecked(!check)
   }
+
+  const guestName: string = data.name
+  const guestEmail: string = data.email
+  const image = data.nft.data.attributes.image_url
+  const nftName = data.nft.data.attributes.name
+
   return (
     <GuestItemStyles>
       <div>
-        <img alt="user logo" src={data.image} />
+        <img alt="user logo" src={cleanUrl(image)} />
       </div>
       <div className="container">
         <div className="black-header">
-          <p>NFT #Tour Pass #1</p>
+          <p>{nftName}</p>
         </div>
         <div>
-          <p>{data.name}</p>
+          <p>{guestName}</p>
         </div>
         <div>
-          <p>{data.email}</p>
+          <p>{guestEmail}</p>
         </div>
       </div>
       <span>
