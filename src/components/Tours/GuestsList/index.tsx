@@ -79,8 +79,49 @@ const items = [
 
 const GuestsList = () => {
   const [guestsList, setGuestsList] = useState([])
-
+  const orderList: { event: any; guests: any }[] = []
   const { data: user } = useSession()
+
+  const [filteredGuests, setFilteredGuests] = useState<any[]>([])
+  const createOrderList = async () => {
+    guestsList.forEach((element: any) => {
+      const currentevent = element.attributes.event.data
+      const currentGuests = element.attributes.Guests
+      // validar si el evento existe en el array order
+      if (orderList.length < 1) {
+        orderList.push({ event: currentevent, guests: currentGuests })
+      }
+
+      const containsEvent = orderList.every(
+        (obj: any) => obj.event.id == currentevent.id
+      )
+
+      if (containsEvent) {
+        // recorre orderlist
+        orderList.forEach((item: any) => {
+          // unicamente valida los usuarios del evento actual
+          if (item.event.id === currentevent.id) {
+            // recorre todos los guests del guestlist actual
+            currentGuests.forEach((guest: any) => {
+              const containsGuest = item.guests.some(
+                (obj: any) => obj.hasOwnProperty("id") && obj["id"] === guest.id
+              )
+
+              if (!containsGuest) {
+                item.guests.push(guest)
+              }
+            })
+          }
+        })
+        // sino agregar
+      } else {
+        // si no existe hace un push de un nuevo objeto
+        orderList.push({ event: currentevent, guests: currentGuests })
+      }
+    })
+    // set
+    setFilteredGuests(orderList)
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -100,45 +141,11 @@ const GuestsList = () => {
     }
   }, [])
 
-  const orderList: { event: any; guests: any }[] = []
+  useEffect(() => {
+    createOrderList()
+  }, [guestsList])
 
-  guestsList.forEach((element: any) => {
-    const currentevent = element.attributes.event.data
-    const currentGuests = element.attributes.Guests
-    // validar si el evento existe en el array order
-    if (orderList.length < 1) {
-      orderList.push({ event: currentevent, guests: currentGuests })
-    }
-
-    const containsEvent = orderList.every(
-      (obj: any) => obj.event.id == currentevent.id
-    )
-
-    if (containsEvent) {
-      // recorre orderlist
-      orderList.forEach((item: any) => {
-        // unicamente valida los usuarios del evento actual
-        if (item.event.id === currentevent.id) {
-          // recorre todos los guests del guestlist actual
-          currentGuests.forEach((guest: any) => {
-            const containsGuest = item.guests.some(
-              (obj: any) => obj.hasOwnProperty("id") && obj["id"] === guest.id
-            )
-
-            if (!containsGuest) {
-              item.guests.push(guest)
-            }
-          })
-        }
-      })
-      // sino agregar
-    } else {
-      // si no existe hace un push de un nuevo objeto
-      orderList.push({ event: currentevent, guests: currentGuests })
-    }
-  })
-
-  console.log(orderList)
+  console.log(filteredGuests)
 
   return (
     <GuestsListStyles>
@@ -146,19 +153,19 @@ const GuestsList = () => {
         <div>
           <h1>Manage guest lists</h1>
         </div>
-        {/* <ItemPagination
+        <ItemPagination
           itemsPerPage={3}
-          values={eventData}
+          values={filteredGuests}
           render={(items: any, index: number) => {
             return (
               <div className="drops-container">
-                {items.map((data: any) => {
-                  return <DropItem key={"guestList" + index} data={data} />
+                {items.map((data: any, indexI: number) => {
+                  return <DropItem key={"guestList" + indexI} data={data} />
                 })}
               </div>
             )
           }}
-        /> */}
+        />
       </div>
     </GuestsListStyles>
   )
