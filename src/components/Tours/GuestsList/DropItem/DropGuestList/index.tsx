@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { jsPDF } from "jspdf"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
@@ -14,6 +15,20 @@ import { DropGuestListStyles } from "./DropGuestListStyles"
 
 const DropGuestList = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [eventsGuests, setEventsGuests] = useState([])
+  const arr = ["andrey", "pedro", "juan"]
+
+  const createPdf = (guests: any) => {
+    // Create a new PDF document
+    // eslint-disable-next-line new-cap
+    const doc = new jsPDF()
+
+    guests.map((item: any, index: number = 1) =>
+      doc.text(`Name: ${item.name} Email: ${item.email}`, 10, (index + 1) * 10)
+    )
+
+    doc.save("Guests-List.pdf")
+  }
 
   return (
     <DropGuestListStyles>
@@ -21,6 +36,7 @@ const DropGuestList = ({ data }: any) => {
         itemsPerPage={3}
         values={data}
         render={(items: any) => {
+          setEventsGuests(data)
           return (
             <>
               {items.map((data: any, i: number) => (
@@ -33,7 +49,7 @@ const DropGuestList = ({ data }: any) => {
       <div className="btns-container">
         <CommonPill
           className="clickable small"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => createPdf(eventsGuests)}
         >
           <span>Export guest list</span>
         </CommonPill>
