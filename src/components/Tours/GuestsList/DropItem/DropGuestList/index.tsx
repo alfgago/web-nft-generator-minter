@@ -1,5 +1,7 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { jsPDF } from "jspdf"
+import autoTable from "jspdf-autotable"
+import { parse } from "querystring"
 import { ReactSVG } from "react-svg"
 
 import AddButton from "@/components/Common/AddButton"
@@ -13,21 +15,44 @@ import GuestItem from "../GuestItem"
 
 import { DropGuestListStyles } from "./DropGuestListStyles"
 
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center",
+}
+const colstyle = {
+  width: "30%",
+}
+const tableStyle = {
+  width: "100%",
+}
+
 const DropGuestList = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false)
   const [eventsGuests, setEventsGuests] = useState([])
-  const arr = ["andrey", "pedro", "juan"]
+
+  const pdfBody = useRef<any>(null)
 
   const createPdf = (guests: any) => {
     // Create a new PDF document
     // eslint-disable-next-line new-cap
     const doc = new jsPDF()
 
-    guests.map((item: any, index: number = 1) =>
-      doc.text(`Name: ${item.name} Email: ${item.email}`, 10, (index + 1) * 10)
-    )
+    // guests.map((item: any, index: number = 1) =>
+    //   doc.text(`Name: ${item.name} Email: ${item.email}`, 10, (index + 1) * 10)
+    // )
 
-    doc.save("Guests-List.pdf")
+    doc.text("Guest List", 15, 10).setFont("bold")
+
+    autoTable(doc, {
+      head: [["Name", "Email", "Attendance"]],
+      body: [
+        ["David", "david@example.com", ""],
+        ["Castille", "castille@example.com", ""],
+        // ...
+      ],
+    })
+
+    doc.save("Guest-List.pdf")
   }
 
   return (
