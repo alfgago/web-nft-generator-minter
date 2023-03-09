@@ -37,19 +37,16 @@ const DropGuestList = ({ data }: any) => {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF()
 
-    // guests.map((item: any, index: number = 1) =>
-    //   doc.text(`Name: ${item.name} Email: ${item.email}`, 10, (index + 1) * 10)
-    // )
+    const list = guests.map((item: any, index: number = 1) => [
+      item.name,
+      item.email,
+    ])
 
     doc.text("Guest List", 15, 10).setFont("bold")
 
     autoTable(doc, {
       head: [["Name", "Email", "Attendance"]],
-      body: [
-        ["David", "david@example.com", ""],
-        ["Castille", "castille@example.com", ""],
-        // ...
-      ],
+      body: list,
     })
 
     doc.save("Guest-List.pdf")
