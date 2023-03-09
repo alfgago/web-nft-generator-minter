@@ -53,7 +53,7 @@ const MyNfts = () => {
       {isConnected ? (
         <>
           <ShowNfts items={nfts} />
-          <MyNftGuestsList />
+          <MyNftGuestsList myNfts={nfts} />
           <OwnedLottery />
         </>
       ) : (

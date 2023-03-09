@@ -41,7 +41,12 @@ const items = [
   },
 ]
 
-const MyNftGuestsList = () => {
+const MyNftGuestsList = ({ myNfts }: any) => {
+  myNfts.map((items: any) => {
+    console.log(items)
+  })
+
+  console.log(myNfts)
   return (
     <MyNftGuestsListStyles>
       <div className="content">
