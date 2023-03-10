@@ -3,6 +3,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const MyNftGuestsItemStyles = styled.div`
   display: flex;
+  width: calc((100% / 3 - 5rem));
 
   flex-direction: column;
   .event-info-cont {
@@ -25,6 +26,7 @@ export const MyNftGuestsItemStyles = styled.div`
       margin: 0;
       font-size: ${28 / 16}rem;
       font-weight: 500;
+      white-space: nowrap;
     }
   }
 

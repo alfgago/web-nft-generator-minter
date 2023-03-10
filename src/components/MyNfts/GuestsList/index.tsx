@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 
 import ItemPagination from "@/components/Common/ItemPagination"
 
@@ -6,61 +7,62 @@ import MyNftGuestsItem from "./MyNftGuestsItem"
 import { MyNftGuestsListStyles } from "./MyNftGuestsListStyles"
 import NodataGuests from "./NoDataGuests"
 
-const items = [
-  {
-    id: 1,
-    venue: "Nashville Stadium",
-    state: "Georgia",
-    city: "Nashville",
-    date: "june 19",
-    image: "/assets/img/myNftBlue.jpg",
-  },
-  {
-    id: 2,
-    venue: "Kansas Stadium",
-    state: "Kansas",
-    city: "Delaware",
-    date: "September 11",
-    image: "/assets/img/myNftBlue.jpg",
-  },
-  {
-    id: 3,
-    venue: "Georgia Stadium",
-    state: "Georgia",
-    city: "Nashville",
-    date: "june 18",
-    image: "/assets/img/myNftBlue.jpg",
-  },
-  {
-    id: 4,
-    venue: "California Stadium",
-    state: "California",
-    city: "San Francisco",
-    date: "April 11",
-    image: "/assets/img/myNftBlue.jpg",
-  },
-]
-
 const MyNftGuestsList = ({ myNfts }: any) => {
-  myNfts.map((items: any) => {
-    console.log(items)
-  })
+  const [events, setEvents] = useState<number[]>([])
 
-  console.log(myNfts)
+  const fetchData = async () => {
+    // by the list of the shows get only the event attribute
+    const eventsArray = myNfts.map((items: any) => {
+      return items.metadata.attributes
+        .map((item: any) => {
+          return item.trait_type === "event" && item.value
+        })
+        .filter((event: any) => event !== false)
+    })
+
+    const filteredEventArr: number[] = []
+    // remove the repeated values and undefined
+    eventsArray.map((el: any) => {
+      el[0] != undefined &&
+        el !== false &&
+        !filteredEventArr.includes(parseInt(el[0])) &&
+        filteredEventArr.push(parseInt(el[0]))
+    })
+
+    const jsonArray = JSON.stringify(filteredEventArr)
+    if (filteredEventArr.length > 0) {
+      console.log(filteredEventArr)
+
+      const { data } = await axios.get(
+        "/api/shows/guest-lists?eventList=" + jsonArray
+      )
+      setEvents(data.data)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [myNfts])
+
   return (
     <MyNftGuestsListStyles>
       <div className="content">
-        {items.length > 0 ? (
+        {events.length > 0 ? (
           <>
             <h2>Access Guest List</h2>
             <ItemPagination
               itemsPerPage={3}
-              values={items}
+              values={events}
               render={(items: any) => {
                 return (
                   <div className="items-cont">
-                    {items.map((data: any) => {
-                      return <MyNftGuestsItem key={data.id} guestData={data} />
+                    {items.map((data: any, index: number) => {
+                      return (
+                        <MyNftGuestsItem
+                          key={"gustItemForm" + index}
+                          guestData={data}
+                        />
+                      )
                     })}
                   </div>
                 )

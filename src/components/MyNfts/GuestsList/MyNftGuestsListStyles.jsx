@@ -15,7 +15,7 @@ export const MyNftGuestsListStyles = styled.section`
   .items-cont {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: ${87 / 16}rem;
   }
 
   .items-cont + div {
