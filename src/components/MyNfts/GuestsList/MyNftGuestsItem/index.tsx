@@ -4,12 +4,12 @@ import NewGuestForm from "@/components/Tours/NewGuestForm"
 
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
 
-const MyNftGuestsItem = ({ guestData }: any) => {
+const MyNftGuestsItem = ({ guestData, guestNfts }: any) => {
   const image =
     guestData.attributes.artist.data.attributes.profile_picture.data.attributes
       .url
   const location = guestData.attributes.address
-
+  const currentEvent = guestData.id
   const spreadedString = location.split(",")
   const date = guestData.attributes.date
   const month = new Date(date).toLocaleString("default", {
@@ -18,6 +18,9 @@ const MyNftGuestsItem = ({ guestData }: any) => {
   const day = new Date(date).toLocaleString("default", {
     day: "2-digit",
   })
+
+  console.log("guestNfts, guestData")
+  console.log(guestNfts, guestData)
   return (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">
@@ -33,7 +36,8 @@ const MyNftGuestsItem = ({ guestData }: any) => {
       </div>
       <div className="form-cont">
         <p>Info</p>
-        <NewGuestForm />
+
+        <NewGuestForm event={currentEvent} />
       </div>
     </MyNftGuestsItemStyles>
   )

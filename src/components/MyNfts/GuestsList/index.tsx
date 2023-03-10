@@ -9,12 +9,16 @@ import NodataGuests from "./NoDataGuests"
 
 const MyNftGuestsList = ({ myNfts }: any) => {
   const [events, setEvents] = useState<number[]>([])
-
+  const [nftInfo, setNftInfo] = useState<any[]>([])
+  const nftsInfo: any[] = []
   const fetchData = async () => {
     // by the list of the shows get only the event attribute
     const eventsArray = myNfts.map((items: any) => {
       return items.metadata.attributes
         .map((item: any) => {
+          if (item.trait_type === "event") {
+            nftsInfo.push(items.metadata.image)
+          }
           return item.trait_type === "event" && item.value
         })
         .filter((event: any) => event !== false)
@@ -36,6 +40,8 @@ const MyNftGuestsList = ({ myNfts }: any) => {
       )
       setEvents(data.data)
     }
+
+    setNftInfo(nftsInfo)
   }
 
   useEffect(() => {
@@ -59,6 +65,7 @@ const MyNftGuestsList = ({ myNfts }: any) => {
                         <MyNftGuestsItem
                           key={"gustItemForm" + index}
                           guestData={data}
+                          guestNfts={nftInfo}
                         />
                       )
                     })}

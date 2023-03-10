@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
 
@@ -9,25 +10,28 @@ import { NewGuestFormStyles } from "./NewGuestFormStyles"
 interface FormValues {
   email: string
   name: string
-  phone: string
 }
 
-const NewGuestForm = ({ className = "" }: any) => {
+const NewGuestForm = ({ className = "", event }: any) => {
   const initlValues = {
     email: "",
     name: "",
-    phone: "",
   }
 
   const valuesSchema = Yup.object().shape({
     email: Yup.string().required("Please enter the guest email"),
     name: Yup.string().required("Please enter the guest name"),
-    phone: Yup.string().required("Please enter the guest phone number"),
   })
 
   const onSubmit = async (values: FormValues) => {
     // this action coud affect other sections
     console.log(values)
+    const { data } = await axios.post("/api/nfts/create-folder", {
+      name: values.name,
+      email: values.email,
+      // nft: values.nft,
+      event: event,
+    })
   }
 
   return (
