@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import { generateKey } from "crypto"
 import { ReactSVG } from "react-svg"
@@ -7,13 +7,23 @@ import DropGuestList from "./DropGuestList"
 import { DropItemStyles } from "./DropItemStyles"
 const DropItem = ({ data }: any) => {
   const [collapsed, setCollapsed] = useState(false)
-  const location = data.state + ", " + data.city
+  const location = data.event.attributes.venue_name
+  const date = data.event.attributes.date
+  const month = new Date(date).toLocaleString("default", {
+    month: "long",
+  })
+  const day = new Date(date).toLocaleString("default", {
+    day: "2-digit",
+  })
+
+  const guestsList = data.guests
+
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
       <div className={`content drop-container ${collapsed ? "bg-opned" : ""}`}>
         <div className="unc-content">
           <p>
-            {location}, {data.date}
+            {location ? location + "," : ""} {`${month} ${day}`}
           </p>
         </div>
         <div className="">
@@ -29,7 +39,9 @@ const DropItem = ({ data }: any) => {
             )}
           </button>
         </div>
-        {collapsed && <DropGuestList key={generateKey} data={data} />}
+        {collapsed && (
+          <DropGuestList key={"item" + Math.random()} data={guestsList} />
+        )}
       </div>
     </DropItemStyles>
   )
