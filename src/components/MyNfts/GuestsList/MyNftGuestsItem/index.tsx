@@ -5,7 +5,6 @@ import NewGuestForm from "@/components/Tours/NewGuestForm"
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
 
 const MyNftGuestsItem = ({ guestData }: any) => {
-  console.log(guestData)
   const image =
     guestData.attributes.artist.data.attributes.profile_picture.data.attributes
       .url
@@ -27,7 +26,7 @@ const MyNftGuestsItem = ({ guestData }: any) => {
         </div>
         <div className="location-info-cont">
           {spreadedString.map((data: any, index: number) => {
-            return <p key={"location" + index}>{data}</p>
+            return <p key={"location" + index}>{data + ","}</p>
           })}
           <p>{month + " " + day}</p>
         </div>

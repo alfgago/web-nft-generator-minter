@@ -31,8 +31,6 @@ const MyNftGuestsList = ({ myNfts }: any) => {
 
     const jsonArray = JSON.stringify(filteredEventArr)
     if (filteredEventArr.length > 0) {
-      console.log(filteredEventArr)
-
       const { data } = await axios.get(
         "/api/shows/guest-lists?eventList=" + jsonArray
       )
