@@ -23,7 +23,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "artist.profile_picture,artist.user.",
+    populate: "artist.profile_picture, passes.nfts",
   }
   if (user) {
     // @ts-ignore

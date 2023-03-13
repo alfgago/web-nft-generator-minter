@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { isMapIterator } from "util/types"
 
 import NewGuestForm from "@/components/Tours/NewGuestForm"
 
@@ -18,9 +19,22 @@ const MyNftGuestsItem = ({ guestData, guestNfts }: any) => {
   const day = new Date(date).toLocaleString("default", {
     day: "2-digit",
   })
+  const nftData: any[] = []
+  const [nftList, setNftList] = useState<any>([])
 
-  console.log("guestNfts, guestData")
-  console.log(guestNfts, guestData)
+  useEffect(() => {
+    const nft = guestData.attributes.passes.data.map((passes: any) => {
+      passes.attributes.nfts.data.map((nfts: any) => {
+        const img = nfts.attributes.image_url
+        if (guestNfts.includes(img)) {
+          nftData.push(nfts)
+          setNftList(nftData)
+        }
+      })
+    })
+  }, [])
+  // setNftList(nftData)
+
   return (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">
@@ -37,7 +51,7 @@ const MyNftGuestsItem = ({ guestData, guestNfts }: any) => {
       <div className="form-cont">
         <p>Info</p>
 
-        <NewGuestForm event={currentEvent} />
+        <NewGuestForm event={currentEvent} nftData={nftList} />
       </div>
     </MyNftGuestsItemStyles>
   )

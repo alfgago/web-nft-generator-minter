@@ -20,9 +20,16 @@ const createGuestList = async (values: any) => {
     },
   })
 
-  const guest = await strapi.create("Guest-list", {
+  const guest = await strapi.create("Guest-Lists", {
     event: values.event,
-    Guests: { nft: values.nft, name: values.name, email: values.email },
+    Guests: [
+      {
+        nft: values.nft,
+        name: values.name,
+        email: values.email,
+        __component: "general.guest",
+      },
+    ],
   })
 
   return guest
