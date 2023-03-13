@@ -32,10 +32,11 @@ const ItemPagination = ({ itemsPerPage, values, render }: any) => {
     setItemOffset(newOffset)
   }
 
+  const hide = { display: "none" }
   return (
     <>
       {render(currentItems)}
-      <Pagination>
+      <Pagination style={pageCount < 2 ? hide : undefined}>
         <ReactPaginate
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}

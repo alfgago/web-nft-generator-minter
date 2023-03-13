@@ -8,8 +8,10 @@ export const GuestItemStyles = styled.div`
 
   .container {
     width: 75%;
+    background: #f5f5f5;
 
     @media ${DEVICE.laptop} {
+      background: #fff;
       width: 100%;
       display: flex;
       text-align: center;
@@ -19,12 +21,15 @@ export const GuestItemStyles = styled.div`
 
   .container div {
     width: 100%;
-    border-bottom: solid ${2 / 16}rem ${COLORS.white};
 
     padding: ${10 / 16}rem ${16 / 16}rem;
     p {
       margin: 0;
     }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .black-header {
     background-color: ${COLORS.black};
@@ -36,6 +41,10 @@ export const GuestItemStyles = styled.div`
     background: #f5f5f5;
   }
 
+  .mid-cont {
+    border-bottom: ${1 / 16}rem #fff solid;
+  }
+
   div > img {
     height: 100%;
     object-fit: cover;
@@ -43,7 +52,7 @@ export const GuestItemStyles = styled.div`
     max-width: ${143 / 16}rem;
 
     @media ${DEVICE.laptop} {
-      max-width: ${34.76 / 16}rem;
+      max-width: ${98 / 16}rem;
     }
   }
 `
