@@ -27,6 +27,7 @@
     "dotenv": "^16.0.3",
     "emoji-mart": "^5.5.2",
     "ethers": "^5.7.2",
+    "export-to-csv": "^0.2.1",
     "fabric-pure-browser": "^5.1.0",
     "files-from-path": "^0.2.6",
     "formik": "^2.2.9",

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react"
+import { ExportToCsv } from "export-to-csv"
 import { jsPDF } from "jspdf"
 import autoTable from "jspdf-autotable"
 import { parse } from "querystring"
@@ -15,50 +16,83 @@ import GuestItem from "../GuestItem"
 
 import { DropGuestListStyles } from "./DropGuestListStyles"
 
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center",
-}
-const colstyle = {
-  width: "30%",
-}
-const tableStyle = {
-  width: "100%",
-}
-
-const DropGuestList = ({ data }: any) => {
+const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
   const [isOpen, setIsOpen] = useState(false)
   const [eventsGuests, setEventsGuests] = useState([])
 
-  const pdfBody = useRef<any>(null)
+  const orderList = guestsInfo.map((item: any) => {
+    return {
+      guestName: item.name,
+      artistName: eventInfo.attributes.artist.data.attributes.name,
+      showName: eventInfo.attributes.name,
+      showAddress: eventInfo.attributes.address,
+    }
+  })
 
-  const createPdf = (guests: any) => {
+  const createPdf = () => {
     // Create a new PDF document
     // eslint-disable-next-line new-cap
     const doc = new jsPDF()
 
-    const list = guests.map((item: any, index: number = 1) => [
-      item.name,
-      item.email,
+    const list = orderList.map((item: any, index: number = 1) => [
+      item.guestName,
+      item.artistName,
+      item.showName,
+      item.showAddress,
     ])
 
     doc.text("Guest List", 15, 10).setFont("bold")
 
     autoTable(doc, {
-      head: [["Name", "Email", "Attendance"]],
+      head: [
+        [
+          "Guest Name",
+          "Artist Name",
+          "Show Name",
+          "Event Address",
+          "Attendance",
+        ],
+      ],
       body: list,
     })
 
     doc.save("Guest-List.pdf")
   }
 
+  const createCsv = () => {
+    const options = {
+      fieldSeparator: ",",
+      quoteStrings: '"',
+      decimalSeparator: ".",
+      showLabels: true,
+      showTitle: true,
+      title: "Guests List",
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: false,
+      filename: "Guests-List",
+      headers: [
+        "Guest Name",
+        "Artist Name",
+        "Show Name",
+        "Event Address",
+        "Attendance",
+      ],
+    }
+
+    const csvExporter = new ExportToCsv(options)
+
+    csvExporter.generateCsv(orderList)
+  }
+
+  console.log(guestsInfo)
+
   return (
     <DropGuestListStyles>
       <ItemPagination
         itemsPerPage={3}
-        values={data}
+        values={guestsInfo}
         render={(items: any) => {
-          setEventsGuests(data)
           return (
             <>
               {items.map((data: any, i: number) => (
@@ -69,12 +103,16 @@ const DropGuestList = ({ data }: any) => {
         }}
       />
       <div className="btns-container">
-        <CommonPill
-          className="clickable small"
-          onClick={() => createPdf(eventsGuests)}
-        >
-          <span>Export guest list</span>
-        </CommonPill>
+        <div className="export-cont">
+          <CommonPill className="clickable small" onClick={() => createPdf()}>
+            <span>Export to PDF</span>
+          </CommonPill>
+
+          <CommonPill className="clickable small" onClick={() => createCsv()}>
+            <span>Export to CSV</span>
+          </CommonPill>
+        </div>
+
         <CommonPill
           className="clickable fill small black"
           onClick={() => setIsOpen(!isOpen)}
