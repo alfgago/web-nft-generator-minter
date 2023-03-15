@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useState } from "react"
+import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import * as Yup from "yup"
 
@@ -7,28 +8,51 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import { NewGuestFormStyles } from "./NewGuestFormStyles"
 
 interface FormValues {
+  nft: number
   email: string
   name: string
-  phone: string
 }
 
-const NewGuestForm = ({ className = "" }: any) => {
+const NewGuestForm = ({
+  className = "",
+  event = false,
+  nftData = false,
+}: any) => {
+  const [nftInfo, setNftInfo] = useState([])
   const initlValues = {
     email: "",
     name: "",
-    phone: "",
+    nft: 0,
   }
 
   const valuesSchema = Yup.object().shape({
     email: Yup.string().required("Please enter the guest email"),
     name: Yup.string().required("Please enter the guest name"),
-    phone: Yup.string().required("Please enter the guest phone number"),
+    nft: Yup.number().required("Please enter the nft"),
   })
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (
+    values: FormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
     // this action coud affect other sections
-    console.log(values)
+    const { data } = await axios.post("/api/guest-lists/create", {
+      name: values.name,
+      email: values.email,
+      nft: Number(values.nft),
+      event: event,
+    })
+    resetForm()
   }
+
+  const noRepeatedVals = nftData.filter((item: any, index: number) => {
+    return (
+      index ===
+      nftData.findIndex((obj: any) => {
+        return JSON.stringify(obj) === JSON.stringify(item)
+      })
+    )
+  })
 
   return (
     <NewGuestFormStyles className={className}>
@@ -44,7 +68,7 @@ const NewGuestForm = ({ className = "" }: any) => {
           {({ errors, touched }) => (
             <Form>
               <label>
-                {/* <span>Name</span> */}
+                <span>Name</span>
                 {errors.name && touched.name ? (
                   <div className="alert">{errors.name}</div>
                 ) : null}
@@ -52,7 +76,7 @@ const NewGuestForm = ({ className = "" }: any) => {
               </label>
 
               <label>
-                {/* <span>Email</span> */}
+                <span>Email</span>
                 {errors.email && touched.email ? (
                   <div className="alert">{errors.email}</div>
                 ) : null}
@@ -61,6 +85,25 @@ const NewGuestForm = ({ className = "" }: any) => {
                   type="text"
                   placeholder="Email (optional)"
                 />
+              </label>
+              <label>
+                <span>Nft</span>
+                {errors.nft ? <div className="alert">{errors.nft}</div> : null}
+                <Field
+                  name="nft"
+                  as="select"
+                  // onChange={(e: any) => {
+                  //   selectArtist(e.target.value)
+                  // }}
+                >
+                  <option value="">-</option>
+                  {noRepeatedVals.length &&
+                    noRepeatedVals.map((item: any, index: number) => (
+                      <option key={"artist-item" + index} value={item.id}>
+                        {item.attributes.name}
+                      </option>
+                    ))}
+                </Field>
               </label>
               <div className="btn-container">
                 <button type="submit">
