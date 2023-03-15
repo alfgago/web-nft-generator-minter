@@ -17,6 +17,7 @@ const DropItem = ({ data }: any) => {
   })
 
   const guestsList = data.guests
+  const eventInfo = data.event
 
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>
@@ -40,7 +41,11 @@ const DropItem = ({ data }: any) => {
           </button>
         </div>
         {collapsed && (
-          <DropGuestList key={"item" + Math.random()} data={guestsList} />
+          <DropGuestList
+            key={"item" + Math.random()}
+            guestsInfo={guestsList}
+            eventInfo={eventInfo}
+          />
         )}
       </div>
     </DropItemStyles>
