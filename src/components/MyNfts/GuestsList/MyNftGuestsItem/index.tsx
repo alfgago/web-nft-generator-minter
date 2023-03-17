@@ -41,12 +41,6 @@ const MyNftGuestsItem = ({ guestData, guestNfts }: any) => {
         <div>
           <img src={image} alt="" />
         </div>
-        <div className="location-info-cont">
-          {spreadedString.map((data: any, index: number) => {
-            return <p key={"location" + index}>{data + ","}</p>
-          })}
-          <p>{month + " " + day}</p>
-        </div>
       </div>
       <div className="form-cont">
         <p>Info</p>

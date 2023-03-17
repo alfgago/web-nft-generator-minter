@@ -105,7 +105,7 @@ const ConfirmationSingle = ({
     const venue = formValues.name
     const number = " #" + (index + 1)
     window.previewFabric.addTextSingle({
-      canvasRef: window.canvas,
+      canvasRef: window.previewCanvas,
       nftText,
       date,
       venue,

@@ -89,7 +89,7 @@ export const ModalStyles = styled.section`
       width: ${980 / 16}rem;
       height: auto;
       max-width: 95%;
-      max-height: 95%;
+      max-height: calc(100% - 10rem);
       overflow-y: auto;
     }
   }

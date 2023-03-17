@@ -28,7 +28,7 @@ const Artist = ({ artistId }: any) => {
   async function fetchData() {
     try {
       const { data } = await axios.get(
-        "/api/passes?type=Lottery&future=true&artist=" +
+        "/api/passes?type=Circle&future=true&artist=" +
           artistId +
           "&eventDate=" +
           formatedDate
@@ -140,7 +140,7 @@ const Artist = ({ artistId }: any) => {
                                     !canGetLottery ? "disable" : ""
                                   }`}
                                 >
-                                  Enter Lottery
+                                  Enter Circle
                                 </CommonPill>
                               </Link>
                             </div>
@@ -155,7 +155,7 @@ const Artist = ({ artistId }: any) => {
           })}
           {!haveDrawings && (
             <h3 className="not-found">
-              No upcoming drawing found for this artist.
+              No upcoming circle drawing found for this artist.
             </h3>
           )}
         </div>

@@ -34,6 +34,10 @@ export const NewDateFormStyles = styled.div`
     .full {
       width: 100%;
     }
+    label.image input{
+      background: none;
+      border: none;
+    }
     .location-picker {
       position: relative;
       input {

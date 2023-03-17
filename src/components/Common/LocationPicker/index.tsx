@@ -31,7 +31,6 @@ const LocationPicker = ({ setFieldValue }: any) => {
       // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0])
-        console.log("Coordinates: ", { lat, lng })
         setFieldValue("latitude", lat)
         setFieldValue("longitude", lng)
         setFieldValue("address", description)

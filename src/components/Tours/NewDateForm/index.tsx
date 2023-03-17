@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import { ReactSVG } from "react-svg"
+import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -18,6 +19,7 @@ interface FormValues {
   latitude: number
   longitude: number
   artist: string
+  image: File | null // Add image field
 }
 
 const initialValues = {
@@ -28,11 +30,42 @@ const initialValues = {
   latitude: 0,
   longitude: 0,
   artist: "",
+  image: null, // Add image field
 }
 
 const NewDateForm = () => {
   const { data: user } = useSession()
   const [artists, setArtists] = useState([])
+  const [imageFile, setImageFile] = useState<File | null>(null)
+
+  async function uploadImageToStrapi(file: File) {
+    // Function to upload the image to Strapi
+    const formData = new FormData()
+    formData.append("files", file)
+
+    const strapi = new Strapi({
+      url: "https://plusone.stag.host",
+      prefix: "/api",
+      store: {
+        key: "strapi_jwt",
+        useLocalStorage: false,
+        cookieOptions: { path: "/" },
+      },
+      axiosOptions: {
+        headers: {
+          Authorization: `Bearer 2ca1d8120bae3fc23a56a6e25a9bf46605f3a154e7fcbc71767228515db89ca5156ae736595a96fba22ccc7bc28d409e73183e102c771f692f3c7491303149d98c4962e6912ae9e538dc24153a28eca6c8c3aef6beed86fd600522173d1d391262438e9a7782330dbee30a2154c0cf24df96a9b7d1a2cf85c3ed11f243ff0f65`,
+        },
+      },
+    })
+
+    const response = await strapi.axios.post("/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+
+    return response.data[0].id
+  }
 
   async function fetchData() {
     try {
@@ -74,10 +107,24 @@ const NewDateForm = () => {
     return response
   }
 
+  // Function to handle file input change
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImageFile(e.target.files[0])
+      console.log(e.target.files[0])
+    }
+  }
+
   const onSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: any
   ) => {
+    alert("creating")
+    // Upload image to Strapi
+    if (imageFile) {
+      const imageId = await uploadImageToStrapi(imageFile)
+      values.image = imageId
+    }
     createShow(values)
       .then((response) => {
         resetForm()
@@ -139,6 +186,16 @@ const NewDateForm = () => {
                             )
                           })}
                         </Field>
+                      </label>
+
+                      <label className="image">
+                        <span>Image</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileInputChange}
+                          required
+                        />
                       </label>
 
                       <div className="buttons">

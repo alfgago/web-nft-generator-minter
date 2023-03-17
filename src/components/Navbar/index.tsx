@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
@@ -7,12 +8,15 @@ import { useWindowSize } from "usehooks-ts"
 import { useAccount, useConnect } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
+import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
+
 import Login from "../Login"
 
 import { NavbarStyles } from "./NavbarStyles"
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const [paperSdk, setPaperSdk] = useState({})
   const { width } = useWindowSize()
   const { isConnected } = useAccount()
 
@@ -20,6 +24,26 @@ const Navbar = () => {
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
+
+  useEffect(() => {
+    const sdk = new PaperEmbeddedWalletSdk({
+      clientId: "9b70c474-9c62-49a4-a3ec-19cffb86564e",
+      chain: "Goerli",
+    })
+    console.log(sdk)
+    setPaperSdk(sdk)
+  }, [])
+
+  const loginWithPaper = async () => {
+    const { user } = await paperSdk.auth.loginWithPaperModal()
+    console.log(user)
+    alert(
+      "Logged in as " +
+        user.authDetails.email +
+        ", paper wallet is: " +
+        user.walletAddress
+    )
+  }
 
   // change nav color when scrolling
   const [color, setColor] = useState(false)
@@ -162,6 +186,13 @@ const Navbar = () => {
               <li className="li-wallet">
                 <a href="#" onClick={() => connect()}>
                   <ReactSVG src="/assets/icons/wallet.svg" />
+                </a>
+              </li>
+            )}
+            {paperSdk && (
+              <li className="li-wallet">
+                <a href="#" onClick={() => loginWithPaper()}>
+                  <span>PAPER</span>
                 </a>
               </li>
             )}

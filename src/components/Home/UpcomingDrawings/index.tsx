@@ -7,7 +7,7 @@ import TypeList from "@/components/Common/TypeList"
 
 import { UpcomingDrawingsStyles } from "./UpcomingDrawingsStyles"
 
-const UpcomingDrawings = ({ title = "Upcoming Lottery Drawings" }: any) => {
+const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
   const [selectedPass, setSelectedPass] = useState(0)
   const [selectedPassNav, setSelectedPassNav] = useState(0)
 
@@ -16,7 +16,7 @@ const UpcomingDrawings = ({ title = "Upcoming Lottery Drawings" }: any) => {
 
   async function fetchData() {
     try {
-      const { data } = await axios.get("/api/passes?type=Lottery&future=true")
+      const { data } = await axios.get("/api/passes?type=Circle&future=true")
       // Update the state with the response data
       const passes = data.data
       const groupedByArtist = passes.reduce((group: any, pass: any) => {

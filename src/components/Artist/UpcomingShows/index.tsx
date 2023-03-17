@@ -16,6 +16,10 @@ const UpcomingShows = ({ events }: any) => {
     <UpcomingShowStyles ref={upcSectionRef}>
       <div className="content">
         <h2 className="title">Upcoming Shows</h2>
+        <p className="desc">
+          Connect your wallet to see show access status based on which passes
+          you currently own.
+        </p>
         {events.data && events.data.length ? (
           <BoxDrops>
             {events.data.map((item: any, index: number) => {

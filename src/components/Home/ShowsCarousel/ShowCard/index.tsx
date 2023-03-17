@@ -8,7 +8,6 @@ import cleanUrl from "@/utils/cleanUrl"
 import { ShowCardStyles } from "./ShowCardStyles"
 
 const EventCard = ({ eventData }: any) => {
-  console.log(eventData)
   const imageUrl =
     eventData.attributes.artist.data.attributes.profile_picture.data != null
       ? eventData.attributes.artist.data.attributes.profile_picture.data

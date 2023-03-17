@@ -149,7 +149,7 @@ const ShowRow = ({ item, index }: any) => {
             </div>
           </div>
         </div>
-        {pass?.attributes.pass_type == "Lottery" ? (
+        {pass?.attributes.pass_type == "Circle" ? (
           <div className="wrap-end">
             <div className="time">
               <span className="timer-title">Time until drawing</span>
@@ -158,7 +158,7 @@ const ShowRow = ({ item, index }: any) => {
             <div className="actions">
               <Link href={"/pass/" + pass.attributes.contract_address}>
                 <CommonPill className="clickable blue small">
-                  Enter Lottery
+                  Enter Circle
                 </CommonPill>
               </Link>
               <AddToCalendar

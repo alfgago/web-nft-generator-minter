@@ -21,7 +21,12 @@ export default class TemplateFabric {
             ) {
               layers[1] = el
               isSelectable = true
+            } else {
+              canvasRef.remove(el)
             }
+          }
+          if (el.get("type") == "group" && type == "single") {
+            layers[2] = el
           }
           if (el.get("type") == "textbox") {
             layers[4] = el
@@ -41,7 +46,6 @@ export default class TemplateFabric {
         }
       })
     } else {
-      canvasRef = canvasRef
       this.layers = layers
       this.changeImage({ canvasRef, imageUrl: artistImage })
       if (type != "single") {
@@ -53,7 +57,6 @@ export default class TemplateFabric {
     if (type == "single") {
       this.setSingleTemplate({ canvasRef })
     }
-
     canvasRef.preserveObjectStacking = true
   }
 

@@ -15,8 +15,8 @@ const GuestListNFT = ({ artist }: any) => {
   const [selectedPassNav, setSelectedPassNav] = useState(0)
 
   const types = [
-    { name: "Lottery", value: "Lottery" },
-    { name: "Lifetime", value: "Lifetime" },
+    { name: "Circle", value: "Circle" },
+    { name: "Infinity", value: "Infinity" },
     { name: "Tour", value: "Tour" },
     { name: "Single Event", value: "Single Event" },
   ]

@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 // @ts-nocheck
 import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
@@ -5,6 +6,7 @@ import axios from "axios"
 import { Field, FieldArray, Form, Formik } from "formik"
 import { ReactSVG } from "react-svg"
 import sanitizeHtml from "sanitize-html"
+import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -43,6 +45,12 @@ const initialValues = {
 const EditProfileForm = () => {
   const { data: user } = useSession()
   const [artists, setArtists] = useState([])
+  const [memberImages, setMemberImages] = useState({})
+
+  const handleFileChange = (e: any, index: number) => {
+    const file = e.target.files[0]
+    setMemberImages((prevState) => ({ ...prevState, [index]: file }))
+  }
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
@@ -119,12 +127,39 @@ const EditProfileForm = () => {
     members: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required("Name is required"),
-        image: Yup.mixed().required("Name is required"),
       })
     ),
   })
 
-  async function updateArtist(values: FormValues) {
+  async function uploadImageToStrapi(file: File) {
+    const formData = new FormData()
+    formData.append("files", file)
+
+    const strapi = new Strapi({
+      url: "https://plusone.stag.host",
+      prefix: "/api",
+      store: {
+        key: "strapi_jwt",
+        useLocalStorage: false,
+        cookieOptions: { path: "/" },
+      },
+      axiosOptions: {
+        headers: {
+          Authorization: `Bearer 2ca1d8120bae3fc23a56a6e25a9bf46605f3a154e7fcbc71767228515db89ca5156ae736595a96fba22ccc7bc28d409e73183e102c771f692f3c7491303149d98c4962e6912ae9e538dc24153a28eca6c8c3aef6beed86fd600522173d1d391262438e9a7782330dbee30a2154c0cf24df96a9b7d1a2cf85c3ed11f243ff0f65`,
+        },
+      },
+    })
+
+    const response = await strapi.axios.post("/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+
+    return response.data[0].id
+  }
+
+  async function updateArtist(values: any) {
     const response = await axios.patch("/api/artists/update", {
       artist: values.artist,
       bio: values.bio,
@@ -144,19 +179,45 @@ const EditProfileForm = () => {
     values: FormValues,
     { setSubmitting, resetForm }: any
   ) => {
-    updateArtist(values)
+    setSubmitting(true)
+
+    // Upload images to Strapi and store their IDs
+    const uploadedImageIds = await Promise.all(
+      Object.entries(memberImages).map(async ([index, file]) => {
+        const imageId = await uploadImageToStrapi(file)
+        return { index: parseInt(index), imageId }
+      })
+    )
+    // Update members array with the image IDs
+    const updatedMembers = values.members.map((member: any, index: number) => {
+      const uploadedImage = uploadedImageIds.find(({ index: i }) => i === index)
+      if (uploadedImage) {
+        return { ...member, nft_default_image: uploadedImage.imageId }
+      } else {
+        return {
+          ...member,
+          nft_default_image: member?.nft_default_image?.data?.id || null,
+        }
+      }
+    })
+
+    updateArtist({ ...values, members: updatedMembers })
       .then((response) => {
         // resetForm()
       })
       .catch((error) => {
         // Show an error message
-        alert("An error occurred adding the event")
+        alert(
+          "An error occurred adding the event. Please contact us if this is a repeated issue."
+        )
+        console.log(error)
       })
       .finally(() => {
         setSubmitting(false)
         window.location.reload()
       })
   }
+
   return (
     <EditProfileFormStyles className="content">
       <div>
@@ -300,12 +361,10 @@ const EditProfileForm = () => {
                                         ) : null}
                                         <input
                                           type="file"
-                                          onChange={(event: any) => {
-                                            setFieldValue(
-                                              `members.${index}.image`,
-                                              event.currentTarget.files[0]
-                                            )
-                                          }}
+                                          name={`members.${index}.image`}
+                                          onChange={(e) =>
+                                            handleFileChange(e, index)
+                                          }
                                         />
                                         {values.members[index]
                                           .existing_image && (

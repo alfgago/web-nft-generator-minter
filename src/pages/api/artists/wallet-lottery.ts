@@ -41,7 +41,6 @@ const fetchData = async ({
   })
 
   cache.set(cacheKey, response.data)
-  console.log(response.data)
   return response.data
 }
 

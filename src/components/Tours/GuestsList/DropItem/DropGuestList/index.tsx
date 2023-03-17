@@ -85,8 +85,6 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
     csvExporter.generateCsv(orderList)
   }
 
-  console.log(guestsInfo)
-
   return (
     <DropGuestListStyles>
       <ItemPagination

@@ -147,7 +147,7 @@ const FormStep = ({
 
   const selectPassType = (passType: any) => {
     formikRef.current.setFieldValue("passType", passType)
-    if (passType == "Lottery") {
+    if (passType == "Circle") {
       formikRef.current.setFieldValue("saleType", "Fixed")
     }
 
@@ -261,7 +261,7 @@ const FormStep = ({
                 }}
               >
                 <option value="">-</option>
-                <option value="Lifetime">Lifetime</option>
+                <option value="Circle">Circle</option>
                 <option value="Single Event">Single Event</option>
               </Field>
             </label>
@@ -273,7 +273,7 @@ const FormStep = ({
               <Field name="saleType" as="select">
                 <option value="">-</option>
                 <option value="Fixed">Fixed Price</option>
-                {values.passType != "Lottery" && (
+                {values.passType != "Circle" && (
                   <option value="Auction">Auction</option>
                 )}
               </Field>
@@ -285,9 +285,9 @@ const FormStep = ({
               ) : null}
               <Field type="number" name="size" max="500" />
             </label>
-            {values.passType == "Lottery" && (
+            {values.passType == "Circle" && (
               <label>
-                <span>How many winners per lottery?</span>
+                <span>How many winners per circle?</span>
                 <Field type="number" name="winners" />
               </label>
             )}

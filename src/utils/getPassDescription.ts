@@ -4,17 +4,17 @@ export const getPassDescription = (pass: any) => {
   const event = pass.event?.data?.attributes
   const tour = pass.tour?.data?.attributes
   let desc = ""
-  if (pass.pass_type == "Lifetime") {
-    desc = `This plus|one lifetime pass provides the digital utility via <a href="/artist/${artist.slug}">${artist.name}'s profile page</a> to directly send guest list 
+  if (pass.pass_type == "Infinity") {
+    desc = `This plus|one infinity pass provides the digital utility via <a href="/artist/${artist.slug}">${artist.name}'s profile page</a> to directly send guest list 
             requests for every show ${artist.name} adds to the plus|one platform. When a guest list request is submitted via the plus|one 
             platform, it provides the owner two spots on ${artist.name}'s guest list, which, depending on the particular show, will 
-            provide GA access or premium seating (for ticketed, seated shows). The lifetime pass does not have an expiration date, 
+            provide GA access or premium seating (for ticketed, seated shows). The infinity pass does not have an expiration date, 
             and can be resold at any time by setting up a listing on any polygon supported marketplace. Guest list requests must 
             be submitted over 24 hours prior to the event. Learn more about the utility and restrictions <a href="https://plusonemusic.io/resources/fans">here</a>.`
   }
 
-  if (pass.pass_type == "Lottery") {
-    desc = `This plus|one lottery pass provides the digital utility via <a href="/artist/${artist.slug}">${artist.name}'s profile page</a> 
+  if (pass.pass_type == "Circle") {
+    desc = `This plus|one circle pass provides the digital utility via <a href="/artist/${artist.slug}">${artist.name}'s profile page</a> 
     to enter drawings to win a single event pass for every show ${artist.name} adds to the plus|one platform.  
     After winning, the owner can use the single event pass to send guest list requests directly to ${artist.name} for the event or sell their 
     winning pass on any marketplace supporting the polygon network. Single event passes provide the owner two spots on ${artist.name}'s guest list, 

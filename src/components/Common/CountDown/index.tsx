@@ -27,7 +27,6 @@ const Countdown: React.FC<CountdownProps> = ({
 
   useEffect(() => {
     if (timeRemaining <= 0) {
-      console.log(timeRemaining)
       // Perform the action you want here
       if (triggerAction != false) {
         triggerAction()

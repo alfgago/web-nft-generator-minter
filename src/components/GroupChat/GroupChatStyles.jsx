@@ -35,6 +35,7 @@ export const GroupChatStyles = styled.div`
     display: flex;
     position: absolute;
     top: -4.5rem;
+    height: 4.5rem;
     right: 0;
     left: 0;
     justify-content: space-between;

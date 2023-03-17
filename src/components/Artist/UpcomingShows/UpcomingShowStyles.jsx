@@ -6,7 +6,12 @@ export const UpcomingShowStyles = styled.section`
   background: ${COLORS.white};
 
   h2 {
+    margin-bottom: 0;
+  }
+
+  .desc {
     margin-bottom: ${40 / 16}rem;
+    color: #777;
   }
 
   @media ${DEVICE.laptop} {

@@ -8,6 +8,7 @@ export const MyNftCardStyles = styled.div`
   margin-bottom: 0;
   @media ${DEVICE.laptop} {
     width: calc(36% - ${129 / 16}rem);
+    min-height: 24rem;
   }
 
   .head-cont {

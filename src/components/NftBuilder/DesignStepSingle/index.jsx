@@ -4,24 +4,17 @@
 import { useEffect, useState } from "react"
 import React from "react"
 import { fabric } from "fabric-pure-browser"
-import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
 import cleanUrl from "@/utils/cleanUrl"
 import TemplateFabric from "@/utils/templateFabric"
-
-import ColorsPicker from "../Tools/ColorsPicker"
-import GridPicker from "../Tools/GridPicker"
 import ImagePicker from "../Tools/ImagePicker"
-import ShapesPicker from "../Tools/ShapesPicker"
-import TemplatePicker from "../Tools/TemplatePicker"
 
 import { DesignStepStyles } from "./DesignStepStyles"
 
 const canvasWidth = 600
 const canvasHeight = 600
-const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
 
 const DesignStepSingle = ({
   previousAction,
@@ -31,7 +24,6 @@ const DesignStepSingle = ({
   nftName,
 }) => {
   const [templateFabric, setTemplateFabric] = useState(false)
-  const [activeSetting, setActiveSetting] = useState("Template")
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#333" })
   const [imageUrl, setImageUrl] = useState("")
@@ -79,16 +71,6 @@ const DesignStepSingle = ({
 
     initCanvas()
   }, [])
-  /*
-  useEffect(() => {
-    if (templateFabric) {
-      let imgUrl = imageUrl
-      if (!imageUrl.length) {
-        imgUrl = cleanUrl(memberImage)
-      }
-      templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
-    }
-  }, [imageUrl])*/
 
   const dateFormat = (value) => {
     const date = new Date(value)
