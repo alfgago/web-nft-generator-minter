@@ -26,7 +26,7 @@ const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
 const DesignStepSingle = ({
   previousAction,
   nextAction,
-  artist,
+  formValues,
   memberImage = "",
   nftName,
 }) => {
@@ -52,7 +52,7 @@ const DesignStepSingle = ({
         shapesColor: shapesColor,
         availableShapes: availableShapes,
         shapes: shapes,
-        imageUrl: imageUrl,
+        imageUrl: imageUrl || cleanUrl(memberImage),
         gridSize: gridSize,
         gutter: gutter,
       })
@@ -74,17 +74,12 @@ const DesignStepSingle = ({
     const collectionData = sessionStorage.getItem("collectionData")
     if (collectionData) {
       const collectionDataJson = JSON.parse(collectionData)
-      setGutter(collectionDataJson.gutter)
-      setActiveTemplate(collectionDataJson.activeTemplate)
-      setBackgroundColor(collectionDataJson.backgroundColor)
-      setShapesColor(collectionDataJson.shapesColor)
       setImageUrl(collectionDataJson.imageUrl)
-      setGridSize(collectionDataJson.gridSize)
     }
 
     initCanvas()
   }, [])
-
+  /*
   useEffect(() => {
     if (templateFabric) {
       let imgUrl = imageUrl
@@ -93,7 +88,15 @@ const DesignStepSingle = ({
       }
       templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
     }
-  }, [imageUrl])
+  }, [imageUrl])*/
+
+  const dateFormat = (value) => {
+    const date = new Date(value)
+    const month = date.toLocaleString("default", { month: "short" })
+    const day = date.toLocaleString("default", { day: "numeric" })
+    const year = date.toLocaleString("default", { year: "numeric" })
+    return `${month} ${day} ${year}`
+  }
 
   const initCanvas = () => {
     // FabricJS creates the .canvas-container, so if it exists, don't do this again
@@ -108,14 +111,20 @@ const DesignStepSingle = ({
         window.canvas,
         json,
         shapes,
-        artistImage
+        artistImage,
+        "single"
       )
-      const nftText = nftName + " #"
-      window.templateFabric.addText({
+
+      const nftText = formValues.artistName
+      const date = dateFormat(formValues.dropDate)
+      const venue = formValues.name
+      const number = "#9999"
+      window.templateFabric.addTextSingle({
         canvasRef: window.canvas,
-        activeTemplate,
-        gutter,
         nftText,
+        date,
+        venue,
+        number,
       })
       setTemplateFabric(window.templateFabric)
     }

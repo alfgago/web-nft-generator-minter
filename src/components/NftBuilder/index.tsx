@@ -17,6 +17,7 @@ import SimpleHeader from "../Common/SimpleHeader"
 
 import { useRequestStatus } from "./Hooks/useRequestStatus"
 import ConfirmationStep from "./ConfirmationStep"
+import ConfirmationStepSingle from "./ConfirmationStepSingle"
 import DesignStep from "./DesignStep"
 import DesignStepSingle from "./DesignStepSingle"
 import FormStep from "./FormStep"
@@ -228,7 +229,7 @@ const NftBuilder = ({ artists }: any) => {
                   nftName={formValues.name}
                   nextAction={nextStep}
                   previousAction={previousStep}
-                  artist={selectedArtist}
+                  formValues={formValues}
                   memberImage={memberImage}
                 />
               ) : (
@@ -236,7 +237,7 @@ const NftBuilder = ({ artists }: any) => {
                   nftName={formValues.name}
                   nextAction={nextStep}
                   previousAction={previousStep}
-                  artist={selectedArtist}
+                  formValues={formValues}
                   memberImage={memberImage}
                 />
               )}
@@ -244,16 +245,29 @@ const NftBuilder = ({ artists }: any) => {
           )}
           {activeStep == 3 && (
             <>
-              <ConfirmationStep
-                formValues={formValues}
-                nextAction={submit}
-                previousAction={previousStep}
-                uploading={uploading}
-                uploaded={uploadedCount}
-                contractDeployed={contractDeployed}
-                contractAddress={contractAddress}
-                errorMessage={errorMessage}
-              />
+              {formValues.passType == "Single Event" ? (
+                <ConfirmationStepSingle
+                  formValues={formValues}
+                  nextAction={submit}
+                  previousAction={previousStep}
+                  uploading={uploading}
+                  uploaded={uploadedCount}
+                  contractDeployed={contractDeployed}
+                  contractAddress={contractAddress}
+                  errorMessage={errorMessage}
+                />
+              ) : (
+                <ConfirmationStep
+                  formValues={formValues}
+                  nextAction={submit}
+                  previousAction={previousStep}
+                  uploading={uploading}
+                  uploaded={uploadedCount}
+                  contractDeployed={contractDeployed}
+                  contractAddress={contractAddress}
+                  errorMessage={errorMessage}
+                />
+              )}
             </>
           )}
         </div>

@@ -26,7 +26,7 @@ const settings = ["Template", "Grid", "Shapes", "Colors", "Image"]
 const DesignStep = ({
   previousAction,
   nextAction,
-  artist,
+  formValues,
   memberImage = "",
   nftName,
 }) => {

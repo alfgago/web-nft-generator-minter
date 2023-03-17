@@ -7,7 +7,7 @@ const NodataGuests = () => {
   return (
     <NoDataGuestStyles>
       <div>
-        <h3>Acces Guest List</h3>
+        <h3>Access Guest List</h3>
         <p>You don't have any upcoming guest list access NFT's</p>
       </div>
       <div>

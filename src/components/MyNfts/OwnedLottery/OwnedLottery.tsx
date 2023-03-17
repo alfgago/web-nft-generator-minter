@@ -46,7 +46,9 @@ const OwnedLottery = () => {
           `/api/artists/wallet-lottery?nftImage=${element.event}`
         )
 
-        setArtistData(data.data[index].attributes.events.data)
+        if (data.data[index]) {
+          setArtistData(data.data[index].attributes.events.data)
+        }
       })
     } catch (error) {}
   }

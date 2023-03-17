@@ -18,6 +18,7 @@ export const StepsHeaderStyles = styled.section`
 
     > span {
       cursor: auto;
+      pointer-events: none;
       &:hover {
         background: inherit;
         color: inherit;

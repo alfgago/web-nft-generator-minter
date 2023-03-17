@@ -27,6 +27,7 @@ const Footer = () => {
                 <Link href="/about">About Us</Link>
               </li>
             </ul>
+            <span className="preload-font tickerbit">Tickerbit</span>
           </FooterNav>
         </div>
       </section>

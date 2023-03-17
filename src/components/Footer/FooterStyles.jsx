@@ -23,6 +23,12 @@ export const FooterStyles = styled.footer`
     background: #0c0c0c;
   }
 
+  .preload-font {
+    pointer-events: none;
+    position: absolute;
+    opacity: 0;
+  }
+
   .footer {
     position: relative;
     padding-top: ${100 / 16}rem;

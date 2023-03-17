@@ -47,10 +47,13 @@ export default class TemplateFabric {
       if (type != "single") {
         this.pickTemplate({ canvasRef })
         this.pickBackground({ canvasRef, shapes })
-      } else {
-        this.setSingleTemplate({ canvasRef })
       }
     }
+
+    if (type == "single") {
+      this.setSingleTemplate({ canvasRef })
+    }
+
     canvasRef.preserveObjectStacking = true
   }
 
@@ -141,21 +144,98 @@ export default class TemplateFabric {
     })
     const self = this
     fabric.Image.fromURL(
-      imageUrl,
+      "https://plusonemusic.io/assets/img/single-pass-frame.png",
       function (oImg) {
         oImg.scaleToWidth(canvasRef.width)
         canvasRef.add(oImg)
         const templateGroup = new fabric.Group([oImg])
+        canvasRef.add(templateGroup)
+        self.layers[2] = templateGroup
         templateGroup.set("selectable", false)
         templateGroup.set("evented", false)
-        canvasRef.add(templateGroup)
-        self.layers[3] = templateGroup
+        oImg.set("selectable", false)
+        oImg.set("evented", false)
+        self.reorderCanvasSingle()
       },
       { crossOrigin: "anonymous" }
     )
-    // Add 2px to widths as fix for white lines
+  }
 
-    // Template is the 3rd layer
+  addTextSingle = ({ canvasRef, nftText, date, venue, number }) => {
+    canvasRef.getObjects().forEach(function (el) {
+      if (el.get("type") == "textbox") {
+        canvasRef.remove(el)
+      }
+    })
+
+    const text = new fabric.Textbox(nftText, {
+      top: 450,
+      left: 125,
+      width: 300,
+      height: 500,
+      fill: "#000",
+      fontSize: 31,
+      fontWeight: 800,
+      lineHeight: 1.1,
+      fontFamily: "Tickerbit",
+      textAlign: "left",
+    })
+    canvasRef.add(text)
+
+    const text2 = new fabric.Textbox(date, {
+      top: 457,
+      left: 425,
+      width: 150,
+      fill: "#fff",
+      backgroundColor: "#000",
+      fontSize: 23,
+      lineHeight: 2,
+      fontFamily: "Tickerbit",
+      textAlign: "center",
+    })
+    canvasRef.add(text2)
+
+    const text3 = new fabric.Textbox(venue, {
+      top: 500,
+      left: 125,
+      width: 450,
+      height: 500,
+      fill: "#000",
+      fontSize: 16,
+      lineHeight: 1.1,
+      fontFamily: "Tickerbit",
+      textAlign: "left",
+    })
+    canvasRef.add(text3)
+
+    const text4 = new fabric.Textbox(number, {
+      top: 325,
+      left: 485,
+      width: 100,
+      fill: "#fff",
+      fontSize: 23,
+      lineHeight: 1.1,
+      fontFamily: "Tickerbit",
+      textAlign: "center",
+    })
+    canvasRef.add(text4)
+
+    text.set("selectable", false)
+    text.set("evented", false)
+    this.layers[3] = text // Text is 4th layer
+
+    text2.set("selectable", false)
+    text2.set("evented", false)
+    this.layers[4] = text2 // Text is 4th layer
+
+    text3.set("selectable", false)
+    text3.set("evented", false)
+    this.layers[5] = text3 // Text is 4th layer
+
+    text4.set("selectable", false)
+    text4.set("evented", false)
+    this.layers[6] = text4 // Text is 4th layer
+    this.reorderCanvasSingle()
   }
 
   changeImage = ({ canvasRef, imageUrl }) => {
@@ -331,6 +411,26 @@ export default class TemplateFabric {
     })
     if (this.layers[4]) {
       this.layers[4].bringToFront()
+    }
+  }
+
+  reorderCanvasSingle = () => {
+    this.layers.forEach((element, index) => {
+      if (element) {
+        element.moveTo(index)
+      }
+    })
+    if (this.layers[3]) {
+      this.layers[3].bringToFront()
+    }
+    if (this.layers[4]) {
+      this.layers[4].bringToFront()
+    }
+    if (this.layers[5]) {
+      this.layers[5].bringToFront()
+    }
+    if (this.layers[6]) {
+      this.layers[6].bringToFront()
     }
   }
 }
