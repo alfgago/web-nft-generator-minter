@@ -10,6 +10,11 @@ export const DropGuestListStyles = styled.div`
   width: 100%;
   padding: ${10 / 16}rem ${0 / 16}rem;
 
+  .export-cont {
+    display: flex;
+    gap: ${10 / 16}rem;
+  }
+
   .btns-container {
     width: 100%;
     display: flex;
