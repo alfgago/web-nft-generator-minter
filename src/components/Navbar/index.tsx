@@ -35,8 +35,8 @@ const Navbar = () => {
   }, [])
 
   const loginWithPaper = async () => {
+    // @ts-ignore
     const { user } = await paperSdk.auth.loginWithPaperModal()
-    console.log(user)
     alert(
       "Logged in as " +
         user.authDetails.email +
