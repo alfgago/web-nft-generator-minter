@@ -13,7 +13,6 @@ import { NewDateFormStyles } from "./NewDateFormStyles"
 interface FormValues {
   date: string
   name: string
-  description: string
   country: string
   city: string
   artist: string
@@ -23,9 +22,8 @@ interface FormValues {
 const initialValues = {
   date: "",
   name: "",
-  description: "",
-  address: "",
   country: "",
+  city: "",
   artist: "",
   image: null, // Add image field
 }
@@ -95,7 +93,6 @@ const NewDateForm = () => {
     const response = await axios.post("/api/shows/create", {
       date: values.date,
       name: values.name,
-      description: values.description,
       country: values.country,
       city: values.city,
       artist: values.artist,
