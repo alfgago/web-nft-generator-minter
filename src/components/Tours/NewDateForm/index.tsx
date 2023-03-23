@@ -176,11 +176,11 @@ const NewDateForm = () => {
                           })}
                         </Field>
                       </label>
-                      <label className="full">
+                      <label>
                         <span>Country</span>
                         <Field name="country" type="text" placeholder="" />
                       </label>
-                      <label className="full">
+                      <label>
                         <span>City</span>
                         <Field name="country" type="text" placeholder="" />
                       </label>
@@ -193,6 +193,9 @@ const NewDateForm = () => {
                           onChange={handleFileInputChange}
                           required
                         />
+                      </label>
+                      <label>
+                        <span>Pass Preview</span>
                       </label>
 
                       <div className="buttons">
