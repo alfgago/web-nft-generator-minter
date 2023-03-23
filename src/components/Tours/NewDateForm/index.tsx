@@ -7,7 +7,6 @@ import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import LocationPicker from "@/components/Common/LocationPicker"
 
 import { NewDateFormStyles } from "./NewDateFormStyles"
 
@@ -15,9 +14,8 @@ interface FormValues {
   date: string
   name: string
   description: string
-  address: string
-  latitude: number
-  longitude: number
+  country: string
+  city: string
   artist: string
   image: File | null // Add image field
 }
@@ -27,8 +25,7 @@ const initialValues = {
   name: "",
   description: "",
   address: "",
-  latitude: 0,
-  longitude: 0,
+  country: "",
   artist: "",
   image: null, // Add image field
 }
@@ -99,10 +96,10 @@ const NewDateForm = () => {
       date: values.date,
       name: values.name,
       description: values.description,
-      address: values.address,
-      latitude: values.latitude,
-      longitude: values.longitude,
+      country: values.country,
+      city: values.city,
       artist: values.artist,
+      image: values.image,
     })
     return response
   }
@@ -119,7 +116,6 @@ const NewDateForm = () => {
     values: FormValues,
     { setSubmitting, resetForm }: any
   ) => {
-    alert("creating")
     // Upload image to Strapi
     if (imageFile) {
       const imageId = await uploadImageToStrapi(imageFile)
@@ -166,10 +162,6 @@ const NewDateForm = () => {
                         ) : null}
                         <Field name="name" type="text" placeholder="" />
                       </label>
-                      <label className="full">
-                        <span>Location</span>
-                        <LocationPicker setFieldValue={setFieldValue} />
-                      </label>
                       <label>
                         <span>Artist</span>
                         {errors.artist && touched.artist ? (
@@ -186,6 +178,14 @@ const NewDateForm = () => {
                             )
                           })}
                         </Field>
+                      </label>
+                      <label className="full">
+                        <span>Country</span>
+                        <Field name="country" type="text" placeholder="" />
+                      </label>
+                      <label className="full">
+                        <span>City</span>
+                        <Field name="country" type="text" placeholder="" />
                       </label>
 
                       <label className="image">

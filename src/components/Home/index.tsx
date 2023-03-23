@@ -52,6 +52,7 @@ const Home = ({ page, passes }: any) => {
                 buttonTitle={section.button_text}
                 buttonLink={section.button_link}
                 type={section.style}
+                image={section.image}
               />
             )}
             {type == "lp.lottery-winners" && (

@@ -107,6 +107,7 @@ export const MoreStyles = styled.div`
 
   &.purple {
     &:after {
+      display: none;
       height: 50%;
       background-image: url("/assets/img/more-pink-bg.svg");
       background-size: auto 80%;
@@ -125,6 +126,71 @@ export const MoreStyles = styled.div`
         #f9e9ff 8.41%,
         rgba(255, 255, 255, 0.9) 88.16%
       );
+    }
+
+    .floating-icons {
+      pointer-events: none;
+      order: -5;
+      position: absolute;
+      top: 0;
+      left 0;
+      width: 100%;
+      height: 100%;
+
+      > span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        svg {
+          width: 100%;
+          height: 100%;
+          opacity: 0.1;
+          @media ${DEVICE.laptop} {
+            opacity: 1;
+          }
+        }
+        path {
+          stroke: #C505F0;
+        }
+
+        &.square1 {
+          left: 39%;
+          top: -3%;
+          min-width: 1.75vw;
+        }
+
+        &.square2 {
+          left: 68%;
+          top: -7%;
+          min-width: 1.75vw;
+        }
+
+        &.star {
+          left: 57%;
+          top: 37%;
+          min-width: 3vw;
+        }
+      }
+    }
+  }
+
+  .image-cont {
+    position: absolute;
+    right: 0;
+    bottom: -3.5rem;
+    max-width: 33vw;
+    @media ${DEVICE.laptop} {
+      position: absolute;
+      right: 0;
+      bottom: auto;
+      top: 3rem;
+      max-width: 50vw;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 

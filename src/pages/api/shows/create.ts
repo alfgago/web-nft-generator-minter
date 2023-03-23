@@ -24,11 +24,10 @@ const createShow = async (values: any) => {
   const event = await strapi.create("events", {
     name: values.name,
     date: values.date,
-    address: values.address,
     venue_name: "",
-    description: "",
-    latitude: values.latitude,
-    longitude: values.longitude,
+    image: values.image ?? null,
+    country: values.country,
+    city: values.city,
     artist: values.artist,
     confirmed: true,
   })
