@@ -29,12 +29,13 @@ const DesignStep = ({
   formValues,
   defaultImage = "",
   nftName,
+  imageUrl,
+  setImageUrl,
 }) => {
   const [templateFabric, setTemplateFabric] = useState(false)
   const [activeSetting, setActiveSetting] = useState("Template")
   const [backgroundColor, setBackgroundColor] = useState({ hex: "#000" })
   const [shapesColor, setShapesColor] = useState({ hex: "#333" })
-  const [imageUrl, setImageUrl] = useState("")
   const [gridSize, setGridSize] = useState(1)
   const [gutter, setGutter] = useState(60)
   const [availableShapes, setAvailableShapes] = useState(["star", "roundstar"])

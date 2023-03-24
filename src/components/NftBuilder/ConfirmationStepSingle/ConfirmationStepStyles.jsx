@@ -36,15 +36,22 @@ export const ConfirmationStepStyles = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: ${15 / 16}rem;
+    padding: 20px;
+    background: #eee;
+    pointer-events: none;
 
     .nft {
-      width: ${150 / 16}rem;
+      width: 300px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      pointer-events: none;
     }
 
     svg,
     img {
       width: 100%;
       height: 100%;
+      pointer-events: none;
     }
   }
 
@@ -95,6 +102,12 @@ export const ConfirmationStepStyles = styled.div`
         display: block;
         text-align: center;
         font-size: 3rem;
+      }
+
+      .minting {
+        text-align: center;
+        font-size: 1rem;
+        margin: 1rem 0;
       }
     }
 

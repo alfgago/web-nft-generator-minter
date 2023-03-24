@@ -103,9 +103,12 @@ const FormStep = ({
     image = member?.nft_default_image?.data?.attributes
       ? member.nft_default_image.data?.attributes.url
       : image
-    image = selectedShow?.image?.data?.attributes
-      ? member.nft_default_image.data?.attributes.url
+    image = selectedShow?.attributes?.image?.data?.attributes
+      ? selectedShow?.attributes?.image?.data?.attributes.url
       : image
+    console.log("selectedShow")
+    console.log(selectedShow)
+    console.log(image)
 
     setDefaultImage(image)
   }
@@ -369,9 +372,14 @@ const FormStep = ({
             )}
             <label>
               {values.saleType == "Auction" ? (
-                <span>Initial auction price (ETH)</span>
+                <span>
+                  Initial auction price ({process.env.NEXT_PUBLIC_PAPER_NETWORK}
+                  )
+                </span>
               ) : (
-                <span>Fixed price (ETH)</span>
+                <span>
+                  Fixed price ({process.env.NEXT_PUBLIC_PAPER_NETWORK})
+                </span>
               )}
               {errors.price && touched.price ? (
                 <div className="alert">{errors.price}</div>

@@ -207,7 +207,10 @@ const NewDateForm = () => {
                           <span>Pass Preview</span>
                           <PassPreview
                             previewUrl={previewUrl}
-                            formikValues={formikRef.current.values}
+                            name={formikRef.current.values.name}
+                            city={formikRef.current.values.city}
+                            country={formikRef.current.values.country}
+                            date={formikRef.current.values.date}
                           />
                         </label>
                       )}

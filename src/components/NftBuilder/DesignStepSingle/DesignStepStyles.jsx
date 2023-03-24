@@ -138,5 +138,8 @@ export const DesignStepStyles = styled.div`
 
   .builder {
     width: 100%;
+    padding: 2rem;
+    background: #eee;
+    pointer-events: none;
   }
 `

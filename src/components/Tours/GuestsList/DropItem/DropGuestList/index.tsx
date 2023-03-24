@@ -40,6 +40,12 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
       item.showAddress,
     ])
 
+    // Get the width of the document
+    const pdfWidth = doc.internal.pageSize.getWidth()
+    // Add the image
+    const imgData = "https://plusonemusic.io/assets/img/pdf-header.jpg"
+    doc.addImage(imgData, "JPEG", 0, 0, pdfWidth, 0)
+
     const title =
       "Guest List for " + eventInfo.attributes.artist.data.attributes.name
 
@@ -49,14 +55,25 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
     const subtitle = eventInfo.attributes.name + " " + address
 
     doc.setFontSize(30)
-    doc.text(title, 15, 20) // Adjusted y-coordinate to 20
+    doc.text(title, 15, 35) // Adjusted y-coordinate to 20
     doc.setFontSize(20)
-    doc.text(subtitle, 15, 30) // Adjusted y-coordinate to 28
+    doc.text(subtitle, 15, 45) // Adjusted y-coordinate to 28
 
     doc.setFontSize(14)
     autoTable(doc, {
-      startY: 35,
-      head: [["Guest Name", "Attendance"]],
+      startY: 50,
+      head: [
+        [
+          {
+            content: "Guest Name",
+            styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
+          },
+          {
+            content: "Attendance",
+            styles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
+          },
+        ],
+      ],
       body: list,
     })
 

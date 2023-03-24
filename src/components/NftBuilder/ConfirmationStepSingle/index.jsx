@@ -1,20 +1,20 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable max-len */
-import { useEffect, useState } from "react"
-import { fabric } from "fabric-pure-browser"
+import { useState } from "react"
+import cleanUrl from "@/utils/cleanUrl"
+import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import generateShapes from "@/utils/generateShapes"
-import TemplateFabric from "@/utils/templateFabric"
 import Link from "next/link"
 
 import { ConfirmationStepStyles } from "./ConfirmationStepStyles"
-
-const canvasWidth = 600
-const canvasHeight = 600
+import PassPreview from "@/components/PassPreview"
 
 const ConfirmationSingle = ({
   formValues,
+  imageUrl = "",
+  nftName,
+  selectedShow,
   previousAction,
   nextAction,
   uploading,
@@ -22,101 +22,68 @@ const ConfirmationSingle = ({
   contractAddress,
   contractDeployed,
   errorMessage,
+  setUploading,
 }) => {
   const [previewImages, setPreviewImages] = useState([])
   const [render, setRender] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [uploadingBlockchain, setUploadingBlockchain] = useState(0)
 
-  useEffect(() => {
-    setTimeout(function () {
-      initPreview()
-    }, 500)
-  }, [])
-
-  const onClickGenerate = () => {
-    setRender(false)
-    setPreviewImages([])
-    setLoading(true)
-    setTimeout(function () {
-      setLoading(false)
-    }, 2000)
-    if (initialized) {
-      bulkCanvasImages()
+  const dateFormat = (date) => {
+    const d = new Date(date)
+    const month = d.toLocaleString("default", { month: "short" })
+    const day = d.toLocaleString("default", { day: "numeric" })
+    const year = d.toLocaleString("default", { year: "numeric" })
+    return `${month} ${day} ${year}`
+  }
+  const postImage = async (data) => {
+    try {
+      const response = await axios.post("/api/generate-pass-image", data)
+      return response.data
+    } catch (error) {
+      console.error("Error:", error)
+      throw new Error("There was an error posting the data")
     }
   }
 
-  const initPreview = () => {
-    if (!document.body.querySelector(".canvas-container")) {
-      const collectionData = sessionStorage.getItem("collectionData")
-      if (collectionData) {
-        const collectionDataJson = JSON.parse(collectionData)
-        const json = sessionStorage.getItem("canvasJson")
-
-        window.previewCanvas = new fabric.Canvas("canvas")
-        window.previewFabric = new TemplateFabric(
-          window.previewCanvas,
-          json,
-          null,
-          null,
-          "single"
-        )
-
-        const nftText = formValues.artistName
-        const date = dateFormat(formValues.dropDate)
-        const venue = formValues.name
-        const number = "#9999"
-        window.previewFabric.addTextSingle({
-          canvasRef: window.canvas,
-          nftText,
-          date,
-          venue,
-          number,
-        })
-
-        setInitialized(true)
-      }
-    }
+  const onClickGenerate = () => {
+    setRender(false)
+    setLoading(true)
+    bulkCanvasImages()
+    setTimeout(function () {
+      setLoading(false)
+    }, 2000)
   }
 
   const bulkCanvasImages = async () => {
     const collection = []
     for (let i = 0; i < formValues.size; i++) {
-      const image = generateCanvasImage(i)
-      collection.push(image)
+      collection.push(i)
     }
-
-    // @ts-ignore
     setPreviewImages(collection)
     setRender(true)
   }
 
-  const dateFormat = (value) => {
-    const date = new Date(value)
-    const month = date.toLocaleString("default", { month: "short" })
-    const day = date.toLocaleString("default", { day: "numeric" })
-    const year = date.toLocaleString("default", { year: "numeric" })
-    return `${month} ${day} ${year}`
-  }
+  const doSubmit = async () => {
+    setUploading(true)
+    const imges = []
 
-  const generateCanvasImage = (index) => {
-    const nftText = formValues.artistName
-    const date = dateFormat(formValues.dropDate)
-    const venue = formValues.name
-    const number = " #" + (index + 1)
-    window.previewFabric.addTextSingle({
-      canvasRef: window.previewCanvas,
-      nftText,
-      date,
-      venue,
-      number,
-    })
-
-    window.previewCanvas.renderAll()
-    const nft = window.previewCanvas.toDataURL({
-      format: "jpeg",
-    })
-    return nft
+    for (let i = 0; i < previewImages.length; i++) {
+      const data = {
+        previewUrl: cleanUrl(imageUrl),
+        template: "template-1",
+        name: selectedShow.attributes.name,
+        city: selectedShow.attributes.city,
+        country: selectedShow.attributes.country,
+        date: dateFormat(selectedShow.attributes.date),
+        number: i + 1,
+        passTitle: nftName,
+      }
+      const url = await postImage(data)
+      imges.push(url)
+      setUploadingBlockchain(i + 1)
+    }
+    nextAction(imges)
   }
 
   return (
@@ -155,7 +122,14 @@ const ConfirmationSingle = ({
 
       <div className="actions">
         <div className="repeat-canvs">
-          <canvas id="canvas" width={canvasWidth} height={canvasHeight} />
+          <PassPreview
+            previewUrl={imageUrl}
+            name={selectedShow.attributes.name}
+            city={selectedShow.attributes.city}
+            country={selectedShow.attributes.country}
+            date={selectedShow.attributes.date}
+            customClass="generator"
+          />
         </div>
       </div>
       {!loading && render ? (
@@ -163,7 +137,15 @@ const ConfirmationSingle = ({
           {previewImages.map((img, index) => {
             return (
               <div key={index} className="nft">
-                <img src={img} alt="preview nft" />
+                <PassPreview
+                  previewUrl={imageUrl}
+                  name={selectedShow.attributes.name}
+                  city={selectedShow.attributes.city}
+                  country={selectedShow.attributes.country}
+                  date={selectedShow.attributes.date}
+                  number={index + 1}
+                  customClass="previews"
+                />
               </div>
             )
           })}
@@ -182,8 +164,11 @@ const ConfirmationSingle = ({
             Your collection is being minted, this may take a few minutes. Please
             do not close this window...
             <div className="uploaded">
-              {uploaded} / {previewImages.length}
+              {uploadingBlockchain} / {previewImages.length}
             </div>
+            {uploadingBlockchain && (
+              <div className="minting">Creating and publishing contract...</div>
+            )}
             <img
               src="/assets/img/spinner.svg"
               className="spinner"
@@ -202,7 +187,7 @@ const ConfirmationSingle = ({
                 <CommonPill className="clickable">Generate Previews</CommonPill>
               </button>
               {render && (
-                <button onClick={() => nextAction(previewImages)}>
+                <button onClick={() => doSubmit()}>
                   <CommonPill className="clickable fill">Confirm</CommonPill>
                 </button>
               )}

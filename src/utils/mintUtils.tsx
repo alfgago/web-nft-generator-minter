@@ -25,19 +25,22 @@ export const uploadNft = async (
   nftTitle: any
 ) => {
   const order = index + 1
-  const blob = b64toBlob(image)
-  const file = new File([blob], order + ".jpg")
-
   const name = formValues.name + " " + order
   const desc = "PlusOne NFT for " + nftTitle
-
   const premint = formValues.saleType == "Auction"
-  const storageResponse = await storage.store({
-    name: name,
-    description: desc,
-    image: file,
-  })
-  const imageUrl = storageResponse.data.image.href
+
+  let imageUrl = image
+  if (!imageUrl.startsWith("ipfs://")) {
+    const blob = b64toBlob(image)
+    const file = new File([blob], order + ".jpg")
+
+    const storageResponse = await storage.store({
+      name: name,
+      description: desc,
+      image: file,
+    })
+    imageUrl = storageResponse.data.image.href
+  }
 
   const atts = [
     {

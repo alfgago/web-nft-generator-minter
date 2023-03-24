@@ -64,6 +64,7 @@ export const NftCardStyles = styled.div`
       height: 0;
       width: 100%;
       padding-bottom: 100%;
+      background: #eee;
       img {
         position: absolute;
         display: block;

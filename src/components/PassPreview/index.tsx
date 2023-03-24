@@ -2,28 +2,36 @@ import React from "react"
 
 import { PassPreviewStyles } from "./PassPreviewStyles"
 
-const PassPreview = ({ previewUrl, formikValues }: any) => {
+const PassPreview = ({
+  previewUrl,
+  template = "single",
+  name,
+  city,
+  country,
+  date,
+  number = 1,
+  customClass = "default",
+}: any) => {
   const dateFormat = () => {
-    if (!formikValues.date) {
+    if (!date) {
       return
     }
-    const date = new Date(formikValues.date)
-    const month = date.toLocaleString("default", { month: "short" })
-    const day = date.toLocaleString("default", { day: "numeric" })
-    const year = date.toLocaleString("default", { year: "numeric" })
+    const d = new Date(date)
+    const month = d.toLocaleString("default", { month: "short" })
+    const day = d.toLocaleString("default", { day: "numeric" })
+    const year = d.toLocaleString("default", { year: "numeric" })
     return `${month} ${day} ${year}`
   }
 
-  console.log(formikValues)
   return (
-    <PassPreviewStyles className="pass-preview">
+    <PassPreviewStyles className={"pass-preview " + customClass}>
       <div className="inner">
         <div className="main-image">
           <img src={previewUrl} alt="Image preview" />
           <div className="text">
-            <div className="venue">{formikValues.name}</div>
+            <div className="venue">{name}</div>
             <div className="address">
-              {formikValues.city}, {formikValues.country}
+              {city}, {country}
             </div>
             <div className="date">{dateFormat()}</div>
           </div>
@@ -34,7 +42,11 @@ const PassPreview = ({ previewUrl, formikValues }: any) => {
             src="/assets/img/p1-small-vertical.jpg"
             alt="p1-small-vertical"
           />
-          <div className="text">Guest Pass #1</div>
+          <div className="text">
+            <div>Guest</div>
+            <div>Pass</div>
+            <div>#{number}</div>
+          </div>
           <img
             className="qr"
             src="/assets/img/sample-qr.png"
