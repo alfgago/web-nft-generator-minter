@@ -42,7 +42,6 @@
     "formik": "^2.2.9",
     "framer-motion": "^7.10.3",
     "gsap": "^3.11.4",
-    "jsdom": "^21.1.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
     "moment": "^2.29.4",
