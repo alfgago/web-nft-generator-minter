@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Image from "next/image"
 import LazyLoad from "react-lazyload"
 import { useAccount, useConnect, useSigner } from "wagmi"
@@ -12,12 +13,14 @@ import { NftCardStyles } from "./NftCardStyles"
 const NftCard = ({ nft, classes = "", pass }: any) => {
   const { data: signer } = useSigner()
   const { isConnected } = useAccount()
+  const [minting, setMinting] = useState(0)
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
 
-  const mint = async () => {
+  const mint = async (mintingId: number) => {
+    setMinting(mintingId)
     // If not connected, prompts connection
     if (!isConnected) {
       connect()
@@ -57,12 +60,25 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
                   <b>Price</b>
                   <span>{pass.attributes.initial_price} ETH</span>
                 </div>
-                <CommonPill
-                  className="clickable blue small"
-                  onClick={() => mint()}
-                >
-                  Buy Now
-                </CommonPill>
+                {!minting ? (
+                  <CommonPill
+                    className="clickable blue small"
+                    onClick={() => mint(nft.id)}
+                  >
+                    Buy Now
+                  </CommonPill>
+                ) : (
+                  <CommonPill
+                    className="clickable loader small"
+                    onClick={() => mint(nft.id)}
+                  >
+                    <img
+                      src="/assets/img/spinner.svg"
+                      className="spinner"
+                      alt="loader"
+                    />
+                  </CommonPill>
+                )}
               </>
             ) : (
               <>
@@ -70,12 +86,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
                   <b>Price</b>
                   <span>{pass.attributes.initial_price} ETH</span>
                 </div>
-                <CommonPill
-                  className="clickable blue small"
-                  onClick={() => mint()}
-                >
-                  Bid
-                </CommonPill>
+                <CommonPill className="clickable blue small">Bid</CommonPill>
               </>
             )}
           </div>

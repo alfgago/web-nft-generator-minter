@@ -136,7 +136,7 @@ const postData = async ({
       <div class="right">
         <img
           class="p1-vert"
-          src="${process.env.NEXT_PUBLIC_DOMAIN}/assets/img/sample-qr.png"
+          src="${process.env.NEXT_PUBLIC_DOMAIN}/assets/img/p1-small-vertical.jpg"
           alt="p1-small-vertical"
         />
         <div class="text">

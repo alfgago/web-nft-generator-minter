@@ -7,18 +7,24 @@ export const MyNftGuestsItemStyles = styled.div`
 
   flex-direction: column;
   .event-info-cont {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: ${44 / 16}rem;
-
-    div:first-of-type {
-      max-width: ${110 / 16}rem;
-    }
+    gap: 1rem;
 
     img {
       display: block;
+      width: 25%;
+      max-width: 25%;
+      min-width: 25%;
+      height: auto;
+    }
+
+    .innerinfo {
+      color: #fff;
+      font-size: 0.8rem;
       width: 100%;
-      height: 100%;
+      max-width: none;
     }
   }
   .location-info-cont {
@@ -39,8 +45,19 @@ export const MyNftGuestsItemStyles = styled.div`
       display: none;
     }
 
+    label {
+      color: #fff;
+      .alert {
+        position: absolute;
+        top: 1.9rem;
+        right: 1rem;
+        padding: 0 !important;
+        font-size: 0.65rem;
+      }
+    }
+
     input {
-      border-radius: 0rem !important;
+      background: #fff !important;
     }
 
     @media ${DEVICE.laptop} {

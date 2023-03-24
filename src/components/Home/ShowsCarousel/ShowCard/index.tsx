@@ -8,11 +8,15 @@ import cleanUrl from "@/utils/cleanUrl"
 import { ShowCardStyles } from "./ShowCardStyles"
 
 const EventCard = ({ eventData }: any) => {
-  const imageUrl =
+  let imageUrl =
     eventData.attributes.artist.data.attributes.profile_picture.data != null
       ? eventData.attributes.artist.data.attributes.profile_picture.data
           .attributes.url
       : "https://plusone-public.s3.amazonaws.com/default_BG_edf8345a11.png?updated_at=2023-02-16T22:07:32.343Z"
+  imageUrl =
+    eventData?.attributes?.image?.data != null
+      ? eventData?.attributes?.image?.data.attributes.url
+      : imageUrl
 
   const alt = eventData.attributes.artist.data.attributes.name + " banner"
   const eventName = eventData.attributes.name

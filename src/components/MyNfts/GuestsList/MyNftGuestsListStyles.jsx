@@ -2,14 +2,14 @@ import { COLORS, DEVICE } from "@/styles/variables"
 import styled from "styled-components"
 
 export const MyNftGuestsListStyles = styled.section`
-  padding-top: 0;
-  padding-bottom: ${49 / 16}rem;
+  background: #111;
 
   .content {
     h2 {
       font-weight: 600;
       font-size: 40px;
       padding-bottom: ${61 / 16}rem;
+      color: #fff;
     }
   }
   .items-cont {

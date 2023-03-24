@@ -27,7 +27,7 @@ const DateItem = ({ show }: any) => {
           </div>
           {show.city && show.country && (
             <div className="address">
-              {show.city},{show.country}
+              {show.city}, {show.country}
             </div>
           )}
           <div className="date">{dateFormat(show.date)}</div>

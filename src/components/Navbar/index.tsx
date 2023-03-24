@@ -11,6 +11,7 @@ import { InjectedConnector } from "wagmi/connectors/injected"
 import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
 
 import Login from "../Login"
+import SearchBar from "../SearchBar"
 
 import { NavbarStyles } from "./NavbarStyles"
 
@@ -78,12 +79,7 @@ const Navbar = () => {
           </a>
         </Link>
         <div className="search-bar">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search by artist, venue, or city"
-          />
-          <ReactSVG src="/assets/icons/search.svg" />
+          <SearchBar />
         </div>
         <nav className="nav">
           <ul>

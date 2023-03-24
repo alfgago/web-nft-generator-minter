@@ -10,6 +10,9 @@ export const PassCardStyles = styled.div`
     background: ${COLORS.white};
     box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
     margin-bottom: 2rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    overflow: hidden;
 
     @media ${DEVICE.laptop} {
       &.home {
@@ -70,6 +73,7 @@ export const PassCardStyles = styled.div`
       height: 0;
       width: 45%;
       padding-bottom: 45%;
+      background: #eee;
       img {
         position: absolute;
         display: block;

@@ -8,27 +8,22 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import { NewGuestFormStyles } from "./NewGuestFormStyles"
 
 interface FormValues {
-  nft: number
-  email: string
-  name: string
+  name: any
+  email: any
+  name2: any
+  email2: any
 }
 
-const NewGuestForm = ({
-  className = "",
-  event = false,
-  nftData = false,
-}: any) => {
-  const [nftInfo, setNftInfo] = useState([])
+const NewGuestForm = ({ className = "", event, nft }: any) => {
   const initlValues = {
     email: "",
     name: "",
-    nft: 0,
+    email2: "",
+    name2: "",
   }
 
   const valuesSchema = Yup.object().shape({
-    email: Yup.string().required("Please enter the guest email"),
-    name: Yup.string().required("Please enter the guest name"),
-    nft: Yup.number().required("Please enter the nft"),
+    name: Yup.string().required("Please enter at least 1 guest name"),
   })
 
   const onSubmit = async (
@@ -39,20 +34,13 @@ const NewGuestForm = ({
     const { data } = await axios.post("/api/guest-lists/create", {
       name: values.name,
       email: values.email,
-      nft: Number(values.nft),
-      event: event,
+      name2: values.name2,
+      email2: values.email2,
+      nft: nft.id,
+      event: event.id,
     })
     resetForm()
   }
-
-  const noRepeatedVals = nftData.filter((item: any, index: number) => {
-    return (
-      index ===
-      nftData.findIndex((obj: any) => {
-        return JSON.stringify(obj) === JSON.stringify(item)
-      })
-    )
-  })
 
   return (
     <NewGuestFormStyles className={className}>
@@ -68,7 +56,7 @@ const NewGuestForm = ({
           {({ errors, touched }) => (
             <Form>
               <label>
-                <span>Name</span>
+                <span>1st person's name</span>
                 {errors.name && touched.name ? (
                   <div className="alert">{errors.name}</div>
                 ) : null}
@@ -76,7 +64,7 @@ const NewGuestForm = ({
               </label>
 
               <label>
-                <span>Email</span>
+                <span>1st person's email</span>
                 {errors.email && touched.email ? (
                   <div className="alert">{errors.email}</div>
                 ) : null}
@@ -86,28 +74,31 @@ const NewGuestForm = ({
                   placeholder="Email (optional)"
                 />
               </label>
+
               <label>
-                <span>Nft</span>
-                {errors.nft ? <div className="alert">{errors.nft}</div> : null}
+                <span>2nd person's name</span>
+                {errors.name2 && touched.name2 ? (
+                  <div className="alert">{errors.name2}</div>
+                ) : null}
+                <Field name="name2" type="text" placeholder="Name" />
+              </label>
+
+              <label>
+                <span>2nd person's email</span>
+                {errors.email2 && touched.email2 ? (
+                  <div className="alert">{errors.email2}</div>
+                ) : null}
                 <Field
-                  name="nft"
-                  as="select"
-                  // onChange={(e: any) => {
-                  //   selectArtist(e.target.value)
-                  // }}
-                >
-                  <option value="">-</option>
-                  {noRepeatedVals.length &&
-                    noRepeatedVals.map((item: any, index: number) => (
-                      <option key={"artist-item" + index} value={item.id}>
-                        {item.attributes.name}
-                      </option>
-                    ))}
-                </Field>
+                  name="email2"
+                  type="text"
+                  placeholder="Email (optional)"
+                />
               </label>
               <div className="btn-container">
                 <button type="submit">
-                  <CommonPill className="clickable fill">Submit</CommonPill>
+                  <CommonPill className="clickable fill small blue">
+                    Submit
+                  </CommonPill>
                 </button>
               </div>
             </Form>

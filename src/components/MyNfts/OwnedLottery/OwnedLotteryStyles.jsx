@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const OwnedLotteryStyles = styled.section`
-  padding-top: 0px;
 
   .active-filter{
     border-bottom: ${3 / 16}rem solid;

@@ -166,8 +166,10 @@ const ConfirmationSingle = ({
             <div className="uploaded">
               {uploadingBlockchain} / {previewImages.length}
             </div>
-            {uploadingBlockchain && (
+            {uploadingBlockchain ? (
               <div className="minting">Creating and publishing contract...</div>
+            ) : (
+              ""
             )}
             <img
               src="/assets/img/spinner.svg"

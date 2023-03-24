@@ -6,8 +6,6 @@ export const DropCardStyles = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  background: ${COLORS.white};
-  box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
 
   @media ${DEVICE.laptop} {
@@ -18,6 +16,7 @@ export const DropCardStyles = styled.div`
         padding-bottom: 100%;
       }
       .inner {
+        opacity: 0;
         position: absolute;
         padding: 0 !important;
         top: 0;
@@ -52,6 +51,7 @@ export const DropCardStyles = styled.div`
       }
       &:hover {
         .inner {
+          opacity: 1;
           background: rgba(0, 0, 0, 0.6);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(10px);

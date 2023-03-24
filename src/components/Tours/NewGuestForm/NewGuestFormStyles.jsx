@@ -43,10 +43,7 @@ export const NewGuestFormStyles = styled.div`
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-width: ${380 / 16}rem;
-        @media ${DEVICE.laptop} {
-          width: calc(50% - ${30 / 16}rem);
-        }
+        margin-bottom: 0;
 
         > span {
           font-weight: bold;
@@ -63,25 +60,6 @@ export const NewGuestFormStyles = styled.div`
           padding-left: 1.5rem;
         }
       }
-
-    //   button {
-    //     background-color: #777777;
-    //     width: 10.5rem;
-    //     height: ${51 / 16}rem;
-    //     border-radius: 30px;
-    //     border: none;
-    //     color: #fff;
-    //     padding: 7px 2px 7px 2px;
-    //     margin-bottom: ${25 / 16}rem;
-
-    //     @media only screen and (${DEVICE.laptop}) {
-    //       width: ${109 / 16}rem;
-    //       height: ${41 / 16}rem;
-    //       border-radius: 12px;
-    //       margin-bottom: 0;
-    //     }
-    //   }
-    // }
 
     input {
       width: 100%;

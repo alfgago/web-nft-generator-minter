@@ -75,5 +75,12 @@ export const NftCardStyles = styled.div`
         object-fit: cover;
       }
     }
+
+    .clickable {
+      border: 0;
+      .spinner {
+        width: 50px;
+      }
+    }
   }
 `

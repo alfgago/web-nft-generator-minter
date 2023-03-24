@@ -1,51 +1,56 @@
 import React, { useEffect, useState } from "react"
-import { isMapIterator } from "util/types"
+import axios from "axios"
 
 import NewGuestForm from "@/components/Tours/NewGuestForm"
 
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
 
-const MyNftGuestsItem = ({ guestData, guestNfts }: any) => {
-  const image =
-    guestData.attributes.artist.data.attributes.profile_picture.data.attributes
-      .url
-  const location = guestData.attributes.address
-  const currentEvent = guestData.id
-  const spreadedString = location.split(",")
-  const date = guestData.attributes.date
-  const month = new Date(date).toLocaleString("default", {
-    month: "long",
-  })
-  const day = new Date(date).toLocaleString("default", {
-    day: "2-digit",
-  })
-  const nftData: any[] = []
-  const [nftList, setNftList] = useState<any>([])
-
+const MyNftGuestsItem = ({ nft }: any) => {
+  const [event, setEvent] = useState<any>(false)
+  const [queriedNft, setQueriedNft] = useState(false)
+  // Fetch the data in the useEffect hook
   useEffect(() => {
-    const nft = guestData.attributes.passes.data.map((passes: any) => {
-      passes.attributes.nfts.data.map((nfts: any) => {
-        const img = nfts.attributes.image_url
-        if (guestNfts.includes(img)) {
-          nftData.push(nfts)
-          setNftList(nftData)
-        }
-      })
-    })
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "/api/shows/single?id=" + nft.event.value
+        )
+        console.log(response.data.data)
+        setEvent(response.data.data)
+        const nftResponse = await axios.get(
+          "/api/nfts/by-image-url?image=" +
+            nft.image.replace("https://plusonemusic.io/ipfs/", "")
+        )
+        setQueriedNft(nftResponse.data.data)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
+    fetchData()
   }, [])
-  // setNftList(nftData)
+
+  const dateFormat = (date: string) => {
+    const d = new Date(date)
+    const month = d.toLocaleString("default", { month: "short" })
+    const day = d.toLocaleString("default", { day: "numeric" })
+    const year = d.toLocaleString("default", { year: "numeric" })
+    return `${month} ${day} ${year}`
+  }
 
   return (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">
-        <div>
-          <img src={image} alt="" />
+        <img src={nft.image} alt="" />
+        <div className="innerinfo">
+          <div className="name">{event.attributes.name}</div>
+          <div className="address">
+            {event.attributes.city}, {event.attributes.country}
+          </div>
+          <div className="date">{dateFormat(event.attributes.date)}</div>
         </div>
       </div>
       <div className="form-cont">
-        <p>Info</p>
-
-        <NewGuestForm event={currentEvent} nftData={nftList} />
+        {event && <NewGuestForm event={event} nft={queriedNft} />}
       </div>
     </MyNftGuestsItemStyles>
   )
