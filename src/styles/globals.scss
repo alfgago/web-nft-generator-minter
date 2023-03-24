@@ -17,6 +17,10 @@ body {
   }
 }
 
+.active .result-box {
+  display: block !important;
+}
+
 #shadow-host-content {
   padding: 0 !important;
 }

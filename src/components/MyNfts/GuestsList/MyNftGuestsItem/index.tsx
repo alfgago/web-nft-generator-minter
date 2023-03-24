@@ -42,11 +42,11 @@ const MyNftGuestsItem = ({ nft }: any) => {
       <div className="event-info-cont">
         <img src={nft.image} alt="" />
         <div className="innerinfo">
-          <div className="name">{event.attributes.name}</div>
+          <div className="name">{event?.attributes?.name}</div>
           <div className="address">
-            {event.attributes.city}, {event.attributes.country}
+            {event?.attributes?.city}, {event?.attributes?.country}
           </div>
-          <div className="date">{dateFormat(event.attributes.date)}</div>
+          <div className="date">{dateFormat(event?.attributes?.date)}</div>
         </div>
       </div>
       <div className="form-cont">
