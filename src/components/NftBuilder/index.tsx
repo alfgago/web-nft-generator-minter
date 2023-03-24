@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
 import axios from "axios"
 import { NFTStorage } from "nft.storage"
 import pLimit from "p-limit"
@@ -16,13 +17,14 @@ import {
 import SimpleHeader from "../Common/SimpleHeader"
 
 import { useRequestStatus } from "./Hooks/useRequestStatus"
-import ConfirmationStep from "./ConfirmationStep"
-import ConfirmationStepSingle from "./ConfirmationStepSingle"
-import DesignStep from "./DesignStep"
-import DesignStepSingle from "./DesignStepSingle"
 import FormStep from "./FormStep"
 import { NftBuilderStyles } from "./NftBuilderStyles"
 import StepsHeader from "./StepsHeader"
+
+const ConfirmationStep = dynamic(() => import("./ConfirmationStep"))
+const ConfirmationStepSingle = dynamic(() => import("./ConfirmationStepSingle"))
+const DesignStep = dynamic(() => import("./DesignStep"))
+const DesignStepSingle = dynamic(() => import("./DesignStepSingle"))
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })

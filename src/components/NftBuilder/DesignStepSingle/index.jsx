@@ -1,12 +1,10 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import React from "react"
-import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import cleanUrl from "@/utils/cleanUrl"
 import ImagePicker from "../Tools/ImagePicker"
 
 import { DesignStepStyles } from "./DesignStepStyles"
