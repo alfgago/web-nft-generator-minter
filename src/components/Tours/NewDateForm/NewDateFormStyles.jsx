@@ -38,6 +38,12 @@ export const NewDateFormStyles = styled.div`
       background: none;
       border: none;
     }
+    .description {
+      padding-left: 1.5rem;
+      color: #999;
+      font-size: .75rem;
+      font-weight: 400;
+    }
     .location-picker {
       position: relative;
       input {

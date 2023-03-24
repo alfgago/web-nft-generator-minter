@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
@@ -7,6 +7,7 @@ import Strapi from "strapi-sdk-js"
 import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import PassPreview from "@/components/PassPreview"
 
 import { NewDateFormStyles } from "./NewDateFormStyles"
 
@@ -32,6 +33,8 @@ const NewDateForm = () => {
   const { data: user } = useSession()
   const [artists, setArtists] = useState([])
   const [imageFile, setImageFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const formikRef = useRef(null) as any
 
   async function uploadImageToStrapi(file: File) {
     // Function to upload the image to Strapi
@@ -85,7 +88,8 @@ const NewDateForm = () => {
   const valuesSchema = Yup.object().shape({
     date: Yup.date().required("Date is required"),
     name: Yup.string().required("Name is required"),
-    address: Yup.string().required("Address is required"),
+    country: Yup.string().required("Country is required"),
+    city: Yup.string().required("city is required"),
     artist: Yup.string().required("Artist is required"),
   })
 
@@ -105,7 +109,7 @@ const NewDateForm = () => {
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImageFile(e.target.files[0])
-      console.log(e.target.files[0])
+      setPreviewUrl(URL.createObjectURL(e.target.files[0]))
     }
   }
 
@@ -127,8 +131,8 @@ const NewDateForm = () => {
         alert("An error occurred adding the event")
       })
       .finally(() => {
-        setSubmitting(false)
         window.location.reload()
+        setSubmitting(false)
       })
   }
   return (
@@ -139,27 +143,14 @@ const NewDateForm = () => {
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={valuesSchema}
+            innerRef={formikRef}
           >
             {({ isSubmitting, errors, touched, setFieldValue }) => (
               <div className="in-popup">
                 {!isSubmitting ? (
                   <>
                     <Form className="cols-2">
-                      <label>
-                        <span>Date</span>
-                        {errors.date && touched.date ? (
-                          <div className="alert">{errors.date}</div>
-                        ) : null}
-                        <Field name="date" type="date" placeholder="" />
-                      </label>
-                      <label>
-                        <span>Venue/Festival Name</span>
-                        {errors.name && touched.name ? (
-                          <div className="alert">{errors.name}</div>
-                        ) : null}
-                        <Field name="name" type="text" placeholder="" />
-                      </label>
-                      <label>
+                      <label className="full">
                         <span>Artist</span>
                         {errors.artist && touched.artist ? (
                           <div className="alert">{errors.artist}</div>
@@ -177,12 +168,26 @@ const NewDateForm = () => {
                         </Field>
                       </label>
                       <label>
+                        <span>Date</span>
+                        {errors.date && touched.date ? (
+                          <div className="alert">{errors.date}</div>
+                        ) : null}
+                        <Field name="date" type="date" placeholder="" />
+                      </label>
+                      <label>
+                        <span>Venue/Festival Name</span>
+                        {errors.name && touched.name ? (
+                          <div className="alert">{errors.name}</div>
+                        ) : null}
+                        <Field name="name" type="text" placeholder="" />
+                      </label>
+                      <label>
                         <span>Country</span>
                         <Field name="country" type="text" placeholder="" />
                       </label>
                       <label>
                         <span>City</span>
-                        <Field name="country" type="text" placeholder="" />
+                        <Field name="city" type="text" placeholder="" />
                       </label>
 
                       <label className="image">
@@ -193,10 +198,19 @@ const NewDateForm = () => {
                           onChange={handleFileInputChange}
                           required
                         />
+                        <div className="description">
+                          Recommended image size: 1000x750
+                        </div>
                       </label>
-                      <label>
-                        <span>Pass Preview</span>
-                      </label>
+                      {previewUrl && (
+                        <label>
+                          <span>Pass Preview</span>
+                          <PassPreview
+                            previewUrl={previewUrl}
+                            formikValues={formikRef.current.values}
+                          />
+                        </label>
+                      )}
 
                       <div className="buttons">
                         <button type="submit">

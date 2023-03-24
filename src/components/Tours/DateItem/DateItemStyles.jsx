@@ -11,10 +11,21 @@ export const DateItemStyles = styled.div`
     background-color: ${COLORS.white};
     width: 100%;
     border-radius: 15px;
+    overflow: hidden;
     height: 100%;
+    display: flex;
+
+    img {
+      width: ${90 / 16}rem;
+      height: ${120 / 16}rem;
+      min-width: ${90 / 16}rem;
+      min-height: ${120 / 16}rem;
+      padding: ${10 / 16}rem;
+      object-fit: contain;
+    }
 
     .card-content {
-      padding: ${20 / 16}rem ${30 / 16}rem;
+      padding: ${15 / 16}rem ${20 / 16}rem;
 
       h4 {
         font-size: ${22 / 16}rem;

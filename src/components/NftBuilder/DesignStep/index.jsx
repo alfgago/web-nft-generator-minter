@@ -27,7 +27,7 @@ const DesignStep = ({
   previousAction,
   nextAction,
   formValues,
-  memberImage = "",
+  defaultImage = "",
   nftName,
 }) => {
   const [templateFabric, setTemplateFabric] = useState(false)
@@ -116,7 +116,7 @@ const DesignStep = ({
     if (templateFabric) {
       let imgUrl = imageUrl
       if (!imageUrl.length) {
-        imgUrl = cleanUrl(memberImage)
+        imgUrl = cleanUrl(defaultImage)
       }
       templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
     }
@@ -129,7 +129,7 @@ const DesignStep = ({
       if (!json) {
         json = false
       }
-      const artistImage = cleanUrl(memberImage)
+      const artistImage = cleanUrl(defaultImage)
       window.canvas = new fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,

@@ -4,7 +4,7 @@ import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 10 }) // cache for 10 seconds
 
 const fetchData = async ({ address }: any) => {
-  const token = process.env.ALCHEMY_API_KEY
+  const token = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 
   const cacheKey = `owned_nfts_${address}`
   const ownedNfts = cache.get(cacheKey)

@@ -27,8 +27,11 @@ const Navbar = () => {
 
   useEffect(() => {
     const sdk = new PaperEmbeddedWalletSdk({
-      clientId: "9b70c474-9c62-49a4-a3ec-19cffb86564e",
-      chain: "Goerli",
+      clientId:
+        process.env.NEXT_PUBLIC_PAPER_TOKEN ||
+        "dc69730f-5c2e-42be-8a7c-ec310da0f391",
+      // @ts-ignore
+      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK || "Goerli",
     })
     console.log(sdk)
     setPaperSdk(sdk)
@@ -129,7 +132,7 @@ const Navbar = () => {
               {width > 1080 ? (
                 <ReactSVG src="/assets/icons/account.svg" />
               ) : (
-                "Account"
+                <a href="">Account</a>
               )}
               <div className="submenu">
                 <ul>
@@ -157,14 +160,6 @@ const Navbar = () => {
                       </a>
                     </li>
                   )}
-                  {!isConnected && width < 1080 && (
-                    <li className="li-wallet">
-                      <a href="#" onClick={() => connect()}>
-                        <ReactSVG src="/assets/icons/wallet.svg" />
-                        <span>Connect your wallet</span>
-                      </a>
-                    </li>
-                  )}
                   {!session && (
                     <li className="li-account">
                       <a href="#" onClick={() => setOpenLogin(true)}>
@@ -182,18 +177,35 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            {!isConnected && width > 1080 && (
-              <li className="li-wallet">
-                <a href="#" onClick={() => connect()}>
+            {!isConnected && (
+              <li className="has-submenu">
+                {width > 1080 ? (
                   <ReactSVG src="/assets/icons/wallet.svg" />
-                </a>
-              </li>
-            )}
-            {paperSdk && (
-              <li className="li-wallet">
-                <a href="#" onClick={() => loginWithPaper()}>
-                  <span>PAPER</span>
-                </a>
+                ) : (
+                  <a href="">Wallet</a>
+                )}
+                <div className="submenu">
+                  <ul>
+                    <li className="li-wallet">
+                      <a href="#" onClick={() => connect()}>
+                        <img
+                          src="/assets/icons/metamask.svg"
+                          alt="metamask-icon"
+                        />
+                        Connect with Metamask
+                      </a>
+                    </li>
+                    <li className="li-wallet">
+                      <a href="#" onClick={() => loginWithPaper()}>
+                        <img
+                          src="/assets/icons/paper-logo-icon.svg"
+                          alt="metamask-icon"
+                        />
+                        <span>Connect with Paper</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             )}
           </ul>

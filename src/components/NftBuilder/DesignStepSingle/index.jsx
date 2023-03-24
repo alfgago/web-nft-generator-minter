@@ -20,7 +20,7 @@ const DesignStepSingle = ({
   previousAction,
   nextAction,
   formValues,
-  memberImage = "",
+  defaultImage = "",
   nftName,
 }) => {
   const [templateFabric, setTemplateFabric] = useState(false)
@@ -44,7 +44,7 @@ const DesignStepSingle = ({
         shapesColor: shapesColor,
         availableShapes: availableShapes,
         shapes: shapes,
-        imageUrl: imageUrl || cleanUrl(memberImage),
+        imageUrl: imageUrl || cleanUrl(defaultImage),
         gridSize: gridSize,
         gutter: gutter,
       })
@@ -87,7 +87,7 @@ const DesignStepSingle = ({
       if (!json) {
         json = false
       }
-      const artistImage = cleanUrl(memberImage)
+      const artistImage = cleanUrl(defaultImage)
       window.canvas = new fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,

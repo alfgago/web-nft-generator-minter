@@ -9,6 +9,9 @@ export const TourDateStyles = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  h2 {
+    margin-bottom: 1rem;
+  }
 
   .bg-container {
     background-color: #0c0c0c;
@@ -43,7 +46,7 @@ export const TourDateStyles = styled.div`
       width: 100%;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
     }
 
     p {

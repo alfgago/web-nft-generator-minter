@@ -47,7 +47,7 @@ export const NavbarStyles = styled.section<Props>`
       left: 0;
       height: 100%;
       width: 100%;
-      background: #000;
+      background: #111;
       display: block;
       margin-left: auto;
       visibility: hidden;
@@ -77,7 +77,7 @@ export const NavbarStyles = styled.section<Props>`
 
           @media ${DEVICE.maxlaptop} {
             &.has-submenu {
-              border-bottom: 2px solid #fff;
+              border-bottom: 2px solid #222;
               padding-bottom: 1rem;
               margin-bottom: 0.5rem;
               &:last-of-type {
@@ -112,8 +112,11 @@ export const NavbarStyles = styled.section<Props>`
           color: #000;
           font-size: 0.9rem;
           border-radius: 15px;
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
           overflow: hidden;
+
+          @media ${DEVICE.laptop} {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+          }
           li {
             display: block;
             margin: 0;
@@ -131,6 +134,24 @@ export const NavbarStyles = styled.section<Props>`
 
             &:last-of-type a {
               border-bottom: none;
+            }
+
+            &.li-wallet {
+              a {
+                display: flex;
+                align-items: center;
+                margin: auto;
+                width: 20rem;
+                img {
+                  width: 25px;
+                  height: 25px;
+                  margin-right: 0.5rem;
+                }
+
+                @media ${DEVICE.laptop} {
+                  width: 100%;
+                }
+              }
             }
           }
         }
@@ -192,13 +213,8 @@ export const NavbarStyles = styled.section<Props>`
         padding-right: 0;
       }
 
-      li.li-wallet,
-      li.li-account {
-        display: none;
-      }
-
       .nav {
-        padding-top: 8rem;
+        padding-top: 5rem;
         pointer-events: none;
         ul {
           width: 100%;

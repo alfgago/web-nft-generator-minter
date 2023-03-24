@@ -25,7 +25,7 @@ const fetchData = async ({
     "pagination[page]": page,
     "pagination[pageSize]": limit,
     "sort[0]": "date:desc",
-    populate: "artist.profile_picture",
+    populate: "artist.profile_picture,image",
   }
   if (artist) {
     // @ts-ignore

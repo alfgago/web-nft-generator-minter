@@ -2,6 +2,7 @@ import React from "react"
 import { ReactSVG } from "react-svg"
 
 import CheckBox from "@/components/Common/CheckBox"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { DateItemStyles } from "./DateItemStyles"
 const dateFormat = (value: any) => {
@@ -13,26 +14,23 @@ const dateFormat = (value: any) => {
 }
 
 const DateItem = ({ show }: any) => {
+  const imageUrl =
+    show?.image?.data?.attributes?.formats?.thumbnail?.url ??
+    "/assets/img/p1-small-vertical.jpg"
   return (
     <DateItemStyles className="item">
       <div className="card-container">
+        <img src={cleanUrl(imageUrl)} alt="event image" />
         <div className="card-content">
           <div>
             <h4>{show.name}</h4>
-            <CheckBox defaultState={true} />
           </div>
-          <div className="address">{show.address}</div>
+          {show.city && show.country && (
+            <div className="address">
+              {show.city},{show.country}
+            </div>
+          )}
           <div className="date">{dateFormat(show.date)}</div>
-        </div>
-        <div className="btns-container" style={{ display: "none" }}>
-          <button className="cancel-btn">
-            <ReactSVG src="/assets/icons/close-white.svg" />
-            Cancel date
-          </button>
-          <button className="confirm-btn">
-            <ReactSVG src="/assets/icons/confirm.svg" />
-            Confirm date
-          </button>
         </div>
       </div>
     </DateItemStyles>

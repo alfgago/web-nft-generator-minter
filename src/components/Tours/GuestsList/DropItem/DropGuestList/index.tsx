@@ -23,11 +23,10 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
   const orderList = guestsInfo.map((item: any) => {
     return {
       guestName: item.name,
-      artistName: eventInfo.attributes.artist.data.attributes.name,
-      showName: eventInfo.attributes.name,
-      showAddress: eventInfo.attributes.address,
     }
   })
+
+  const docTitle = eventInfo.attributes.name + " Guest List"
 
   const createPdf = () => {
     // Create a new PDF document
@@ -41,22 +40,27 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
       item.showAddress,
     ])
 
-    doc.text("Guest List", 15, 10).setFont("bold")
+    const title =
+      "Guest List for " + eventInfo.attributes.artist.data.attributes.name
 
+    const address = eventInfo.attributes.country
+      ? eventInfo.attributes.country + ", " + eventInfo.attributes.city
+      : ""
+    const subtitle = eventInfo.attributes.name + " " + address
+
+    doc.setFontSize(30)
+    doc.text(title, 15, 20) // Adjusted y-coordinate to 20
+    doc.setFontSize(20)
+    doc.text(subtitle, 15, 30) // Adjusted y-coordinate to 28
+
+    doc.setFontSize(14)
     autoTable(doc, {
-      head: [
-        [
-          "Guest Name",
-          "Artist Name",
-          "Show Name",
-          "Event Address",
-          "Attendance",
-        ],
-      ],
+      startY: 35,
+      head: [["Guest Name", "Attendance"]],
       body: list,
     })
 
-    doc.save("Guest-List.pdf")
+    doc.save(docTitle + ".pdf")
   }
 
   const createCsv = () => {
@@ -65,19 +69,11 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
       quoteStrings: '"',
       decimalSeparator: ".",
       showLabels: true,
-      showTitle: true,
-      title: "Guests List",
       useTextFile: false,
       useBom: true,
-      useKeysAsHeaders: false,
-      filename: "Guests-List",
-      headers: [
-        "Guest Name",
-        "Artist Name",
-        "Show Name",
-        "Event Address",
-        "Attendance",
-      ],
+      useKeysAsHeaders: true,
+      filename: docTitle,
+      headers: ["Guest Name", "Attendance"],
     }
 
     const csvExporter = new ExportToCsv(options)

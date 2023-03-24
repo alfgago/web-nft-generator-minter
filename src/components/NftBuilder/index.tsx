@@ -38,7 +38,7 @@ const NftBuilder = ({ artists }: any) => {
   const [nftTitle, setNftTitle] = useState("")
   const [nftDescription, setNftDescription] = useState("")
   const [images, setImages] = useState([])
-  const [memberImage, setMemberImage] = useState("")
+  const [defaultImage, setDefaultImage] = useState("")
   const [activeStep, setActiveStep] = useState(1)
   const [uploading, setUploading] = useState(false)
   const [uploadedCount, setUploadedCount] = useState(0)
@@ -215,7 +215,7 @@ const NftBuilder = ({ artists }: any) => {
               nftTitle={nftTitle}
               nftDescription={nftDescription}
               setNftDescription={setNftDescription}
-              setMemberImage={setMemberImage}
+              setDefaultImage={setDefaultImage}
               setSelectedArtist={setSelectedArtist}
               selectedArtist={selectedArtist}
               setSelectedShow={setSelectedShow}
@@ -230,7 +230,7 @@ const NftBuilder = ({ artists }: any) => {
                   nextAction={nextStep}
                   previousAction={previousStep}
                   formValues={formValues}
-                  memberImage={memberImage}
+                  defaultImage={defaultImage}
                 />
               ) : (
                 <DesignStep
@@ -238,7 +238,7 @@ const NftBuilder = ({ artists }: any) => {
                   nextAction={nextStep}
                   previousAction={previousStep}
                   formValues={formValues}
-                  memberImage={memberImage}
+                  defaultImage={defaultImage}
                 />
               )}
             </>

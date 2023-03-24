@@ -13,20 +13,37 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import { FormStepStyles } from "./FormStepStyles"
 
 import "react-datepicker/dist/react-datepicker.css"
+interface FormValues {
+  name: string
+  dropDate: Date
+  wallet: string
+  size: number
+  winners: number
+  passType: string
+  saleType: string
+  artist: number
+  member: number
+  show: number
+  duration: number
+  price: number
+  tourFrom: Date
+  tourTo: Date
+  tourName: string
+  lotteryDate: Date
+  artistName: string
+}
 
 const FormStep = ({
   formValues,
   nextAction,
   artists,
   nftTitle,
-  nftDescription,
   setNftTitle,
-  setNftDescription,
-  setMemberImage,
+  setDefaultImage,
   selectedArtist,
   setSelectedArtist,
-  selectedShow,
   setSelectedShow,
+  selectedShow,
 }: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your project name"),
@@ -57,39 +74,42 @@ const FormStep = ({
     }),
   })
   const [members, setMembers] = useState([])
+  const [shows, setShows] = useState([])
+  const formikRef = useRef(null) as any
+
+  const { address, isConnected } = useAccount()
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
 
   useEffect(() => {
     if (selectedArtist) {
       setMembers(selectedArtist.attributes.members)
+      fetchShows(selectedArtist.id)
     }
   }, [selectedArtist])
-  interface FormValues {
-    name: string
-    dropDate: Date
-    wallet: string
-    size: number
-    winners: number
-    passType: string
-    saleType: string
-    artist: number
-    member: number
-    show: number
-    duration: number
-    price: number
-    tourFrom: Date
-    tourTo: Date
-    tourName: string
-    lotteryDate: Date
-    artistName: string
-  }
-
-  const formikRef = useRef(null) as any
 
   const submit = async (values: FormValues) => {
+    selectDefaultImage(values)
     nextAction(values)
   }
 
-  const [shows, setShows] = useState([])
+  const selectDefaultImage = (values: FormValues) => {
+    const member = members.find((m: any) => m.id == values.member)
+
+    let image = selectedArtist.attributes.banner.data.attributes.url
+      ? selectedArtist.attributes.banner.data.attributes.url
+      : ""
+    image = member?.nft_default_image?.data?.attributes
+      ? member.nft_default_image.data?.attributes.url
+      : image
+    image = selectedShow?.image?.data?.attributes
+      ? member.nft_default_image.data?.attributes.url
+      : image
+
+    setDefaultImage(image)
+  }
+
   const fetchShows = async (artistId) => {
     // @ts-ignore
     const res = await axios.get("/api/shows?artist=" + artistId)
@@ -161,13 +181,6 @@ const FormStep = ({
   const selectMember = (memberId: number) => {
     if (memberId) {
       const member = members.find((m: any) => m.id == memberId)
-      const artistImg = selectedArtist.attributes.banner.data.attributes.url
-        ? selectedArtist.attributes.banner.data.attributes.url
-        : ""
-      const image = member.nft_default_image.data?.attributes
-        ? member.nft_default_image.data?.attributes.url
-        : artistImg
-      setMemberImage(image)
 
       formikRef.current.setFieldValue("member", memberId)
       formikRef.current.setFieldValue("memberName", member.name)
@@ -178,11 +191,6 @@ const FormStep = ({
       sessionStorage.removeItem("canvasJson")
     }
   }
-
-  const { address, isConnected } = useAccount()
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
 
   return (
     <FormStepStyles>
