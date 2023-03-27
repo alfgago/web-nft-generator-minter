@@ -96,18 +96,20 @@ class SearchBar extends Component {
             />
           </div>
           <div className="results-box">
-            <Index indexName="production_api::pass.pass">
-              <Configure hitsPerPage={5} />
-              <CustomHits />
-            </Index>
-            <Index indexName="production_api::event.event">
-              <Configure hitsPerPage={5} />
-              <CustomHits />
-            </Index>
-            <Index indexName="production_api::artist.artist">
-              <Configure hitsPerPage={5} />
-              <CustomHits />
-            </Index>
+            <div className="results">
+              <Index indexName="production_api::pass.pass">
+                <Configure hitsPerPage={10} />
+                <CustomHits />
+              </Index>
+              <Index indexName="production_api::event.event">
+                <Configure hitsPerPage={10} />
+                <CustomHits />
+              </Index>
+              <Index indexName="production_api::artist.artist">
+                <Configure hitsPerPage={10} />
+                <CustomHits />
+              </Index>
+            </div>
           </div>
         </InstantSearch>
       </SearchBarStyles>

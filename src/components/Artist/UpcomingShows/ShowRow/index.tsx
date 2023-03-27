@@ -162,7 +162,7 @@ const ShowRow = ({ item, index }: any) => {
                 </CommonPill>
               </Link>
               <AddToCalendar
-                label="Add lottery reminder"
+                label="Add giveaway reminder"
                 id={pass.id}
                 title={pass.attributes.collection_name}
                 date={dropDate}

@@ -4,6 +4,7 @@ import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Countdown from "@/components/Common/CountDown"
+import Tooltip from "@/components/Tooltip"
 
 import {
   BoxDrawing,
@@ -70,7 +71,8 @@ const Artist = ({ artistId }: any) => {
         <h2 className="title">Upcoming Giveaways</h2>
         <p className="description">
           You must own an artist's circle pass to enter to win single event
-          guest pass giveaways
+          guest pass giveaways{" "}
+          <Tooltip text="Winning circle users will be automatically sent a one-of-a-kind single event guest pass as soon as the countdown clock expires." />
         </p>
         <div>
           {drawing.map((el: any, index: number) => {

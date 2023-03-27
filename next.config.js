@@ -26,6 +26,7 @@ const nextConfig = {
       "plusonemusic.io",
       "localhost",
       "ipfs.io",
+      "akns-images.eonline.com",
     ],
   },
   async rewrites() {

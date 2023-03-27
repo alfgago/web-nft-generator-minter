@@ -51,8 +51,18 @@ const SlidesBanner = ({ title, slides, style }: any) => {
                 <div className="slide">
                   <div className="content">
                     <div className="inner">
-                      <div className="title h2">{title}</div>
-                      <p className="description">{description}</p>
+                      <div
+                        className="title h2"
+                        dangerouslySetInnerHTML={{
+                          __html: title,
+                        }}
+                      />
+                      <p
+                        className="description"
+                        dangerouslySetInnerHTML={{
+                          __html: description,
+                        }}
+                      />
                     </div>
                   </div>
                   <img src={shape} alt="PlusOne resources shape" />

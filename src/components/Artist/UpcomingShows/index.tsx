@@ -21,7 +21,7 @@ const UpcomingShows = ({ events }: any) => {
         <p className="desc">
           Connect your wallet to see show access status based on which passes
           you currently own.
-          <Tooltip text="Winning circle users will be automatically sent a one-of-a-kind single event guest pass as soon as the countdown clock expires." />
+          <Tooltip text="Don't own any passes?  Purchase a single event guest pass for guaranteed access to the show, or purchase a circle pass and enter giveaways to win a free guest pass (each guest pass includes entry for two)" />
         </p>
         {events.data && events.data.length ? (
           <BoxDrops>
