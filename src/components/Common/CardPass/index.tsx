@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import PassDescription from "@/components/PassDescription"
 import cleanUrl from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
@@ -46,7 +47,7 @@ const CardPass = ({ pass, event }: any) => {
   try {
     return (
       <CardPassStyles>
-        <>
+        <div className="flex">
           <Image
             src={cleanUrl(imgCardPass())}
             alt={title + " preview"}
@@ -97,7 +98,8 @@ const CardPass = ({ pass, event }: any) => {
               </div>
             )}
           </div>
-        </>
+        </div>
+        <PassDescription pass={pass} />
       </CardPassStyles>
     )
   } catch (error) {

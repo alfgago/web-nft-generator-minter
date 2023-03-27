@@ -4,18 +4,27 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const CardPassStyles = styled.div`
   position: relative;
-  display: flex;
-  width: 100%;
-  background: ${COLORS.white};
-  box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
-  margin-top: 0.5rem;
-  max-width: 43.75rem;
 
-  @media ${DEVICE.laptop} {
-    max-width: 100%;
+  .flex {
+    display: flex;
+    position: relative;
     width: 100%;
-    height: ${250 / 16}rem;
-    margin: auto;
+    background: ${COLORS.white};
+    box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
+    margin-top: 0.5rem;
+    max-width: 43.75rem;
+
+    @media ${DEVICE.laptop} {
+      max-width: 100%;
+      width: 100%;
+      height: ${250 / 16}rem;
+      margin: auto;
+    }
+  }
+
+  .descriptor {
+    max-width: ${700 / 16}rem;
+    margin-top: 1rem;
   }
 
   .more,

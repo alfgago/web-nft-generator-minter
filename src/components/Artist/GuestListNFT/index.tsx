@@ -97,7 +97,7 @@ const GuestListNFT = ({ artist }: any) => {
           </div>
           {width > 1080 && (
             <div className="column2">
-              <h2>Guest list NFTs</h2>
+              <h2>Artist Passes</h2>
               <p className="subt-filter">Pass type:</p>
               <TypeList
                 types={types}
@@ -109,7 +109,7 @@ const GuestListNFT = ({ artist }: any) => {
         </div>
       ) : (
         <div className="content no-data">
-          <h2>Guest list NFTs</h2>
+          <h2>Artist Passes</h2>
           <h3 className="not-found">This artist has no NFTs yet</h3>
         </div>
       )}
