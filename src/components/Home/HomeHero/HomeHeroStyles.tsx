@@ -162,10 +162,12 @@ export const HomeHeroStyles = styled.section`
       svg {
         display: block;
         position: absolute;
-        top: 10vh;
+        top: 50%;
+        transform: translateY(-50%);
         right: 12rem;
-        width: 5rem;
+        max-width: 5rem;
         height: auto;
+        max-height: 80vh;
         z-index: -1;
       }
     }
