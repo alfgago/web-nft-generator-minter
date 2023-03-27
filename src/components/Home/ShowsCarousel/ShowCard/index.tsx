@@ -7,6 +7,14 @@ import cleanUrl from "@/utils/cleanUrl"
 
 import { ShowCardStyles } from "./ShowCardStyles"
 
+const dateFormat = (date: any) => {
+  const d = new Date(date)
+  const month = d.toLocaleString("default", { month: "short" })
+  const day = d.toLocaleString("default", { day: "numeric" })
+  const year = d.toLocaleString("default", { year: "numeric" })
+  return `${month} ${day} ${year}`
+}
+
 const EventCard = ({ eventData }: any) => {
   let imageUrl =
     eventData.attributes.artist.data.attributes.profile_picture.data != null
@@ -20,32 +28,44 @@ const EventCard = ({ eventData }: any) => {
 
   const alt = eventData.attributes.artist.data.attributes.name + " banner"
   const eventName = eventData.attributes.name
-  const eventDate = new Date(eventData.attributes.date)
+  const eventDate = dateFormat(eventData.attributes.date)
   const eventAddress = eventData.attributes.address
+  const country = eventData.attributes.country
+  const city = eventData.attributes.city
   const eventArtist = eventData.attributes.artist.data.attributes.name
   const artistSlug = eventData.attributes.artist.data.attributes.slug
   return (
     <ShowCardStyles>
       <div className="img-cont">
-        <Image src={imageUrl} alt={alt} quality={90} width={190} height={190} />
-      </div>
-      <div className="data-cont">
-        <div className="titles">
-          <div className="artist">{eventArtist}</div>
-          <div className="eventname">{eventName}</div>
-
-          {eventAddress && <div className="address">{eventAddress}</div>}
-
-          {eventDate && (
-            <div className="date">{eventDate.toLocaleString("en-US")}</div>
-          )}
-        </div>
+        <Image
+          src={cleanUrl(imageUrl)}
+          alt={alt}
+          quality={90}
+          width={220}
+          height={165}
+        />
         <Link
           href={"/artist/" + artistSlug + "#upcoming"}
           title={"Access " + eventName}
         >
-          <CommonPill className="clickable small">Access</CommonPill>
+          <CommonPill className="clickable small">Access Show</CommonPill>
         </Link>
+      </div>
+      <div className="data-cont">
+        <div className="titles">
+          <div className="artist">{eventArtist}</div>
+          <div className="eventname">
+            {eventName}
+
+            {city && (
+              <div className="address">
+                {city}, {country}
+              </div>
+            )}
+          </div>
+
+          {eventDate && <div className="date">{eventDate}</div>}
+        </div>
       </div>
     </ShowCardStyles>
   )

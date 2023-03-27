@@ -1,7 +1,8 @@
 const PassDescription = ({ pass }: any) => {
   const passType = pass.attributes.pass_type
   const artistName = pass.attributes.artist?.data?.attributes?.name ?? ""
-  const venue = pass.attributes.event?.data?.attributes?.venue ?? ""
+  console.log(pass.attributes.event?.data?.attributes)
+  const venue = pass.attributes.event?.data?.attributes?.name ?? ""
   const date = pass.attributes.event?.data?.attributes?.date ?? ""
 
   const dateFormat = (value: any) => {

@@ -72,7 +72,7 @@ export const HomeHeroStyles = styled.section`
       text-shadow: 0 0 15px rgb(0 0 0 / 30%);
 
       @media ${DEVICE.laptop} {
-        font-size: ${64 / 16}rem;
+        font-size: ${60 / 16}rem;
         max-width: ${850 / 16}rem;
       }
     }
@@ -184,7 +184,7 @@ export const HomeHeroStyles = styled.section`
       }
 
       @media ${DEVICE.laptop} {
-        height: 20rem;
+        height: 18rem;
         margin-bottom: -6.5rem;
         margin-left: -8rem;
       }
