@@ -147,6 +147,30 @@ export const HomeHeroStyles = styled.section`
     }
   }
 
+  .upcoming-svg {
+    display: none;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    @media ${DEVICE.laptop} {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      svg {
+        display: block;
+        position: absolute;
+        top: 10vh;
+        right: 12rem;
+        width: 5rem;
+        height: auto;
+        z-index: -1;
+      }
+    }
+  }
+
   .banner-logo {
     mix-blend-mode: overlay;
     padding-bottom: 0;

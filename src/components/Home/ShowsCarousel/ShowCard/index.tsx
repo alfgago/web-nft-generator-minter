@@ -29,7 +29,6 @@ const EventCard = ({ eventData }: any) => {
   const alt = eventData.attributes.artist.data.attributes.name + " banner"
   const eventName = eventData.attributes.name
   const eventDate = dateFormat(eventData.attributes.date)
-  const eventAddress = eventData.attributes.address
   const country = eventData.attributes.country
   const city = eventData.attributes.city
   const eventArtist = eventData.attributes.artist.data.attributes.name
@@ -50,21 +49,14 @@ const EventCard = ({ eventData }: any) => {
         >
           <CommonPill className="clickable small">Access Show</CommonPill>
         </Link>
-      </div>
-      <div className="data-cont">
-        <div className="titles">
-          <div className="artist">{eventArtist}</div>
-          <div className="eventname">
-            {eventName}
-
-            {city && (
-              <div className="address">
-                {city}, {country}
-              </div>
-            )}
-          </div>
-
-          {eventDate && <div className="date">{eventDate}</div>}
+        <div className="text">
+          <div className="venue">{eventName}</div>
+          {city && (
+            <div className="address">
+              {city}, {country}
+            </div>
+          )}
+          <div className="date">{dateFormat(eventDate)}</div>
         </div>
       </div>
     </ShowCardStyles>

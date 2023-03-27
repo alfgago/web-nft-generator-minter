@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Marquee from "react-fast-marquee"
+import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
 
 import EventCard from "./ShowCard"

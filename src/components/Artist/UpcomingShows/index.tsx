@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { ReactSVG } from "react-svg"
 
 import Tooltip from "@/components/Tooltip"
 

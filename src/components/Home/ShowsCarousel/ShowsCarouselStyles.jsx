@@ -21,6 +21,7 @@ export const ShowsCarouselStyles = styled.div`
       top: 35vh;
       left: 4.5rem;
       padding: 0;
+      visibility: hidden;
     }
   }
 

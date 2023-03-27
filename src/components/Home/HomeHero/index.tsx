@@ -27,6 +27,9 @@ const HomeHero = ({ title, copy, image }: any) => {
       <div className="banner-logo content">
         <ReactSVG src="/assets/img/logo-hero.svg" />
       </div>
+      <div className="upcoming-svg content">
+        <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
+      </div>
       <div className="content screen">
         <div className="left">
           <h1 className="title">{title}</h1>
