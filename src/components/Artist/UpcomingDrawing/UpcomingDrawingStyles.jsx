@@ -5,7 +5,22 @@ import { COLORS, DEVICE } from "@/styles/variables"
 export const UpcomingDrawingStyles = styled.section`
   background: ${COLORS.white};
   h2 {
+    margin-bottom: 0;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    color: #888;
+    padding: 0.5rem 1rem;
     margin-bottom: ${40 / 16}rem;
+    .connect {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .not-found {
+    font-size: 2rem;
   }
 `
 export const BoxDrawing = styled.div`

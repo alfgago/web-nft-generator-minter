@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react"
 
+import Tooltip from "@/components/Tooltip"
+
 import ShowRow from "./ShowRow"
 import { BoxDrops, UpcomingShowStyles } from "./UpcomingShowStyles"
 
@@ -19,6 +21,7 @@ const UpcomingShows = ({ events }: any) => {
         <p className="desc">
           Connect your wallet to see show access status based on which passes
           you currently own.
+          <Tooltip text="Winning circle users will be automatically sent a one-of-a-kind single event guest pass as soon as the countdown clock expires." />
         </p>
         {events.data && events.data.length ? (
           <BoxDrops>

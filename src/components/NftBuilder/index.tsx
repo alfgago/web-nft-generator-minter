@@ -245,7 +245,7 @@ const NftBuilder = ({ artists }: any) => {
           )}
           {activeStep == 2 && (
             <>
-              {formValues.passType == "Single Event" ? (
+              {formValues.passType == "Guest" ? (
                 <DesignStepSingle
                   nextAction={nextStep}
                   previousAction={previousStep}
@@ -269,7 +269,7 @@ const NftBuilder = ({ artists }: any) => {
           )}
           {activeStep == 3 && (
             <>
-              {formValues.passType == "Single Event" ? (
+              {formValues.passType == "Guest" ? (
                 <ConfirmationStepSingle
                   formValues={formValues}
                   imageUrl={imageUrl}

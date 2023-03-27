@@ -22,7 +22,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    "filters[passes][pass_type][$eq]": "Single Event",
+    "filters[passes][pass_type][$eq]": "Guest",
     populate: "artist.profile_picture,artist.user.",
   }
   if (user) {

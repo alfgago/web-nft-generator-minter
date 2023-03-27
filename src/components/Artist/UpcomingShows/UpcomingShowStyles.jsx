@@ -11,7 +11,7 @@ export const UpcomingShowStyles = styled.section`
 
   .desc {
     margin-bottom: ${40 / 16}rem;
-    color: #777;
+    color: #888;
   }
 
   @media ${DEVICE.laptop} {

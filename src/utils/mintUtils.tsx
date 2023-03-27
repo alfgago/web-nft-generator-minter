@@ -57,7 +57,7 @@ export const uploadNft = async (
     },
   ]
 
-  if (formValues.passType == "Single Event") {
+  if (formValues.passType == "Guest") {
     atts.push({
       trait_type: "event",
       value: formValues.show,

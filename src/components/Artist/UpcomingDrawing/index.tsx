@@ -67,7 +67,11 @@ const Artist = ({ artistId }: any) => {
   return (
     <UpcomingDrawingStyles>
       <div className="content">
-        <h2 className="title">Upcoming Drawing</h2>
+        <h2 className="title">Upcoming Giveaways</h2>
+        <p className="description">
+          You must own an artist's circle pass to enter to win single event
+          guest pass giveaways
+        </p>
         <div>
           {drawing.map((el: any, index: number) => {
             {
@@ -154,9 +158,9 @@ const Artist = ({ artistId }: any) => {
             }
           })}
           {!haveDrawings && (
-            <h3 className="not-found">
-              No upcoming circle drawing found for this artist.
-            </h3>
+            <p className="not-found">
+              There are no upcoming giveaways for this artist.
+            </p>
           )}
         </div>
       </div>

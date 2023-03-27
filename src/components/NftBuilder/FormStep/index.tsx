@@ -124,7 +124,7 @@ const FormStep = ({
     let type = passType.charAt(0).toUpperCase() + passType.slice(1)
     let title = ""
 
-    if (type == "Single Event") {
+    if (type == "Guest") {
       const sel = shows.find((obj: any) => obj.id == show)
       if (sel) {
         setSelectedShow(sel)
@@ -273,7 +273,7 @@ const FormStep = ({
               >
                 <option value="">-</option>
                 <option value="Circle">Circle</option>
-                <option value="Single Event">Single Event</option>
+                <option value="Guest">Guest</option>
               </Field>
             </label>
             <label>
@@ -315,7 +315,7 @@ const FormStep = ({
                 onChange={(dropDate) => setFieldValue("dropDate", dropDate)}
               />
             </label>
-            {values.passType == "Single Event" && (
+            {values.passType == "Guest" && (
               <label>
                 <span>Show</span>
                 <Field

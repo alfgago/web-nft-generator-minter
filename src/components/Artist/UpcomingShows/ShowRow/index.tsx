@@ -152,7 +152,7 @@ const ShowRow = ({ item, index }: any) => {
         {pass?.attributes.pass_type == "Circle" ? (
           <div className="wrap-end">
             <div className="time">
-              <span className="timer-title">Time until drawing</span>
+              <span className="timer-title">Time until giveaway</span>
               {timer}
             </div>
             <div className="actions">

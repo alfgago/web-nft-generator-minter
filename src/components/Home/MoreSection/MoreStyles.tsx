@@ -25,7 +25,7 @@ export const MoreStyles = styled.div`
     }
 
     .description {
-      font-size: 16px;
+      font-size: ${16 / 16}rem;
       margin: auto;
       order: 2;
       margin-bottom: 2rem;

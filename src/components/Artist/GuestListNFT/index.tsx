@@ -16,9 +16,9 @@ const GuestListNFT = ({ artist }: any) => {
 
   const types = [
     { name: "Circle", value: "Circle" },
+    { name: "Guest", value: "Guest" },
     { name: "Infinity", value: "Infinity" },
     { name: "Tour", value: "Tour" },
-    { name: "Single Event", value: "Single Event" },
   ]
 
   // Fetch the data in the useEffect hook
@@ -51,7 +51,7 @@ const GuestListNFT = ({ artist }: any) => {
         <div className="content">
           {width < 1080 && (
             <div className="mobile-col2">
-              <h2>Guest list NFTs</h2>
+              <h2>Artist Passes</h2>
               <p className="subt-filter">Pass type:</p>
               <TypeList
                 types={types}
