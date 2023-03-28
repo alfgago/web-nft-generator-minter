@@ -4,10 +4,9 @@ const SearchBarStyles = styled.div`
   position: relative;
   margin: auto;
   text-align: left;
-  height: ${56 / 16}rem;
+  height: ${35 / 16}rem;
   width: 100%;
   z-index: 99;
-  padding-bottom: 1rem;
 
   input {
     background: transparent;
@@ -29,6 +28,7 @@ const SearchBarStyles = styled.div`
   .results-box {
     position: absolute;
     top: 100%;
+    margin-top: 1rem;
     width: 100%;
     background: #fff;
     color: #000;
@@ -88,47 +88,6 @@ const SearchBarStyles = styled.div`
     padding-left: 3rem;
   }
 
-  .autocomplete-input {
-    position: relative;
-    width: 100%;
-    height: 56px;
-    input {
-      width: 100%;
-      height: 100%;
-      border-radius: 4px;
-      border: 1px solid #12172433;
-      background: rgba(255, 255, 255, 0);
-      padding: 0 18px 0 48px;
-      line-height: 56px;
-      box-shadow: 0px 8px 24px rgba(38, 50, 56, 0.5);
-      backdrop-filter: blur(8px);
-
-      font-family: "Poppins";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 28px;
-      letter-spacing: 0.01em;
-      color: rgba(18, 23, 36, 0.42);
-      outline: none;
-
-      ::-webkit-input-placeholder {
-        /* Chrome/Opera/Safari */
-        color: rgba(18, 23, 36, 0.42);
-      }
-      ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: rgba(18, 23, 36, 0.42);
-      }
-      :-ms-input-placeholder {
-        /* IE 10+ */
-        color: rgba(18, 23, 36, 0.42);
-      }
-      :-moz-placeholder {
-        /* Firefox 18- */
-        color: rgba(18, 23, 36, 0.42);
-      }
-    }
 
     .back-icon,
     .search-icon {

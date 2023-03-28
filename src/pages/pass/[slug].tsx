@@ -28,6 +28,7 @@ export const getServerSideProps = async ({ query }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
+  console.log(query.slug)
   const response = await axios.get(`${apiURL}/api/passes`, {
     params: {
       populate: "artist.banner,event,tour,collection_preview_image",

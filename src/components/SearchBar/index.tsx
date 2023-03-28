@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import React, { Component, createRef, RefObject } from "react"
+import Link from "next/link"
 import algoliasearch from "algoliasearch/lite"
 import {
   Configure,
@@ -121,7 +122,7 @@ const Hits = ({ hits }: any) => {
   return (
     <>
       {hits.map((hit: any) => (
-        <div key={hit.objectID}>
+        <div key={hit.objectID} className="hit-result">
           {hit.collection_name && <PassHit hit={hit} />}
           {hit.bio && <ArtistHit hit={hit} />}
           {hit.country && <EventHit hit={hit} />}
@@ -133,30 +134,30 @@ const Hits = ({ hits }: any) => {
 
 const PassHit = ({ hit }: any) => {
   return (
-    <>
+    <Link href={"/pass/" + hit?.contract_address}>
       <span className="type">Pass </span>
       <div className="res">{hit?.collection_name}</div>
-    </>
+    </Link>
   )
 }
 
 const ArtistHit = ({ hit }: any) => {
   return (
-    <>
+    <Link href={"/artist/" + hit?.slug}>
       <span className="type">Artist </span>
       <div className="res">{hit?.name}</div>
-    </>
+    </Link>
   )
 }
 
 const EventHit = ({ hit }: any) => {
   return (
-    <>
+    <Link href={"/"}>
       <span className="type">Show </span>
       <div className="res">
         {hit?.name} - {hit?.city}, {hit?.country} - {dateFormat(hit?.date)}
       </div>
-    </>
+    </Link>
   )
 }
 
