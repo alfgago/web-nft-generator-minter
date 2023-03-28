@@ -1,5 +1,4 @@
 import React from "react"
-import Marquee from "react-fast-marquee"
 import { ReactSVG } from "react-svg"
 
 import { TooltipStyles } from "./TooltipStyles"

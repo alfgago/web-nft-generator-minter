@@ -28,7 +28,7 @@ const ShowsCarousel = () => {
     <ShowsCarouselStyles>
       <h2 className="side-title">Upcoming Shows</h2>
       <div className="carousel">
-        <Marquee pauseOnHover={true} speed={width < 1080 ? 50 : 8}>
+        <Marquee pauseOnHover={true} speed={width < 1080 ? 50 : 50}>
           {events.map((event: any, index: number) => {
             return <EventCard key={"ShowItem" + index} eventData={event} />
           })}

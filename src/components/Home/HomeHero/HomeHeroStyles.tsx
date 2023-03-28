@@ -171,9 +171,47 @@ export const HomeHeroStyles = styled.section`
         z-index: -1;
       }
     }
+
+    &.stroked {
+      mix-blend-mode: unset;
+      .st1 {
+        fill: none;
+        stroke-width: 2px;
+        stroke: #fff;
+      }
+
+      .st0 {
+        display: none;
+      }
+    }
+  }
+
+  .stroked-banner {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 12.25rem;
+    z-index: 1;
+    .banner-logo {
+      mix-blend-mode: unset;
+
+      svg {
+        > path {
+          display: none;
+        }
+        .plusone-text path,
+        .plusone-text polygon {
+          opacity: 1;
+          fill: none;
+          stroke: #fff;
+          stroke-width: 3px;
+        }
+      }
+    }
   }
 
   .banner-logo {
+    position: relative;
     mix-blend-mode: overlay;
     padding-bottom: 0;
     pointer-events: none;

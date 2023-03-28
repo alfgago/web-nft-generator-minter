@@ -24,11 +24,21 @@ const HomeHero = ({ title, copy, image }: any) => {
       </div>
       <div className="watermark" />
 
-      <div className="banner-logo content">
-        <ReactSVG src="/assets/img/logo-hero.svg" />
-      </div>
-      <div className="upcoming-svg content">
-        <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
+      <div className="svgs">
+        <div className="stroked-banner">
+          <div className="banner-logo content">
+            <ReactSVG src="/assets/img/logo-hero.svg" />
+          </div>
+        </div>
+        <div className="banner-logo content">
+          <ReactSVG src="/assets/img/logo-hero.svg" />
+        </div>
+        <div className="upcoming-svg content">
+          <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
+        </div>
+        <div className="upcoming-svg content stroked">
+          <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
+        </div>
       </div>
       <div className="content screen">
         <div className="left">
