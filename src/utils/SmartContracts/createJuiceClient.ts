@@ -19,6 +19,7 @@ export const createJuiceClientForAutomation = async (
     passphrase: process.env.JUICE_WALLET_PASSPHRASE,
     walletAddress: process.env.JUICE_WALLET_ADDRESS,
     network,
+    isManaged: true,
   })
 
   // client lib for interacting with juice contracts
