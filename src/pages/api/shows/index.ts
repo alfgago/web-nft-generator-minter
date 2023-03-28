@@ -11,11 +11,12 @@ const fetchData = async ({
   passType = false,
   passId = 0,
   nft = 0,
+  future = false,
 }: any) => {
   const apiURL = process.env.API_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const cacheKey = `shows_${page}_${limit}_${artist}_${user}_${passType}_${passId}_${nft}`
+  const cacheKey = `shows_${page}_${limit}_${artist}_${user}_${passType}_${passId}_${nft}_${future}`
   const cached = cache.get(cacheKey)
   if (cached) {
     return cached
@@ -35,7 +36,17 @@ const fetchData = async ({
     // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
   }
+  if (future) {
+    const today = new Date()
+    const dd = String(today.getDate()).padStart(2, "0")
+    const mm = String(today.getMonth() + 1).padStart(2, "0") // January is 0!
+    const yyyy = today.getFullYear()
+    const todayString = yyyy + "-" + mm + "-" + dd // Temporalmente usando 2020, porque de lo contrario no muestra datos, mientras llenamos BD
 
+    params["sort[0]"] = "date:asc"
+    // @ts-ignore
+    params["filters[date][$gte]"] = todayString
+  }
   if (passType) {
     // @ts-ignore
     params["filters[passes][pass_type][$eq]"] = passType

@@ -48,10 +48,9 @@ const CardPass = ({ pass, event }: any) => {
     return (
       <CardPassStyles>
         <div className="flex">
-          <Image
+          <img
             src={cleanUrl(imgCardPass())}
             alt={title + " preview"}
-            quality={90}
             width={300}
             height={300}
           />

@@ -22,12 +22,6 @@ const fetchData = async ({
     return cached
   }
 
-  const today = new Date()
-  const dd = String(today.getDate()).padStart(2, "0")
-  const mm = String(today.getMonth() + 1).padStart(2, "0") // January is 0!
-  const yyyy = today.getFullYear()
-  const todayString = 2020 + "-" + mm + "-" + dd // Temporalmente usando 2020, porque de lo contrario no muestra datos, mientras llenamos BD
-
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
@@ -39,6 +33,11 @@ const fetchData = async ({
     params["filters[pass_type][$eq]"] = type
   }
   if (future) {
+    const today = new Date()
+    const dd = String(today.getDate()).padStart(2, "0")
+    const mm = String(today.getMonth() + 1).padStart(2, "0") // January is 0!
+    const yyyy = today.getFullYear()
+    const todayString = yyyy + "-" + mm + "-" + dd // Temporalmente usando 2020, porque de lo contrario no muestra datos, mientras llenamos BD
     // @ts-ignore
     params["filters[drop_date][$gte]"] = todayString
   }

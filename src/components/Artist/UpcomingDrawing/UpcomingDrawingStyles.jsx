@@ -4,6 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const UpcomingDrawingStyles = styled.section`
   background: ${COLORS.white};
+  padding-top: 0;
   h2 {
     margin-bottom: 0;
   }
@@ -134,12 +135,16 @@ export const DrawRow = styled.div`
       padding: 0 ${40 / 16}rem;
       margin-top: ${40 / 16}rem;
       margin-bottom: ${40 / 16}rem;
-      font-size: ${32 / 16}rem;
+      font-size: ${30 / 16}rem;
     }
 
     .time {
       display: flex;
       width: 100%;
+      @media ${DEVICE.laptop} {
+        font-size: ${24 / 16}rem;
+        color: #444;
+      }
     }
     .place {
       display: flex;
