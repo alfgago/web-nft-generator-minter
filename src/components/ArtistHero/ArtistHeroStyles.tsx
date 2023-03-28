@@ -91,6 +91,7 @@ export const ArtistImage = styled.div<Props>`
     bottom: 4rem;
     left: 3rem;
     z-index: 4;
+    max-height: 11rem;
 
     @media ${DEVICE.laptop} {
       display: block;

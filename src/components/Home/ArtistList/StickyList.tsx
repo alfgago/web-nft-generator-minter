@@ -111,7 +111,7 @@ const StickyList = ({
                       })}
                       <div className="p1-side-logo">
                         <img
-                          src="/assets/img/p1-side-logo.svg"
+                          src="/assets/img/plusone-logo-vertical.png"
                           alt="PlusOne Side Logo"
                         />
                       </div>
