@@ -15,10 +15,14 @@ yesterday.setDate(yesterday.getDate() - 1)
 const ShowRow = ({ item, index }: any) => {
   const initialPass = item.attributes.passes?.data[0]
   const [pass, setPass] = useState(initialPass)
-
+  console.log(item.attributes)
+  console.log(item.attributes?.image?.data?.attributes?.formats)
+  const eventImage =
+    item.attributes?.image?.data?.attributes?.formats?.small?.url ??
+    "/assets/img/drop-pic-2.png"
   const imageUrl = item.attributes.passes.data.length
     ? pass.attributes.preview_image_url
-    : "/assets/img/drop-pic-2.png"
+    : eventImage
 
   const dropDate = item.attributes.passes.data.length
     ? new Date(pass.attributes.drop_date)
@@ -127,25 +131,37 @@ const ShowRow = ({ item, index }: any) => {
               }
             />
             <div className="name">
-              <select
-                onChange={(e: any) => {
-                  selectPass(e.target.value)
-                }}
-              >
-                {item.attributes.passes.data.length &&
-                  item.attributes.passes.data.map((p: any, index: number) => (
-                    <option key={"pass-item-" + p.id} value={index}>
-                      {p.attributes.collection_name}
-                    </option>
-                  ))}
-              </select>
-              <img
-                src="/assets/icons/chevron-down.svg"
-                className="chevron"
-                alt="chevron"
-                width="32"
-                height="23"
-              />
+              {item.attributes.passes.data.length ? (
+                <>
+                  <select
+                    onChange={(e: any) => {
+                      selectPass(e.target.value)
+                    }}
+                  >
+                    {item.attributes.passes.data.length ? (
+                      item.attributes.passes.data.map(
+                        (p: any, index: number) => (
+                          <option key={"pass-item-" + p.id} value={index}>
+                            {p.attributes.collection_name}
+                          </option>
+                        )
+                      )
+                    ) : (
+                      <option>No pass available for this show</option>
+                    )}
+                  </select>
+
+                  <img
+                    src="/assets/icons/chevron-down.svg"
+                    className="chevron"
+                    alt="chevron"
+                    width="32"
+                    height="23"
+                  />
+                </>
+              ) : (
+                <div>No pass available for this show</div>
+              )}
             </div>
           </div>
         </div>

@@ -5,29 +5,15 @@ import algoliasearch from "algoliasearch/lite"
 import {
   Configure,
   connectHits,
+  connectSearchBox,
   Index,
   InstantSearch,
-  SearchBox,
 } from "react-instantsearch-dom"
-import { ReactSVG } from "react-svg"
-import sanitizeHtml from "sanitize-html"
-import slugify from "slugify"
 
+import DebouncedSearchBox from "./DebouncedSearchBox"
 import SearchBarStyles from "./SearchBarStyles"
 
-interface Hit {
-  title: string
-  short_answer?: string
-  link: string
-  icon: string
-  faq_page_title?: string
-  sections_content?: string
-  relative_permalink: string
-}
-
-const sanitizeSettings = {
-  allowedTags: ["b"],
-}
+const CustomSearchBox = connectSearchBox(DebouncedSearchBox)
 
 const toggleSearchBar = (active: boolean) => {
   if (active) {
@@ -90,24 +76,20 @@ class SearchBar extends Component {
           searchClient={searchClient}
         >
           <div id="search-bar" onClick={() => toggleSearchBar(true)}>
-            <SearchBox
-              translations={{
-                placeholder: "Search by artist, venue, or city...",
-              }}
-            />
+            <CustomSearchBox />
           </div>
           <div className="results-box">
             <div className="results">
+              <Index indexName="production_api::artist.artist">
+                <Configure hitsPerPage={5} />
+                <CustomHits />
+              </Index>
               <Index indexName="production_api::pass.pass">
-                <Configure hitsPerPage={10} />
+                <Configure hitsPerPage={3} />
                 <CustomHits />
               </Index>
               <Index indexName="production_api::event.event">
-                <Configure hitsPerPage={10} />
-                <CustomHits />
-              </Index>
-              <Index indexName="production_api::artist.artist">
-                <Configure hitsPerPage={10} />
+                <Configure hitsPerPage={3} />
                 <CustomHits />
               </Index>
             </div>
@@ -161,7 +143,6 @@ const EventHit = ({ hit }: any) => {
   )
 }
 
-// 2. Connect the component using the connector
 const CustomHits = connectHits(Hits)
 
 const dateFormat = (value: any) => {

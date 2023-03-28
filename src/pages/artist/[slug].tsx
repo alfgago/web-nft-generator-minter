@@ -44,7 +44,7 @@ export const getServerSideProps = async ({ query }: any) => {
 
   const response = await axios.get(`${apiURL}/api/artists`, {
     params: {
-      populate: "banner,events.passes",
+      populate: "banner,events.passes,events.image",
       "filters[slug][$eq]": query.slug,
     },
     headers: {

@@ -69,11 +69,13 @@ export const ShowRowStyles = styled.div`
     img {
       height: ${160 / 16}rem;
       width: ${160 / 16}rem;
+      min-width: ${160 / 16}rem;
       object-fit: cover;
 
       @media ${DEVICE.laptop} {
         height: ${160 / 16}rem;
         width: ${160 / 16}rem;
+        min-width: ${160 / 16}rem;
       }
     }
   }

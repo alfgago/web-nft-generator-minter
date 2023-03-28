@@ -58,6 +58,10 @@ const SearchBarStyles = styled.div`
     overflow: auto;
   }
 
+  input {
+    outline: none !important;
+  }
+
   &.active .results-box {
     display: block;
   }
