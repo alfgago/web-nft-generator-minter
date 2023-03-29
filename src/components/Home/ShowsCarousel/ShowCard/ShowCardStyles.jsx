@@ -41,8 +41,8 @@ export const ShowCardStyles = styled.div`
       bottom: 0;
       left: 0;
       width: 100%;
-      font-size: 20px;
-      padding: 20px;
+      font-size: 1.1rem;
+      padding: 1.1rem;
       font-weight: bold;
       text-align: left;
       color: #fff;

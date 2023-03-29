@@ -25,7 +25,7 @@ const fetchData = async ({
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
-    populate: "artist.banner,event,tour,collection_preview_image",
+    populate: "artist.banner,event.image,tour,collection_preview_image",
     sort: "drop_date:desc",
   }
   if (type && type != "All") {

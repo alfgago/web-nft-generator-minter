@@ -24,8 +24,11 @@ const PassPreview = ({
   }
 
   return (
-    <PassPreviewStyles className={"pass-preview " + customClass}>
+    <PassPreviewStyles
+      className={"pass-preview " + customClass + " " + template}
+    >
       <div className="inner">
+        <div className="bg" />
         <div className="main-image">
           <img src={previewUrl} alt="Image preview" />
           <div className="text">

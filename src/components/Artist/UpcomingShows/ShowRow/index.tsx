@@ -18,7 +18,7 @@ const ShowRow = ({ item, index }: any) => {
   console.log(item.attributes)
   console.log(item.attributes?.image?.data?.attributes?.formats)
   const eventImage =
-    item.attributes?.image?.data?.attributes?.formats?.small?.url ??
+    item.attributes?.image?.data?.attributes?.url ??
     "/assets/img/drop-pic-2.png"
   const imageUrl = item.attributes.passes.data.length
     ? pass.attributes.preview_image_url

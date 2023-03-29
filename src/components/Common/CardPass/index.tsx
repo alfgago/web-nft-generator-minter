@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import PassDescription from "@/components/PassDescription"
+import PassPreview from "@/components/PassPreview"
 import cleanUrl from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
@@ -16,7 +17,7 @@ const dateFormat = (value: any) => {
   return day + " " + month + " " + year
 }
 
-const CardPass = ({ pass, event }: any) => {
+const CardPass = ({ pass, event, isGiveaway = false }: any) => {
   if (!event) {
     event = pass.attributes.event.data
       ? pass.attributes.event.data.attributes
@@ -28,6 +29,7 @@ const CardPass = ({ pass, event }: any) => {
   const eventName = event.name ?? ""
   const eventDate = event.date ?? ""
   const date = pass.attributes.drop_date ?? ""
+  const eventImage = event?.image?.data?.attributes?.url
 
   const imgCardPass = () => {
     let value = ""
@@ -53,8 +55,9 @@ const CardPass = ({ pass, event }: any) => {
             alt={title + " preview"}
             width={300}
             height={300}
+            className="pic"
           />
-          <div className="inner">
+          <div className="inner-card">
             <div className="titles trap">
               {title && <div className="title">{title}</div>}
               {date && <div className="date"> Drop: {dateFormat(date)}</div>}
@@ -73,19 +76,33 @@ const CardPass = ({ pass, event }: any) => {
             </div>
           </div>
           <div className="more">
-            <Image
-              className="artist-pic"
-              src={cleanUrl(
-                pass.attributes.artist.data.attributes.banner.data.attributes
-                  .url
-              )}
-              alt={
-                pass.attributes.artist.data.attributes.name + " Plus One image"
-              }
-              quality={90}
-              width={300}
-              height={300}
-            />
+            {isGiveaway && event ? (
+              <div className="golden-preview">
+                <PassPreview
+                  previewUrl={eventImage}
+                  name={eventName}
+                  city={event.city}
+                  country={event.country}
+                  date={event.date}
+                  template="golden"
+                />
+              </div>
+            ) : (
+              <Image
+                className="pic"
+                src={cleanUrl(
+                  pass.attributes.artist.data.attributes.banner.data.attributes
+                    .url
+                )}
+                alt={
+                  pass.attributes.artist.data.attributes.name +
+                  " Plus One image"
+                }
+                quality={90}
+                width={300}
+                height={300}
+              />
+            )}
             {eventName && (
               <div className="info">
                 <div>

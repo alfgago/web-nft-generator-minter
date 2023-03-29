@@ -36,6 +36,49 @@ export const PassPreviewStyles = styled.div`
     margin: 0;
   }
 
+  &.golden {
+    .inner {
+      .right {
+        .text {
+          position: absolute;
+          top: 50%;
+        }
+      }
+    }
+    .bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-bottom-left-radius: 30px;
+      border-top-left-radius: 30px;
+      overflow: hidden;
+      &:before {
+        background-image: url("/assets/img/gold-bg.jpg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center right;
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      &:after {
+        content: "";
+        background: #fff;
+        position: absolute;
+        content: "";
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+      }
+    }
+  }
+
   .inner {
     background: #fff;
     position: relative;
@@ -49,6 +92,21 @@ export const PassPreviewStyles = styled.div`
       position: relative;
       height: 100%;
       width: 75%;
+      :before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        content: "";
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.4) 60%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 1;
+        border-radius: 30px;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -67,6 +125,7 @@ export const PassPreviewStyles = styled.div`
         font-weight: bold;
         text-align: left;
         color: #fff;
+        z-index: 1;
       }
     }
 
@@ -101,5 +160,9 @@ export const PassPreviewStyles = styled.div`
         height: auto;
       }
     }
+  }
+
+  img {
+    pointer-events: none;
   }
 `

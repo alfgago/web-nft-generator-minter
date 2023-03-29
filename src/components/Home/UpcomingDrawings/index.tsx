@@ -14,21 +14,37 @@ const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
   const [passes, setPasses] = useState([])
   const [types, setTypes] = useState([])
 
-  async function fetchData() {
+  const getArtistShow = async (artistId) => {
+    const { data } = await axios.get(
+      "/api/shows?limit=1&future=true&artist=" + artistId
+    )
+    // Update the state with the response data
+    const show = data.data.length ? data.data[0] : false
+
+    return show
+  }
+
+  const fetchData = async () => {
     try {
       const { data } = await axios.get("/api/passes?type=Circle&future=true")
       // Update the state with the response data
-      const passes = data.data
-      const groupedByArtist = passes.reduce((group: any, pass: any) => {
-        const category = pass.attributes.artist.data.attributes.name
-        group[category] = group[category] ?? []
-        group[category].push(pass)
+      const passesWithShow = data.data
+      for (const pass of passesWithShow) {
+        const show = await getArtistShow(pass.attributes.artist.data.id)
+        pass.attributes.upcomingShow = show
+      }
+      const groupedByArtist = passesWithShow.reduce((group: any, pass: any) => {
+        if (pass.attributes.upcomingShow) {
+          const category = pass.attributes.artist.data.attributes.name
+          group[category] = group[category] ?? []
+          group[category].push(pass)
+        }
         return group
       }, {})
 
       const typesList = []
-      Object.keys(groupedByArtist).forEach((artist: any) => {
-        typesList.push({ name: artist })
+      Object.keys(groupedByArtist).forEach((artistName: any) => {
+        typesList.push({ name: artistName })
       })
       setTypes(typesList)
       setPasses(Object.values(groupedByArtist))
@@ -67,6 +83,8 @@ const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
                     <CardPass
                       key={"home-pass-" + selectedPass + "-" + index}
                       pass={pass}
+                      event={pass.attributes.upcomingShow.attributes}
+                      isGiveaway={true}
                     />
                   ) : (
                     ""

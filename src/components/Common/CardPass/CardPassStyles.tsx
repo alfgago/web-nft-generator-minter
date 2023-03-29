@@ -28,7 +28,7 @@ export const CardPassStyles = styled.div`
   }
 
   .more,
-  img {
+  .pic {
     position: relative;
     width: 40%;
     object-fit: cover;
@@ -59,6 +59,7 @@ export const CardPassStyles = styled.div`
 
   .info {
     position: absolute;
+    display: none;
     top: 0;
     left: 0;
     width: 100%;
@@ -71,6 +72,7 @@ export const CardPassStyles = styled.div`
     padding: 1rem;
     color: #fff;
     transition: 0.5s ease all;
+    z-index: 2;
     > div {
       margin-bottom: 0.5rem;
       b {
@@ -86,7 +88,7 @@ export const CardPassStyles = styled.div`
     opacity: 1;
   }
 
-  .inner {
+  .inner-card {
     width: 60%;
     display: flex;
     padding: 20px 15px;
@@ -139,5 +141,28 @@ export const CardPassStyles = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
+  }
+
+  .golden-preview {
+    width: 100%;
+    height: 100%;
+    .golden {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 16px;
+      .inner {
+        width: 100%;
+        height: 100%;
+        .text {
+          font-size: 11px;
+          padding: 11px 8px;
+        }
+
+        .qr {
+          bottom: 8px !important;
+        }
+      }
+    }
   }
 `
