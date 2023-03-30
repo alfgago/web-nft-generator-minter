@@ -21,7 +21,7 @@ const UpcomingShows = ({ events }: any) => {
         <h2 className="title">Upcoming Shows</h2>
         <p className="desc">
           Connect your wallet to see show access status based on which passes
-          you currently own.
+          you currently own
           <Tooltip text="Don't own any passes?  Purchase a single event guest pass for guaranteed access to the show, or purchase a circle pass and enter giveaways to win a free guest pass (each guest pass includes entry for two)" />
         </p>
         {events.data && events.data.length ? (

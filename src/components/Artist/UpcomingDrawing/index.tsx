@@ -45,8 +45,8 @@ const UpcomingDrawing = ({ artistId }: any) => {
       <div className="content">
         <h2 className="title">Upcoming Giveaways</h2>
         <p className="description">
-          You must own an artist's circle pass to enter to win single event
-          guest pass giveaways{" "}
+          You must own an artist's circle pass to enter to win single event{" "}
+          <span className="golden">golden</span> guest pass giveaways{" "}
           <Tooltip text="Winning circle users will be automatically sent a one-of-a-kind single event guest pass as soon as the countdown clock expires." />
         </p>
         <div>
@@ -136,8 +136,8 @@ export const DrawingData = ({ show, pass }: any) => {
             </div>
             <div className="info">
               <h3>{namePass}</h3>
-              <div>
-                <p>Floor price: {price} eth</p>
+              <div className="info-pass">
+                <p>Plus Perks: Artist Meet & Greet</p>
               </div>
             </div>
           </div>
