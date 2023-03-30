@@ -75,7 +75,7 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
             <div className="action">
               <Link href={`/pass/${pass.attributes.contract_address}`}>
                 <CommonPill className="clickable fill small">
-                  Enter Giveaway
+                  Buy Now
                 </CommonPill>
               </Link>
             </div>
