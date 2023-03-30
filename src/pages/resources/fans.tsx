@@ -15,7 +15,7 @@ const FanResources = ({ page }: any) => {
 }
 
 export const getStaticProps = async () => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 

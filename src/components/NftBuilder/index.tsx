@@ -282,6 +282,7 @@ const NftBuilder = ({ artists }: any) => {
                   contractDeployed={contractDeployed}
                   contractAddress={contractAddress}
                   errorMessage={errorMessage}
+                  setErrorMessage={setErrorMessage}
                   setUploading={setUploading}
                 />
               ) : (

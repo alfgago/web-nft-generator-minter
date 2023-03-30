@@ -4,7 +4,7 @@ import { NFTStorage } from "nft.storage"
 import Strapi from "strapi-sdk-js"
 
 const createPass = async (values: any) => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
   const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })

@@ -22,6 +22,7 @@ const ConfirmationSingle = ({
   contractAddress,
   contractDeployed,
   errorMessage,
+  setErrorMessage,
   setUploading,
 }) => {
   const [previewImages, setPreviewImages] = useState([])
@@ -38,11 +39,25 @@ const ConfirmationSingle = ({
   }
   const postImage = async (data) => {
     try {
-      const response = await axios.post("/api/generate-pass-image", data)
+      const apiURL =
+        process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337"
+      const token = process.env.NEXT_PUBLIC_API_TOKEN_LIMITED
+
+      const response = await axios.post(
+        `${apiURL}/api/generate-pass-image`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      // const response = await axios.post("/api/generate-pass-image", data)
       return response.data
     } catch (error) {
       console.error("Error:", error)
-      throw new Error("There was an error posting the data")
+      setErrorMessage("Error: " + e.error)
     }
   }
 

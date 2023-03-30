@@ -13,7 +13,7 @@ const fetchData = async ({
   nft = 0,
   future = false,
 }: any) => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
   const cacheKey = `shows_${page}_${limit}_${artist}_${user}_${passType}_${passId}_${nft}_${future}`

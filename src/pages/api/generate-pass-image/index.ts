@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
-import { NFTStorage } from "nft.storage"
 import puppeteer from "puppeteer"
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""

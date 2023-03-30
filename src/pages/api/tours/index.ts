@@ -10,7 +10,7 @@ const fetchData = async ({
   user = 0,
   type = "Lottery",
 }: any) => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
   const cacheKey = `tours_${page}_${limit}_${random}_${user}_${type}`

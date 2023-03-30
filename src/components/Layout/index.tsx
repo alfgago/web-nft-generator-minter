@@ -67,15 +67,19 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         )
 
         apiResponse = data.data
-        const userData =
-          apiResponse[0].attributes.artist.data.attributes.user.data.attributes
+        const userData = apiResponse.length
+          ? apiResponse[0].attributes.artist.data.attributes.user.data
+              .attributes
+          : null
 
-        setUserInfo({
-          id: "id_" + userData.email,
-          name: userData.name,
-          email: userData.email,
-          profileUrl: "",
-        })
+        if (userData) {
+          setUserInfo({
+            id: "id_" + userData.email,
+            name: userData.name,
+            email: userData.email,
+            profileUrl: "",
+          })
+        }
       }
 
       if (!user && address) {
@@ -140,8 +144,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           })
           .filter((event: any) => event !== null)
       )
-    } catch (err: any) {
-      console.log(err)
+    } catch (e: any) {
+      console.log(e)
     }
   }
   // Fetch the data in the useEffect hook

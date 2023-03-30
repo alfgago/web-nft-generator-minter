@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
 
 export const signInRequest = async ({ email, password }) => {
   const response = await axios.post(`${apiURL}/api/auth/local`, {

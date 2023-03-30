@@ -4,7 +4,7 @@ import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({ image }: any) => {
-  const apiURL = process.env.API_URL ?? "http://localhost:1337/"
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
   const cacheKey = `nfts_byipfs_${image}`

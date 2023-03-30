@@ -40,9 +40,11 @@ const NewDateForm = () => {
     // Function to upload the image to Strapi
     const formData = new FormData()
     formData.append("files", file)
+    const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337"
+    const token = process.env.NEXT_PUBLIC_API_TOKEN_LIMITED
 
     const strapi = new Strapi({
-      url: "https://plusone.stag.host",
+      url: apiURL,
       prefix: "/api",
       store: {
         key: "strapi_jwt",
@@ -51,7 +53,7 @@ const NewDateForm = () => {
       },
       axiosOptions: {
         headers: {
-          Authorization: `Bearer 2ca1d8120bae3fc23a56a6e25a9bf46605f3a154e7fcbc71767228515db89ca5156ae736595a96fba22ccc7bc28d409e73183e102c771f692f3c7491303149d98c4962e6912ae9e538dc24153a28eca6c8c3aef6beed86fd600522173d1d391262438e9a7782330dbee30a2154c0cf24df96a9b7d1a2cf85c3ed11f243ff0f65`,
+          Authorization: `Bearer ${token}`,
         },
       },
     })

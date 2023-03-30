@@ -33,7 +33,7 @@ const nextConfig = {
     return [
       {
         source: "/uploads/:path*",
-        destination: process.env.API_URL + "/uploads/:path*", // Proxy to Backend
+        destination: process.env.NEXT_PUBLIC_STRAPI_URL + "/uploads/:path*", // Proxy to Backend
       },
       {
         source: "/aws/:path*",
