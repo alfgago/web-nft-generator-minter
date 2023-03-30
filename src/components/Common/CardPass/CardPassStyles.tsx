@@ -23,8 +23,16 @@ export const CardPassStyles = styled.div`
   }
 
   .descriptor {
-    max-width: ${700 / 16}rem;
+    max-width: ${560 / 16}rem;
     margin-top: 1rem;
+    font-size: 1.2rem;
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .size {
+    display: none;
   }
 
   .more,

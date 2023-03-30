@@ -3,6 +3,7 @@ import Image from "next/image"
 import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import cleanUrl from "@/utils/cleanUrl"
 import { getPassDescription } from "@/utils/getPassDescription"
 
 import SimpleHeader from "../Common/SimpleHeader"
@@ -40,7 +41,7 @@ const SinglePass = ({ pass }: any) => {
       <SimpleHeader className="pass-header">
         <div className="flex">
           <Image
-            src={pass.attributes.preview_image_url}
+            src={cleanUrl(pass.attributes.preview_image_url)}
             alt="PlusOne collection preview image"
             quality={90}
             width={400}

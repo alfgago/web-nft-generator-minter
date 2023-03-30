@@ -223,7 +223,7 @@ const NftBuilder = ({ artists }: any) => {
 
   return (
     <NftBuilderStyles>
-      <SimpleHeader title="NFT Collection Generator" />
+      <SimpleHeader title="Pass Collection Generator" />
       <StepsHeader activeStep={activeStep} />
       <section className="steps">
         <div className="content">

@@ -163,7 +163,7 @@ export const DrawingData = ({ show, pass }: any) => {
                     !canGetLottery ? "disable" : ""
                   }`}
                 >
-                  Enter Circle
+                  Enter Giveaway
                 </CommonPill>
               </Link>
             </div>

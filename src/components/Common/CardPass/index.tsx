@@ -17,7 +17,7 @@ const dateFormat = (value: any) => {
   return day + " " + month + " " + year
 }
 
-const CardPass = ({ pass, event, isGiveaway = false }: any) => {
+const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
   if (!event) {
     event = pass.attributes.event.data
       ? pass.attributes.event.data.attributes
@@ -31,46 +31,51 @@ const CardPass = ({ pass, event, isGiveaway = false }: any) => {
   const date = pass.attributes.drop_date ?? ""
   const eventImage = event?.image?.data?.attributes?.url
 
-  const imgCardPass = () => {
-    let value = ""
-
-    try {
-      value =
-        pass.attributes.preview_image_url ??
-        "/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
-    } catch (error) {
-      value =
-        "/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
-    }
-
-    return value
-  }
+  const imgCardPass = cleanUrl(
+    pass?.attributes?.preview_image_url ??
+      "https://plusonemusic.io/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
+  )
 
   try {
     return (
       <CardPassStyles>
         <div className="flex">
-          <img
-            src={cleanUrl(imgCardPass())}
-            alt={title + " preview"}
-            width={300}
-            height={300}
-            className="pic"
-          />
+          {imgCardPass.startsWith("https://plusonemusic.io") ? (
+            <Image
+              src={imgCardPass}
+              alt={title + " preview"}
+              width={300}
+              height={300}
+              quality={90}
+              className="pic"
+            />
+          ) : (
+            <img
+              src={imgCardPass}
+              alt={title + " preview"}
+              width={300}
+              height={300}
+              className="pic"
+            />
+          )}
           <div className="inner-card">
             <div className="titles trap">
               {title && <div className="title">{title}</div>}
-              {date && <div className="date"> Drop: {dateFormat(date)}</div>}
+              {date && (
+                <div className="date"> Giveaway date: {dateFormat(date)}</div>
+              )}
             </div>
             <div className="descriptor">
               <div className="timer">{pass.timer}</div>
               {size && <div className="size">Size: {size}</div>}
-              {price && <div className="price">Floor: {price} eth</div>}
+              {price && (
+                <div className="price">Circle pass: ${price * 1000}</div>
+              )}
             </div>
             <div className="action">
               <Link href={`/pass/${pass.attributes.contract_address}`}>
                 <CommonPill className="clickable fill small">
-                  Enter Circle
+                  Enter Giveaway
                 </CommonPill>
               </Link>
             </div>
@@ -115,7 +120,7 @@ const CardPass = ({ pass, event, isGiveaway = false }: any) => {
             )}
           </div>
         </div>
-        <PassDescription pass={pass} />
+        <PassDescription pass={pass} isHome={isHome} />
       </CardPassStyles>
     )
   } catch (error) {

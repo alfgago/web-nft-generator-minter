@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
@@ -53,7 +54,12 @@ const DropCard = ({ pass, classes = "" }: any) => {
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <img src={cleanUrl(imageUrl)} alt="Collection Preview Image" />
+        <Image
+          src={cleanUrl(imageUrl)}
+          width={500}
+          height={500}
+          alt="Collection Preview Image"
+        />
       </div>
       <div className="inner">
         <div className="titles">

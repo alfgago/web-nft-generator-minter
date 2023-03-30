@@ -1,5 +1,10 @@
 const clean = (src: string) => {
+  src = convertFromNftStorage(src)
   const cleaned = src
+    .replace(
+      "https://plusone-public.s3.amazonaws.com",
+      process.env.NEXT_PUBLIC_DOMAIN + "/aws"
+    )
     .replace(
       "https://plusone-public.s3.amazonaws.com",
       process.env.NEXT_PUBLIC_DOMAIN + "/aws"
@@ -8,4 +13,17 @@ const clean = (src: string) => {
 
   return cleaned
 }
+
+function convertFromNftStorage(url: string) {
+  if (url.includes("ipfs.nftstorage")) {
+    url = url.replace("https://", "")
+    const urlParts = url.split(".")
+    const ipfsHash = urlParts[0]
+    console.log(url)
+    console.log(`https://plusonemusic.io/ipfs/${ipfsHash}`)
+    return `https://plusonemusic.io/ipfs/${ipfsHash}`
+  }
+  return url
+}
+
 export default clean

@@ -85,6 +85,7 @@ const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
                       pass={pass}
                       event={pass.attributes.upcomingShow.attributes}
                       isGiveaway={true}
+                      isHome={true}
                     />
                   ) : (
                     ""

@@ -7,12 +7,13 @@ import TypeList from "@/components/Common/TypeList"
 
 import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
-const GuestListNFT = ({ artist }: any) => {
+const GuestListNFT = ({ artist, events = [] }: any) => {
   const { width } = useWindowSize()
   const [selectedPassType, setSelectedPassType] = useState(0)
   const [passes, setPasses] = useState([])
   const [filteredPasses, setFilteredPasses] = useState([])
   const [selectedPassNav, setSelectedPassNav] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const types = [
     { name: "Circle", value: "Circle" },
@@ -25,9 +26,11 @@ const GuestListNFT = ({ artist }: any) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(false)
         const { data } = await axios.get("/api/passes?artist=" + artist.id)
         const artistPasses = data.data
         setPasses(artistPasses)
+        setLoading(true)
       } catch (err: any) {
         console.log(err)
       }
@@ -47,70 +50,92 @@ const GuestListNFT = ({ artist }: any) => {
 
   return (
     <GuestListNFTStyles>
-      {passes.length > 0 ? (
-        <div className="content">
-          {width < 1080 && (
-            <div className="mobile-col2">
-              <h2>Artist Passes</h2>
-              <p className="subt-filter">Pass type:</p>
-              <TypeList
-                types={types}
-                onSelect={setSelectedPassType}
-                selected={selectedPassType}
-              />
-            </div>
-          )}
-          <div className="column1">
-            {filteredPasses.length ? (
-              filteredPasses.map((item: any, index: number) => {
-                return selectedPassNav == index ? (
-                  <CardPass key={"pass" + index} pass={item} />
+      {loading ? (
+        <>
+          {passes.length > 0 ? (
+            <div className="content">
+              {width < 1080 && (
+                <div className="mobile-col2">
+                  <h2>Artist Passes</h2>
+                  <p className="subt-filter">Pass type:</p>
+                  <TypeList
+                    types={types}
+                    onSelect={setSelectedPassType}
+                    selected={selectedPassType}
+                  />
+                </div>
+              )}
+              <div className="column1">
+                {filteredPasses.length ? (
+                  filteredPasses.map((item: any, index: number) => {
+                    return selectedPassNav == index ? (
+                      <>
+                        <CardPass
+                          key={"pass" + index}
+                          pass={item}
+                          event={events.length ? events[0].attributes : false}
+                          isGiveaway={item.attributes.pass_type == "Circle"}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )
+                  })
+                ) : (
+                  <h3 className="not-found">
+                    No {types[selectedPassType].name} passes found for this
+                    artist.
+                  </h3>
+                )}
+
+                {filteredPasses.length > 1 ? (
+                  <div className="counter">
+                    {filteredPasses.map((pass: any, index: number) => {
+                      return (
+                        <button
+                          key={
+                            "home-pass-counter" + selectedPassType + "-" + index
+                          }
+                          className={`counter is-active-${
+                            index == selectedPassNav
+                          }`}
+                          onClick={() => setSelectedPassNav(index)}
+                        >
+                          {index + 1}
+                        </button>
+                      )
+                    })}
+                  </div>
                 ) : (
                   ""
-                )
-              })
-            ) : (
-              <h3 className="not-found">
-                No {types[selectedPassType].name} passes found for this artist.
-              </h3>
-            )}
-
-            {filteredPasses.length > 1 ? (
-              <div className="counter">
-                {filteredPasses.map((pass: any, index: number) => {
-                  return (
-                    <button
-                      key={"home-pass-counter" + selectedPassType + "-" + index}
-                      className={`counter is-active-${
-                        index == selectedPassNav
-                      }`}
-                      onClick={() => setSelectedPassNav(index)}
-                    >
-                      {index + 1}
-                    </button>
-                  )
-                })}
+                )}
               </div>
-            ) : (
-              ""
-            )}
-          </div>
-          {width > 1080 && (
-            <div className="column2">
+              {width > 1080 && (
+                <div className="column2">
+                  <h2>Artist Passes</h2>
+                  <p className="subt-filter">Pass type:</p>
+                  <TypeList
+                    types={types}
+                    onSelect={setSelectedPassType}
+                    selected={selectedPassType}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="content no-data">
               <h2>Artist Passes</h2>
-              <p className="subt-filter">Pass type:</p>
-              <TypeList
-                types={types}
-                onSelect={setSelectedPassType}
-                selected={selectedPassType}
-              />
+              <h3 className="not-found">This artist has no NFTs yet</h3>
             </div>
           )}
-        </div>
+        </>
       ) : (
-        <div className="content no-data">
-          <h2>Artist Passes</h2>
-          <h3 className="not-found">This artist has no NFTs yet</h3>
+        <div className="loading">
+          <img
+            src="/assets/img/spinner-blue.svg"
+            className="spinner"
+            alt="loader"
+          />
         </div>
       )}
     </GuestListNFTStyles>

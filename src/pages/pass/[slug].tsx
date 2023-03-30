@@ -2,11 +2,13 @@ import dynamic from "next/dynamic"
 import Head from "next/head"
 import axios from "axios"
 
+import cleanUrl from "@/utils/cleanUrl"
+
 const SinglePass = dynamic(() => import("@/components/SinglePass"))
 
 const PassPage = ({ pass }: any) => {
   const title = pass.attributes.collection_name
-  const image = pass.attributes.preview_image_url
+  const image = cleanUrl(pass.attributes.preview_image_url)
   const ogTitle = title + " - PlusOne"
   const bio = ""
 

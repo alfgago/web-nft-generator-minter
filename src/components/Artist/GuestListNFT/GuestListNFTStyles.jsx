@@ -95,4 +95,12 @@ export const GuestListNFTStyles = styled.section`
       }
     }
   }
+
+  .loading {
+    display: block;
+    text-align: center;
+    img {
+      width: 3rem;
+    }
+  }
 `

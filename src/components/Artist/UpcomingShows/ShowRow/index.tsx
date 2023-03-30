@@ -174,7 +174,7 @@ const ShowRow = ({ item, index }: any) => {
             <div className="actions">
               <Link href={"/pass/" + pass.attributes.contract_address}>
                 <CommonPill className="clickable blue small">
-                  Enter Circle
+                  Enter Giveaway
                 </CommonPill>
               </Link>
               <AddToCalendar

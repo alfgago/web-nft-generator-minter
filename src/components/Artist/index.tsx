@@ -10,7 +10,10 @@ const Artist = ({ artist }: any) => {
     <ArtistStyles>
       {artist != undefined && (
         <>
-          <GuestListNFT artist={artist} />
+          <GuestListNFT
+            artist={artist}
+            events={artist.attributes.events.data}
+          />
           <UpcomingShows events={artist.attributes.events} />
           <UpcomingDrawing artistId={artist.id} />
           <SuggestedArtists title="Suggested Artists" />

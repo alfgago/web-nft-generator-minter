@@ -21,6 +21,11 @@ export const UpcomingDrawingsStyles = styled.section`
       #f1ff97 -0.82%,
       rgba(255, 255, 255, 0.9) 52.7%
     );
+    background: linear-gradient(
+      -80.62deg,
+      #f9e9ff 8.41%,
+      rgba(255, 255, 255, 0.9) 88.16%
+    );
   }
 
   .content {
