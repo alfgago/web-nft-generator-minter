@@ -35,7 +35,7 @@ const NftCollections = () => {
       <ReactSVG className="star" src="/assets/icons/star.svg" />
       <div className="content">
         <div className="header-collection">
-          <h2>NFT Collections</h2>
+          <h2>Pass Collections</h2>
           <Link href="/pass-generator" className="button">
             <CommonPill className="clickable blue ">
               <ReactSVG

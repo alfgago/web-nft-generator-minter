@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { ReactSVG } from "react-svg"
 import { useWindowSize } from "usehooks-ts"
 
 import CardPass from "@/components/Common/CardPass"
@@ -63,6 +64,44 @@ const GuestListNFT = ({ artist, events = [] }: any) => {
                     onSelect={setSelectedPassType}
                     selected={selectedPassType}
                   />
+                  {selectedPassType == 0 && (
+                    <div className="perks">
+                      <div className="perks-title">Plus Perks:</div>
+                      <div className="icons">
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/ticket.svg"
+                        />
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/shirt.svg"
+                        />
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/spotify.svg"
+                        />
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/discord.svg"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {selectedPassType == 1 && (
+                    <div className="perks">
+                      <div className="perks-title">Plus Perks:</div>
+                      <div className="icons">
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/shirt.svg"
+                        />
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/discord.svg"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               <div className="column1">
@@ -119,6 +158,44 @@ const GuestListNFT = ({ artist, events = [] }: any) => {
                     onSelect={setSelectedPassType}
                     selected={selectedPassType}
                   />
+                  {selectedPassType == 0 && (
+                    <div className="perks">
+                      <div className="perks-title">Plus Perks:</div>
+                      <div className="icons">
+                        <ReactSVG
+                          className="icon ticket"
+                          src="/assets/icons/ticket.svg"
+                        />
+                        <ReactSVG
+                          className="icon shirt"
+                          src="/assets/icons/shirt.svg"
+                        />
+                        <ReactSVG
+                          className="icon spotify"
+                          src="/assets/icons/spotify.svg"
+                        />
+                        <ReactSVG
+                          className="icon discord"
+                          src="/assets/icons/icons8-discord.svg"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {selectedPassType == 1 && (
+                    <div className="perks">
+                      <div className="perks-title">Plus Perks:</div>
+                      <div className="icons">
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/shirt.svg"
+                        />
+                        <ReactSVG
+                          className="icon"
+                          src="/assets/icons/icons8-discord.svg"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
