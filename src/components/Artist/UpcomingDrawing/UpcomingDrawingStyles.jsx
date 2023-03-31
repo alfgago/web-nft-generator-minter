@@ -70,20 +70,39 @@ export const DrawRow = styled.div`
     }
 
     .img-container {
-      max-width: ${194 / 16}rem;
-      min-width: ${194 / 16}rem;
-      width: 50%;
-      padding: ${11 / 16}rem 0 ${11 / 16}rem ${22 / 16}rem;
+      min-width: 100%;
+      width: 100%;
+      padding: 0;
       @media ${DEVICE.laptop} {
         width: 100%;
         max-width: ${260 / 16}rem;
         min-width: ${260 / 16}rem;
-        padding: 0;
       }
 
       img {
         width: 100%;
         object-fit: cover;
+      }
+
+      .golden {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 16px;
+        .inner {
+          width: 100%;
+          height: 100%;
+          @media ${DEVICE.laptop} {
+            .text {
+              font-size: 11px;
+              padding: 11px 8px;
+            }
+          }
+
+          .qr {
+            bottom: 8px !important;
+          }
+        }
       }
     }
 
@@ -137,7 +156,7 @@ export const DrawRow = styled.div`
       padding: 0 ${40 / 16}rem;
       margin-top: ${40 / 16}rem;
       margin-bottom: ${40 / 16}rem;
-      font-size: ${30 / 16}rem;
+      font-size: ${26 / 16}rem;
     }
 
     .time {
@@ -167,12 +186,20 @@ export const DrawRow = styled.div`
     flex-direction: column;
     gap: 5px;
 
+    a {
+      text-align: right;
+    }
+
     @media ${DEVICE.laptop} {
       gap: 0px;
       width: ${243 / 16}rem;
       text-align: center;
       align-items: center;
       padding: ${40 / 16}rem ${25 / 16}rem ${40 / 16}rem 0rem;
+
+      a {
+        text-align: left;
+      }
     }
 
     div {
@@ -240,9 +267,10 @@ export const DrawRow = styled.div`
   }
 
   .main-cont {
-    display: flex;
+    display: block;
 
     @media ${DEVICE.laptop} {
+      display: flex;
       width: 50%;
     }
   }

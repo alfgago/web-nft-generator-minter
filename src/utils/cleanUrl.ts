@@ -19,8 +19,6 @@ function convertFromNftStorage(url: string) {
     url = url.replace("https://", "")
     const urlParts = url.split(".")
     const ipfsHash = urlParts[0]
-    console.log(url)
-    console.log(`https://plusonemusic.io/ipfs/${ipfsHash}`)
     return `https://plusonemusic.io/ipfs/${ipfsHash}`
   }
   return url

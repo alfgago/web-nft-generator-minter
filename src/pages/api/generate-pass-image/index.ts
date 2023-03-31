@@ -5,14 +5,14 @@ import puppeteer from "puppeteer"
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 
 const postData = async ({
-  previewUrl,
+  previewUrl = "https://plusone-public.s3.amazonaws.com/Steve_Aoki_purple_800x400_1_107ada7677.png",
   template = "single",
-  name,
-  city,
-  country,
-  date,
+  name = "Test",
+  city = "California",
+  country = "USA",
+  date = "May 23 2023",
   number = 1,
-  passTitle,
+  passTitle = "Guest Pass",
 }: any) => {
   const width = 640
   const height = 640
@@ -56,7 +56,48 @@ const postData = async ({
   }
   .pass-preview.generator .inner .right .text {
     font-size: 30px;
-    padding-right: 30px;
+    padding-right: 0;
+    padding-left: 32px;
+  }
+  .pass-preview.previews {
+    padding: 0;
+    margin: 0;
+  }
+  .pass-preview.golden .inner .right .text {
+    position: absolute;
+    top: 50%;
+  }
+  .pass-preview.golden .bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    overflow: hidden;
+  }
+  .pass-preview.golden .bg:before {
+    background-image: url("/assets/img/gold-bg.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .pass-preview.golden .bg:after {
+    content: "";
+    background: #fff;
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
   }
   .pass-preview .inner {
     background: #fff;
@@ -71,6 +112,17 @@ const postData = async ({
     position: relative;
     height: 100%;
     width: 75%;
+  }
+  .pass-preview .inner .main-image :before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    content: "";
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+    border-radius: 30px;
   }
   .pass-preview .inner .main-image img {
     width: 100%;
@@ -89,6 +141,7 @@ const postData = async ({
     font-weight: bold;
     text-align: left;
     color: #fff;
+    z-index: 1;
   }
   .pass-preview .inner .right {
     position: absolute;
@@ -103,6 +156,7 @@ const postData = async ({
     padding-top: 16px;
     margin: auto;
     max-width: 60%;
+    height: auto;
   }
   .pass-preview .inner .right .text {
     padding: 16px;
@@ -115,12 +169,17 @@ const postData = async ({
     bottom: 16px;
     right: 20%;
     max-width: 60%;
+    height: auto;
   }
+  .pass-preview img {
+    pointer-events: none;
+  }
+  
   
   `
 
   const html = `
-  <div class="pass-preview generator">
+  <div class="pass-preview generator ${template}">
     <div class="inner">
       <div class="main-image">
         <img id="prev" src=${previewUrl} alt="Image preview" />
@@ -135,7 +194,9 @@ const postData = async ({
       <div class="right">
         <img
           class="p1-vert"
-          src="${process.env.NEXT_PUBLIC_DOMAIN}/assets/img/p1-small-vertical.jpg"
+          src="${process.env.NEXT_PUBLIC_DOMAIN}/assets/img/${
+    template == "golden" ? "p1-vert-white.svg" : "p1-small-vertical.jpg"
+  }"
           alt="p1-small-vertical"
         />
         <div class="text">
@@ -205,11 +266,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
-    return res.status(405).send({ error: "Method not allowed" })
+    // return res.status(405).send({ error: "Method not allowed" })
   }
 
   try {
-    const data = await postData(req.body)
+    const data = await postData(req.query)
     res.status(200).json(data)
   } catch (e) {
     console.log(e)

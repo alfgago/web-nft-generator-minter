@@ -1,5 +1,12 @@
 /* eslint-disable camelcase */
-import React, { Component, createRef, RefObject } from "react"
+import React, {
+  Component,
+  createRef,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 import Link from "next/link"
 import algoliasearch from "algoliasearch/lite"
 import {
@@ -9,68 +16,68 @@ import {
   Index,
   InstantSearch,
 } from "react-instantsearch-dom"
+import { ReactSVG } from "react-svg"
 
 import DebouncedSearchBox from "./DebouncedSearchBox"
 import SearchBarStyles from "./SearchBarStyles"
 
 const CustomSearchBox = connectSearchBox(DebouncedSearchBox)
 
-const toggleSearchBar = (active: boolean) => {
-  if (active) {
-    const searchBar = document.getElementById("support-search-bar")
-    if (searchBar) {
-      searchBar.classList.add("active")
-      const input = document.querySelector<HTMLInputElement>(
-        "#support-search-bar input"
-      )
-      if (input) {
-        input.focus()
+const SearchBar = () => {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [toggleSearch, setToggleSearch] = useState(false)
+
+  const toggleSearchBar = (active: boolean) => {
+    if (active) {
+      const searchBar = document.getElementById("support-search-bar")
+      if (searchBar) {
+        searchBar.classList.add("active")
+        const input = document.getElementById("auto-focus-search")
+        if (input) {
+          input.focus()
+        }
+      }
+      setToggleSearch(true)
+    } else {
+      const searchBar = document.getElementById("support-search-bar")
+      if (searchBar) {
+        searchBar.classList.remove("active")
       }
     }
-  } else {
-    const searchBar = document.getElementById("support-search-bar")
-    if (searchBar) {
-      searchBar.classList.remove("active")
-    }
-  }
-}
-
-class SearchBar extends Component {
-  wrapperRef: RefObject<HTMLDivElement>
-
-  constructor(props: any) {
-    super(props)
-
-    this.wrapperRef = createRef<HTMLDivElement>()
-    this.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside)
-  }
-
-  handleClickOutside(event: MouseEvent) {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
-      this.wrapperRef &&
-      this.wrapperRef.current &&
-      !this.wrapperRef.current.contains(event.target as Node)
+      wrapperRef &&
+      wrapperRef.current &&
+      !wrapperRef.current.contains(event.target as Node)
     ) {
       toggleSearchBar(false)
     }
   }
 
-  render() {
-    const searchClient = algoliasearch(
-      "FSCKGMDNFV",
-      "b45c70779e60e9f4d008d0066139d1f1"
-    )
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
-    return (
-      <SearchBarStyles ref={this.wrapperRef} id="support-search-bar">
+  const searchClient = algoliasearch(
+    "FSCKGMDNFV",
+    "b45c70779e60e9f4d008d0066139d1f1"
+  )
+
+  return (
+    <SearchBarStyles ref={wrapperRef} id="support-search-bar">
+      {!toggleSearch ? (
+        <div id="search-bar untoggled" onClick={() => toggleSearchBar(true)}>
+          <div className="search-field">
+            <input placeholder="Search by artist, venue, or city..." />
+            <ReactSVG className="icon" src="/assets/icons/search.svg" />
+          </div>
+        </div>
+      ) : (
         <InstantSearch
           indexName="production_api::pass.pass"
           searchClient={searchClient}
@@ -95,9 +102,9 @@ class SearchBar extends Component {
             </div>
           </div>
         </InstantSearch>
-      </SearchBarStyles>
-    )
-  }
+      )}
+    </SearchBarStyles>
+  )
 }
 
 const Hits = ({ hits }: any) => {

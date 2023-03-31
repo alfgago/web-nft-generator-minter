@@ -59,9 +59,9 @@ const EditProfileForm = () => {
         if (user) {
           const { data } = await axios.get(
             // @ts-ignore
-            "/api/artists?limit=10&user=" + user.id
+            "/api/artists/managed?user=" + user.id
           )
-          const artists = data.data
+          const artists = data
           setArtists(artists)
         }
       } catch (err: any) {
@@ -75,7 +75,7 @@ const EditProfileForm = () => {
     if (artistId) {
       const artistData = artists.find((a: any) => a.id == artistId)
       if (artistData) {
-        const artist = artistData.attributes
+        const artist = artistData
         setFieldValue(
           "bio",
           sanitizeHtml(artist.bio, {
@@ -93,8 +93,8 @@ const EditProfileForm = () => {
         const members = artist.members ? artist.members : []
 
         members.forEach((member: any) => {
-          member.existing_image = member.nft_default_image?.data
-            ? member.nft_default_image?.data.attributes.formats.thumbnail.url
+          member.existing_image = member.nft_default_image
+            ? member.nft_default_image?.formats.thumbnail.url
             : false
         })
         setFieldValue("members", members)
@@ -252,7 +252,7 @@ const EditProfileForm = () => {
                           {artists.map((item: any) => {
                             return (
                               <option key={item.id} value={item.id}>
-                                {item.attributes.name}
+                                {item.name}
                               </option>
                             )
                           })}

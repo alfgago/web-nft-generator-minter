@@ -84,7 +84,7 @@ const FormStep = ({
 
   useEffect(() => {
     if (selectedArtist) {
-      setMembers(selectedArtist.attributes.members)
+      setMembers(selectedArtist.members)
       fetchShows(selectedArtist.id)
     }
   }, [selectedArtist])
@@ -97,17 +97,14 @@ const FormStep = ({
   const selectDefaultImage = (values: FormValues) => {
     const member = members.find((m: any) => m.id == values.member)
 
-    let image = selectedArtist.attributes.banner.data.attributes.url
-      ? selectedArtist.attributes.banner.data.attributes.url
-      : ""
-    image = member?.nft_default_image?.data?.attributes
-      ? member.nft_default_image.data?.attributes.url
-      : image
-    image = selectedShow?.attributes?.image?.data?.attributes
-      ? selectedShow?.attributes?.image?.data?.attributes.url
-      : image
-    console.log("selectedShow")
-    console.log(selectedShow)
+    let image = selectedArtist.banner.url ? selectedArtist.banner.url : ""
+    image = member?.nft_default_image ? member.nft_default_image.url : image
+
+    if (values.passType == "Guest") {
+      image = selectedShow?.attributes?.image?.data?.attributes
+        ? selectedShow?.attributes?.image?.data?.attributes.url
+        : image
+    }
     console.log(image)
 
     setDefaultImage(image)
@@ -125,21 +122,24 @@ const FormStep = ({
     let title = ""
 
     if (type == "Guest") {
-      const sel = shows.find((obj: any) => obj.id == show)
-      if (sel) {
-        setSelectedShow(sel)
-        type = sel.attributes.name
+      const selShow = shows.find((obj: any) => obj.id == show)
+      if (selShow) {
+        setSelectedShow(selShow)
+        type = selShow.attributes.name
       }
+    } else {
+      setSelectedShow(false)
     }
 
-    const sel = artists.find((obj: any) => obj.id == artist)
-    if (sel) {
-      setSelectedArtist(sel)
-      formikRef.current.setFieldValue("artistName", sel.attributes.name)
-      title = `${sel.attributes.name} ${type} Pass`
+    const selArtist = artists.find((obj: any) => obj.id == artist)
+    if (selArtist) {
+      setSelectedArtist(selArtist)
+      formikRef.current.setFieldValue("artistName", selArtist.name)
+      title = `${selArtist.name} ${type} Pass`
     }
     formikRef.current.setFieldValue("name", title)
     setNftTitle(title)
+    console.log(selectedShow)
   }
 
   const selectArtist = (artistId: number) => {
@@ -233,7 +233,7 @@ const FormStep = ({
                 {artists.length &&
                   artists.map((item: any, index: number) => (
                     <option key={"artist-item" + index} value={item.id}>
-                      {item.attributes.name}
+                      {item.name}
                     </option>
                   ))}
               </Field>
@@ -296,12 +296,6 @@ const FormStep = ({
               ) : null}
               <Field type="number" name="size" max="500" />
             </label>
-            {values.passType == "Circle" && (
-              <label>
-                <span>How many winners per circle?</span>
-                <Field type="number" name="winners" />
-              </label>
-            )}
             <label>
               <span>Drop date</span>
               {errors.dropDate ? (

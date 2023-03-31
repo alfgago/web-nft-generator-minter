@@ -4,6 +4,7 @@ import axios from "axios"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Countdown from "@/components/Common/CountDown"
+import PassPreview from "@/components/PassPreview"
 import Tooltip from "@/components/Tooltip"
 
 import {
@@ -111,7 +112,6 @@ export const DrawingData = ({ show, pass }: any) => {
 
   const days5 = totalTime.minutes > 0 && totalTime.minutes < 7200
 
-  const image = pass.attributes.preview_image_url
   const namePass = pass.attributes.collection_name
   const price = pass.attributes.initial_price
   const contactAddres = pass.attributes.contract_address
@@ -126,13 +126,27 @@ export const DrawingData = ({ show, pass }: any) => {
   const winnersAmount = pass.attributes.winners
 
   const showLocation = show.attributes.name
+
+  const eventName = show?.attributes?.name ?? ""
+  const eventDate = show?.attributes?.date ?? ""
+  const eventImage = show?.attributes?.image?.data?.attributes?.url
+  const country = show?.attributes?.country ?? ""
+  const city = show?.attributes?.city ?? ""
+
   return (
     <BoxDrawing>
       <DrawRow>
         <div className="column1">
           <div className="main-cont">
             <div className="img-container">
-              <img src={image} alt="dropPic" />
+              <PassPreview
+                previewUrl={eventImage}
+                name={eventName}
+                city={city}
+                country={country}
+                date={eventDate}
+                template="golden"
+              />
             </div>
             <div className="info">
               <h3>{namePass}</h3>

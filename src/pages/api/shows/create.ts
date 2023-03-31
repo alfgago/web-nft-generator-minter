@@ -29,6 +29,7 @@ const createShow = async (values: any) => {
     country: values.country,
     city: values.city,
     artist: values.artist,
+    giveaway_slots: values.giveaway_slots,
     confirmed: true,
   })
 

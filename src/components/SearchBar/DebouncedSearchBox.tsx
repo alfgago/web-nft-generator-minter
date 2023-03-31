@@ -13,7 +13,6 @@ class DebouncedSearchBox extends Component {
     const delay = 300
     const { refine } = this.props
     const value = event.currentTarget.value
-    console.log(value)
     clearTimeout(this.timerId)
     this.timerId = setTimeout(() => refine(value), delay)
 
@@ -28,7 +27,9 @@ class DebouncedSearchBox extends Component {
     return (
       <div className="search-field">
         <input
+          id="auto-focus-search"
           value={value}
+          autoFocus
           onChange={this.onChangeDebounced}
           placeholder="Search by artist, venue, or city..."
         />

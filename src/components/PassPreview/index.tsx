@@ -40,11 +40,19 @@ const PassPreview = ({
           </div>
         </div>
         <div className="right">
-          <img
-            className="p1-vert"
-            src="/assets/img/p1-small-vertical.jpg"
-            alt="p1-small-vertical"
-          />
+          {template == "golden" ? (
+            <img
+              className="p1-vert"
+              src="/assets/img/p1-vert-white.svg"
+              alt="p1-vert-white"
+            />
+          ) : (
+            <img
+              className="p1-vert"
+              src="/assets/img/p1-small-vertical.jpg"
+              alt="p1-small-vertical"
+            />
+          )}
           <div className="text">
             <div>Guest</div>
             <div>Pass</div>

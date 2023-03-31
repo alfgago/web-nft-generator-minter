@@ -121,7 +121,7 @@ const DesignStep = ({
       }
       templateFabric.changeImage({ canvasRef: window.canvas, imageUrl: imgUrl })
     }
-  }, [imageUrl])
+  }, [imageUrl, defaultImage])
 
   const initCanvas = () => {
     // FabricJS creates the .canvas-container, so if it exists, don't do this again

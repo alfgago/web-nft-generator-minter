@@ -50,6 +50,7 @@ const DesignStepSingle = ({
             country={selectedShow.attributes.country}
             date={selectedShow.attributes.date}
             customClass="generator"
+            template="single"
           />
         </div>
         <div className="tools" />

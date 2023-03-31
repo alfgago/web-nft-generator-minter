@@ -17,6 +17,7 @@ interface FormValues {
   country: string
   city: string
   artist: string
+  giveaway_slots: number
   image: File | null // Add image field
 }
 
@@ -26,6 +27,7 @@ const initialValues = {
   country: "",
   city: "",
   artist: "",
+  giveaway_slots: 5,
   image: null, // Add image field
 }
 
@@ -72,9 +74,9 @@ const NewDateForm = () => {
       if (user) {
         const { data } = await axios.get(
           // @ts-ignore
-          "/api/artists?limit=10&user=" + user.id
+          "/api/artists/managed?&user=" + user.id
         )
-        const artists = data.data
+        const artists = data
         setArtists(artists)
       }
     } catch (err: any) {
@@ -93,6 +95,7 @@ const NewDateForm = () => {
     country: Yup.string().required("Country is required"),
     city: Yup.string().required("city is required"),
     artist: Yup.string().required("Artist is required"),
+    giveaway_slots: Yup.string().required("Giveaway slots is required"),
   })
 
   async function createShow(values: FormValues) {
@@ -103,6 +106,7 @@ const NewDateForm = () => {
       city: values.city,
       artist: values.artist,
       image: values.image,
+      giveaway_slots: values.giveaway_slots,
     })
     return response
   }
@@ -152,7 +156,7 @@ const NewDateForm = () => {
                 {!isSubmitting ? (
                   <>
                     <Form className="cols-2">
-                      <label className="full">
+                      <label>
                         <span>Artist</span>
                         {errors.artist && touched.artist ? (
                           <div className="alert">{errors.artist}</div>
@@ -163,11 +167,19 @@ const NewDateForm = () => {
                           {artists.map((item: any) => {
                             return (
                               <option key={item.id} value={item.id}>
-                                {item.attributes.name}
+                                {item.name}
                               </option>
                             )
                           })}
                         </Field>
+                      </label>
+                      <label>
+                        <span>Giveaway slots per Circle Pass</span>
+                        <Field
+                          name="giveaway_slots"
+                          type="number"
+                          placeholder=""
+                        />
                       </label>
                       <label>
                         <span>Date</span>
