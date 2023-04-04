@@ -64,6 +64,18 @@ export const ShowCardStyles = styled.div`
       z-index: 1;
       border-radius: 30px;
     }
+    :after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      width: 50px;
+      background: #fff;
+      height: 10px;
+      margin-left: -25px;
+      border-radius: 50px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+    }
 
     .clickable.small {
       opacity: 0;

@@ -10,10 +10,10 @@ interface MetaProps {
 const Meta: React.FC<MetaProps> = ({
   title = "PlusOne",
   description = "Buy, sell, and win guest list access from your favorite artists",
-  image = "https://plusone-frontend.vercel.app/assets/img/screenshot.jpg",
+  image = "https://plusonemusic.io/assets/img/screenshot.jpg",
 }) => {
-  const urlLink = "https://plusone-frontend.vercel.app/"
-  const keyWords = "plusone, nft"
+  const urlLink = "https://plusonemusic.io"
+  const keyWords = "plusone, nft, pass"
 
   return (
     <Head>

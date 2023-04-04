@@ -34,6 +34,10 @@ const postData = async ({
     font-family: 'Trap', sans-serif;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   .pass-preview {
     position: relative;
     margin-top: 16px;
@@ -50,6 +54,7 @@ const postData = async ({
   .pass-preview.generator .inner {
     width: 600px;
     height: 600px;
+    margin: 0;
   }
   .pass-preview.generator .inner .main-image .text {
     font-size: 20px;
@@ -78,7 +83,7 @@ const postData = async ({
     overflow: hidden;
   }
   .pass-preview.golden .bg:before {
-    background-image: url("/assets/img/gold-bg.jpg");
+    background-image: url("https://plusonemusic.io/assets/img/gold-bg.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center right;
@@ -113,7 +118,7 @@ const postData = async ({
     height: 100%;
     width: 75%;
   }
-  .pass-preview .inner .main-image :before {
+  .pass-preview .inner .main-image:before {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -123,6 +128,18 @@ const postData = async ({
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
     z-index: 1;
     border-radius: 30px;
+  }
+  .pass-preview .inner .main-image:after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 100px;
+    background: #fff;
+    height: 14px;
+    margin-left: -50px;
+    border-radius: 50px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   }
   .pass-preview .inner .main-image img {
     width: 100%;
@@ -181,6 +198,7 @@ const postData = async ({
   const html = `
   <div class="pass-preview generator ${template}">
     <div class="inner">
+      <div class="bg"></div>
       <div class="main-image">
         <img id="prev" src=${previewUrl} alt="Image preview" />
         <div class="text">
@@ -213,6 +231,7 @@ const postData = async ({
     </div>
   </div>
   `
+
   // Launch a headless browser
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -226,6 +245,11 @@ const postData = async ({
     ${html}
   `)
 
+  // Wait for all images to load
+  await page.waitForFunction(() => {
+    const images = Array.from(document.images)
+    return images.every((img) => img.complete && img.naturalHeight !== 0)
+  })
   await page.waitForSelector("img", { visible: true })
 
   // Get the canvas element and convert it to a data URL

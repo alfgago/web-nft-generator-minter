@@ -1,3 +1,34 @@
+import { ReactSVG } from "react-svg"
+
+import Tooltip from "../Tooltip"
+
+const icons = [
+  {
+    href: "https://blockworks.co/news/ticketmaster-goes-live-with-nft-gated-features",
+    tooltipText: "Token-Gated Presale",
+    iconSrc: "/assets/icons/ticket.svg",
+    showOnGuest: false,
+  },
+  {
+    href: "https://www.shopify.com/tokengated-commerce",
+    tooltipText: "Token Gated Merch Discounts",
+    iconSrc: "/assets/icons/shirt.svg",
+    showOnGuest: true,
+  },
+  {
+    href: "https://techcrunch.com/2023/02/23/spotify-is-testing-playlists-that-could-be-unlocked-by-nft-holders/",
+    tooltipText: "Token Gated Playlists",
+    iconSrc: "/assets/icons/spotify.svg",
+    showOnGuest: false,
+  },
+  {
+    href: "https://www.alchemy.com/overviews/nft-token-gating",
+    tooltipText: "Token-Gated Discord",
+    iconSrc: "/assets/icons/discord.svg",
+    showOnGuest: true,
+  },
+]
+
 const PassDescription = ({ pass, isHome = false }: any) => {
   const passType = pass.attributes.pass_type
   const artistName = pass.attributes.artist?.data?.attributes?.name ?? ""
@@ -34,14 +65,38 @@ const PassDescription = ({ pass, isHome = false }: any) => {
   }
 
   return (
-    <>
+    <div className="descriptor-box">
       <div
-        className="descriptor"
+        className="left"
         dangerouslySetInnerHTML={{
           __html: description,
         }}
       />
-    </>
+
+      <div className="right">
+        <div className="perks">
+          <div className="perks-title">Plus Perks:</div>
+          <div className="icons">
+            {icons.map((icon) => {
+              const show = icon.showOnGuest || passType !== "Guest"
+              const customClass = icon.href.includes("spotify") ? "spotify" : ""
+              return (
+                show && (
+                  <a key={icon.href} href={icon.href}>
+                    <Tooltip icon={false} text={icon.tooltipText}>
+                      <ReactSVG
+                        className={`icon ${customClass}`}
+                        src={icon.iconSrc}
+                      />
+                    </Tooltip>
+                  </a>
+                )
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

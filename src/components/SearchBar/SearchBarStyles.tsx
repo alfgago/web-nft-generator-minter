@@ -53,7 +53,7 @@ const SearchBarStyles = styled.div`
   .results {
     position: relative;
     padding: 0.5rem 0;
-    font-size: 0.75rem;
+    font-size: max(0.75rem, 12px);
     max-height: 50vh;
     overflow: auto;
   }
@@ -82,14 +82,14 @@ const SearchBarStyles = styled.div`
 
   .type {
     position: absolute;
-    font-size: 0.5rem;
+    font-size: max(0.5rem, 10px);
     border: 1px solid #000;
     border-radius: 15px;
     padding: 3px 9px;
   }
 
   .res {
-    padding-left: 3rem;
+    padding-left: max(3rem, 60px);
   }
 
 

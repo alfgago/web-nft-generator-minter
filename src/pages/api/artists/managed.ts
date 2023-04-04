@@ -10,7 +10,7 @@ const fetchData = async ({ user = 0 }: any) => {
   const cacheKey = `managedartists_${user}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
 
   const params = {

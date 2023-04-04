@@ -209,7 +209,8 @@ const ConfirmationStep = ({
             </div>
           ) : (
             <div className="deployment-success">
-              Your NFT passes contract has been deployed with Contract Address:{" "}
+              Your blockchain passes contract has been deployed with Contract
+              Address:{" "}
               <span className="contract-address">{contractAddress}</span>
               <div className="links">
                 <Link href={"/pass/" + contractAddress}>

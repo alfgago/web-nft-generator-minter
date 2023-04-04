@@ -277,7 +277,14 @@ const EditProfileForm = () => {
                             {errors.genre && touched.genre ? (
                               <div className="alert">{errors.genre}</div>
                             ) : null}
-                            <Field name="genre" type="text" placeholder="" />
+                            <Field name="genre" as="select">
+                              <option>Pop</option>
+                              <option>Rock</option>
+                              <option>Hip Hop</option>
+                              <option>EDM</option>
+                              <option>Latin</option>
+                              <option>Other</option>
+                            </Field>
                           </label>
                           <label className="third">
                             <span>Website</span>

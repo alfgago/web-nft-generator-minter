@@ -34,6 +34,12 @@ export const PassPreviewStyles = styled.div`
   &.previews {
     padding: 0;
     margin: 0;
+
+    .inner .main-image:after {
+      width: 50px;
+      height: 8px;
+      margin-left: -25px;
+    }
   }
 
   &.golden {
@@ -106,6 +112,18 @@ export const PassPreviewStyles = styled.div`
         );
         z-index: 1;
         border-radius: 30px;
+      }
+      :after {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        width: 100px;
+        background: #fff;
+        height: 14px;
+        margin-left: -50px;
+        border-radius: 50px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
       }
       img {
         width: 100%;

@@ -25,7 +25,7 @@ const OwnedLottery = () => {
             // iterate over the metadata objs
             .map((item: any) => {
               // validate if the pass is lottery
-              if (item.trait_type === "pass_type" && item.value === "Lottery") {
+              if (item.trait_type === "pass_type" && item.value === "Circle") {
                 return true
               }
               return false
@@ -94,7 +94,7 @@ const OwnedLottery = () => {
       <div className="content">
         <div className="header-cont">
           <div>
-            <h2>Owned Lottery Nft's</h2>
+            <h2>Owned Circle Passes</h2>
           </div>
           <ul className="filters">
             <li
@@ -130,7 +130,6 @@ const OwnedLottery = () => {
                     return event.attributes.passes.data.map(
                       (pass: any, indexEvent: number) => {
                         // get the passes of the event
-
                         return (
                           <OwnedItem
                             key={"owned" + indexEvent}

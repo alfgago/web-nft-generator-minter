@@ -33,7 +33,7 @@ const MyNfts = () => {
   return (
     <MyNtfStyles>
       <SimpleHeader
-        title="My NFT's"
+        title="My Passes"
         backgroundColor="blue"
         textAlign="left"
         subt-container
@@ -59,7 +59,7 @@ const MyNfts = () => {
       ) : (
         <section className="disconnected">
           <div className="content">
-            <p>Please connect your wallet to check out your NFTs</p>
+            <p>Please connect your wallet to check out your Passes</p>
             <button onClick={() => connect()}>
               <CommonPill className="clickable small">
                 <span className="with-icon">

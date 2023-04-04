@@ -8,6 +8,7 @@ import * as Yup from "yup"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import PassPreview from "@/components/PassPreview"
+import Tooltip from "@/components/Tooltip"
 
 import { NewDateFormStyles } from "./NewDateFormStyles"
 
@@ -174,7 +175,13 @@ const NewDateForm = () => {
                         </Field>
                       </label>
                       <label>
-                        <span>Giveaway slots per Circle Pass</span>
+                        <span>
+                          # Golden Passes in Giveaway{" "}
+                          <Tooltip
+                            placement="left"
+                            text="If you have an active Circle Pass, every show added to the plus|one platform automatically creates a giveaway for Circle Pass holders 30 days prior to the show.  The winner is given a unique Golden Guest Pass which gets them guest list access to the show (with a plus one).  Artists can set how many winners will be sent a Golden Guest Pass per event, but please ensure there is enough open space on the guest list to accommodate."
+                          />
+                        </span>
                         <Field
                           name="giveaway_slots"
                           type="number"

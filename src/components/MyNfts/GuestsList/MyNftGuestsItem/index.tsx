@@ -37,6 +37,9 @@ const MyNftGuestsItem = ({ nft }: any) => {
     return `${month} ${day} ${year}`
   }
 
+  if (!event) {
+    return
+  }
   return (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">

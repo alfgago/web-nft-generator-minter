@@ -16,8 +16,8 @@ const AddToCalendar = ({ date, title, id, label = "Add reminder" }) => {
       <div className="atcb">
         <div className="hidden" id={`atcb-${id}`}>
           {JSON.stringify({
-            name: `NFT DROP - ${title} - PlusOne`,
-            iCalFileName: `${title} - PlusOne Drop Date`,
+            name: `Pass Release - ${title} - PlusOne`,
+            iCalFileName: `${title} - PlusOne Release Date`,
             startDate: moment(date).format("YYYY-MM-DDTHH:mm"),
             options: [
               "Apple",

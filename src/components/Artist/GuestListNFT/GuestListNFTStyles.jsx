@@ -103,39 +103,4 @@ export const GuestListNFTStyles = styled.section`
       width: 3rem;
     }
   }
-
-  .perks {
-    padding-right: 4rem;
-    text-align: center;
-    .perks-title {
-      font-size: 1rem;
-      margin: 1rem 0;
-      font-weight: bold;
-    }
-    .icons {
-      display: flex;
-      margin-top: 1rem;
-      justify-content: center;
-      .icon {
-        width: 2rem;
-        height: 2rem;
-        border: 1px solid #000;
-        padding: 5px;
-        border-radius: 50%;
-        margin-right: 10px;
-        svg {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .spotify {
-        border: 0;
-        padding: 0;
-        path {
-          fill: none;
-          stroke: #000;
-        }
-      }
-    }
-  }
 `

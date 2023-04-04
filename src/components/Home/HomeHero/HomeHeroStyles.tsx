@@ -169,6 +169,7 @@ export const HomeHeroStyles = styled.section`
         height: auto;
         max-height: 80vh;
         z-index: -1;
+        overflow: visible;
       }
     }
 

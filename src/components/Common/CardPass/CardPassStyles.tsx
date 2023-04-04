@@ -22,12 +22,73 @@ export const CardPassStyles = styled.div`
     }
   }
 
-  .descriptor {
-    max-width: ${560 / 16}rem;
+  .descriptor-box {
+    display: flex;
     margin-top: 1rem;
     font-size: 1.2rem;
     a {
       text-decoration: underline;
+    }
+    .left {
+      max-width: ${560 / 16}rem;
+      padding-right: 2rem;
+    }
+
+    .perks {
+      text-align: left;
+      .perks-title {
+        font-size: 1rem;
+        margin: 0;
+        font-weight: bold;
+      }
+      .icons {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        justify-content: center;
+        .icon {
+          width: 2rem;
+          height: 2rem;
+          border: 1px solid #000;
+          padding: 5px;
+          border-radius: 50%;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+
+          &:hover {
+            cursor: pointer;
+            background: #111;
+            svg {
+              path {
+                fill: #fff;
+              }
+            }
+          }
+        }
+        .spotify {
+          border: 0;
+          padding: 0;
+          path {
+            fill: none !important;
+            stroke: #000;
+          }
+          &:hover {
+            path {
+              stroke: #fff;
+            }
+          }
+        }
+        .text {
+          width: auto;
+          white-space: nowrap;
+          left: -1rem;
+          top: 2.75rem;
+        }
+      }
     }
   }
 

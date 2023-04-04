@@ -1,7 +1,6 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 
-import ItemPagination from "@/components/Common/ItemPagination"
 import cleanUrl from "@/utils/cleanUrl"
 
 import MyNftGuestsItem from "./MyNftGuestsItem"
@@ -32,21 +31,11 @@ const MyNftGuestsList = ({ myNfts }: any) => {
         {nfts.length > 0 ? (
           <>
             <h2>Access Guest List</h2>
-            <ItemPagination
-              itemsPerPage={3}
-              values={nfts}
-              render={(items: any) => {
-                return (
-                  <div className="items-cont">
-                    {items.map((nft: any, index: number) => {
-                      return (
-                        <MyNftGuestsItem key={"listnft-" + index} nft={nft} />
-                      )
-                    })}
-                  </div>
-                )
-              }}
-            />
+            <div className="items-cont">
+              {nfts.map((nft: any, index: number) => {
+                return <MyNftGuestsItem key={"listnft-" + index} nft={nft} />
+              })}
+            </div>
           </>
         ) : (
           <NodataGuests />

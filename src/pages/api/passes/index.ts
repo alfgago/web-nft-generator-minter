@@ -5,11 +5,11 @@ const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   page = 1,
-  limit = 6,
+  limit = 10,
   artist = 0,
   user = 0,
   type = false,
-  future = true,
+  future = false,
   sort = false,
   eventDate = false,
 }: any) => {
