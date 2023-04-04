@@ -13,7 +13,7 @@ const dateFormat = (value: any) => {
   return day + " " + month + " " + year
 }
 
-const DateItem = ({ show }: any) => {
+const DateItem = ({ show, onEdit }: any) => {
   const imageUrl =
     show?.image?.data?.attributes?.formats?.thumbnail?.url ??
     "/assets/img/p1-small-vertical.jpg"
@@ -32,6 +32,12 @@ const DateItem = ({ show }: any) => {
           )}
           <div className="date">{dateFormat(show.date)}</div>
         </div>
+        <ReactSVG
+          title={"Edit " + show.name}
+          className="edit icon"
+          src="/assets/icons/edit.svg"
+          onClick={() => onEdit()}
+        />
       </div>
     </DateItemStyles>
   )

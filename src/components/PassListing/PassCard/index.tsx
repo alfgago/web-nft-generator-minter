@@ -69,7 +69,7 @@ const PassCard = ({ pass, classes = "" }: any) => {
             <div className="title">{pass.attributes.collection_name}</div>
             <div className="price">
               <b>Floor: </b>
-              <span>{pass.attributes.initial_price} ETH</span>
+              <span>{pass.attributes.initial_price} MATIC</span>
             </div>
             <div className="date">
               <b>Drop date: </b>

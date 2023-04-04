@@ -10,7 +10,7 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import PassPreview from "@/components/PassPreview"
 import Tooltip from "@/components/Tooltip"
 
-import { NewDateFormStyles } from "./NewDateFormStyles"
+import { ShowFormStyles } from "./ShowFormStyles"
 
 interface FormValues {
   date: string
@@ -143,7 +143,7 @@ const NewDateForm = () => {
       })
   }
   return (
-    <NewDateFormStyles className="content">
+    <ShowFormStyles className="content">
       <div>
         <div className="form-container">
           <Formik
@@ -254,7 +254,7 @@ const NewDateForm = () => {
           </Formik>
         </div>
       </div>
-    </NewDateFormStyles>
+    </ShowFormStyles>
   )
 }
 

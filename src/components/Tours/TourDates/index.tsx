@@ -5,11 +5,18 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
 import DateItem from "@/components/Tours/DateItem"
 
-import NewDateForm from "../NewDateForm"
+import EditDateForm from "../ShowForm/Edit"
+import NewDateForm from "../ShowForm/New"
 
 import { TourDateStyles } from "./TourDateStyles"
 const TourDates = ({ tourDates }: any) => {
-  const [isOpen, setOpen] = useState(false)
+  const [isAdding, setIsAdding] = useState(false)
+  const [editShowId, setEditShowId] = useState(0)
+
+  const onEdit = async (id: number) => {
+    setEditShowId(id)
+  }
+
   return (
     <>
       <TourDateStyles>
@@ -21,7 +28,7 @@ const TourDates = ({ tourDates }: any) => {
           <div>
             <CommonPill
               className="clickable fill pink"
-              onClick={() => setOpen(!isOpen)}
+              onClick={() => setIsAdding(!isAdding)}
             >
               <ReactSVG
                 src="/assets/icons/add-icon.svg"
@@ -35,13 +42,24 @@ const TourDates = ({ tourDates }: any) => {
         <div className="tour-dates">
           {tourDates.map((item: any) => {
             if (item) {
-              return <DateItem key={item.id} show={item.attributes} />
+              return (
+                <DateItem
+                  key={item.id}
+                  show={item.attributes}
+                  onEdit={() => onEdit(item.id)}
+                />
+              )
             }
           })}
         </div>
-        {isOpen && (
-          <Modal setIsOpen={setOpen} title="New tour date">
+        {isAdding && (
+          <Modal setIsOpen={setIsAdding} title="New tour date">
             <NewDateForm />
+          </Modal>
+        )}
+        {editShowId && (
+          <Modal setIsOpen={setEditShowId} title="Edit tour date">
+            <EditDateForm editShowId={editShowId} />
           </Modal>
         )}
       </TourDateStyles>

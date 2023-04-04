@@ -58,7 +58,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
               <>
                 <div className="price">
                   <b>Price</b>
-                  <span>{pass.attributes.initial_price} ETH</span>
+                  <span>{pass.attributes.initial_price} MATIC</span>
                 </div>
                 {!minting ? (
                   <CommonPill
@@ -84,7 +84,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
               <>
                 <div className="price">
                   <b>Price</b>
-                  <span>{pass.attributes.initial_price} ETH</span>
+                  <span>{pass.attributes.initial_price} MATIC</span>
                 </div>
                 <CommonPill className="clickable blue small">Bid</CommonPill>
               </>

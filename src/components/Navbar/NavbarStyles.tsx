@@ -200,8 +200,8 @@ export const NavbarStyles = styled.section<Props>`
       svg {
         position: absolute;
         right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0;
+        margin-top: 0.7rem;
         height: ${18 / 16}rem;
         width: auto;
       }

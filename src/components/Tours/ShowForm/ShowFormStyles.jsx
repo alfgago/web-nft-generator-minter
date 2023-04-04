@@ -1,6 +1,6 @@
 import { COLORS, DEVICE } from "@/styles/variables"
 import styled from "styled-components"
-export const NewDateFormStyles = styled.div`
+export const ShowFormStyles = styled.div`
   padding-top: ${20 / 16}rem;
 
   p {

@@ -128,7 +128,7 @@ const ConfirmationSingle = ({
         </label>
         <label>
           <strong>Price</strong>
-          <span>{formValues.price} ETH</span>
+          <span>{formValues.price} MATIC</span>
         </label>
       </div>
 

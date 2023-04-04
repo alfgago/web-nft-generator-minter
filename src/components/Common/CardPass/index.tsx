@@ -68,9 +68,7 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
             <div className="descriptor">
               <div className="timer">{pass.timer}</div>
               {size && <div className="size">Size: {size}</div>}
-              {price && (
-                <div className="price">Circle pass: ${price * 1000}</div>
-              )}
+              {price && <div className="price">Circle pass: $50</div>}
             </div>
             <div className="action">
               <Link href={`/pass/${pass.attributes.contract_address}`}>

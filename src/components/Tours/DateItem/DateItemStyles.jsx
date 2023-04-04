@@ -8,6 +8,7 @@ export const DateItemStyles = styled.div`
   }
 
   .card-container {
+    position: relative;
     background-color: ${COLORS.white};
     width: 100%;
     border-radius: 15px;
@@ -75,5 +76,12 @@ export const DateItemStyles = styled.div`
         background-color: #005bc8;
       }
     }
+  }
+  .edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    cursor: pointer;
   }
 `
