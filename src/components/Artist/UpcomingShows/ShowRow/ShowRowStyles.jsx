@@ -30,9 +30,13 @@ export const ShowRowStyles = styled.div`
 
     .place {
       margin-top: 0.5rem;
-      font-size: 0.6em;
+      margin-bottom: 0.5rem;
+      font-size: 0.8em;
       text-align: left;
       width: 100%;
+      @media ${DEVICE.laptop} {
+        font-size: 0.6em;
+      }
     }
   }
   .date {
@@ -47,6 +51,62 @@ export const ShowRowStyles = styled.div`
       width: ${196 / 16}rem;
     }
   }
+
+  .select-component {
+    padding: 1rem;
+    width: 100%;
+    position: relative;
+    background: #f2f2f2;
+    .howto {
+      font-size: 1rem;
+      padding-bottom: 3px;
+    }
+    @media ${DEVICE.laptop} {
+      background: none;
+      padding: ${20 / 16}rem;
+    }
+
+    select {
+      background: none;
+      white-line: normal;
+      font-size: 1em;
+      width: 100%;
+      white-space: normal;
+      appearance: none;
+      border: 0;
+      outline: none;
+      border: 1px solid #000;
+      padding: 3px 8px;
+      appearance: none;
+      @media ${DEVICE.laptop} {
+        border: none;
+        padding: 0;
+      }
+    }
+
+    .chevron {
+      position: absolute;
+      display: block;
+      right: 2rem;
+      top: 50%;
+      margin-top: 0px;
+      object-fit: contain;
+      pointer-events: none;
+      svg {
+        width: ${10 / 16}rem;
+        height: ${10 / 16}rem;
+      }
+
+      @media ${DEVICE.laptop} {
+        margin-top: -${18 / 16}rem;
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+  }
+
   .collection {
     display: flex;
     align-items: center;
@@ -57,15 +117,6 @@ export const ShowRowStyles = styled.div`
       width: ${450 / 16}rem;
     }
 
-    .select-component {
-      padding: ${20 / 16}rem;
-      width: 100%;
-      position: relative;
-      .howto {
-        font-size: 1rem;
-      }
-    }
-
     .name {
       padding-right: ${40 / 16}rem;
       display: none;
@@ -73,39 +124,6 @@ export const ShowRowStyles = styled.div`
 
       @media ${DEVICE.laptop} {
         display: block;
-      }
-
-      select {
-        background: none;
-        white-line: normal;
-        font-size: 1em;
-        width: 100%;
-        white-space: normal;
-        appearance: none;
-        border: 0;
-        outline: none;
-      }
-
-      .chevron {
-        position: absolute;
-        display: block;
-        right: ${16 / 16}rem;
-        top: 50%;
-        margin-top: -${5 / 16}rem;
-        object-fit: contain;
-        pointer-events: none;
-        svg {
-          width: ${10 / 16}rem;
-          height: ${10 / 16}rem;
-        }
-
-        @media ${DEVICE.laptop} {
-          margin-top: -${18 / 16}rem;
-          svg {
-            width: 1rem;
-            height: 1rem;
-          }
-        }
       }
     }
 
@@ -129,7 +147,7 @@ export const ShowRowStyles = styled.div`
     justify-content: center;
     flex-direction: column;
     background: #f2f2f2;
-    padding: ${20 / 16}rem ${21 / 16}rem;
+    padding: 1rem;
     font-weight: 600;
     margin-left: 0;
     width: 100%;
@@ -139,6 +157,7 @@ export const ShowRowStyles = styled.div`
       min-width: ${200 / 16}rem;
       margin-left: ${10 / 16}rem;
       font-size: ${19 / 16}rem;
+      padding: ${20 / 16}rem ${21 / 16}rem;
     }
 
     .timer-title {
@@ -228,16 +247,6 @@ export const ShowRowStyles = styled.div`
         height: revert;
         @media ${DEVICE.laptop} {
           height: 100%;
-        }
-      }
-      .name-mobile {
-        height: ${51 / 16}rem;
-        background-color: #f2f2f2;
-        display: flex;
-        align-items: center;
-        padding: ${9 / 16}rem ${16 / 16}rem;
-        @media ${DEVICE.laptop} {
-          display: none;
         }
       }
     }

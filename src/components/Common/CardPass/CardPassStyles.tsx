@@ -25,35 +25,54 @@ export const CardPassStyles = styled.div`
   .descriptor-box {
     display: flex;
     margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+
+    @media ${DEVICE.laptop} {
+      font-size: 1.2rem;
+    }
     a {
       text-decoration: underline;
     }
     .left {
-      max-width: ${560 / 16}rem;
+      max-width: 60%;
       padding-right: 2rem;
+
+      @media ${DEVICE.laptop} {
+        max-width: ${560 / 16}rem;
+      }
     }
 
     .perks {
       text-align: left;
       .perks-title {
-        font-size: 1rem;
+        font-size: 0.8rem;
         margin: 0;
         font-weight: bold;
+        @media ${DEVICE.laptop} {
+          font-size: 1rem;
+        }
       }
       .icons {
         display: flex;
         flex-wrap: wrap;
         margin-top: 1rem;
-        justify-content: center;
+        justify-content: left;
+        @media ${DEVICE.laptop} {
+          justify-content: center;
+        }
         .icon {
-          width: 2rem;
-          height: 2rem;
+          width: 25px;
+          height: 25px;
           border: 1px solid #000;
-          padding: 5px;
+          padding: 4px;
           border-radius: 50%;
           margin-right: 10px;
           margin-bottom: 10px;
+          @media ${DEVICE.laptop} {
+            width: 2rem;
+            height: 2rem;
+            padding: 5px;
+          }
           svg {
             width: 100%;
             height: 100%;
@@ -213,8 +232,16 @@ export const CardPassStyles = styled.div`
   }
 
   .golden-preview {
-    width: 100%;
-    height: 100%;
+    width: 280px;
+    height: 280px;
+    transform-origin: top left;
+    transform: scale(0.142);
+
+    @media ${DEVICE.laptop} {
+      width: 100%;
+      height: 100%;
+      transform: none;
+    }
     .golden {
       width: 100%;
       height: 100%;

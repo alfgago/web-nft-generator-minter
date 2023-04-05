@@ -4,9 +4,12 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const UpcomingDrawingStyles = styled.section`
   background: ${COLORS.white};
-  padding-top: 0;
   h2 {
     margin-bottom: 0;
+  }
+
+  @media ${DEVICE.laptop} {
+    padding-top: 0;
   }
 
   .description {

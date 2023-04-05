@@ -10,6 +10,7 @@ import { GuestListNFTStyles } from "./GuestListNFTStyles"
 
 const GuestListNFT = ({ artist, events = [] }: any) => {
   const { width } = useWindowSize()
+  const isMobile = width < 1080
   const [selectedPassType, setSelectedPassType] = useState(0)
   const [passes, setPasses] = useState([])
   const [filteredPasses, setFilteredPasses] = useState([])
@@ -111,7 +112,7 @@ const GuestListNFT = ({ artist, events = [] }: any) => {
                   ""
                 )}
               </div>
-              {width > 1080 && (
+              {!isMobile && (
                 <div className="column2">
                   <h2>Artist Passes</h2>
                   <p className="subt-filter">Pass type:</p>

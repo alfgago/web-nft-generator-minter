@@ -16,6 +16,7 @@ yesterday.setDate(yesterday.getDate() - 1)
 
 const ShowRow = ({ item, index }: any) => {
   const { width } = useWindowSize()
+  const isMobile = width < 1080
   const initialPass = item.attributes.passes?.data[0]
   const [pass, setPass] = useState(initialPass)
   const eventImage =
@@ -109,6 +110,19 @@ const ShowRow = ({ item, index }: any) => {
     )
   }
 
+  const DateShow = () => {
+    return (
+      <div
+        className="date"
+        style={{
+          background: index % 2 == 1 ? "#FFD1FB" : "rgba(104, 243, 243, 0.2)",
+        }}
+      >
+        {dateFormat(item.attributes.date)}
+      </div>
+    )
+  }
+
   return (
     <ShowRowStyles>
       <div className="cont">
@@ -125,33 +139,43 @@ const ShowRow = ({ item, index }: any) => {
                     {item.attributes.city}
                   </span>
                 </div>
+                {isMobile && <span>{dateFormat(item.attributes.date)}</span>}
               </div>
-              <div
-                className="date"
-                style={{
-                  background:
-                    index % 2 == 1 ? "#FFD1FB" : "rgba(104, 243, 243, 0.2)",
-                }}
-              >
-                {dateFormat(item.attributes.date)}
-              </div>
+
+              {isMobile && (
+                <div className="collection">
+                  <Image
+                    src={cleanUrl(imageUrl)}
+                    width={200}
+                    height={200}
+                    alt={
+                      item.attributes.passes.data.length
+                        ? pass.attributes.collection_name + " image"
+                        : "-"
+                    }
+                  />
+                </div>
+              )}
+              {!isMobile && <DateShow />}
             </div>
-            {width < 1080 && <SelectComponent customClass="name-mobile" />}
+            {isMobile && <SelectComponent customClass="name-mobile" />}
           </div>
 
-          <div className="collection">
-            <Image
-              src={cleanUrl(imageUrl)}
-              width={200}
-              height={200}
-              alt={
-                item.attributes.passes.data.length
-                  ? pass.attributes.collection_name + " image"
-                  : "-"
-              }
-            />
-            {width > 1080 && <SelectComponent />}
-          </div>
+          {!isMobile && (
+            <div className="collection">
+              <Image
+                src={cleanUrl(imageUrl)}
+                width={200}
+                height={200}
+                alt={
+                  item.attributes.passes.data.length
+                    ? pass.attributes.collection_name + " image"
+                    : "-"
+                }
+              />
+              <SelectComponent />
+            </div>
+          )}
         </div>
         {pass?.attributes.pass_type == "Circle" ? (
           <div className="wrap-end">

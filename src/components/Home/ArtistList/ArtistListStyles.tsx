@@ -97,6 +97,11 @@ export const ArtistListStyles = styled.div<Props>`
         margin-left: 30px !important;
         margin-right: 0 !important;
       }
+
+      .swiper-slide,
+      .swiper-wrapper {
+        height: calc(54vw + 30px);
+      }
     }
 
     &:before {
@@ -133,6 +138,7 @@ export const ArtistListStyles = styled.div<Props>`
         rgba(0, 0, 0, 1) 90%
       );
       z-index: 1;
+      opacity: 0.2;
     }
 
     .p1-side-logo {

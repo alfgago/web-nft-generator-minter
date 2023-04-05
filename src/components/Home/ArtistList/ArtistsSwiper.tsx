@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Swiper, SwiperSlide } from "swiper/react" // Import Swiper styles
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import GradientBackground from "@/components/Common/GradientBackground"
 import cleanUrl from "@/utils/cleanUrl"
 
 import "swiper/css"
@@ -11,6 +12,7 @@ const ArtistsSwiper = ({ artists, title, buttonTitle, buttonLink }: any) => {
   return (
     <div className="featured-artists">
       <section className="artist-list">
+        <GradientBackground />
         <div className="content">
           <div className="section-header">
             <h2>{title}</h2>

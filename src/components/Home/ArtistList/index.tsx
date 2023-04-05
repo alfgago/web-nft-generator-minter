@@ -1,5 +1,7 @@
 import { useWindowSize } from "usehooks-ts"
 
+import GradientBackground from "@/components/Common/GradientBackground"
+
 import { ArtistListStyles } from "./ArtistListStyles"
 import ArtistsSwiper from "./ArtistsSwiper"
 import StickyList from "./StickyList"

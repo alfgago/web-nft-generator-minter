@@ -5,6 +5,7 @@ import { Tween } from "react-gsap"
 import { Controller, Scene } from "react-scrollmagic"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import GradientBackground from "@/components/Common/GradientBackground"
 import cleanUrl from "@/utils/cleanUrl"
 
 const StickyList = ({
@@ -41,6 +42,7 @@ const StickyList = ({
           triggerHook={"onLeave"}
         >
           <section className="artist-list">
+            <GradientBackground />
             <div className="content">
               <div className="section-header">
                 <h2>{title}</h2>
