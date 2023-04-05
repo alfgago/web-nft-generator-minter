@@ -47,7 +47,7 @@ const fetchData = async ({
   }
   if (user) {
     // @ts-ignore
-    params["filters[artist][user][id][$eq]"] = user
+    params["filters[artist][user][id][$eq]"] = 1
   }
   if (sort) {
     // @ts-ignore

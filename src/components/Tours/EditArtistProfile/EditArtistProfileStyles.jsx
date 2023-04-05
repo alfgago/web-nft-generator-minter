@@ -10,5 +10,9 @@ export const EditArtistProfileStyles = styled.div`
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }
+    .icon {
+      margin-left: 0;
+      margin-right: 1rem;
+    }
   }
 `

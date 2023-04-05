@@ -50,7 +50,7 @@ export const ModalStyles = styled.section`
   .modal-header {
     position: relative;
     content: "";
-    background-color: ${COLORS.black};
+    background-color: #222;
     color: ${COLORS.white};
     padding: 2rem 0;
     align-items: center;

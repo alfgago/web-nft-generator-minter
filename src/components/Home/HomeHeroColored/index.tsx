@@ -19,17 +19,19 @@ const HomeHero = ({ title, copy, image }: any) => {
             ? `url(${cleanUrl(image.data.attributes.url)})`
             : "",
         }}
-      />
+      >
+        <GradientBackground />
+      </div>
       <div className="watermark" />
 
       <div className="svgs">
         <div className="stroked-banner">
           <div className="banner-logo content">
-            <ReactSVG src="/assets/img/logo-hero-masked.svg" />
+            <ReactSVG src="/assets/img/logo-hero.svg" />
           </div>
         </div>
         <div className="banner-logo content">
-          <ReactSVG src="/assets/img/logo-hero-masked.svg" />
+          <ReactSVG src="/assets/img/logo-hero.svg" />
         </div>
         <div className="upcoming-svg content">
           <ReactSVG src="/assets/img/upcoming-shows-text.svg" />

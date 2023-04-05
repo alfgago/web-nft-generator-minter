@@ -56,16 +56,59 @@ export const ShowRowStyles = styled.div`
     @media ${DEVICE.laptop} {
       width: ${450 / 16}rem;
     }
-    .name {
+
+    .select-component {
+      padding: ${20 / 16}rem;
+      width: 100%;
       position: relative;
-      margin-left: ${20 / 16}rem;
-
-      display: none;
-
-      @media ${DEVICE.laptop} {
-        display: initial;
+      .howto {
+        font-size: 1rem;
       }
     }
+
+    .name {
+      padding-right: ${40 / 16}rem;
+      display: none;
+      font-size: 1.3rem;
+
+      @media ${DEVICE.laptop} {
+        display: block;
+      }
+
+      select {
+        background: none;
+        white-line: normal;
+        font-size: 1em;
+        width: 100%;
+        white-space: normal;
+        appearance: none;
+        border: 0;
+        outline: none;
+      }
+
+      .chevron {
+        position: absolute;
+        display: block;
+        right: ${16 / 16}rem;
+        top: 50%;
+        margin-top: -${5 / 16}rem;
+        object-fit: contain;
+        pointer-events: none;
+        svg {
+          width: ${10 / 16}rem;
+          height: ${10 / 16}rem;
+        }
+
+        @media ${DEVICE.laptop} {
+          margin-top: -${18 / 16}rem;
+          svg {
+            width: 1rem;
+            height: 1rem;
+          }
+        }
+      }
+    }
+
     img {
       height: ${160 / 16}rem;
       width: ${160 / 16}rem;
@@ -146,39 +189,6 @@ export const ShowRowStyles = styled.div`
     }
     .variant {
       background: #c2c2c2;
-    }
-  }
-
-  .name {
-    position: relative;
-    select {
-      background: none;
-      font-size: 1em;
-      white-line: normal;
-      width: 100%;
-      white-space: normal;
-      appearance: none;
-      padding: ${20 / 16}rem;
-      padding-right: ${40 / 16}rem;
-      border: 0;
-      outline: none;
-    }
-
-    .chevron {
-      position: absolute;
-      right: ${10 / 16}rem;
-      top: 50%;
-      margin-top: -${5 / 16}rem;
-      width: ${10 / 16}rem;
-      height: ${10 / 16}rem;
-      object-fit: contain;
-      pointer-events: none;
-
-      @media ${DEVICE.laptop} {
-        margin-top: -${18 / 16}rem;
-        width: ${18 / 16}rem;
-        height: ${18 / 16}rem;
-      }
     }
   }
 

@@ -22,23 +22,39 @@ export const CollectionItemStyles = styled.div`
   }
 
   h3 {
-    @media(${DEVICE.maxlaptop}){
-      font-size: 16px;
+    padding-right: .5rem;
+    font-size: 16px;
+    @media(${DEVICE.laptop}){
+      font-size: 1.25rem;
     }
   }
 
-  .container {
+  .clickable {
+    font-size: 14px;
+    border-color: #fff;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .top-content {
     display: flex;
+    width: 100%;
     @media ${DEVICE.laptop} {
       max-width: ${615 / 16}rem;
-      width: 100%;
+      width: 50%;
     }
 
-    .content {
-      width 50%;
+    .title {
+      position: relative;
+      justify-content: space-between;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      width 100%;
       background-color: ${COLORS.black};
       color: ${COLORS.white};
-      padding: ${5 / 16}rem ${20 / 16}rem ${10 / 16}rem ${15 / 16}rem;
+      padding: .5rem 1rem;
     }
 
     p {
@@ -46,9 +62,8 @@ export const CollectionItemStyles = styled.div`
     }
 
     .img-container {
-      width: 50%;
-
-      max-width: ${98 / 16}rem;
+      min-width: ${98 / 16}rem;
+      width: ${98 / 16}rem;
       img {
         object-fit: cover;
         width: 100%;
@@ -60,30 +75,11 @@ export const CollectionItemStyles = styled.div`
       }
     }
 
-    .content + div {
-      padding: ${16 / 16}rem ${20 / 16}rem ${20 / 16}rem ${0 / 16}rem;
-      background-color: ${COLORS.black};
-      width: 50%;
-      justify-content: center;
-      display: flex;
-      align-items: center;
-      button {
-        padding: ${10 / 16}rem ${16 / 16}rem;
-        width: 100%;
-        border-radius: ${49 / 16}rem;
-        border: 0px;
-        background-color: #d7d7d7;
-        font-weight: bold;
-      }
-
-      @media(${DEVICE.maxmobile}){
-        padding: ${16 / 16}rem ${1 / 16}rem ${20 / 16}rem ${0 / 16}rem;
-      }
-    }
   }
   .bottom-content {
     display: flex;
     grid-column: 1;
+      width: 100%;
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -91,7 +87,7 @@ export const CollectionItemStyles = styled.div`
     gap: 10px;
 
     @media ${DEVICE.laptop} {
-      width: 100%;
+    width: 50%;
 
       div:first-of-type {
         max-width: ${252 / 16}rem;
@@ -123,16 +119,6 @@ export const CollectionItemStyles = styled.div`
         border-left: ${8 / 16}rem solid white;
         width: ${307 / 16}rem;
       }
-    }
-  }
-
-  .img-container + div {
-    display: flex;
-    background-color: ${COLORS.black};
-    width: 100%;
-
-    @media(${DEVICE.maxmobile}){
-      width: 75%;
     }
   }
 `

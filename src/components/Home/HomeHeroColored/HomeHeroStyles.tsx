@@ -109,7 +109,7 @@ export const HomeHeroStyles = styled.section`
   }
 
   .background {
-    background: #000 !important;
+    background: #000;
     position: fixed;
     top: 0;
     left: 0;
@@ -195,6 +195,8 @@ export const HomeHeroStyles = styled.section`
     height: 12.25rem;
     z-index: 1;
     .banner-logo {
+      mix-blend-mode: unset;
+
       svg {
         > path {
           display: none;
@@ -212,6 +214,7 @@ export const HomeHeroStyles = styled.section`
 
   .banner-logo {
     position: relative;
+    mix-blend-mode: overlay;
     padding-bottom: 0;
     pointer-events: none;
 
@@ -227,7 +230,6 @@ export const HomeHeroStyles = styled.section`
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
         animation-duration: 4s;
-        fill: none;
 
         &.st-1 {
           stroke: #00ecff;

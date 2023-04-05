@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import axios from "axios"
+import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
@@ -20,6 +21,7 @@ const EditArtistProfile = () => {
         className="edit-profile-button clickable small"
         onClick={() => setToggleEdit(true)}
       >
+        <ReactSVG className="edit icon" src="/assets/icons/edit.svg" />
         Edit Artist Profile
       </CommonPill>
       {toggleEdit && (

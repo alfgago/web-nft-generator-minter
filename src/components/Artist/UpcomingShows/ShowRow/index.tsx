@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { ReactSVG } from "react-svg"
+import { useWindowSize } from "usehooks-ts"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -13,10 +15,9 @@ const yesterday = new Date(today)
 yesterday.setDate(yesterday.getDate() - 1)
 
 const ShowRow = ({ item, index }: any) => {
+  const { width } = useWindowSize()
   const initialPass = item.attributes.passes?.data[0]
   const [pass, setPass] = useState(initialPass)
-  console.log(item.attributes)
-  console.log(item.attributes?.image?.data?.attributes?.formats)
   const eventImage =
     item.attributes?.image?.data?.attributes?.url ??
     "/assets/img/drop-pic-2.png"
@@ -69,6 +70,45 @@ const ShowRow = ({ item, index }: any) => {
     setPass(selectedPass)
   }
 
+  const SelectComponent = ({ customClass = "" }) => {
+    return (
+      <div className="select-component">
+        <div className="howto">Access Options: </div>
+        <div className={`name ${customClass}`}>
+          {item.attributes.passes.data.length ? (
+            <>
+              <select
+                onChange={(e: any) => {
+                  selectPass(e.target.value)
+                }}
+              >
+                {item.attributes.passes.data.length ? (
+                  item.attributes.passes.data.map((p: any, index: number) => (
+                    <option key={"pass-item-" + p.id} value={index}>
+                      {p.attributes.collection_name}
+                    </option>
+                  ))
+                ) : (
+                  <option>No pass available for this show</option>
+                )}
+              </select>
+
+              <ReactSVG
+                src="/assets/icons/chevron-down.svg"
+                className="chevron"
+                alt="chevron"
+                width="32"
+                height="23"
+              />
+            </>
+          ) : (
+            <div>No pass available for this show</div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <ShowRowStyles>
       <div className="cont">
@@ -96,27 +136,7 @@ const ShowRow = ({ item, index }: any) => {
                 {dateFormat(item.attributes.date)}
               </div>
             </div>
-            <div className="name name-mobile">
-              <select
-                onChange={(e: any) => {
-                  selectPass(e.target.value)
-                }}
-              >
-                {item.attributes.passes.data.length &&
-                  item.attributes.passes.data.map((p: any, index: number) => (
-                    <option key={"pass-item-" + p.id} value={index}>
-                      {p.attributes.collection_name}
-                    </option>
-                  ))}
-              </select>
-              <img
-                src="/assets/icons/chevron-down.svg"
-                className="chevron"
-                alt="chevron"
-                width="32"
-                height="23"
-              />
-            </div>
+            {width < 1080 && <SelectComponent customClass="name-mobile" />}
           </div>
 
           <div className="collection">
@@ -130,39 +150,7 @@ const ShowRow = ({ item, index }: any) => {
                   : "-"
               }
             />
-            <div className="name">
-              {item.attributes.passes.data.length ? (
-                <>
-                  <select
-                    onChange={(e: any) => {
-                      selectPass(e.target.value)
-                    }}
-                  >
-                    {item.attributes.passes.data.length ? (
-                      item.attributes.passes.data.map(
-                        (p: any, index: number) => (
-                          <option key={"pass-item-" + p.id} value={index}>
-                            {p.attributes.collection_name}
-                          </option>
-                        )
-                      )
-                    ) : (
-                      <option>No pass available for this show</option>
-                    )}
-                  </select>
-
-                  <img
-                    src="/assets/icons/chevron-down.svg"
-                    className="chevron"
-                    alt="chevron"
-                    width="32"
-                    height="23"
-                  />
-                </>
-              ) : (
-                <div>No pass available for this show</div>
-              )}
-            </div>
+            {width > 1080 && <SelectComponent />}
           </div>
         </div>
         {pass?.attributes.pass_type == "Circle" ? (
