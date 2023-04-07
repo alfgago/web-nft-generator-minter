@@ -200,7 +200,11 @@ export const CardPassStyles = styled.div`
         font-size: ${16 / 16}rem;
         font-weight: 400;
         @media ${DEVICE.laptop} {
-          font-size: ${18 / 16}rem;
+          font-size: ${16 / 16}rem;
+        }
+
+        p {
+          margin-bottom: 3px;
         }
       }
     }
@@ -253,6 +257,14 @@ export const CardPassStyles = styled.div`
         .text {
           font-size: 11px;
           padding: 11px 8px;
+        }
+
+        .main-image:after {
+          width: 30%;
+          margin-left: 0;
+          transform: translateX(-50%);
+          height: 8px;
+          top: 8px;
         }
 
         .qr {

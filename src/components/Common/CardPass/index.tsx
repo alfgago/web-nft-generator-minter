@@ -24,6 +24,8 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
       : false
   }
   const title = pass.attributes.collection_name
+    .replace("Guest Pass", "<br />Guest Pass")
+    .replace("Circle Pass", "<br />Circle Pass")
   const price = pass.attributes.initial_price
   const size = pass.attributes.collection_size
   const eventName = event.name ?? ""
@@ -60,15 +62,41 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
           )}
           <div className="inner-card">
             <div className="titles trap">
-              {title && <div className="title">{title}</div>}
-              {date && (
-                <div className="date"> Giveaway date: {dateFormat(date)}</div>
+              {title && (
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html: title,
+                  }}
+                />
+              )}
+              {isGiveaway && date && (
+                <div className="date">
+                  {" "}
+                  <p>
+                    Next golden pass <br />
+                    giveaway date:{" "}
+                  </p>
+                  <b>{dateFormat(date)}</b>
+                </div>
+              )}
+              {!isGiveaway && date && (
+                <div className="date">
+                  {" "}
+                  <p>Passes release date: </p>
+                  <b>{dateFormat(date)}</b>
+                </div>
               )}
             </div>
             <div className="descriptor">
               <div className="timer">{pass.timer}</div>
               {size && <div className="size">Size: {size}</div>}
-              {price && <div className="price">Circle pass: $50</div>}
+              {isGiveaway && price && (
+                <div className="price">Circle pass: $50</div>
+              )}
+              {!isGiveaway && price && (
+                <div className="price">Average pass price: $50</div>
+              )}
             </div>
             <div className="action">
               <Link href={`/pass/${pass.attributes.contract_address}`}>

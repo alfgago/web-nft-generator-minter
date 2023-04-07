@@ -127,7 +127,7 @@ const postData = async ({
     content: "";
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
     z-index: 1;
-    border-radius: 30px;
+    border-radius: 15px;
   }
   .pass-preview .inner .main-image:after {
     content: "";
@@ -146,7 +146,7 @@ const postData = async ({
     height: 100%;
     object-fit: cover;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border-radius: 30px;
+    border-radius: 15px;
   }
   .pass-preview .inner .main-image .text {
     position: absolute;

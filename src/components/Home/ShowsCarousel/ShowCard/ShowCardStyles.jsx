@@ -32,7 +32,7 @@ export const ShowCardStyles = styled.div`
       object-fit: cover;
       pointer-events: none;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      border-radius: 30px;
+      border-radius: 15px;
       z-index: 0;
     }
 
@@ -41,12 +41,17 @@ export const ShowCardStyles = styled.div`
       bottom: 0;
       left: 0;
       width: 100%;
-      font-size: 1.1rem;
-      padding: 1.1rem;
+      font-size: 0.9rem;
+      padding: 1rem;
       font-weight: bold;
       text-align: left;
       color: #fff;
       z-index: 2;
+
+      @media ${DEVICE.laptop} {
+        font-size: 1.1rem;
+        padding: 1.1rem;
+      }
     }
 
     &:before {
@@ -62,7 +67,7 @@ export const ShowCardStyles = styled.div`
         rgba(0, 0, 0, 0) 100%
       );
       z-index: 1;
-      border-radius: 30px;
+      border-radius: 15px;
     }
     :after {
       content: "";
@@ -85,14 +90,13 @@ export const ShowCardStyles = styled.div`
       border: 2px solid ${COLORS.white};
       margin-top: 0.5rem;
       z-index: 2;
-      &:hover {
-        background: #fff;
-        color: #000;
-      }
+      background: #fff;
+      color: #000;
+      left: 1.5rem;
 
       @media ${DEVICE.laptop} {
         position: absolute;
-        top: 40%;
+        top: 0;
         left: 30%;
         margin-top: 0;
       }
@@ -100,7 +104,7 @@ export const ShowCardStyles = styled.div`
 
     &:hover .clickable.small {
       opacity: 1;
-      top: 45%;
+      top: 2rem;
     }
   }
 `

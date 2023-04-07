@@ -149,9 +149,9 @@ export const ArtistListStyles = styled.div<Props>`
       @media ${DEVICE.laptop} {
         justify-content: center;
         padding: 5rem;
-        img {
-          height: 100%;
-        }
+      }
+      img {
+        height: 100%;
       }
     }
 

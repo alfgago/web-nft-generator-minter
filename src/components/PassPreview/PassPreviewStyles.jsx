@@ -111,7 +111,7 @@ export const PassPreviewStyles = styled.div`
           rgba(0, 0, 0, 0) 100%
         );
         z-index: 1;
-        border-radius: 30px;
+        border-radius: 15px;
       }
       :after {
         content: "";
@@ -130,7 +130,7 @@ export const PassPreviewStyles = styled.div`
         height: 100%;
         object-fit: cover;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        border-radius: 30px;
+        border-radius: 15px;
       }
 
       .text {

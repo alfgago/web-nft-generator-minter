@@ -51,6 +51,8 @@ const PassDescription = ({ pass, isHome = false }: any) => {
   if (passType == "Circle" && isHome) {
     description = `You must own an artist's circle pass to enter golden guest pass giveaways. 
     <a href="/pass/${pass.attributes.contract_address}" title="Purchase ${artistName} Circle pass">Purchase ${artistName}'s circle pass here</a>`
+    description =
+      "Purchase an artist's Circle Pass to gain access to their Plus Perks and Golden Guest Pass giveaways"
   }
   if (passType == "Guest") {
     description = `This Guest Pass provides direct access to ${artistName}'s guest list at ${venue} on ${dateFormat(
