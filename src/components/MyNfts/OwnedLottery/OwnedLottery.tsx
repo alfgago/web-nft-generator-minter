@@ -8,18 +8,16 @@ import Index from "@/pages"
 import OwnedItem from "./OwnedItem"
 import { OwnedLotteryStyles } from "./OwnedLotteryStyles"
 
-const OwnedLottery = () => {
+const OwnedLottery = ({ items }: any) => {
   const [lotteryNfts, setLotteryNfts] = useState([])
   const [filter, setFilter] = useState("")
-  const { address, isConnected } = useAccount()
+  const [loading, setLoading] = useState(false)
   const [artistData, setArtistData] = useState([])
 
   const fetchData = async () => {
+    setLoading(true)
     try {
-      // get the nft of the actual wallet
-      const walletData = await axios.get("/api/nfts/owned?address=" + address)
-
-      const filteredArray = walletData.data
+      const filteredArray = items.data
         .map((nft: any) => {
           const valesp = nft.metadata.attributes
             // iterate over the metadata objs
@@ -51,6 +49,7 @@ const OwnedLottery = () => {
         }
       })
     } catch (error) {}
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -118,32 +117,46 @@ const OwnedLottery = () => {
           </ul>
         </div>
 
-        {lotteryNfts.length > 0 && (
-          <ItemPagination
-            itemsPerPage={3}
-            values={lotteryNfts}
-            render={(items: any) => {
-              return (
-                <div className="items-cont">
-                  {/* iterate the events */}
-                  {items.map((event: any) => {
-                    return event.attributes.passes.data.map(
-                      (pass: any, indexEvent: number) => {
-                        // get the passes of the event
-                        return (
-                          <OwnedItem
-                            key={"owned" + indexEvent}
-                            eventData={event}
-                            itemData={pass}
-                          />
+        {!loading ? (
+          <>
+            {lotteryNfts.length > 0 ? (
+              <ItemPagination
+                itemsPerPage={3}
+                values={lotteryNfts}
+                render={(items: any) => {
+                  return (
+                    <div className="items-cont">
+                      {/* iterate the events */}
+                      {items.map((event: any) => {
+                        return event.attributes.passes.data.map(
+                          (pass: any, indexEvent: number) => {
+                            // get the passes of the event
+                            return (
+                              <OwnedItem
+                                key={"owned" + indexEvent}
+                                eventData={event}
+                                itemData={pass}
+                              />
+                            )
+                          }
                         )
-                      }
-                    )
-                  })}
-                </div>
-              )
-            }}
-          />
+                      })}
+                    </div>
+                  )
+                }}
+              />
+            ) : (
+              <div className="not-found">No owned circle passes found</div>
+            )}
+          </>
+        ) : (
+          <div className="loading">
+            <img
+              src="/assets/img/spinner.svg"
+              className="spinner"
+              alt="loader"
+            />
+          </div>
         )}
       </div>
     </OwnedLotteryStyles>

@@ -222,13 +222,13 @@ export const CardPassStyles = styled.div`
     }
 
     .actions {
-      margin-left: auto;
+      margin-right: auto;
       display: flex;
       gap: 3px;
     }
   }
 
-  .guests-no-data {
+  .tooltop .guests-no-data {
     display: flex;
     justify-content: center;
     align-items: center;

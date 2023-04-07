@@ -54,7 +54,7 @@ const MyNfts = () => {
         <>
           <ShowNfts items={nfts} />
           <MyNftGuestsList myNfts={nfts} />
-          <OwnedLottery />
+          <OwnedLottery items={nfts} />
         </>
       ) : (
         <section className="disconnected">

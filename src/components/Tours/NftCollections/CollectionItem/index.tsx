@@ -1,12 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
 import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import Modal from "@/components/Common/Modal"
+
+import EditPerksForm from "../../EditPerksForm"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
+  const [toggleEdit, setToggleEdit] = useState(false)
   const onEdit = () => {
-    console.log(item.collection_name)
+    setToggleEdit(true)
   }
 
   return (
@@ -44,6 +48,15 @@ const CollectionItem = ({ item }: any) => {
             </p>
           </div>
         </div>
+
+        {toggleEdit && (
+          <Modal
+            setIsOpen={setToggleEdit}
+            title={`Edit ${item.collection_name} Perks`}
+          >
+            <EditPerksForm item={item} />
+          </Modal>
+        )}
       </div>
     </CollectionItemStyles>
   )

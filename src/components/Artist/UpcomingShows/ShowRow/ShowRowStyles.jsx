@@ -124,6 +124,9 @@ export const ShowRowStyles = styled.div`
 
       @media ${DEVICE.laptop} {
         display: block;
+        border: 1px solid #000;
+        padding: 0.5rem;
+        border-radius: 5px;
       }
     }
 

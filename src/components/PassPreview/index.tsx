@@ -1,5 +1,7 @@
 import React from "react"
 
+import dateFormat from "@/utils/dateFunctions"
+
 import { PassPreviewStyles } from "./PassPreviewStyles"
 
 const PassPreview = ({
@@ -12,15 +14,11 @@ const PassPreview = ({
   number = 1,
   customClass = "default",
 }: any) => {
-  const dateFormat = () => {
+  const passDateFormat = () => {
     if (!date) {
-      return
+      return ""
     }
-    const d = new Date(date)
-    const month = d.toLocaleString("default", { month: "short" })
-    const day = d.toLocaleString("default", { day: "numeric" })
-    const year = d.toLocaleString("default", { year: "numeric" })
-    return `${month} ${day} ${year}`
+    return dateFormat(date)
   }
 
   return (
@@ -36,7 +34,7 @@ const PassPreview = ({
             <div className="address">
               {city}, {country}
             </div>
-            <div className="date">{dateFormat()}</div>
+            <div className="date">{passDateFormat()}</div>
           </div>
         </div>
         <div className="right">

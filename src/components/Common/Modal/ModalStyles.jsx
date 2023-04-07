@@ -17,6 +17,17 @@ export const ModalStyles = styled.section`
   z-index: 9999999;
   background-color: ${COLORS.white};
 
+  transition: 0.5s ease all;
+  opacity: 0;
+
+  &.show {
+    opacity: 1;
+  }
+
+  &.slideshow {
+    opacity: 1;
+  }
+
   @media ${DEVICE.laptop} {
     background-color: transparent;
   }
@@ -89,7 +100,7 @@ export const ModalStyles = styled.section`
       width: ${980 / 16}rem;
       height: auto;
       max-width: 95%;
-      max-height: calc(100% - 10rem);
+      max-height: 95%;
       overflow-y: auto;
     }
   }

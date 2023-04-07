@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 
 import NewGuestForm from "@/components/Tours/NewGuestForm"
+import dateFormat from "@/utils/dateFunctions"
 
 import { MyNftGuestsItemStyles } from "./MyNftGuestsItemStyles"
 
@@ -28,14 +29,6 @@ const MyNftGuestsItem = ({ nft }: any) => {
     }
     fetchData()
   }, [])
-
-  const dateFormat = (date: string) => {
-    const d = new Date(date)
-    const month = d.toLocaleString("default", { month: "short" })
-    const day = d.toLocaleString("default", { day: "numeric" })
-    const year = d.toLocaleString("default", { year: "numeric" })
-    return `${month} ${day} ${year}`
-  }
 
   if (!event) {
     return

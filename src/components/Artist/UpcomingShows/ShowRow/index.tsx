@@ -6,7 +6,9 @@ import { useWindowSize } from "usehooks-ts"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
+import Tooltip from "@/components/Tooltip"
 import cleanUrl from "@/utils/cleanUrl"
+import dateFormat from "@/utils/dateFunctions"
 
 import { ShowRowStyles } from "./ShowRowStyles"
 
@@ -29,14 +31,6 @@ const ShowRow = ({ item, index }: any) => {
   const dropDate = item.attributes.passes.data.length
     ? new Date(pass.attributes.drop_date)
     : today
-
-  const dateFormat = (value: any) => {
-    const date = new Date(value)
-    const day = date.toLocaleString("default", { day: "2-digit" })
-    const month = date.toLocaleString("default", { month: "short" })
-    const year = date.toLocaleString("default", { year: "numeric" })
-    return day + " " + month + " " + year
-  }
 
   const [timer, setTimer] = useState("")
 
@@ -189,6 +183,7 @@ const ShowRow = ({ item, index }: any) => {
                   Enter Giveaway
                 </CommonPill>
               </Link>
+              <Tooltip text="If you already own a Circle Pass, connect your wallet to enter the giveaway." />
               <AddToCalendar
                 label="Add giveaway reminder"
                 id={pass.id}

@@ -6,6 +6,7 @@ import { CommonPill } from "@/components/Common/CommonStyles"
 import Countdown from "@/components/Common/CountDown"
 import PassPreview from "@/components/PassPreview"
 import Tooltip from "@/components/Tooltip"
+import dateFormat from "@/utils/dateFunctions"
 
 import {
   BoxDrawing,
@@ -70,14 +71,6 @@ export const DrawingData = ({ show, pass }: any) => {
   const [canGetLottery, setCanGetLottery] = useState(true)
   const timeCountEnd = () => {
     setCanGetLottery(false)
-  }
-
-  const dateFormat = (value: any) => {
-    const date = new Date(value)
-    const day = date.toLocaleString("default", { day: "2-digit" })
-    const month = date.toLocaleString("default", { month: "long" })
-    const year = date.toLocaleString("default", { year: "numeric" })
-    return day + " " + month + " " + year
   }
 
   // const currentDate = new Date()
@@ -180,6 +173,7 @@ export const DrawingData = ({ show, pass }: any) => {
                   Enter Giveaway
                 </CommonPill>
               </Link>
+              <Tooltip text="If you already own a Circle Pass, connect your wallet to enter the giveaway." />
             </div>
           </div>
         </div>

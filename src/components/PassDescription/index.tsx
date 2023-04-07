@@ -1,5 +1,7 @@
 import { ReactSVG } from "react-svg"
 
+import dateFormat from "@/utils/dateFunctions"
+
 import Tooltip from "../Tooltip"
 
 const icons = [
@@ -34,14 +36,6 @@ const PassDescription = ({ pass, isHome = false }: any) => {
   const artistName = pass.attributes.artist?.data?.attributes?.name ?? ""
   const venue = pass.attributes.event?.data?.attributes?.name ?? ""
   const date = pass.attributes.event?.data?.attributes?.date ?? ""
-
-  const dateFormat = (value: any) => {
-    const date = new Date(value)
-    const day = date.toLocaleString("default", { day: "2-digit" })
-    const month = date.toLocaleString("default", { month: "long" })
-    const year = date.toLocaleString("default", { year: "numeric" })
-    return day + " " + month + " " + year
-  }
 
   let description = ""
   if (passType == "Circle") {

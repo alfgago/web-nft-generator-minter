@@ -11,16 +11,16 @@ const EventListing = () => {
   const [events, setEvents] = useState([])
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const fetchData = async (prevEvents = [], nextpage = 1) => {
     try {
-      setIsLoading(true)
+      setLoading(true)
       setCurrentPage(nextpage)
       const { data } = await axios.get(`/api/shows?limit=10&page=${nextpage}`)
       const eventsReponse = data.data
       setEvents(prevEvents.concat(eventsReponse))
       setPageCount(data.meta.pagination.pageCount)
-      setIsLoading(false)
+      setLoading(false)
     } catch (error) {}
   }
 
@@ -53,7 +53,7 @@ const EventListing = () => {
           ) : (
             ""
           )}
-          {isLoading && (
+          {loading && (
             <div className="loading">
               <img
                 src="/assets/img/spinner.svg"

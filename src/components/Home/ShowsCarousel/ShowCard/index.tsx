@@ -4,16 +4,9 @@ import Link from "next/link"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import cleanUrl from "@/utils/cleanUrl"
+import dateFormat from "@/utils/dateFunctions"
 
 import { ShowCardStyles } from "./ShowCardStyles"
-
-const dateFormat = (date: any) => {
-  const d = new Date(date)
-  const month = d.toLocaleString("default", { month: "short" })
-  const day = d.toLocaleString("default", { day: "numeric" })
-  const year = d.toLocaleString("default", { year: "numeric" })
-  return `${month} ${day} ${year}`
-}
 
 const EventCard = ({ eventData }: any) => {
   let imageUrl =

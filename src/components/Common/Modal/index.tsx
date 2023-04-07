@@ -1,19 +1,33 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { ReactSVG } from "react-svg"
+
+import GradientBackground from "../GradientBackground"
 
 import { ModalStyles } from "./ModalStyles"
 
-const Modal = ({
+const FadeModal = ({
   children,
   setIsOpen,
   title,
+  className = "",
 }: {
   children: JSX.Element
   setIsOpen: any
   title: string
+  className: string
 }) => {
+  const [fadeIn, setFadeIn] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFadeIn(true)
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <ModalStyles>
+    <ModalStyles className={`${fadeIn ? "show" : "hide"} ${className}`}>
       <div
         className="bg-modal"
         onClick={() => {
@@ -35,6 +49,19 @@ const Modal = ({
         <div className="modal-content">{children}</div>
       </div>
     </ModalStyles>
+  )
+}
+
+const Modal = ({ children, setIsOpen, title, className }: any) => {
+  return (
+    <>
+      {createPortal(
+        <FadeModal setIsOpen={setIsOpen} title={title} className={className}>
+          {children}
+        </FadeModal>,
+        document.getElementById("portal") as HTMLElement
+      )}
+    </>
   )
 }
 

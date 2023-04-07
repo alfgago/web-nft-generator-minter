@@ -3,6 +3,7 @@
 import { useState } from "react"
 import cleanUrl from "@/utils/cleanUrl"
 import axios from "axios"
+import dateFormat from "@/utils/dateFunctions"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Link from "next/link"
@@ -30,13 +31,6 @@ const ConfirmationSingle = ({
   const [loading, setLoading] = useState(false)
   const [uploadingBlockchain, setUploadingBlockchain] = useState(0)
 
-  const dateFormat = (date) => {
-    const d = new Date(date)
-    const month = d.toLocaleString("default", { month: "short" })
-    const day = d.toLocaleString("default", { day: "numeric" })
-    const year = d.toLocaleString("default", { year: "numeric" })
-    return `${month} ${day} ${year}`
-  }
   const postImage = async (data) => {
     try {
       const apiURL =

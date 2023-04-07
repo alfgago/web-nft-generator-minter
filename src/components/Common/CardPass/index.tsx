@@ -3,19 +3,13 @@ import Link from "next/link"
 
 import PassDescription from "@/components/PassDescription"
 import PassPreview from "@/components/PassPreview"
+import Tooltip from "@/components/Tooltip"
 import cleanUrl from "@/utils/cleanUrl"
+import dateFormat from "@/utils/dateFunctions"
 
 import { CommonPill } from "../CommonStyles"
 
 import { CardPassStyles } from "./CardPassStyles"
-
-const dateFormat = (value: any) => {
-  const date = new Date(value)
-  const day = date.toLocaleString("default", { day: "2-digit" })
-  const month = date.toLocaleString("default", { month: "long" })
-  const year = date.toLocaleString("default", { year: "numeric" })
-  return day + " " + month + " " + year
-}
 
 const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
   if (!event) {
@@ -98,12 +92,15 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
                 <div className="price">Average pass price: $50</div>
               )}
             </div>
-            <div className="action">
+            <div className="actions">
               <Link href={`/pass/${pass.attributes.contract_address}`}>
                 <CommonPill className="clickable fill small">
                   {!isHome ? "Buy Now" : "Enter Circle"}
                 </CommonPill>
               </Link>
+              {isGiveaway && (
+                <Tooltip text="If you already own a Circle Pass, connect your wallet to enter the giveaway." />
+              )}
             </div>
           </div>
           <div className="more">
