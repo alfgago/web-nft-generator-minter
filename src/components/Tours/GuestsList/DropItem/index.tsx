@@ -5,10 +5,10 @@ import { ReactSVG } from "react-svg"
 
 import DropGuestList from "./DropGuestList"
 import { DropItemStyles } from "./DropItemStyles"
-const DropItem = ({ data }: any) => {
+const DropItem = ({ item }: any) => {
   const [collapsed, setCollapsed] = useState(false)
-  const location = data.event.attributes.venue_name
-  const date = data.event.attributes.date
+  const location = item.event.venue_name
+  const date = item.event.date
   const month = new Date(date).toLocaleString("default", {
     month: "long",
   })
@@ -16,8 +16,8 @@ const DropItem = ({ data }: any) => {
     day: "2-digit",
   })
 
-  const guestsList = data.guests
-  const eventInfo = data.event
+  const guestsList = item.guests
+  const eventInfo = item.event
 
   return (
     <DropItemStyles dropWidth={collapsed ? "none" : "40rem"}>

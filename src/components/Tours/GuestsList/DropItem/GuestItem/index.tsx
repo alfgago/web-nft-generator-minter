@@ -11,7 +11,6 @@ const GuestItem = ({ data }: any) => {
   const handleChange = () => {
     setIsChecked(!check)
   }
-
   const guestName: string = data.name
   const guestEmail: string = data.email
   const image = data.nft.data.attributes.image_url

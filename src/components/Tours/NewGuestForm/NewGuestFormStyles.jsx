@@ -16,6 +16,16 @@ export const NewGuestFormStyles = styled.div`
     }
   }
 
+  .confirmation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: .8rem;
+    color: #1ada1a;
+    margin-right: 1rem;
+  }
+
   .form-container {
     width: 100%;
 

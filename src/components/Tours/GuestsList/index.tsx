@@ -8,49 +8,51 @@ import { GuestsListStyles } from "@/components/Tours/GuestsList/GuestsListStyles
 import DropItem from "./DropItem"
 
 const GuestsList = () => {
-  const [guestsList, setGuestsList] = useState([])
-  const orderList: { event: any; guests: any }[] = []
+  const [guestsList, setGuestsList] = useState<any[]>([])
   const { data: user } = useSession()
 
   const [filteredGuests, setFilteredGuests] = useState<any[]>([])
+
   const createOrderList = async () => {
-    guestsList.forEach((element: any) => {
-      const currentevent = element.attributes.event.data
-      const currentGuests = element.attributes.Guests
-      // validar si el evento existe en el array order
-      if (orderList.length < 1) {
-        orderList.push({ event: currentevent, guests: currentGuests })
+    const nftGuestList = guestsList
+    const eventGuests = []
+
+    for (const nftGuests of nftGuestList) {
+      const eventData = nftGuests.attributes.event.data.attributes
+      const guests = []
+
+      if (nftGuests.attributes.name && nftGuests.attributes.email) {
+        guests.push({
+          name: nftGuests.attributes.name,
+          email: nftGuests.attributes.email,
+          nft: nftGuests.attributes.nft,
+        })
       }
 
-      const containsEvent = orderList.every(
-        (obj: any) => obj.event.id == currentevent.id
+      if (nftGuests.attributes.name2 && nftGuests.attributes.email2) {
+        guests.push({
+          name: nftGuests.attributes.name2,
+          email: nftGuests.attributes.email2,
+          nft: nftGuests.attributes.nft,
+        })
+      }
+
+      const existingEventIndex = eventGuests.findIndex(
+        (eventGuest) => eventGuest.event.id === eventData.id
       )
 
-      if (containsEvent) {
-        // recorre orderlist
-        orderList.forEach((item: any) => {
-          // unicamente valida los usuarios del evento actual
-          if (item.event.id === currentevent.id) {
-            // recorre todos los guests del guestlist actual
-            currentGuests.forEach((guest: any) => {
-              const containsGuest = item.guests.some(
-                (obj: any) => obj.hasOwnProperty("id") && obj["id"] === guest.id
-              )
-
-              if (!containsGuest) {
-                item.guests.push(guest)
-              }
-            })
-          }
+      if (existingEventIndex === -1) {
+        eventGuests.push({
+          event: eventData,
+          guests: guests,
         })
-        // sino agregar
       } else {
-        // si no existe hace un push de un nuevo objeto
-        orderList.push({ event: currentevent, guests: currentGuests })
+        eventGuests[existingEventIndex].guests.push(...guests)
       }
-    })
+    }
+    console.log(eventGuests)
     // set
-    setFilteredGuests(orderList)
+    setFilteredGuests(eventGuests)
   }
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const GuestsList = () => {
       try {
         const { data } = await axios.get(
           // @ts-ignore
-          "/api/guest-lists?user=" + user.id
+          "/api/guest-lists?user=" + 1
         )
         const gestList = data.data
         setGuestsList(gestList)
@@ -82,13 +84,13 @@ const GuestsList = () => {
           <h1>Manage guest lists</h1>
         </div>
         <ItemPagination
-          itemsPerPage={3}
+          itemsPerPage={10}
           values={filteredGuests}
           render={(items: any, index: number) => {
             return (
-              <div className="drops-container">
-                {items.map((data: any, indexI: number) => {
-                  return <DropItem key={"guestList" + indexI} data={data} />
+              <div key={"guest-" + index} className="drops-container">
+                {items.map((item: any, indexI: number) => {
+                  return <DropItem key={"guestList" + indexI} item={item} />
                 })}
               </div>
             )

@@ -13,16 +13,17 @@ const MyNftGuestsItem = ({ nft }: any) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        console.log("SHOW")
+        console.log(nft.event)
         const response = await axios.get(
           "/api/shows/single?id=" + nft.event.value
         )
-        console.log(response.data.data)
         setEvent(response.data.data)
         const nftResponse = await axios.get(
           "/api/nfts/by-image-url?image=" +
             nft.image.replace("https://plusonemusic.io/ipfs/", "")
         )
-        setQueriedNft(nftResponse.data.data)
+        setQueriedNft(nftResponse.data)
       } catch (err: any) {
         console.log(err)
       }

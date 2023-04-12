@@ -21,8 +21,8 @@ const fetchData = async ({
 
   const params = {
     "pagination[page]": page,
-    "pagination[pageSize]": limit,
-    populate: "event.artist.name,Guests.nft",
+    "pagination[pageSize]": 9999,
+    populate: "event.artist.name,nft",
   }
 
   if (pass) {

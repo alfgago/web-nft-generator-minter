@@ -53,11 +53,13 @@ const transformCreateContractParams = (
     },
   ]
 
-  if (process.env.ADMIN_WALLET_ADDRESS != body.wallet) {
-    paymentSplits.push({
-      splitAddress: body.wallet ?? "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7", // Artist wallet
-      splitBips: splitBips,
-    })
+  if (body.wallet) {
+    if (process.env.ADMIN_WALLET_ADDRESS != body.wallet) {
+      paymentSplits.push({
+        splitAddress: body.wallet, // Artist wallet
+        splitBips: splitBips,
+      })
+    }
   }
 
   return {

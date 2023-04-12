@@ -26,7 +26,7 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
     }
   })
 
-  const docTitle = eventInfo.attributes.name + " Guest List"
+  const docTitle = eventInfo.name + " Guest List"
 
   const createPdf = () => {
     // Create a new PDF document
@@ -46,13 +46,12 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
     const imgData = "https://plusonemusic.io/assets/img/pdf-header.jpg"
     doc.addImage(imgData, "JPEG", 0, 0, pdfWidth, 0)
 
-    const title =
-      "Guest List for " + eventInfo.attributes.artist.data.attributes.name
+    const title = "Guest List for " + eventInfo.artist.data.attributes.name
 
-    const address = eventInfo.attributes.country
-      ? eventInfo.attributes.country + ", " + eventInfo.attributes.city
+    const address = eventInfo.country
+      ? eventInfo.country + ", " + eventInfo.city
       : ""
-    const subtitle = eventInfo.attributes.name + " " + address
+    const subtitle = eventInfo.name + " " + address
 
     doc.setFontSize(30)
     doc.text(title, 15, 35) // Adjusted y-coordinate to 20
@@ -101,7 +100,7 @@ const DropGuestList = ({ guestsInfo, eventInfo }: any) => {
   return (
     <DropGuestListStyles>
       <ItemPagination
-        itemsPerPage={3}
+        itemsPerPage={999}
         values={guestsInfo}
         render={(items: any) => {
           return (
