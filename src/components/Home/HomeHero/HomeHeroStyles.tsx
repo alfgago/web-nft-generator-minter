@@ -153,9 +153,27 @@ export const HomeHeroStyles = styled.section`
   .banner-logo {
     position: relative;
     pointer-events: none;
-    margin-bottom -6rem;
-    left: -1.5rem;
+    margin-bottom -5rem;
+    left: -3.5rem;
     padding: 0;
+
+    @media ${DEVICE.laptop} {
+      left: -2rem;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 24rem;
+      height: 16rem;  
+      background: url(/assets/img/logo-hero-masked-stroke.svg);
+      background-repeat: no-repeat;
+
+      @media ${DEVICE.laptop} {
+        width: 26rem;
+      }
+    }
 
     .grad {
       position: relative;
@@ -163,6 +181,10 @@ export const HomeHeroStyles = styled.section`
       height: 16rem;
       mask-image: url(/assets/img/logo-hero-masked.svg);
       mask-repeat: no-repeat;
+
+      @media ${DEVICE.laptop} {
+        width: 26rem;
+      }
 
       canvas {
         width: 110%;
@@ -186,6 +208,21 @@ export const HomeHeroStyles = styled.section`
       width: 100%;
       height: 100%;
 
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: auto;
+          transform: translateY(-50%);
+          right: 10rem;
+          width: 6rem;
+          height: 80vh;
+          max-height: 75%;
+          z-index: 0;          
+          background: url(/assets/img/upcoming-shows-text-stroke.svg);
+        }
+
       .grad {
         display: block;
         position: absolute;
@@ -196,6 +233,7 @@ export const HomeHeroStyles = styled.section`
         height: auto;
         max-height: 75%;
         z-index: -1;
+        opacity: 0.9;
         
         width: 6rem;
         height: 80vh;
@@ -208,6 +246,7 @@ export const HomeHeroStyles = styled.section`
           height: 110%;
           top: -5%;
           left: -5%;
+        }
       }
     }
 
