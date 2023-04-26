@@ -11,8 +11,6 @@ import { ShowMyNftStyles } from "./ShowMyNftStyles"
 import "swiper/css"
 
 const ShowMyNfts = ({ items }: any) => {
-  // console.log("items")
-  // console.log(items)
   const { height, width } = useWindowSize()
 
   return (

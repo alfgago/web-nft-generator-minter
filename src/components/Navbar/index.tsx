@@ -34,7 +34,7 @@ const Navbar = () => {
       // @ts-ignore
       chain: process.env.NEXT_PUBLIC_PAPER_NETWORK || "Goerli",
     })
-    console.log(sdk)
+    console.log("Paper SDK ", sdk)
     setPaperSdk(sdk)
   }, [])
 

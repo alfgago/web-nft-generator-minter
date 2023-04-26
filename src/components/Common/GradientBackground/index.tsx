@@ -7,7 +7,11 @@ import { Gradient } from "@/utils/GradientEffect/gradient"
 
 import { GradientBackgroundStyles } from "./GradientBackgroundStyles"
 
-const GradientBackground = ({ className = "" }) => {
+const GradientBackground = ({
+  className = "",
+  hasGrain = true,
+  customCanvas = "gradient-canvas",
+}) => {
   const [initiated, setInitiated] = useState(false)
 
   let viewWidth
@@ -88,21 +92,25 @@ const GradientBackground = ({ className = "" }) => {
 
       window.gradient = new Gradient()
       window.gradient.colorSet = colors
-      window.gradient.initGradient("#gradient-canvas")
+      window.gradient.initGradient("#" + customCanvas)
 
-      setTimeout(function () {
-        grainCanvas = document.getElementById("grain-canvas")
-        initCanvas()
-        initGrain()
-        window.grainLoop = requestAnimationFrame(loop)
-      }, 2000)
+      if (hasGrain) {
+        setTimeout(function () {
+          grainCanvas = document.getElementById("grain-canvas")
+          initCanvas()
+          initGrain()
+          window.grainLoop = requestAnimationFrame(loop)
+        }, 2000)
+      }
     }
   }, [initiated])
 
   return (
     <GradientBackgroundStyles className={className} id="grad-container">
-      <canvas id="gradient-canvas" data-transition-in />
-      <canvas id="grain-canvas" className="active" data-transition-in />
+      <canvas id={customCanvas} data-transition-in />
+      {hasGrain && (
+        <canvas id="grain-canvas" className="active" data-transition-in />
+      )}
     </GradientBackgroundStyles>
   )
 }

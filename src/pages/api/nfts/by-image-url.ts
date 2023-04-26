@@ -22,7 +22,6 @@ const fetchData = async ({ image }: any) => {
     "filters[image_url][$eq]": "ipfs://" + image,
   }
 
-  console.log(params)
   const nftsResponse = await axios.get(`${apiURL}/api/nfts`, {
     params,
     headers: {

@@ -46,6 +46,34 @@ export const OwnedItemStyles = styled.div`
       }
     }
 
+    .countdown {
+      .tit {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      p {
+        margin: 0;
+      }
+    }
+
+    .chances {
+      font-size: 1.2rem;
+      font-weight: 600;
+
+      .perc {
+        margin: 1rem 0;
+        b {
+          font-size: 3rem;
+          display: block;
+        }
+      }
+
+      .desc {
+        font-weight: 400;
+        font-size: 0.9rem;
+      }
+    }
+
     .event-infto-cont {
       display: flex;
       flex-direction: column;

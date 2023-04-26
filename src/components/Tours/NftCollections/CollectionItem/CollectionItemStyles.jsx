@@ -98,7 +98,7 @@ export const CollectionItemStyles = styled.div`
       }
     }
 
-    div {
+    > div {
       width: 100%;
       height: 100%;
       display: flex;

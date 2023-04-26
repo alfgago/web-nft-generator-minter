@@ -2,20 +2,24 @@ import React from "react"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Countdown from "@/components/Common/CountDown"
+import P1Image from "@/components/Common/P1Image"
+import cleanUrl from "@/utils/cleanUrl"
 
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
 const OwnedItem = ({ itemData, eventData }: any) => {
-  const passInfo = itemData.attributes
-  const image = passInfo.preview_image_url
-  const passTitle = passInfo.collection_name
-  const passPrice = passInfo.initial_price
+  console.log("itemData", itemData)
+  const image = cleanUrl(itemData.image)
+  const passTitle = itemData.name
+  const passPrice = "$50"
 
   const eventInfo = eventData.attributes
-  const enventLocation = eventInfo.venue_name
+  const enventLocation = eventInfo.city
   const eventDate = eventInfo.date
-  const totalPasses = passInfo.collection_size
-  const winnersAmount = passInfo.winners
+  const owned = 9
+  const participatingWith = 9
+  const totalPasses = 100
+  const winnersAmount = 10
 
   const month = new Date(eventDate).toLocaleString("default", {
     month: "long",
@@ -23,26 +27,30 @@ const OwnedItem = ({ itemData, eventData }: any) => {
   const day = new Date(eventDate).toLocaleString("default", {
     day: "2-digit",
   })
-  const getTime = (targetTime: any, now: any = new Date()) => {
-    const remainingTime = targetTime.getTime() - now.getTime()
-    const seconds = Math.floor(remainingTime / 1000)
-    const minutes = Math.floor(seconds / 60)
-    const hours = Math.floor(minutes / 60)
 
-    return { hours: hours, minutes: minutes, seconds: seconds }
+  const numDays = 30
+  const isStakeable = () => {
+    const today = new Date()
+    const xDaysFromToday = new Date(
+      today.getTime() + numDays * 24 * 60 * 60 * 1000
+    )
+    const event = new Date(eventDate)
+
+    return event >= today && event <= xDaysFromToday
   }
-
-  const remainingTime = getTime(new Date(eventDate))
 
   return (
     <OwnedItemStyles>
       <div className="half-cont nft">
         <div className="image">
-          <img src={image} alt={passTitle} />
+          <P1Image src={image} alt={passTitle} />
         </div>
 
         <div className="nft-info-cont grey-card">
           <h3>{passTitle}</h3>
+          <h3>
+            <div>{enventLocation}</div> {`${day}  ${month}`}
+          </h3>
           <p>Floor price {passPrice}</p>
         </div>
         <span />
@@ -50,28 +58,42 @@ const OwnedItem = ({ itemData, eventData }: any) => {
 
       <div className="half-cont grey-card">
         <div className="event-infto-cont half-cont">
-          <h3>
+          <div className="countdown">
+            <div className="tit">Countdown</div>
             <Countdown targetDate={eventDate} triggerAction={false} />
-          </h3>
+          </div>
 
-          <h3>{enventLocation}</h3>
-          <h3>{`${day}  ${month}`}</h3>
+          <div className="chances">
+            <p>{winnersAmount} Winners</p>
+            <div>Total passes: {totalPasses}</div>
+          </div>
         </div>
         <div className="owned-info-cont half-cont">
-          <p>
-            Owned: {0} of {totalPasses}
-          </p>
-          <p>
-            Staked: {9} of {10}
-          </p>
-          {remainingTime.minutes < 2880 && remainingTime.minutes > 0 && (
-            <CommonPill className="clickable fill">Stake to enter</CommonPill>
-          )}
+          <div className="chances">
+            <p>
+              Participating with: {participatingWith} of {owned}
+            </p>
 
-          <p>
-            Chance of winning{" "}
-            <span>{Math.round((totalPasses / winnersAmount) * 100)}%</span>
-          </p>
+            <p className="perc">
+              Chance of winning:{" "}
+              <b>{Math.round((participatingWith / winnersAmount) * 100)}%</b>
+              <div className="desc">
+                Increase your chances by entering with multiple passes
+              </div>
+            </p>
+          </div>
+          {isStakeable() ? (
+            <CommonPill className="clickable fill">Enter Giveaway</CommonPill>
+          ) : (
+            <>
+              <CommonPill
+                className="disabled"
+                title="Available 48 hours before event"
+              >
+                Enter Giveaway
+              </CommonPill>
+            </>
+          )}
         </div>
       </div>
     </OwnedItemStyles>

@@ -1,8 +1,7 @@
 import React from "react"
 import { useState } from "react"
-import { ReactSVG } from "react-svg"
 
-import cleanUrl from "@/utils/cleanUrl"
+import P1Image from "@/components/Common/P1Image"
 
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ data }: any) => {
@@ -19,7 +18,7 @@ const GuestItem = ({ data }: any) => {
   return (
     <GuestItemStyles>
       <div>
-        <img alt="user logo" src={cleanUrl(image)} />
+        <P1Image alt="user logo" src={image} width={120} height={120} />
       </div>
       <div className="container">
         <div className="black-header">

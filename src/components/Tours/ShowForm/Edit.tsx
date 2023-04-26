@@ -124,7 +124,6 @@ const EditDateForm = ({ editShowId = 0 }) => {
     values: FormValues,
     { setSubmitting, resetForm }: any
   ) => {
-    console.log(values)
     // Upload image to Strapi
     if (imageFile) {
       const imageId = await uploadImageToStrapi(imageFile)

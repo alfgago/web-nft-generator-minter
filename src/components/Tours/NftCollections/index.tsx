@@ -47,20 +47,7 @@ const NftCollections = () => {
             </CommonPill>
           </Link>
         </div>
-        <div className="sec-tittles">
-          <div>
-            <p>Collection info</p>
-          </div>
-          <div className="sec-info">
-            <p>Guest list type</p>
-            <p>Tour / event</p>
-            <p className="p-3">
-              Winners per event
-              <small> (2 slots per winner)</small>
-            </p>
-          </div>
-        </div>
-        <div>
+        <div className="collections">
           {passes.map((data: any, i: number) => (
             <CollectionItem key={data.id} item={data.attributes} />
           ))}

@@ -139,7 +139,8 @@ export const deployContract = async (formValues: any) => {
     ...formValues,
   }
   console.log("Init Contract Deployment")
-  const res = await fetch("/api/contracts", {
+  const domain = process.env.NEXT_PUBLIC_DOMAIN ?? ""
+  const res = await fetch(domain + "/api/contracts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

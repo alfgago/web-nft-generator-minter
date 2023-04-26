@@ -105,7 +105,6 @@ const FormStep = ({
         ? selectedShow?.attributes?.image?.data?.attributes.url
         : image
     }
-    console.log(image)
 
     setDefaultImage(image)
   }
@@ -139,7 +138,6 @@ const FormStep = ({
     }
     formikRef.current.setFieldValue("name", title)
     setNftTitle(title)
-    console.log(selectedShow)
   }
 
   const selectArtist = (artistId: number) => {

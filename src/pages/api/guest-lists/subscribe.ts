@@ -50,7 +50,6 @@ const createGuestList = async (values: any) => {
   } else {
     guestList = await strapi.create("guest-lists", guestListData)
   }
-  console.log(guestList)
 
   return guestList
 }

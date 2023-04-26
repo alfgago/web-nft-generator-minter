@@ -44,13 +44,11 @@ const NewGuestForm = ({ className = "", event, nft }: any) => {
   async function fetchData() {
     try {
       if (event && nft) {
-        console.log(event, nft)
         const { data } = await axios.get(
           // @ts-ignore
           "/api/guest-lists/single?nft=" + nft.id + "&event=" + event.id
         )
         const guestList = data?.data[0].attributes
-        console.log(guestList)
         setInitValues({
           email: guestList?.email || "",
           name: guestList?.name || "",

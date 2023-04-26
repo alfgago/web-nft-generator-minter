@@ -92,6 +92,16 @@ export const CommonPill = styled.span`
     }
   }
 
+  &.disabled {
+    color: #666;
+    border: 2px solid #666;
+    &:hover {
+      color: #666;
+      border: 2px solid #666;
+    }
+    cursor: not-allowed;
+  }
+
   &.white {
     color: ${COLORS.black};
     background: ${COLORS.white};

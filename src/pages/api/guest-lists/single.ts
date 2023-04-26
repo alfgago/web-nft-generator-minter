@@ -26,8 +26,6 @@ const getGuestList = async (values: any) => {
       Authorization: `Bearer ${token}`,
     },
   })
-  console.log(response)
-  console.log(params)
 
   cache.set(cacheKey, response?.data)
   return response?.data

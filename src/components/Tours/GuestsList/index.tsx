@@ -50,7 +50,6 @@ const GuestsList = () => {
         eventGuests[existingEventIndex].guests.push(...guests)
       }
     }
-    console.log(eventGuests)
     // set
     setFilteredGuests(eventGuests)
   }

@@ -61,6 +61,7 @@ export const HomeHeroStyles = styled.section`
     }
 
     &.screen {
+      z-index: 1;
       mix-blend-mode: screen;
     }
 
@@ -147,11 +148,35 @@ export const HomeHeroStyles = styled.section`
       background-size: 38%;
     }
   }
+  
+
+  .banner-logo {
+    position: relative;
+    pointer-events: none;
+    margin-bottom -6rem;
+    left: -1.5rem;
+    padding: 0;
+
+    .grad {
+      position: relative;
+      width: 24rem;
+      height: 16rem;
+      mask-image: url(/assets/img/logo-hero-masked.svg);
+      mask-repeat: no-repeat;
+
+      canvas {
+        width: 110%;
+        height: 110%;
+        top: -5%;
+        left: -5%;
+      }
+    }
+  }
 
   .upcoming-svg {
     display: none;
-    mix-blend-mode: overlay;
     pointer-events: none;
+
     @media ${DEVICE.laptop} {
       display: block;
       position: absolute;
@@ -160,17 +185,29 @@ export const HomeHeroStyles = styled.section`
       transform: translateX(-50%);
       width: 100%;
       height: 100%;
-      svg {
+
+      .grad {
         display: block;
         position: absolute;
         top: 50%;
+        left: auto;
         transform: translateY(-50%);
-        right: 12rem;
-        max-width: 5rem;
+        right: 10rem;
         height: auto;
-        max-height: 80vh;
+        max-height: 75%;
         z-index: -1;
-        overflow: visible;
+        
+        width: 6rem;
+        height: 80vh;
+        mask-image: url(/assets/img/upcoming-shows-text.svg);
+        mask-type: luminance;
+        mask-repeat: no-repeat;
+
+        canvas {
+          width: 80vw;
+          height: 110%;
+          top: -5%;
+          left: -5%;
       }
     }
 
@@ -184,73 +221,6 @@ export const HomeHeroStyles = styled.section`
 
       .st0 {
         display: none;
-      }
-    }
-  }
-
-  .stroked-banner {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 12.25rem;
-    z-index: 1;
-    .banner-logo {
-      svg {
-        > path {
-          display: none;
-        }
-        .plusone-text path,
-        .plusone-text polygon {
-          opacity: 1;
-          fill: none;
-          stroke: #fff;
-          stroke-width: 3px;
-        }
-      }
-    }
-  }
-
-  .banner-logo {
-    position: relative;
-    padding-bottom: 0;
-    pointer-events: none;
-
-    svg {
-      width: auto;
-      height: 12.25rem;
-      margin-bottom: -3.5rem;
-      margin-left: -5rem;
-
-      path.st0 {
-        opacity: 0.7;
-        animation: fadeInOut;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-        animation-duration: 4s;
-        fill: none;
-
-        &.st-1 {
-          stroke: #00ecff;
-          animation-delay: 3s;
-        }
-        &.st-2 {
-          stroke: #1415ff;
-          animation-delay: 2s;
-        }
-        &.st-3 {
-          stroke: rgb(208, 0, 255);
-          animation-delay: 1s;
-        }
-        &.st-4 {
-          stroke: #fb00fb;
-          animation-delay: 0s;
-        }
-      }
-
-      @media ${DEVICE.laptop} {
-        height: 18rem;
-        margin-bottom: -6.5rem;
-        margin-left: -8rem;
       }
     }
   }

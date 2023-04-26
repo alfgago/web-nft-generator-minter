@@ -20,6 +20,10 @@ export const NftCollectionStyles = styled.section`
     }
   }
 
+  .collections {
+    margin-top: 1.5rem;
+  }
+
   .sec-tittles {
     display: none;
 

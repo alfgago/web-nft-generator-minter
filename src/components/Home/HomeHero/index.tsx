@@ -23,19 +23,15 @@ const HomeHero = ({ title, copy, image }: any) => {
       <div className="watermark" />
 
       <div className="svgs">
-        <div className="stroked-banner">
-          <div className="banner-logo content">
-            <ReactSVG src="/assets/img/logo-hero-masked.svg" />
-          </div>
-        </div>
         <div className="banner-logo content">
-          <ReactSVG src="/assets/img/logo-hero-masked.svg" />
+          <GradientBackground className="grad" hasGrain={false} />
         </div>
         <div className="upcoming-svg content">
-          <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
-        </div>
-        <div className="upcoming-svg content stroked">
-          <ReactSVG src="/assets/img/upcoming-shows-text.svg" />
+          <GradientBackground
+            className="grad"
+            hasGrain={false}
+            customCanvas="gradient-canvas2"
+          />
         </div>
       </div>
       <div className="content screen">

@@ -1,60 +1,66 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { useAccount } from "wagmi"
-
-import ItemPagination from "@/components/Common/ItemPagination"
-import Index from "@/pages"
 
 import OwnedItem from "./OwnedItem"
 import { OwnedLotteryStyles } from "./OwnedLotteryStyles"
 
 const OwnedLottery = ({ items }: any) => {
-  const [lotteryNfts, setLotteryNfts] = useState([])
+  const [circlePasses, setCirclePasses] = useState<any>([])
+  const [filteredPasses, setFilteredPasses] = useState<any>([])
   const [filter, setFilter] = useState("")
   const [loading, setLoading] = useState(false)
-  const [artistData, setArtistData] = useState([])
 
   const fetchData = async () => {
     setLoading(true)
     try {
-      const filteredArray = items.data
-        .map((nft: any) => {
-          const valesp = nft.metadata.attributes
-            // iterate over the metadata objs
-            .map((item: any) => {
-              // validate if the pass is lottery
-              if (item.trait_type === "pass_type" && item.value === "Circle") {
-                return true
-              }
-              return false
-            })
-            // only need the info of the true elements
-            .filter((event: any) => event !== false)
-
-          return {
-            name: nft.title,
-            event: valesp[0] === true ? nft.metadata.image : "",
+      const passesArray: any[] = []
+      console.log("items", items)
+      for (const nft of items) {
+        let isCircle = false
+        nft.metadata.attributes.map((item: any) => {
+          if (item.trait_type === "pass_type" && item.value === "Circle") {
+            isCircle = true // validate if the pass is lottery
           }
         })
-        .filter((event: any) => event.event != "")
 
-      // get the artist info based on the image of the nft
-      filteredArray.forEach(async (element: any, index: number) => {
-        const { data } = await axios.get(
-          `/api/artists/wallet-lottery?nftImage=${element.event}`
-        )
+        if (isCircle) {
+          const nftImage = nft.metadata.image
+          const { data } = await axios.get(
+            `/api/artists/wallet-lottery?nftImage=${nftImage}`
+          )
 
-        if (data.data[index]) {
-          setArtistData(data.data[index].attributes.events.data)
+          // Filter events to show only upcoming ones
+          const events = data.data[0].attributes.events.data.filter(
+            (event: any) => {
+              const eventDate = new Date(event.date)
+              const currentDate = new Date()
+              // return eventDate >= currentDate
+              return true
+            }
+          )
+
+          passesArray.push({
+            name: nft.title,
+            image: nftImage,
+            artist: data.data[0],
+            events: events,
+          })
         }
-      })
-    } catch (error) {}
+      }
+
+      console.log("filteredPasses", passesArray)
+      setCirclePasses(passesArray)
+    } catch (error) {
+      console.log("Error")
+      console.log(error)
+    }
+
     setLoading(false)
   }
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [items])
 
   const getTime = (targetTime: any, now: any = new Date()) => {
     const remainingTime = targetTime.getTime() - now.getTime()
@@ -67,26 +73,16 @@ const OwnedLottery = ({ items }: any) => {
 
   // filter function
   useEffect(() => {
-    let filteredList = artistData
-    // const remainingTime = getTime(new Date(el.attributes.date))
-
+    const filtered = circlePasses
     // validate if the time is more than 48h
     if (filter === "upcoming") {
-      filteredList = artistData.filter(
-        (el: any) => getTime(new Date(el.attributes.date)).minutes > 2880
-      )
     } else if (filter === "active") {
-      // validate if is in valid time to be active
-      filteredList = artistData.filter(
-        (el: any) => getTime(new Date(el.attributes.date)).minutes < 2880
-      )
     }
 
     // set only events that contains passes
-    setLotteryNfts(
-      filteredList.filter((item: any) => item.attributes.passes.data.length > 0)
-    )
-  }, [filter, artistData])
+    setFilteredPasses(filtered)
+    console.log("filtered", filtered)
+  }, [filter, circlePasses])
 
   return (
     <OwnedLotteryStyles>
@@ -119,32 +115,23 @@ const OwnedLottery = ({ items }: any) => {
 
         {!loading ? (
           <>
-            {lotteryNfts.length > 0 ? (
-              <ItemPagination
-                itemsPerPage={3}
-                values={lotteryNfts}
-                render={(items: any) => {
-                  return (
-                    <div className="items-cont">
-                      {/* iterate the events */}
-                      {items.map((event: any) => {
-                        return event.attributes.passes.data.map(
-                          (pass: any, indexEvent: number) => {
-                            // get the passes of the event
-                            return (
-                              <OwnedItem
-                                key={"owned" + indexEvent}
-                                eventData={event}
-                                itemData={pass}
-                              />
-                            )
-                          }
-                        )
-                      })}
-                    </div>
-                  )
-                }}
-              />
+            {filteredPasses.length > 0 ? (
+              <>
+                {filteredPasses.map((item: any, index: number) => (
+                  <div className="items-cont" key={"passes-pag-" + { index }}>
+                    {item.events.map((event: any, j: number) => {
+                      console.log("event", event)
+                      return (
+                        <OwnedItem
+                          key={"ownedPass-" + j}
+                          itemData={item}
+                          eventData={event}
+                        />
+                      )
+                    })}
+                  </div>
+                ))}
+              </>
             ) : (
               <div className="not-found">No owned circle passes found</div>
             )}

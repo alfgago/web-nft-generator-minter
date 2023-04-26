@@ -3,6 +3,7 @@ import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
+import P1Image from "@/components/Common/P1Image"
 
 import EditPerksForm from "../../EditPerksForm"
 
@@ -18,7 +19,12 @@ const CollectionItem = ({ item }: any) => {
       <div key={item.id} className="itemWrapper">
         <div className="top-content">
           <div className="img-container">
-            <img alt="Tour Logo" src={item.preview_image_url} />
+            <P1Image
+              alt="Tour Logo"
+              src={item.preview_image_url}
+              width={120}
+              height={120}
+            />
           </div>
           <div className="title">
             <h3>{item.collection_name}</h3>
@@ -37,15 +43,21 @@ const CollectionItem = ({ item }: any) => {
         </div>
         <div className="bottom-content">
           <div>
-            <p>{item.pass_type}</p>
+            <p>{item.pass_type} Pass</p>
           </div>
           <div className="middle">
-            <p> All</p>
-          </div>
-          <div>
-            <p>
-              {item.winners ? item.winners : item.size} / {item.collection_size}
-            </p>
+            {item.pass_type != "Circle" ? (
+              <div>
+                {item.collection_size}
+                <div>total passes</div>
+              </div>
+            ) : (
+              <div>
+                {item.winners ? item.winners : item.size} /{" "}
+                {item.collection_size}
+                <div>giveaway winners per event</div>
+              </div>
+            )}
           </div>
         </div>
 
