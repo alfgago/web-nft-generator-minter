@@ -127,8 +127,11 @@ class Gradient {
           this.minigl.render()
         }
         if (0 !== this.last && this.isStatic)
-          return this.minigl.render(), void this.disconnect()
-        /* this.isIntersecting && */ ;(this.conf.playing || this.isMouseDown) &&
+          return (
+            this.minigl.render(), void this.disconnect()
+            /* this.isIntersecting && */
+          )
+        ;(this.conf.playing || this.isMouseDown) &&
           requestAnimationFrame(this.animate)
       }),
       e(this, "addIsLoadedClass", () => {
@@ -242,7 +245,7 @@ class Gradient {
             value: this.amp,
           }),
           noiseSpeed: new this.minigl.Uniform({
-            value: 10,
+            value: 20,
           }),
           noiseFlow: new this.minigl.Uniform({
             value: 3,

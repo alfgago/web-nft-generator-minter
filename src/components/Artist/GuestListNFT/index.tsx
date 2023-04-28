@@ -21,7 +21,6 @@ const GuestListNFT = ({ artist, events = [] }: any) => {
     { name: "Circle", value: "Circle" },
     { name: "Guest", value: "Guest" },
     { name: "Status", value: "Status" },
-    { name: "Infinity", value: "Infinity" },
   ]
 
   // Fetch the data in the useEffect hook
