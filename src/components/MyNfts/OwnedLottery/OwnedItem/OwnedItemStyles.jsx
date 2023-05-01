@@ -18,7 +18,7 @@ export const OwnedItemStyles = styled.div`
     width: 50%;
 
     .image {
-      max-width: ${224 / 16}rem;
+      min-width: ${224 / 16}rem;
       width: 100%;
 
       img {
@@ -61,7 +61,7 @@ export const OwnedItemStyles = styled.div`
       font-weight: 600;
 
       .perc {
-        margin: 1rem 0;
+        margin: 0;
         b {
           font-size: 3rem;
           display: block;
@@ -92,6 +92,11 @@ export const OwnedItemStyles = styled.div`
           font-weight: bold;
         }
       }
+    }
+
+    .green {
+      color: #1415ff;
+      border-color: #1415ff;
     }
   }
 `

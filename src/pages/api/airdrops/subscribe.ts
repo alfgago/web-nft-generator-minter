@@ -20,12 +20,14 @@ const subscribeParticipant = async (values: any) => {
     },
   })
 
-  const participant = await strapi.create("giveaway-participant", {
+  const params = {
     wallet: values.wallet,
-    email: values.email,
-    event: values.event_id,
-    circle_nft: values.nft_id,
-  })
+    email: values.email ?? null,
+    event: values.event,
+    circle_nft: values.circle_nft,
+  }
+
+  const participant = await strapi.create("giveaway-participants", params)
 
   return participant
 }

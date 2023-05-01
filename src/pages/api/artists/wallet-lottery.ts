@@ -5,7 +5,7 @@ const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   page = 1,
-  limit = 10,
+  limit = 99,
   passType = false,
   nftImage = false,
 }: any) => {

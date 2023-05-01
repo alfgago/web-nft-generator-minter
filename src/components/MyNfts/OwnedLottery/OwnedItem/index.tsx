@@ -1,4 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import { useAccount } from "wagmi"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Countdown from "@/components/Common/CountDown"
@@ -8,7 +10,58 @@ import cleanUrl from "@/utils/cleanUrl"
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
 const OwnedItem = ({ itemData, eventData }: any) => {
-  console.log("itemData", itemData)
+  const [participants, setParticipants] = useState<any>([])
+  const [nft, setNft] = useState<any>(null)
+  const [subscribeSuccess, setSubscribeSuccess] = useState(false)
+  const { address } = useAccount()
+
+  async function fetchParticipants() {
+    const { data } = await axios.get(
+      "/api/airdrops/get-participants?event=" + eventData.id
+    )
+    // Update the state with the response data
+    setParticipants(data.data)
+  }
+  async function fetchNft() {
+    const nftResponse = await axios.get(
+      "/api/nfts/by-image-url?image=" + itemData.image.replace("ipfs://", "")
+    )
+    setNft(nftResponse.data)
+  }
+  useEffect(() => {
+    fetchParticipants()
+    fetchNft()
+  }, [])
+
+  const enterGiveaway = async () => {
+    const res = await axios.post("/api/airdrops/subscribe", {
+      wallet: address,
+      // email: values.email,
+      event: eventData.id,
+      circle_nft: nft.id,
+    })
+    if (res.data) {
+      setSubscribeSuccess(true)
+    }
+  }
+
+  const isEntered = () => {
+    if (subscribeSuccess) {
+      return true
+    }
+    if (participants.length && nft) {
+      for (const participant of participants) {
+        if (
+          participant.attributes.circle_nft &&
+          participant.attributes.circle_nft.data.id === nft.id
+        ) {
+          return false
+        }
+      }
+    }
+    return false
+  }
+
   const image = cleanUrl(itemData.image)
   const passTitle = itemData.name
   const passPrice = "$50"
@@ -16,10 +69,8 @@ const OwnedItem = ({ itemData, eventData }: any) => {
   const eventInfo = eventData.attributes
   const enventLocation = eventInfo.city
   const eventDate = eventInfo.date
-  const owned = 9
-  const participatingWith = 9
-  const totalPasses = 100
-  const winnersAmount = 10
+  const totalPassesParticipating = participants?.length ?? 0
+  const winnersAmount = eventInfo.giveaway_slots
 
   const month = new Date(eventDate).toLocaleString("default", {
     month: "long",
@@ -37,6 +88,17 @@ const OwnedItem = ({ itemData, eventData }: any) => {
     const event = new Date(eventDate)
 
     return event >= today && event <= xDaysFromToday
+  }
+
+  function calculateLotteryChances() {
+    const totalSlots = isEntered()
+      ? totalPassesParticipating
+      : totalPassesParticipating + 1
+    const slotsOwned = 1
+    let chancesOfWinning =
+      (winnersAmount / totalSlots) * (slotsOwned / (totalSlots - 1))
+    chancesOfWinning = Math.min(chancesOfWinning, 1) * 100
+    return chancesOfWinning
   }
 
   return (
@@ -65,33 +127,41 @@ const OwnedItem = ({ itemData, eventData }: any) => {
 
           <div className="chances">
             <p>{winnersAmount} Winners</p>
-            <div>Total passes: {totalPasses}</div>
+            <div>Participating: {totalPassesParticipating}</div>
           </div>
         </div>
         <div className="owned-info-cont half-cont">
           <div className="chances">
-            <p>
-              Participating with: {participatingWith} of {owned}
-            </p>
-
-            <p className="perc">
-              Chance of winning:{" "}
-              <b>{Math.round((participatingWith / winnersAmount) * 100)}%</b>
+            <div className="perc">
+              Chance of winning: <b>{calculateLotteryChances()}%</b>
               <div className="desc">
                 Increase your chances by entering with multiple passes
               </div>
-            </p>
+            </div>
           </div>
-          {isStakeable() ? (
-            <CommonPill className="clickable fill">Enter Giveaway</CommonPill>
+          {!isEntered() ? (
+            <>
+              {isStakeable() ? (
+                <CommonPill
+                  className="clickable blue fill"
+                  onClick={() => enterGiveaway()}
+                >
+                  Enter Giveaway
+                </CommonPill>
+              ) : (
+                <>
+                  <CommonPill
+                    className="disabled"
+                    title="Available 48 hours before event"
+                  >
+                    Enter Giveaway
+                  </CommonPill>
+                </>
+              )}
+            </>
           ) : (
             <>
-              <CommonPill
-                className="disabled"
-                title="Available 48 hours before event"
-              >
-                Enter Giveaway
-              </CommonPill>
+              <CommonPill className="disabled green">Entered</CommonPill>
             </>
           )}
         </div>

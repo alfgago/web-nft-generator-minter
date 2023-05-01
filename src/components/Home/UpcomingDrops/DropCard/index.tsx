@@ -40,10 +40,12 @@ const DropCard = ({ pass, classes = "" }: any) => {
   }
 
   useEffect(() => {
-    /* const t = setInterval(() => {
+    /* 
+    const t = setInterval(() => {
       dropDateTimer()
     }, 1000)
-    return () => setInterval(t)*/
+    return () => setInterval(t)
+    */
     dropDateTimer()
   }, [])
 

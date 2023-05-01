@@ -48,7 +48,6 @@ const OwnedLottery = ({ items }: any) => {
         }
       }
 
-      console.log("filteredPasses", passesArray)
       setCirclePasses(passesArray)
     } catch (error) {
       console.log("Error")
@@ -120,7 +119,6 @@ const OwnedLottery = ({ items }: any) => {
                 {filteredPasses.map((item: any, index: number) => (
                   <div className="items-cont" key={"passes-pag-" + { index }}>
                     {item.events.map((event: any, j: number) => {
-                      console.log("event", event)
                       return (
                         <OwnedItem
                           key={"ownedPass-" + j}
