@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { ReactSVG } from "react-svg"
 
-import GradientBackground from "../GradientBackground"
-
 import { ModalStyles } from "./ModalStyles"
 
 const FadeModal = ({

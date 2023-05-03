@@ -6,9 +6,11 @@ import Strapi from "strapi-sdk-js"
 
 import dateFormat from "@/utils/dateFunctions"
 import { deployContract, uploadNft } from "@/utils/mintUtils"
+
 const cache = new NodeCache({ stdTTL: 86400 }) // cache for 24 hours
 
-const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
+const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337"
 const token = process.env.API_TOKEN
 
 const strapi = new Strapi({
@@ -72,6 +74,7 @@ const forceAirdrop = async (values: any) => {
   // Deploys the contract
   const contractAddress = await createContract(event)
 
+  const participantWallets = []
   for (const participant of participants) {
     const image = event.attributes.image.data.attributes.url
     const name = event.attributes.name
@@ -91,6 +94,7 @@ const forceAirdrop = async (values: any) => {
       passTitle: nftName,
     }
     participant.pass = data
+    participantWallets.push(participant.attributes.wallet)
 
     const goldenPassResponse = await axios.post(
       `${apiURL}/api/generate-pass-image`,
@@ -116,7 +120,6 @@ const forceAirdrop = async (values: any) => {
   // Array used to store the metadata files that will be later uploaded
   const metadatas: any[] = []
   // Loop participants again once pass is created. Register each new NFT in the contract
-
   const circleNft = participants[0].attributes.circle_nft.data
   const memberName = circleNft.attributes.metadata.attributes.find(
     (attr: any) => attr.trait_type === "member"
@@ -142,6 +145,25 @@ const forceAirdrop = async (values: any) => {
     )
     loop++
   }
+
+  console.log("metadatas", metadatas)
+
+  // Bulk airdrops
+  axios.post(
+    `${baseUrl}/api/airdrops/folder`,
+    {
+      contractAddress,
+      metadatas,
+      participantWallets,
+      // @ts-ignore
+      passId: pass.data.id,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 
   return participants
 }

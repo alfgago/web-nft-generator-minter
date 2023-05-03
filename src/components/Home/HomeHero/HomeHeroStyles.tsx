@@ -221,6 +221,7 @@ export const HomeHeroStyles = styled.section`
           max-height: 75%;
           z-index: 0;          
           background: url(/assets/img/upcoming-shows-text-stroke.svg);
+          background-repeat: no-repeat;
         }
 
       .grad {

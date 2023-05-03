@@ -6,9 +6,10 @@ import { MetaDataClient } from "@juicelabs/client"
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
 
 export const uploadFolder = async (contractAddress: string, metadatas: any) => {
-  const { data } = await axios.post("/api/nfts/create-folder", {
+  const { data } = await axios.post(baseUrl + "/api/nfts/create-folder", {
     folderName: contractAddress,
     metadatas: JSON.stringify(metadatas),
   })
@@ -27,7 +28,7 @@ export const uploadNft = async (
   const order = index + 1
   const name = formValues.name + " " + order
   const desc = "PlusOne NFT for " + nftTitle
-  const premint = formValues.saleType == "Auction"
+  const premint = true
 
   let imageUrl = image
   if (!imageUrl.startsWith("ipfs://")) {
@@ -72,11 +73,12 @@ export const uploadNft = async (
     external_url: cleanUrl(imageUrl),
     attributes: atts,
   }
+  console.log(metadata)
   // upload the image and metadata to IPFS
   const metadataClient = new MetaDataClient(NFT_STORAGE_TOKEN)
   const metaCID = await metadataClient.uploadMeta(metadata)
 
-  await axios.post("/api/nfts/create", {
+  await axios.post(baseUrl + "/api/nfts/create", {
     name: name,
     image_url: imageUrl,
     ipfs_token: metaCID,
@@ -93,7 +95,7 @@ export const setFolderStorage = async (
   contractAddress: string,
   folderCid: string
 ) => {
-  const res = await fetch("/api/contracts/setFolderStorage", {
+  const res = await fetch(baseUrl + "/api/contracts/setFolderStorage", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +115,7 @@ export const setFolderStorage = async (
 }
 
 export const bulkMint = async (contractAddress: string, size: string) => {
-  const res = await fetch("/api/contracts/bulkMint", {
+  const res = await fetch(baseUrl + "/api/contracts/bulkMint", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -139,8 +141,7 @@ export const deployContract = async (formValues: any) => {
     ...formValues,
   }
   console.log("Init Contract Deployment")
-  const domain = process.env.NEXT_PUBLIC_DOMAIN ?? ""
-  const res = await fetch(domain + "/api/contracts", {
+  const res = await fetch(baseUrl + "/api/contracts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
