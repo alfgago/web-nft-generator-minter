@@ -24,13 +24,17 @@ const HomeHero = ({ title, copy, image }: any) => {
 
       <div className="svgs">
         <div className="banner-logo content">
-          <GradientBackground className="grad" hasGrain={false} />
+          <GradientBackground
+            className="grad"
+            hasGrain={false}
+            customCanvas="gradient-canvas-logo"
+          />
         </div>
         <div className="upcoming-svg content">
           <GradientBackground
             className="grad"
             hasGrain={false}
-            customCanvas="gradient-canvas2"
+            customCanvas="gradient-canvas-up"
           />
         </div>
       </div>

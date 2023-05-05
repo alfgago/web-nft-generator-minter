@@ -8,7 +8,11 @@ const NodataGuests = () => {
     <NoDataGuestStyles>
       <div>
         <h3>Access Guest List</h3>
-        <p>You don't have any upcoming guest list access passes</p>
+        <p>
+          You don't own any passes which provide guest list access. Purchase a
+          guest pass or enter an upcoming giveaway below for a change to win a
+          golden guest pass.
+        </p>
       </div>
       <div>
         <h2>Learn how to get access</h2>

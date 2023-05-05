@@ -2,11 +2,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 
-import { uploadFolder } from "@/utils/mintUtils"
-
-import bulkMint from "../contracts/bulkMint"
-import setFolderStorage from "../contracts/setFolderStorage"
 const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+
+import { bulkMint, setFolderStorage, uploadFolder } from "@/utils/mintUtils"
 
 const folderAirdrops = async ({
   contractAddress,
@@ -15,10 +13,9 @@ const folderAirdrops = async ({
   passId,
 }: any) => {
   try {
-    console.log("metadatas2", metadatas)
     const folderCid = await uploadFolder(contractAddress, metadatas)
     await setFolderStorage(contractAddress, folderCid)
-    await bulkMint(contractAddress, participantWallets.length)
+    await bulkMint(contractAddress, participantWallets.length, true)
     await axios.post(baseUrl + "/api/passes/update-folder", {
       id: passId,
       folderCid: folderCid,
@@ -36,6 +33,7 @@ const folderAirdrops = async ({
 }
 
 const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
+  console.log(`Airdropping ${contractAddress} #${nftId} to ${wallet}`)
   const res = await fetch(baseUrl + "/api/airdrops", {
     method: "POST",
     headers: {
@@ -48,13 +46,15 @@ const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
       nftId: nftId,
     }),
   })
+  console.log("Airdrop Res")
   console.log(res)
 
   if (!res.ok)
-    throw new Error("Airdrop failed" + JSON.stringify(await res.json()))
+    throw new Error("Airdrop failed: " + JSON.stringify(await res.json()))
 
   const { transactionHash } = await res.json()
 
+  console.log("AirdroptransactionHash: ", transactionHash)
   return transactionHash
 }
 

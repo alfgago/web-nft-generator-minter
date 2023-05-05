@@ -21,16 +21,18 @@ type BulkMintResponseBody =
   | ErrResponseBody
 
 export default async function handler(
-  req: BulkMintRequest,
+  req: NextApiRequest,
   res: NextApiResponse<BulkMintResponseBody>
 ) {
   try {
-    const { contractAddress, network, count } = req.body
+    const { contractAddress, network, count, toJuice = false } = req.body
 
     const transactionHash = await bulkMint({
       contractAddress,
       network,
-      toAddress: process.env.ADMIN_WALLET_ADDRESS ?? "",
+      toAddress: toJuice
+        ? process.env.JUICE_WALLET_ADDRESS ?? ""
+        : process.env.ADMIN_WALLET_ADDRESS ?? "",
       count,
     })
 

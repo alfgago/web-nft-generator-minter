@@ -4,11 +4,15 @@ import { NFTStorage } from "nft.storage"
 import cleanUrl from "@/utils/cleanUrl"
 import { MetaDataClient } from "@juicelabs/client"
 
+import { storeNftMeta } from "./storeNftMeta"
+
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
 
 export const uploadFolder = async (contractAddress: string, metadatas: any) => {
+  console.log("uploadFolder")
+  console.log(metadatas)
   const { data } = await axios.post(baseUrl + "/api/nfts/create-folder", {
     folderName: contractAddress,
     metadatas: JSON.stringify(metadatas),
@@ -74,9 +78,8 @@ export const uploadNft = async (
     attributes: atts,
   }
   console.log(metadata)
-  // upload the image and metadata to IPFS
-  const metadataClient = new MetaDataClient(NFT_STORAGE_TOKEN)
-  const metaCID = await metadataClient.uploadMeta(metadata)
+  const metaCID = await storeNftMeta(metadata)
+  console.log(metaCID)
 
   await axios.post(baseUrl + "/api/nfts/create", {
     name: name,
@@ -114,7 +117,11 @@ export const setFolderStorage = async (
   console.log("Set Folder Storage Transaction Hash: " + transactionHash)
 }
 
-export const bulkMint = async (contractAddress: string, size: string) => {
+export const bulkMint = async (
+  contractAddress: string,
+  size: string,
+  toJuice = false
+) => {
   const res = await fetch(baseUrl + "/api/contracts/bulkMint", {
     method: "POST",
     headers: {
@@ -124,6 +131,7 @@ export const bulkMint = async (contractAddress: string, size: string) => {
       contractAddress,
       network: "goerli",
       count: size,
+      toJuice,
     }),
   })
 

@@ -73,7 +73,7 @@ const forceAirdrop = async (values: any) => {
 
   // Deploys the contract
   const contractAddress = await createContract(event)
-
+  console.log("contractAddress: ", contractAddress)
   const participantWallets = []
   for (const participant of participants) {
     const image = event.attributes.image.data.attributes.url
@@ -134,7 +134,7 @@ const forceAirdrop = async (values: any) => {
     show: event.id,
   }
   for (const participant of participants) {
-    uploadNft(
+    await uploadNft(
       participant.passImage,
       // @ts-ignore
       pass.data.id,
@@ -145,8 +145,6 @@ const forceAirdrop = async (values: any) => {
     )
     loop++
   }
-
-  console.log("metadatas", metadatas)
 
   // Bulk airdrops
   axios.post(
@@ -172,7 +170,6 @@ const createContract = async (event: any) => {
   const passName = event.attributes.name + " Golden Guest Pass"
   const cacheKey = `airdrop_contract_${event.id}`
   let contractAddress = cache.get(cacheKey)
-  contractAddress = "0x574C0432525030CA3a6cc7171dC9fa7833e3dB77"
   if (!contractAddress) {
     const reqId = await deployContract({
       name: passName,
@@ -185,7 +182,7 @@ const createContract = async (event: any) => {
     })
     contractAddress = await waitForSuccess(reqId)
     if (!contractAddress) {
-      return "contract creation failed"
+      throw new Error("Contract creation failed")
     }
     cache.set(cacheKey, contractAddress)
   }
@@ -234,6 +231,7 @@ async function waitForSuccess(reqId: string) {
     const juiceResponse = await axios.get(
       "https://juicelabs.io/api/v1/requests/" + reqId
     )
+    console.log("Attempt contract creation: ")
     console.log(juiceResponse.data)
     if (juiceResponse.data.status === "succeeded") {
       return juiceResponse.data.contractAddress

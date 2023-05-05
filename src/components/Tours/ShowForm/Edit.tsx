@@ -214,6 +214,7 @@ const EditDateForm = ({ editShowId = 0 }) => {
                               city={formikRef?.current?.values?.city}
                               country={formikRef?.current?.values?.country}
                               date={formikRef?.current?.values?.date}
+                              template="golden"
                             />
                           </label>
                         )}

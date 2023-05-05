@@ -8,6 +8,8 @@ const uploadFolder = async ({ folderName, metadatas }: any) => {
   const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
   const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 
+  // Removes the folder from local storage if already exists
+  removeDir(folderName)
   // Creates a new folder where NFTs will be located
   fs.mkdirSync(folderName)
 
@@ -32,13 +34,18 @@ const uploadFolder = async ({ folderName, metadatas }: any) => {
   console.log(status)
 
   // Removes the folder from local storage
+  removeDir(folderName)
+  return cid
+}
+
+const removeDir = (folderName: string) => {
+  // Removes the folder from local storage
   if (fs.existsSync(folderName)) {
     fs.rmdirSync(folderName, { recursive: true })
     console.log(`${folderName} has been removed`)
   } else {
     console.log(`${folderName} does not exist`)
   }
-  return cid
 }
 
 export default async function handler(

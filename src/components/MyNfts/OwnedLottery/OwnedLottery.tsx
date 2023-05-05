@@ -88,7 +88,7 @@ const OwnedLottery = ({ items }: any) => {
       <div className="content">
         <div className="header-cont">
           <div>
-            <h2>Owned Circle Passes</h2>
+            <h2>Your Giveaways</h2>
           </div>
           <ul className="filters">
             <li
