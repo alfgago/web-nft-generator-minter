@@ -73,4 +73,39 @@ export const FAQStyles = styled.section`
       }
     }
   }
+  .search-wrapper {
+    position: relative;
+    width: 60%;
+  }
+
+  .icon {
+    svg {
+      position: absolute;
+      right: 1rem;
+      top: 0;
+      margin-top: 0.7rem;
+      height: 1.125rem;
+      width: auto;
+      path {
+        fill: black;
+      }
+    }
+  }
+
+  .search-bar {
+    background: transparent;
+    border: solid 2px black;
+    border-radius: 50px;
+    font-weight: 400;
+    width: 100%;
+    line-height: 2.375rem;
+    padding: 0 1.25rem;
+    color: black;
+    padding-right: 2.5rem;
+    font-size: inherit;
+    margin-bottom: 1.5625rem;
+    ::placeholder {
+      color: #525252;
+    }
+  }
 `
