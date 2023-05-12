@@ -107,5 +107,21 @@ export const FAQStyles = styled.section`
     ::placeholder {
       color: #525252;
     }
+    ::-ms-clear {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    ::-ms-reveal {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    ::-webkit-search-decoration,
+    ::-webkit-search-cancel-button,
+    ::-webkit-search-results-button,
+    ::-webkit-search-results-decoration {
+      display: none;
+    }
   }
 `

@@ -29,7 +29,7 @@ const FAQ = ({ faqs, type }: any) => {
         <div className="search-wrapper">
           <input
             type="search"
-            onChange={()=>handleChange}
+            onChange={handleChange}
             className="search-bar"
             placeholder={
               type === "1" ? "Search the Artist FAQs..." : "Search the Fan FAQs..."
