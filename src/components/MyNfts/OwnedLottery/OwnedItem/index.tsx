@@ -9,7 +9,7 @@ import cleanUrl from "@/utils/cleanUrl"
 
 import { OwnedItemStyles } from "./OwnedItemStyles"
 
-const OwnedItem = ({ itemData, eventData }: any) => {
+const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
   const [participants, setParticipants] = useState<any>([])
   const [nft, setNft] = useState<any>(null)
   const [subscribeSuccess, setSubscribeSuccess] = useState(false)
@@ -23,6 +23,10 @@ const OwnedItem = ({ itemData, eventData }: any) => {
     setParticipants(data.data)
   }
   async function fetchNft() {
+    if (nftData) {
+      setNft(nftData)
+      return
+    }
     const nftResponse = await axios.get(
       "/api/nfts/by-image-url?image=" + itemData.image.replace("ipfs://", "")
     )
@@ -31,7 +35,7 @@ const OwnedItem = ({ itemData, eventData }: any) => {
   useEffect(() => {
     fetchParticipants()
     fetchNft()
-  }, [])
+  }, [nftData])
 
   const enterGiveaway = async () => {
     const res = await axios.post("/api/airdrops/subscribe", {

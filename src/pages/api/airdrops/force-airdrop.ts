@@ -127,28 +127,32 @@ const forceAirdrop = async (values: any) => {
   const artistName = event.attributes.artist.data.attributes.name
   const showData = {
     name: passName,
-    saleType: "Fixed",
+    saleType: "Auction",
     memberName: memberName,
     passType: "Guest",
     artistName: artistName,
     show: event.id,
+    is_airdropped: true,
   }
   for (const participant of participants) {
-    await uploadNft(
+    const newNft = await uploadNft(
       participant.passImage,
       // @ts-ignore
       pass.data.id,
       loop,
       metadatas,
       showData,
-      passName
+      passName,
+      participant?.attributes?.wallet ?? ""
     )
+    // @ts-ignore
+    createAirdrop(participant?.attributes?.wallet, newNft.id)
     loop++
   }
 
   // Bulk airdrops
   axios.post(
-    `${baseUrl}/api/airdrops/folder`,
+    `${baseUrl}/api/airdrops/trigger-bulk`,
     {
       contractAddress,
       metadatas,
@@ -224,6 +228,14 @@ const createPass = async (
   }
   const pass = await strapi.create("passes", passParams)
   return pass
+}
+
+const createAirdrop = async (wallet: string, nftId: number) => {
+  const airdrop = await strapi.create("passes", {
+    winner: wallet,
+    airdropped_nft: nftId,
+  })
+  return airdrop
 }
 
 async function waitForSuccess(reqId: string) {

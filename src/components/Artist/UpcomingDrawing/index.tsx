@@ -162,7 +162,7 @@ export const DrawingData = ({ show, pass }: any) => {
             <div className="column3">
               <div>
                 <span>Chance of winning</span>
-                <p>{(passesAmount / winnersAmount) * 100}%</p>
+                <p>100%</p>
               </div>
               <Link href={`/pass/${contactAddres}`}>
                 <CommonPill

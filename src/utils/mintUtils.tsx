@@ -27,12 +27,16 @@ export const uploadNft = async (
   index: any,
   metadatas: any,
   formValues: any,
-  nftTitle: any
+  nftTitle: any,
+  winner = ""
 ) => {
   const order = index + 1
   const name = formValues.name + " " + order
   const desc = "PlusOne NFT for " + nftTitle
-  const premint = true
+  let premint = formValues.saleType == "Auction"
+  if (formValues.is_airdropped) {
+    premint = true
+  }
 
   let imageUrl = image
   if (!imageUrl.startsWith("ipfs://")) {
@@ -81,7 +85,7 @@ export const uploadNft = async (
   const metaCID = await storeNftMeta(metadata)
   console.log(metaCID)
 
-  await axios.post(baseUrl + "/api/nfts/create", {
+  const newNft = await axios.post(baseUrl + "/api/nfts/create", {
     name: name,
     image_url: imageUrl,
     ipfs_token: metaCID,
@@ -89,9 +93,11 @@ export const uploadNft = async (
     order: order,
     metadata: metadata,
     is_minted: premint,
+    winner_wallet: winner,
   })
 
   metadatas.push(metadata)
+  return newNft
 }
 
 export const setFolderStorage = async (
