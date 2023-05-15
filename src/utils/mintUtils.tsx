@@ -18,6 +18,7 @@ export const uploadFolder = async (contractAddress: string, metadatas: any) => {
     metadatas: JSON.stringify(metadatas),
   })
 
+  console.log("uploadedFolder: " + data.cid)
   return data.cid
 }
 

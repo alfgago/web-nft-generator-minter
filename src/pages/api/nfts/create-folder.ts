@@ -31,7 +31,7 @@ const uploadFolder = async ({ folderName, metadatas }: any) => {
   console.log(`Folder uploaded with CID:`, cid)
 
   const status = await storage.status(cid)
-  console.log(status)
+  console.log("Store Status: ", status)
 
   // Removes the folder from local storage
   removeDir(folderName)
@@ -44,7 +44,7 @@ const removeDir = (folderName: string) => {
     fs.rmdirSync(folderName, { recursive: true })
     console.log(`${folderName} has been removed`)
   } else {
-    console.log(`${folderName} does not exist`)
+    console.log(`Checking foldername: ${folderName} does not exist.`)
   }
 }
 

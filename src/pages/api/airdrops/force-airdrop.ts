@@ -146,7 +146,7 @@ const forceAirdrop = async (values: any) => {
       participant?.attributes?.wallet ?? ""
     )
     // @ts-ignore
-    createAirdrop(participant?.attributes?.wallet, newNft.id)
+    createAirdrop(participant?.id, newNft.id)
     loop++
   }
 
@@ -230,9 +230,9 @@ const createPass = async (
   return pass
 }
 
-const createAirdrop = async (wallet: string, nftId: number) => {
-  const airdrop = await strapi.create("passes", {
-    winner: wallet,
+const createAirdrop = async (participantId: string, nftId: number) => {
+  const airdrop = await strapi.create("airdrops", {
+    winner: participantId,
     airdropped_nft: nftId,
   })
   return airdrop
@@ -243,7 +243,6 @@ async function waitForSuccess(reqId: string) {
     const juiceResponse = await axios.get(
       "https://juicelabs.io/api/v1/requests/" + reqId
     )
-    console.log("Attempt contract creation: ")
     console.log(juiceResponse.data)
     if (juiceResponse.data.status === "succeeded") {
       return juiceResponse.data.contractAddress

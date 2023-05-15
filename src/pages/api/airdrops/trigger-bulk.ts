@@ -54,7 +54,7 @@ const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
 
   const { transactionHash } = await res.json()
 
-  console.log("AirdroptransactionHash: ", transactionHash)
+  console.log("Airdrop transaction hash: ", transactionHash)
   return transactionHash
 }
 
