@@ -46,8 +46,6 @@ const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
       nftId: nftId,
     }),
   })
-  console.log("Airdrop Res")
-  console.log(res)
 
   if (!res.ok)
     throw new Error("Airdrop failed: " + JSON.stringify(await res.json()))
