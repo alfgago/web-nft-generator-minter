@@ -9,7 +9,7 @@ const ArtistResources = ({ page }: any) => {
       <Head>
         <title>Artist Resources - PlusOne</title>
       </Head>
-      <Resources title="For Artists:" data={page.data} style="artists" />
+      <Resources title="For Artists:" data={page.data} style="artists" type="1" />
     </>
   )
 }

@@ -9,7 +9,7 @@ const FanResources = ({ page }: any) => {
       <Head>
         <title>Fan Resources - PlusOne</title>
       </Head>
-      <Resources title="For Fans:" data={page.data} style="fans" />
+      <Resources title="For Fans:" data={page.data} style="fans" type="2" />
     </>
   )
 }
