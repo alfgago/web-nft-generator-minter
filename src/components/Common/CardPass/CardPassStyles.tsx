@@ -259,14 +259,6 @@ export const CardPassStyles = styled.div`
           padding: 11px 8px;
         }
 
-        .main-image:after {
-          width: 30%;
-          margin-left: 0;
-          transform: translateX(-50%);
-          height: 8px;
-          top: 8px;
-        }
-
         .qr {
           bottom: 8px !important;
         }

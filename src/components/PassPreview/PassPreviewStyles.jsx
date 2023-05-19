@@ -116,12 +116,11 @@ export const PassPreviewStyles = styled.div`
       :after {
         content: "";
         position: absolute;
-        top: 14px;
-        left: 50%;
-        width: 100px;
+        top: 3%;
+        left: 40%;
+        width: 20%;
+        height: 2.5%;
         background: #fff;
-        height: 14px;
-        margin-left: -50px;
         border-radius: 50px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
       }

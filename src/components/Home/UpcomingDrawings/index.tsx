@@ -16,7 +16,7 @@ const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
 
   const getArtistShow = async (artistId) => {
     const { data } = await axios.get(
-      "/api/shows?limit=1&future=true&artist=" + artistId
+      "/api/shows?limit=1&future=false&artist=" + artistId
     )
     // Update the state with the response data
     const show = data.data.length ? data.data[0] : false
@@ -26,7 +26,7 @@ const UpcomingDrawings = ({ title = "Upcoming Circle Drawings" }: any) => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get("/api/passes?type=Circle&future=true")
+      const { data } = await axios.get("/api/passes?type=Circle")
       // Update the state with the response data
       const passesWithShow = data.data
       for (const pass of passesWithShow) {

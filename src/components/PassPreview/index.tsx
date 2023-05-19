@@ -1,5 +1,7 @@
 import React from "react"
+import Image from "next/image"
 
+import cleanUrl from "@/utils/cleanUrl"
 import dateFormat from "@/utils/dateFunctions"
 
 import { PassPreviewStyles } from "./PassPreviewStyles"
@@ -21,6 +23,12 @@ const PassPreview = ({
     return dateFormat(date)
   }
 
+  const imageUrl = cleanUrl(previewUrl)
+
+  const useNextImage =
+    imageUrl.startsWith("https://plusonemusic.io") ||
+    imageUrl.startsWith("http://localhost")
+
   return (
     <PassPreviewStyles
       className={"pass-preview " + customClass + " " + template}
@@ -28,7 +36,22 @@ const PassPreview = ({
       <div className="inner">
         <div className="bg" />
         <div className="main-image">
-          <img src={previewUrl} alt="Image preview" />
+          {useNextImage ? (
+            <Image
+              src={imageUrl}
+              alt={name + " preview"}
+              width={300}
+              height={300}
+              quality={90}
+            />
+          ) : (
+            <img
+              src={imageUrl}
+              alt={name + " preview"}
+              width={300}
+              height={300}
+            />
+          )}
           <div className="text">
             <div className="venue">{name}</div>
             <div className="address">

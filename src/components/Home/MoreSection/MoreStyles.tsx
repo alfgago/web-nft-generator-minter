@@ -184,6 +184,7 @@ export const MoreStyles = styled.div`
       right: 0;
       bottom: auto;
       top: 3rem;
+      width: 26rem;
       max-width: 50vw;
     }
 
