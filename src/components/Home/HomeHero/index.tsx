@@ -1,15 +1,42 @@
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
 import cleanUrl from "@/utils/cleanUrl"
+import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
 
 import ShowsCarousel from "../ShowsCarousel"
 
 import { HomeHeroStyles } from "./HomeHeroStyles"
 
 const HomeHero = ({ title, copy, image }: any) => {
+  const [paperSdk, setPaperSdk] = useState({})
+
+  useEffect(() => {
+    const sdk = new PaperEmbeddedWalletSdk({
+      clientId:
+        process.env.NEXT_PUBLIC_PAPER_TOKEN ||
+        "dc69730f-5c2e-42be-8a7c-ec310da0f391",
+      // @ts-ignore
+      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK || "Goerli",
+    })
+    console.log("Paper SDK ", sdk)
+    setPaperSdk(sdk)
+  }, [])
+
+  const loginWithPaper = async () => {
+    // @ts-ignore
+    const { user } = await paperSdk.auth.loginWithPaperModal()
+    alert(
+      "Logged in as " +
+        user.authDetails.email +
+        ", paper wallet is: " +
+        user.walletAddress
+    )
+  }
+
   return (
     <HomeHeroStyles>
       <div
@@ -42,11 +69,10 @@ const HomeHero = ({ title, copy, image }: any) => {
         <div className="left">
           <h1 className="title">{title}</h1>
           {copy && <div className="copy">{copy}</div>}
-          <Link legacyBehavior href="/">
-            <a>
-              <CommonPill className="btn clickable fill">Sign Up</CommonPill>
-            </a>
-          </Link>
+
+          <span className="signup" onClick={() => loginWithPaper()}>
+            <CommonPill className="btn clickable fill">Sign Up</CommonPill>
+          </span>
         </div>
       </div>
       <div className="abs">
