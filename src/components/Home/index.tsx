@@ -2,6 +2,7 @@ import dynamic from "next/dynamic"
 import LazyLoad from "react-lazyload"
 
 import HomeHero from "./HomeHero"
+import HomeHeroColored from "./HomeHeroColored"
 import { HomeStyles } from "./HomeStyles"
 
 const ArtistList = dynamic(() => import("./ArtistList"))
@@ -10,17 +11,25 @@ const UpcomingDrawings = dynamic(() => import("./UpcomingDrawings"))
 const UpcomingDrops = dynamic(() => import("./UpcomingDrops"))
 const LotteryWinners = dynamic(() => import("./LotteryWinners"))
 
-const Home = ({ page, passes }: any) => {
+const Home = ({ page, passes, colored = false }: any) => {
   const attributes = page.attributes
   const sections = attributes.sections
 
   return (
     <HomeStyles>
-      <HomeHero
-        title={attributes.title}
-        copy={attributes.description}
-        image={attributes.banner}
-      />
+      {colored ? (
+        <HomeHeroColored
+          title={attributes.title}
+          copy={attributes.description}
+          image={attributes.banner}
+        />
+      ) : (
+        <HomeHero
+          title={attributes.title}
+          copy={attributes.description}
+          image={attributes.banner}
+        />
+      )}
       {sections.map((section: any, index: number) => {
         const type = section.__component
         return (
