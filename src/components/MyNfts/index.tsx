@@ -7,6 +7,7 @@ import { InjectedConnector } from "wagmi/connectors/injected"
 import { CommonPill } from "../Common/CommonStyles"
 import SimpleHeader from "../Common/SimpleHeader"
 
+import MyPerks from "./MyPerks/MyPerks"
 import OwnedLottery from "./OwnedLottery/OwnedLottery"
 import MyNftGuestsList from "./GuestsList"
 import { MyNtfStyles } from "./MyNftStyles"
@@ -54,6 +55,7 @@ const MyNfts = () => {
         <>
           <ShowNfts items={nfts} />
           <MyNftGuestsList myNfts={nfts} />
+          <MyPerks items={nfts} />
           <OwnedLottery items={nfts} />
         </>
       ) : (

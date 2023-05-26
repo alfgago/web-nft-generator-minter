@@ -14,7 +14,6 @@ const OwnedLottery = ({ items }: any) => {
     setLoading(true)
     try {
       const passesArray: any[] = []
-      console.log("items", items)
       for (const nft of items) {
         let isCircle = false
         nft.metadata.attributes.map((item: any) => {
