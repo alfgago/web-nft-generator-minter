@@ -34,12 +34,6 @@ export const PassPreviewStyles = styled.div`
   &.previews {
     padding: 0;
     margin: 0;
-
-    .inner .main-image:after {
-      width: 50px;
-      height: 8px;
-      margin-left: -25px;
-    }
   }
 
   &.golden {
