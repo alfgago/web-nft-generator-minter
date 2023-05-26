@@ -10,7 +10,7 @@ const NodataGuests = () => {
         <h3>Access Guest List</h3>
         <p>
           You don't own any passes which provide guest list access. Purchase a
-          guest pass or enter an upcoming giveaway below for a change to win a
+          guest pass or enter an upcoming giveaway below for a chance to win a
           golden guest pass.
         </p>
       </div>

@@ -7,7 +7,9 @@ import { CommonPill } from "../CommonStyles"
 
 import { LotteryRowStyles } from "./LotteryRowStyles"
 
-const LotteryRow = ({ nft, color }: any) => {
+const LotteryRow = ({ drop, color }: any) => {
+  const nft = drop.attributes?.airdropped_nft?.data
+  const winner = drop.attributes?.winner?.data
   const imageUrl = nft.attributes?.image_url
   const imageW = 150
   const imageH = 150
@@ -29,7 +31,7 @@ const LotteryRow = ({ nft, color }: any) => {
         <div className="place">Warfield, San Fran, CA</div>
         <div className="winner">
           <small>Winner:</small>
-          <span>{nft.attributes.winner_wallet}</span>
+          <span>{winner.attributes?.wallet}</span>
         </div>
         <div className="actions">
           <Link legacyBehavior href="/">

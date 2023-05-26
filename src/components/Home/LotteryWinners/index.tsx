@@ -8,7 +8,7 @@ import { LotteryWinnersStyles } from "./LotteryWinnersStyles"
 
 const LotteryWinners = ({ title }: any) => {
   // Declare the state variables and setter function
-  const [nfts, setNfts] = useState([])
+  const [winners, setWinners] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any>(null)
   const [page, setPage] = useState(1)
@@ -16,13 +16,13 @@ const LotteryWinners = ({ title }: any) => {
 
   async function fetchNext() {
     try {
-      const { data } = await axios.get("/api/nfts", {
+      const { data } = await axios.get("/api/airdrops/winners", {
         params: {
           page: page,
         },
       })
       // Update the state with the response data
-      setNfts(nfts.concat(data.data))
+      setWinners(winners.concat(data.data))
       setPageCount(data.meta.pagination.pageCount)
       setLoading(false)
     } catch (err: any) {
@@ -43,10 +43,10 @@ const LotteryWinners = ({ title }: any) => {
       <div className="content">
         <h2 className="title">{title}</h2>
         <div className="rows">
-          {nfts.map((item: any, index: number) => (
+          {winners.map((item: any, index: number) => (
             <LotteryRow
               key={"lottery-row" + index}
-              nft={item}
+              drop={item}
               color={index % 2 == 1 ? "pink" : ""}
             />
           ))}
