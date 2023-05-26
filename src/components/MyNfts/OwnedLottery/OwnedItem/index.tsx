@@ -59,7 +59,7 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
           participant.attributes.circle_nft &&
           participant.attributes.circle_nft.data.id === nft.id
         ) {
-          return false
+          return true
         }
       }
     }
@@ -95,14 +95,24 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
   }
 
   function calculateLotteryChances() {
-    const totalSlots = isEntered()
-      ? totalPassesParticipating
-      : totalPassesParticipating + 1
+    const totalSlots = subscribeSuccess
+      ? totalPassesParticipating + 1
+      : totalPassesParticipating
     const slotsOwned = 1
-    let chancesOfWinning =
-      (winnersAmount / totalSlots) * (slotsOwned / (totalSlots - 1))
-    chancesOfWinning = Math.min(chancesOfWinning, 1) * 100
-    return chancesOfWinning
+    if (totalSlots === 0 || totalSlots - 1 === 0) {
+      return 0 // Return 0% in case of division by zero
+    }
+    const winnersAmount = 1
+    const chancesOfWinning = (winnersAmount / totalSlots) * slotsOwned * 100
+
+    if (isNaN(chancesOfWinning)) {
+      return 0 // Return 0% if chancesOfWinning is NaN
+    }
+    if (chancesOfWinning > 100) {
+      return 100 // Return 100% if chancesOfWinning is over 100
+    }
+
+    return parseFloat(chancesOfWinning.toFixed(2)) // Round to 2 decimal places and return as a number
   }
 
   return (
