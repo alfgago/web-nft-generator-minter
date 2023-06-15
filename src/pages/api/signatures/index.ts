@@ -35,6 +35,8 @@ export default async function handler(
 
     res.status(200).json({ signature })
   } catch (e) {
+    console.log("Mint Error")
+    console.log(e)
     const msg = e instanceof Error ? e.message : e
     res.status(400).send({ err: "Bad Request:" + msg })
   }

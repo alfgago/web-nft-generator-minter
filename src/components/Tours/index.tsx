@@ -12,11 +12,7 @@ import { TourStyles } from "./TourStyles"
 const Tours = () => {
   return (
     <TourStyles>
-      <SimpleHeader
-        title="Tour Manager"
-        backgroundColor="blue"
-        textAlign="center"
-      >
+      <SimpleHeader title="Manager" backgroundColor="blue" textAlign="center">
         <EditArtistProfile />
       </SimpleHeader>
       <TourFilters />

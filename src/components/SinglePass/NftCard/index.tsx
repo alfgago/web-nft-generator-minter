@@ -29,7 +29,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     if (!signer) throw new Error("Connect metamask before attempting to mint")
 
     const txHash = await userDynamicMint({
-      network: "goerli",
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       metadataCid: nft.attributes.ipfs_token,
       contractAddress: pass.attributes.contract_address,
       signer,

@@ -8,11 +8,7 @@ import { TourManagerLoginStyles } from "./TourManagerLoginStyles"
 const TourManagerLogin = () => {
   return (
     <TourManagerLoginStyles>
-      <SimpleHeader
-        title="Tour Manager"
-        backgroundColor="blue"
-        textAlign="center"
-      />
+      <SimpleHeader title="Manager" backgroundColor="blue" textAlign="center" />
       <section>
         <div className="content">
           <h2>Login</h2>

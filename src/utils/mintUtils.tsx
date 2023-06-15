@@ -112,7 +112,7 @@ export const setFolderStorage = async (
     },
     body: JSON.stringify({
       contractAddress,
-      network: "goerli",
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       folderIPFSUrl: "ipfs://" + folderCid + "/",
     }),
   })
@@ -136,7 +136,7 @@ export const bulkMint = async (
     },
     body: JSON.stringify({
       contractAddress,
-      network: "goerli",
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       count: size,
       toJuice,
     }),
@@ -152,7 +152,7 @@ export const bulkMint = async (
 
 export const deployContract = async (formValues: any) => {
   const payload = {
-    network: "goerli",
+    network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
     ...formValues,
   }
   console.log("Init Contract Deployment")
@@ -171,6 +171,26 @@ export const deployContract = async (formValues: any) => {
 
   const { requestId } = await res.json()
   return requestId
+}
+
+export const publishPaperContract = async (contractAddress: any) => {
+  fetch("https://withpaper.com/api/2022-08-12/register-contract", {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAPER_TOKEN}`,
+    },
+    body: JSON.stringify({
+      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK ?? "goerli",
+      contractAddress: contractAddress,
+      contractType: "CUSTOM_CONTRACT",
+      contractDefinition: {},
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err))
 }
 
 export function b64toBlob(dataURI: any) {

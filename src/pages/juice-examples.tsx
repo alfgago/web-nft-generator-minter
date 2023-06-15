@@ -71,7 +71,7 @@ const JuiceExamples = () => {
       body: JSON.stringify({
         metadataCid,
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       }),
     })
 
@@ -88,7 +88,7 @@ const JuiceExamples = () => {
     if (!signer) throw new Error("Connect metamask before attempting to mint")
 
     const txHash = await userDynamicMint({
-      network: "goerli",
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       metadataCid,
       contractAddress,
       signer,
@@ -105,7 +105,7 @@ const JuiceExamples = () => {
       },
       body: JSON.stringify({
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
         toWalletAddress: connectedAddress,
         nftId: 1,
       }),
@@ -127,7 +127,7 @@ const JuiceExamples = () => {
       },
       body: JSON.stringify({
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
         saleState: 6, // the state that opens the sale
       }),
     })
@@ -147,7 +147,7 @@ const JuiceExamples = () => {
       },
       body: JSON.stringify({
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
         folderIPFSUrl:
           "ipfs://bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u/", // can view contents here: https://nftstorage.link/ipfs/bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u
       }),
@@ -169,7 +169,7 @@ const JuiceExamples = () => {
       },
       body: JSON.stringify({
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
         count: 3, // note: counts > 8 sometimes are not indexed by opensea, but they are still valid mints
         toAddress: connectedAddress,
       }),

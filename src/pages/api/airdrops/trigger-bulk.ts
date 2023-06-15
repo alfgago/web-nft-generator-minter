@@ -41,7 +41,7 @@ const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
     },
     body: JSON.stringify({
       contractAddress,
-      network: "goerli",
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
       toWalletAddress: wallet,
       nftId: nftId,
     }),

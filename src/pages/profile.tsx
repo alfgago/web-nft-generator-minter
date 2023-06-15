@@ -6,7 +6,7 @@ import Tours from "@/components/Tours"
 import TourManagerLogin from "@/components/Tours/TourManagerLogin"
 
 const TourManagerPage = ({ user }: any) => {
-  const title = "Tour Manager"
+  const title = "Manager"
 
   return (
     <>

@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
       <Meta />
       <PaperSDKProvider
         appName="PlusOne"
-        clientId={process.env.NEXT_PUBLIC_PAPER_NETWORK}
+        clientId={process.env.NEXT_PUBLIC_PAPER_TOKEN}
         // @ts-ignore
         chainName={process.env.NEXT_PUBLIC_PAPER_NETWORK}
       >

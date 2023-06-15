@@ -5,7 +5,11 @@ import NodeCache from "node-cache"
 import Strapi from "strapi-sdk-js"
 
 import dateFormat from "@/utils/dateFunctions"
-import { deployContract, uploadNft } from "@/utils/mintUtils"
+import {
+  deployContract,
+  publishPaperContract,
+  uploadNft,
+} from "@/utils/mintUtils"
 
 const cache = new NodeCache({ stdTTL: 86400 }) // cache for 24 hours
 
@@ -73,6 +77,7 @@ const forceAirdrop = async (values: any) => {
 
   // Deploys the contract
   const contractAddress = await createContract(event)
+  publishPaperContract(contractAddress)
   console.log("contractAddress: ", contractAddress)
   const participantWallets = []
   for (const participant of participants) {

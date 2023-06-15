@@ -139,7 +139,7 @@ const Navbar = () => {
                   )}
                   {session && (
                     <li className="li-account">
-                      <Link href="/tour-manager">Tour Manager</Link>
+                      <Link href="/tour-manager">Manager</Link>
                     </li>
                   )}
                   {isConnected && (
@@ -159,7 +159,7 @@ const Navbar = () => {
                   {!session && (
                     <li className="li-account">
                       <a href="#" onClick={() => setOpenLogin(true)}>
-                        <span>Tour Manager Login</span>
+                        <span>Manager Login</span>
                       </a>
                     </li>
                   )}

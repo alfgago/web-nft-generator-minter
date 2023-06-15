@@ -9,6 +9,7 @@ import {
   b64toBlob,
   bulkMint,
   deployContract,
+  publishPaperContract,
   setFolderStorage,
   uploadFolder,
   uploadNft,
@@ -83,6 +84,7 @@ const NftBuilder = ({ artists }: any) => {
   useEffect(() => {
     if (requestData?.contractAddress) {
       setContractAddress(requestData.contractAddress)
+      publishPaperContract(requestData.contractAddress)
     }
   }, [requestData])
 
@@ -209,7 +211,7 @@ const NftBuilder = ({ artists }: any) => {
       },
       body: JSON.stringify({
         contractAddress,
-        network: "goerli",
+        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
         saleState: 6, // the state that opens the sale
       }),
     })

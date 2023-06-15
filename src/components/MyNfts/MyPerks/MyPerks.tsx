@@ -77,7 +77,9 @@ const MyPerks = ({ items }: any) => {
       <div className="content">
         <div className="header-cont">
           <div>
-            <h2>My Plus Perks</h2>
+            <h2>
+              My Plus Perks <small>In progress)</small>(
+            </h2>
           </div>
         </div>
 
