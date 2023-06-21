@@ -20,7 +20,7 @@ const PasswordProtectPage = () => {
               <div className="form-control">
                 <div className="input-group">
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     className="input input-bordered"
                   />
