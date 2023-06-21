@@ -45,6 +45,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const [events, setEvents] = useState([])
 
+  const slug = asPath.replaceAll("/", "")
+
   const getTime = (targetTime: any, now: any) => {
     const remainingTime = targetTime.getTime() - now.getTime()
     const seconds = Math.floor(remainingTime / 1000)
@@ -154,7 +156,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   }, [user, isConnected])
 
   return (
-    <LayoutStyles className="page-content">
+    <LayoutStyles className={`page-content slug-${slug ? slug : "home"}`}>
       <Navbar />
 
       <AnimatePresence mode="wait" onExitComplete={onExitCompleteHandler}>
