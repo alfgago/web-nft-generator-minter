@@ -14,7 +14,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@juicelabs/client": "1.0.7",
+    "@juicelabs/client": "1.0.8",
     "@paperxyz/embedded-wallet-service-sdk": "^0.0.21",
     "@paperxyz/js-client-sdk": "^0.0.54",
     "@paperxyz/react-client-sdk": "^0.8.20",
