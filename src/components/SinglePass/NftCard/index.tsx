@@ -7,9 +7,6 @@ import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import cleanUrl from "@/utils/cleanUrl"
-import { userDynamicMint } from "@/utils/SmartContracts/mint"
-import { renderPaperCheckoutLink } from "@paperxyz/js-client-sdk"
-import { CheckoutWithCard } from "@paperxyz/react-client-sdk"
 
 import { NftCardStyles } from "./NftCardStyles"
 

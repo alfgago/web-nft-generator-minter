@@ -14,13 +14,12 @@ import { MetaMaskConnector } from "wagmi/connectors/metaMask"
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 
-import type { SupportedChainName } from "@paperxyz/js-client-sdk"
 import { createClient as createClientCore } from "@wagmi/core"
 import { goerli, polygon } from "@wagmi/core/chains"
 
 interface SDKContext {
-  chainName: SupportedChainName
-  setChainName: Dispatch<SetStateAction<SupportedChainName>>
+  chainName: any
+  setChainName: Dispatch<SetStateAction<any>>
   clientId: string
   appName: string
   user: any
@@ -34,7 +33,7 @@ const PaperSDKContext = createContext<SDKContext>({
 })
 
 export interface PaperProviderProps {
-  chainName?: SupportedChainName
+  chainName?: any
   appName?: string
   clientId?: string
 }
@@ -53,7 +52,7 @@ export const PaperSDKProvider = ({
   clientId = "",
   children,
 }: React.PropsWithChildren<PaperProviderProps>) => {
-  const [chainName_, setChainName] = useState<SupportedChainName>(chainName)
+  const [chainName_, setChainName] = useState<any>(chainName)
   const contextValue = useMemo(
     () => ({
       chainName: chainName_,
