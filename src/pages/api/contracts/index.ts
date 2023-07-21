@@ -89,6 +89,7 @@ const transformCreateContractParams = (
     operatorAddress: process.env.JUICE_WALLET_ADDRESS || "",
     ownerAddress: process.env.ADMIN_WALLET_ADDRESS || "",
     mintSigningAddress: process.env.JUICE_WALLET_ADDRESS || "",
+    ccCheckoutEnabled: true,
   }
 }
 

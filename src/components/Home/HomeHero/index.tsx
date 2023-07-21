@@ -29,7 +29,9 @@ const HomeHero = ({ title, copy, image }: any) => {
   const loginWithPaper = async () => {
     // @ts-ignore
     const { user } = await paperSdk.auth.loginWithPaperModal()
-    alert(
+    sessionStorage.setItem("paperWalletAddress", user.walletAddress)
+
+    console.log(
       "Logged in as " +
         user.authDetails.email +
         ", paper wallet is: " +

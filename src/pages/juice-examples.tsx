@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { ethers } from "ethers"
 
 import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus"
+import { publishPaperContract } from "@/utils/mintUtils"
 import { uploadNFTMeta } from "@/utils/SmartContracts/assetUpload"
 import imageDataUri from "@/utils/SmartContracts/exampleDataUri"
 import { userDynamicMint } from "@/utils/SmartContracts/mint"
@@ -59,6 +60,10 @@ const JuiceExamples = () => {
 
     const { requestId } = await res.json()
     setRequestId(requestId)
+  }
+
+  const queryAbi = async () => {
+    publishPaperContract("0xb515C3a3fE6454BB320505528bf8F25283C2E50d")
   }
 
   const uploadAssetAndDevMint = async () => {
@@ -238,6 +243,13 @@ const JuiceExamples = () => {
         Airdrop NFT
       </button>
       <span>Sends the NFT held by the admin wallet to a specific user</span>
+
+      <hr />
+
+      <h4 style={h4Styles}>ABI</h4>
+      <button style={buttonStyles} onClick={queryAbi}>
+        Query ABI
+      </button>
 
       <hr />
 

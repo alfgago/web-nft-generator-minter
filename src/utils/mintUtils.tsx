@@ -1,4 +1,5 @@
 import axios from "axios"
+import { ethers } from "ethers"
 import { NFTStorage } from "nft.storage"
 
 import cleanUrl from "@/utils/cleanUrl"
@@ -174,23 +175,10 @@ export const deployContract = async (formValues: any) => {
 }
 
 export const publishPaperContract = async (contractAddress: any) => {
-  fetch("https://withpaper.com/api/2022-08-12/register-contract", {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAPER_TOKEN}`,
-    },
-    body: JSON.stringify({
-      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK ?? "goerli",
-      contractAddress: contractAddress,
-      contractType: "CUSTOM_CONTRACT",
-      contractDefinition: {},
-    }),
+  const { data } = await axios.post("/api/mints/register-paper-contract", {
+    contractAddress,
   })
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err))
+  console.log(data)
 }
 
 export function b64toBlob(dataURI: any) {
