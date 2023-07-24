@@ -62,8 +62,8 @@ const JuiceExamples = () => {
     setRequestId(requestId)
   }
 
-  const queryAbi = async () => {
-    publishPaperContract("0xb515C3a3fE6454BB320505528bf8F25283C2E50d")
+  const deployPaperContract = async () => {
+    publishPaperContract(contractAddress)
   }
 
   const uploadAssetAndDevMint = async () => {
@@ -247,8 +247,8 @@ const JuiceExamples = () => {
       <hr />
 
       <h4 style={h4Styles}>ABI</h4>
-      <button style={buttonStyles} onClick={queryAbi}>
-        Query ABI
+      <button style={buttonStyles} onClick={deployPaperContract}>
+        Deploy Paper Contract
       </button>
 
       <hr />
