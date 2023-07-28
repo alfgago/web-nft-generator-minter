@@ -12,8 +12,13 @@ const fetchData = async ({ address }: any) => {
     return ownedNfts
   }
 
+  const alchemyDomain =
+    process.env.NEXT_PUBLIC_NETWORK == "goerli"
+      ? "https://eth-goerli.g.alchemy.com"
+      : "https://polygon-mainnet.g.alchemy.com"
+
   const response = await axios.get(
-    `https://eth-goerli.g.alchemy.com/nft/v2/${token}/getNFTs?owner=${address}`
+    `${alchemyDomain}/nft/v2/${token}/getNFTs?owner=${address}`
   )
 
   const nfts = filterNfts(response.data.ownedNfts)
