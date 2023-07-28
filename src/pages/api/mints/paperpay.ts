@@ -8,7 +8,7 @@ const fetchData = async ({
   title,
   imageUrl,
   order,
-  contractId = "ffc34116-6fb3-46a0-b59c-71192adfb85f",
+  contractId = "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
 }: any) => {
   const options = {
     method: "POST",
@@ -24,9 +24,9 @@ const fetchData = async ({
       mintMethod: {
         name: "claimTo",
         args: {
-          _to: "$WALLET",
-          _quantity: "$QUANTITY",
-          _tokenId: order,
+          to: "$WALLET",
+          quantity: "$QUANTITY",
+          tokenId: order,
         },
         payment: {
           value: price + " * $QUANTITY",

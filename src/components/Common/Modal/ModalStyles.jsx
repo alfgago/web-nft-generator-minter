@@ -123,4 +123,21 @@ export const ModalStyles = styled.section`
     align-self: end;
     cursor: pointer;
   }
+
+  &.show.paper-checkout-modal .modal-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    max-width: 600px;
+    overflow: hidden;
+    max-height: none;
+    right: 0 !important;
+    left: auto;
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
 `

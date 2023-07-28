@@ -6,6 +6,7 @@ import { useAccount, useConnect, useSigner } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
+import Modal from "@/components/Common/Modal"
 import cleanUrl from "@/utils/cleanUrl"
 
 import { NftCardStyles } from "./NftCardStyles"
@@ -14,6 +15,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   const { data: signer } = useSigner()
   const { isConnected, address } = useAccount()
   const [minting, setMinting] = useState(0)
+  const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
   const [addressForPaper, setAddressForPape] = useState("")
 
   const { connect } = useConnect({
@@ -65,7 +67,9 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       imageUrl: imageUrl,
       order: nft.attributes.order,
     })
-    console.log(data)
+    if (data) {
+      setIframeCheckoutLink(data.checkoutLinkIntentUrl)
+    }
 
     setMinting(0)
   }
@@ -124,6 +128,15 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
           </div>
         </div>
       </LazyLoad>
+      {iframeCheckoutLink && (
+        <Modal
+          setIsOpen={() => setIframeCheckoutLink("")}
+          title={`Paper Checkout`}
+          className="paper-checkout-modal"
+        >
+          <iframe src={iframeCheckoutLink} />
+        </Modal>
+      )}
     </NftCardStyles>
   )
 }
