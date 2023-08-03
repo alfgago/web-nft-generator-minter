@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
-import { fabric } from "fabric-pure-browser"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import generateShapes from "@/utils/generateShapes"
@@ -53,7 +52,7 @@ const ConfirmationStep = ({
         const collectionDataJson = JSON.parse(collectionData)
         const json = sessionStorage.getItem("canvasJson")
 
-        window.previewCanvas = new fabric.Canvas("canvas")
+        window.previewCanvas = new window.fabric.Canvas("canvas")
         window.previewFabric = new TemplateFabric(
           window.previewCanvas,
           json,

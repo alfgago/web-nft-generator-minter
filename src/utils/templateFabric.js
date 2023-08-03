@@ -1,11 +1,9 @@
-import { fabric } from "fabric-pure-browser"
-
 export default class TemplateFabric {
   layers
 
   constructor(canvasRef, json, shapes, artistImage, type = "full") {
     const layers = []
-    fabric.Object.prototype.objectCaching = true
+    window.fabric.Object.prototype.objectCaching = true
     if (json) {
       canvasRef.loadFromJSON(json, () => {
         canvasRef.getObjects().forEach(function (el) {
@@ -94,30 +92,30 @@ export default class TemplateFabric {
     }
 
     // Add 2px to widths as fix for white lines
-    const templateGroup = new fabric.Group(
+    const templateGroup = new window.fabric.Group(
       [
-        new fabric.Rect({
+        new window.fabric.Rect({
           width: canvasRef.width + 2,
           height: gutter + 2,
           top: 0,
           left: 0,
           fill: hasTop ? backgroundColor.hex : "",
         }),
-        new fabric.Rect({
+        new window.fabric.Rect({
           width: canvasRef.width + 2,
           height: gutter + 3,
           top: gutterDist - 2,
           left: 0,
           fill: hasBottom ? backgroundColor.hex : "",
         }),
-        new fabric.Rect({
+        new window.fabric.Rect({
           width: gutter + 3,
           height: canvasRef.height + 2,
           top: 0,
           left: 0,
           fill: hasLeft ? backgroundColor.hex : "",
         }),
-        new fabric.Rect({
+        new window.fabric.Rect({
           width: gutter + 3,
           height: canvasRef.height + 2,
           top: 0,
@@ -146,12 +144,12 @@ export default class TemplateFabric {
       }
     })
     const self = this
-    fabric.Image.fromURL(
+    window.fabric.Image.fromURL(
       "https://plusonemusic.io/assets/img/single-pass-frame.png",
       function (oImg) {
         oImg.scaleToWidth(canvasRef.width)
         canvasRef.add(oImg)
-        const templateGroup = new fabric.Group([oImg])
+        const templateGroup = new window.fabric.Group([oImg])
         canvasRef.add(templateGroup)
         self.layers[2] = templateGroup
         templateGroup.set("selectable", false)
@@ -171,7 +169,7 @@ export default class TemplateFabric {
       }
     })
 
-    const text = new fabric.Textbox(nftText, {
+    const text = new window.fabric.Textbox(nftText, {
       top: 450,
       left: 125,
       width: 300,
@@ -185,7 +183,7 @@ export default class TemplateFabric {
     })
     canvasRef.add(text)
 
-    const text2 = new fabric.Textbox(date, {
+    const text2 = new window.fabric.Textbox(date, {
       top: 457,
       left: 425,
       width: 150,
@@ -198,7 +196,7 @@ export default class TemplateFabric {
     })
     canvasRef.add(text2)
 
-    const text3 = new fabric.Textbox(venue, {
+    const text3 = new window.fabric.Textbox(venue, {
       top: 500,
       left: 125,
       width: 450,
@@ -211,7 +209,7 @@ export default class TemplateFabric {
     })
     canvasRef.add(text3)
 
-    const text4 = new fabric.Textbox(number, {
+    const text4 = new window.fabric.Textbox(number, {
       top: 325,
       left: 485,
       width: 100,
@@ -249,7 +247,7 @@ export default class TemplateFabric {
     })
 
     const self = this
-    fabric.Image.fromURL(
+    window.fabric.Image.fromURL(
       imageUrl,
       function (oImg) {
         oImg.scaleToWidth(canvasRef.width)
@@ -277,7 +275,7 @@ export default class TemplateFabric {
       }
     })
 
-    const clipBackground = new fabric.Rect({
+    const clipBackground = new window.fabric.Rect({
       width: canvasRef.width + 2,
       height: canvasRef.height + 2,
       top: -1,
@@ -286,7 +284,7 @@ export default class TemplateFabric {
     })
 
     if (gridSize > 0 && shapes.length > 0) {
-      const clipPath = new fabric.Group(shapes, {
+      const clipPath = new window.fabric.Group(shapes, {
         inverted: true,
       })
       clipBackground.clipPath = clipPath
@@ -319,10 +317,10 @@ export default class TemplateFabric {
     this.addShapesColors({ canvasRef, shapesColor: shapesColor })
 
     // Adds the logo
-    fabric.loadSVGFromURL(
+    window.fabric.loadSVGFromURL(
       "/assets/img/short-logo.svg",
       function (objects, options) {
-        const logo = fabric.util.groupSVGElements(objects, options)
+        const logo = window.fabric.util.groupSVGElements(objects, options)
         logo.scaleToWidth(100)
         let logoLeft = 0
         let logoTop = 0
@@ -342,7 +340,7 @@ export default class TemplateFabric {
   }
 
   addShapesColors = ({ canvasRef, shapesColor }) => {
-    const shapesColorsRect = new fabric.Rect({
+    const shapesColorsRect = new window.fabric.Rect({
       width: canvasRef.width,
       height: canvasRef.height,
       top: 0,
@@ -385,7 +383,7 @@ export default class TemplateFabric {
       },
     ]
     const template = templates[activeTemplate]
-    const text = new fabric.Textbox(nftText, {
+    const text = new window.fabric.Textbox(nftText, {
       top: template.textY,
       left: template.textX,
       angle: template.textRotate,

@@ -3,7 +3,6 @@
 /* eslint-disable max-len */
 import { useEffect, useState } from "react"
 import React from "react"
-import { fabric } from "fabric-pure-browser"
 import Slider from "react-input-slider"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -131,7 +130,7 @@ const DesignStep = ({
         json = false
       }
       const artistImage = cleanUrl(defaultImage)
-      window.canvas = new fabric.Canvas("canvas")
+      window.canvas = new window.fabric.Canvas("canvas")
       window.templateFabric = new TemplateFabric(
         window.canvas,
         json,

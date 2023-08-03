@@ -41,7 +41,6 @@
     "emoji-mart": "^5.5.2",
     "ethers": "^5.7.2",
     "export-to-csv": "^0.2.1",
-    "fabric-pure-browser": "^5.1.0",
     "feather-icons": "^4.29.0",
     "files-from-path": "^0.2.6",
     "form-data": "^4.0.0",

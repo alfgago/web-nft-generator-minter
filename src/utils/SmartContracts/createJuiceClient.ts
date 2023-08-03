@@ -21,15 +21,12 @@ export const createJuiceClientForAutomation = async (
     network,
   })
 
-  console.log("Network: ", network)
-  console.log("automationWallet: ", automationWallet)
   // client lib for interacting with juice contracts
   const juiceClient = new JuiceClient({
     signer: automationWallet,
     network,
     contractAddress,
   })
-  console.log("juiceClient: ", juiceClient)
 
   await juiceClient.waitForInit()
 

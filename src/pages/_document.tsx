@@ -17,6 +17,10 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <script
+            src="https://cdn.jsdelivr.net/npm/fabric-pure-browser@5.1.0/dist/fabric.min.js"
+            referrerPolicy="no-referrer"
+          />
+          <script
             src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"
             referrerPolicy="no-referrer"
           />

@@ -1,5 +1,3 @@
-import { fabric } from "fabric-pure-browser"
-
 const svgShapes = {
   diamond:
     "M342.76 7.01823L39.68 187.298C27.43 194.588 13.75 198.388 0 198.768V417.508H216.45C216.46 403.008 220.31 388.518 227.99 375.598L408.28 72.5282C433.62 29.9282 385.36 -18.3218 342.77 7.01823H342.76Z",
@@ -26,7 +24,7 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
       const shapeType =
         availableShapes[Math.floor(Math.random() * availableShapes.length)]
       const topPosition = -(canvasWidth / 2) + j * cellSize
-      let shape = new fabric.Circle({
+      let shape = new window.fabric.Circle({
         left: leftPosition,
         top: topPosition,
         radius: cellSize / 2,
@@ -34,7 +32,7 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
       }) // default as circle
       let angle = 0
       if (shapeType == "star") {
-        shape = new fabric.Path(svgShapes.star, {
+        shape = new window.fabric.Path(svgShapes.star, {
           fill: "#333",
           opacity: 1,
           hasRotatingPoint: true,
@@ -43,7 +41,7 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
         })
         angle = angles[Math.floor(Math.random() * angles.length)]
       } else if (shapeType == "diamond") {
-        shape = new fabric.Path(svgShapes.diamond, {
+        shape = new window.fabric.Path(svgShapes.diamond, {
           fill: "#333",
           opacity: 1,
           hasRotatingPoint: true,
@@ -53,7 +51,7 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
         angles = [0, 90, 180, 270]
         angle = angles[Math.floor(Math.random() * angles.length)]
       } else if (shapeType == "curve") {
-        shape = new fabric.Path(svgShapes.curve, {
+        shape = new window.fabric.Path(svgShapes.curve, {
           fill: "#333",
           opacity: 1,
           hasRotatingPoint: true,
@@ -63,7 +61,7 @@ const generateShapes = (size, canvasWidth, availableShapes) => {
         angles = [0, 90, 180, 270]
         angle = angles[Math.floor(Math.random() * angles.length)]
       } else if (shapeType == "roundstar") {
-        shape = new fabric.Path(svgShapes.roundstar, {
+        shape = new window.fabric.Path(svgShapes.roundstar, {
           fill: "#333",
           opacity: 1,
           hasRotatingPoint: true,
