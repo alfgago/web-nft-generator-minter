@@ -65,6 +65,8 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       title: nft.attributes.name,
       imageUrl: imageUrl,
       order: nft.attributes.order,
+      contractId:
+        pass.paper_contract_id ?? "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
     })
     if (data) {
       setIframeCheckoutLink(data.checkoutLinkIntentUrl)

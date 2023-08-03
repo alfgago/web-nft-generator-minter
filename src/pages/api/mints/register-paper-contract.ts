@@ -971,7 +971,7 @@ const fetchData = async ({ contractAddress, passId }: any) => {
 
     const data = await response.json()
 
-    updatePass(passId, data)
+    updatePass(passId, data.contractId)
 
     return data
   } catch (err) {

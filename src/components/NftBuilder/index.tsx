@@ -88,8 +88,9 @@ const NftBuilder = ({ artists }: any) => {
   }, [requestData])
 
   useEffect(() => {
-    console.log(contractDeployStatus, requestData, "requestData")
-    if (contractDeployStatus === "failed" && !requestData.contractAddress) {
+    console.log("requestData status", contractDeployStatus)
+    console.log("requestData", requestData)
+    if (contractDeployStatus === "failed" && !contractAddress) {
       setErrorMessage(
         "Failure creating the contract, admin wallet out of gas. Please contact us if issue persists."
       )
