@@ -174,9 +174,13 @@ export const deployContract = async (formValues: any) => {
   return requestId
 }
 
-export const publishPaperContract = async (contractAddress: any) => {
+export const publishPaperContract = async (
+  contractAddress: any,
+  passId: number
+) => {
   const { data } = await axios.post("/api/mints/register-paper-contract", {
-    contractAddress,
+    contractAddress: contractAddress,
+    passId: passId,
   })
   console.log(data)
 }

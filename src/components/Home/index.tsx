@@ -1,5 +1,5 @@
+import React, { Suspense } from "react"
 import dynamic from "next/dynamic"
-import LazyLoad from "react-lazyload"
 
 import HomeHero from "./HomeHero"
 import HomeHeroColored from "./HomeHeroColored"
@@ -33,7 +33,7 @@ const Home = ({ page, passes, colored = false }: any) => {
       {sections.map((section: any, index: number) => {
         const type = section.__component
         return (
-          <LazyLoad height={300} offset={300} key={"home-" + index}>
+          <Suspense key={"lazy-" + index} fallback={<div>Loading...</div>}>
             {type == "lp.drops-component" && (
               <UpcomingDrops
                 title={section.title}
@@ -67,7 +67,7 @@ const Home = ({ page, passes, colored = false }: any) => {
             {type == "lp.lottery-winners" && (
               <LotteryWinners title={section.title} />
             )}
-          </LazyLoad>
+          </Suspense>
         )
       })}
     </HomeStyles>

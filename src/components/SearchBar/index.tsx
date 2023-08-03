@@ -8,7 +8,6 @@ import React, {
   useState,
 } from "react"
 import Link from "next/link"
-import algoliasearch from "algoliasearch/lite"
 import {
   Configure,
   connectHits,
@@ -19,6 +18,7 @@ import {
 import { ReactSVG } from "react-svg"
 
 import dateFormat from "@/utils/dateFunctions"
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch"
 
 import DebouncedSearchBox from "./DebouncedSearchBox"
 import SearchBarStyles from "./SearchBarStyles"
@@ -65,9 +65,9 @@ const SearchBar = () => {
     }
   }, [])
 
-  const searchClient = algoliasearch(
-    "FSCKGMDNFV",
-    "b45c70779e60e9f4d008d0066139d1f1"
+  const searchClient = instantMeiliSearch(
+    "https://search.plusonemusic.io",
+    process.env.NEXT_PUBLIC_MEILI
   )
 
   return (
@@ -80,24 +80,23 @@ const SearchBar = () => {
           </div>
         </div>
       ) : (
-        <InstantSearch
-          indexName="production_api::pass.pass"
-          searchClient={searchClient}
-        >
+        <InstantSearch indexName="dev_pass" searchClient={searchClient}>
           <div id="search-bar" onClick={() => toggleSearchBar(true)}>
             <CustomSearchBox />
           </div>
           <div className="results-box">
             <div className="results">
-              <Index indexName="production_api::artist.artist">
-                <Configure hitsPerPage={5} />
-                <CustomHits />
-              </Index>
-              <Index indexName="production_api::pass.pass">
+              <Index
+                indexName={process.env.NEXT_PUBLIC_MEILI_PREFIX + "artist"}
+              >
                 <Configure hitsPerPage={3} />
                 <CustomHits />
               </Index>
-              <Index indexName="production_api::event.event">
+              <Index indexName={process.env.NEXT_PUBLIC_MEILI_PREFIX + "pass"}>
+                <Configure hitsPerPage={5} />
+                <CustomHits />
+              </Index>
+              <Index indexName={process.env.NEXT_PUBLIC_MEILI_PREFIX + "event"}>
                 <Configure hitsPerPage={3} />
                 <CustomHits />
               </Index>

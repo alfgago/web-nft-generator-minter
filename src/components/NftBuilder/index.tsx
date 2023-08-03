@@ -84,7 +84,6 @@ const NftBuilder = ({ artists }: any) => {
   useEffect(() => {
     if (requestData?.contractAddress) {
       setContractAddress(requestData.contractAddress)
-      publishPaperContract(requestData.contractAddress)
     }
   }, [requestData])
 
@@ -161,6 +160,9 @@ const NftBuilder = ({ artists }: any) => {
         contract_address: contractAddress,
         preview_image_url: previewImageUrl,
       })
+
+      // Publish paper contract
+      publishPaperContract(contractAddress, passResponse.data.data.id)
 
       // Array used to store the metadata files that will be later uploaded
       const metadatas: any[] = []

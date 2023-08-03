@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import LazyLoad from "react-lazyload"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
@@ -54,51 +53,49 @@ const PassCard = ({ pass, classes = "" }: any) => {
 
   return (
     <PassCardStyles className={"drop-card " + classes}>
-      <LazyLoad height={200}>
-        <div className="image-container">
-          <Image
-            src={cleanUrl(imageUrl)}
-            alt={pass.attributes.collection_name}
-            quality={90}
-            width={350}
-            height={350}
-          />
-        </div>
-        <div className="inner">
-          <div className="titles">
-            <div className="title">{pass.attributes.collection_name}</div>
-            <div className="price">
-              <b>Floor: </b>
-              <span>{pass.attributes.initial_price} MATIC</span>
-            </div>
-            <div className="date">
-              <b>Drop date: </b>
-              <span>{dropDate.toLocaleString("en-US")}</span>
-            </div>
-            <div className="date">
-              <b>Countdown: </b>
-              <span>{timer}</span>
-            </div>
+      <div className="image-container">
+        <Image
+          src={cleanUrl(imageUrl)}
+          alt={pass.attributes.collection_name}
+          quality={90}
+          width={350}
+          height={350}
+        />
+      </div>
+      <div className="inner">
+        <div className="titles">
+          <div className="title">{pass.attributes.collection_name}</div>
+          <div className="price">
+            <b>Floor: </b>
+            <span>{pass.attributes.initial_price} MATIC</span>
           </div>
-          {upcoming ? (
-            <div className="actions with-time">
-              <AddToCalendar
-                id={pass.id}
-                title={pass.attributes.collection_name}
-                date={dropDate}
-              />
-            </div>
-          ) : (
-            <div className="actions no-time">
-              <Link href={`/pass/${pass.attributes.contract_address}`}>
-                <CommonPill className="clickable blue small">
-                  View more
-                </CommonPill>
-              </Link>
-            </div>
-          )}
+          <div className="date">
+            <b>Drop date: </b>
+            <span>{dropDate.toLocaleString("en-US")}</span>
+          </div>
+          <div className="date">
+            <b>Countdown: </b>
+            <span>{timer}</span>
+          </div>
         </div>
-      </LazyLoad>
+        {upcoming ? (
+          <div className="actions with-time">
+            <AddToCalendar
+              id={pass.id}
+              title={pass.attributes.collection_name}
+              date={dropDate}
+            />
+          </div>
+        ) : (
+          <div className="actions no-time">
+            <Link href={`/pass/${pass.attributes.contract_address}`}>
+              <CommonPill className="clickable blue small">
+                View more
+              </CommonPill>
+            </Link>
+          </div>
+        )}
+      </div>
     </PassCardStyles>
   )
 }

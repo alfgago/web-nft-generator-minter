@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
-import NodeCache from "node-cache"
-const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
+import Strapi from "strapi-sdk-js"
 
 export async function getContractABI() {
   return [
@@ -950,7 +948,7 @@ export async function getContractABI() {
   ]
 }
 
-const fetchData = async ({ contractAddress }: any) => {
+const fetchData = async ({ contractAddress, passId }: any) => {
   const contractABI = await getContractABI()
   try {
     const response = await fetch(
@@ -972,10 +970,37 @@ const fetchData = async ({ contractAddress }: any) => {
     )
 
     const data = await response.json()
+
+    updatePass(passId, data)
+
     return data
   } catch (err) {
     console.log(err)
   }
+}
+
+const updatePass = async (passId: number, paperData: any) => {
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
+  const token = process.env.API_TOKEN
+
+  const strapi = new Strapi({
+    url: apiURL,
+    prefix: "/api",
+    store: {
+      key: "strapi_jwt",
+      useLocalStorage: false,
+      cookieOptions: { path: "/" },
+    },
+    axiosOptions: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  })
+
+  await strapi.update("passes", passId, {
+    paper_contract_id: paperData,
+  })
 }
 
 export default async function handler(

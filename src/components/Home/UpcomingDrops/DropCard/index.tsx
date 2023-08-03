@@ -53,8 +53,6 @@ const DropCard = ({ pass, classes = "" }: any) => {
     pass.attributes.preview_image_url ??
     pass.attributes.collection_preview_image?.data?.attributes.url
 
-  console.log(pass.attributes, imageUrl)
-
   return (
     <DropCardStyles className={"drop-card " + classes}>
       <div className="image-container">

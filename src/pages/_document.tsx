@@ -17,6 +17,10 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"
+            referrerPolicy="no-referrer"
+          />
+          <script
             async
             defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAct3czCwkxYOWDMR1ewC_b88NPtpO2YKc&libraries=places"

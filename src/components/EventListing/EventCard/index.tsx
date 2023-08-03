@@ -1,10 +1,8 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import LazyLoad from "react-lazyload"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
-import cleanUrl from "@/utils/cleanUrl"
 
 import { EventCardStyles } from "./EventCardStyles"
 
@@ -24,56 +22,48 @@ const EventCard = ({ eventData }: any) => {
   const artistPage = eventData.attributes.artist.data.attributes.slug
   return (
     <EventCardStyles>
-      <LazyLoad height={200}>
-        <div className="img-cont">
-          <Image
-            src={imageUrl}
-            alt={alt}
-            quality={90}
-            width={350}
-            height={350}
-          />
-        </div>
-        <div className="data-cont">
-          <div className="titles">
-            <div className="title">{eventName}</div>
-            <div className="artist">
-              <b>Artist: </b>
-              <span>{eventArtist}</span>
+      <div className="img-cont">
+        <Image src={imageUrl} alt={alt} quality={90} width={350} height={350} />
+      </div>
+      <div className="data-cont">
+        <div className="titles">
+          <div className="title">{eventName}</div>
+          <div className="artist">
+            <b>Artist: </b>
+            <span>{eventArtist}</span>
+          </div>
+
+          {eventDate && (
+            <div className="date">
+              <b>Event date: </b>
+              <span>{eventDate.toLocaleString("en-US")}</span>
             </div>
+          )}
 
-            {eventDate && (
-              <div className="date">
-                <b>Event date: </b>
-                <span>{eventDate.toLocaleString("en-US")}</span>
-              </div>
-            )}
+          {eventAddress && (
+            <div className="address">
+              <b>Address: </b>
+              <span>{eventAddress}</span>
+            </div>
+          )}
 
-            {eventAddress && (
-              <div className="address">
-                <b>Address: </b>
-                <span>{eventAddress}</span>
-              </div>
-            )}
-
-            {/* {eventDesc && (
+          {/* {eventDesc && (
               <div className="descrip">
                 <b>Description: </b>
                 <span>{eventDesc}</span>
               </div>
             )} */}
-          </div>
-          <div className="bnt-cont">
-            <Link legacyBehavior href={`/artist/${artistPage}/#upcoming`}>
-              <a>
-                <CommonPill className="clickable blue small">
-                  View more
-                </CommonPill>
-              </a>
-            </Link>
-          </div>
         </div>
-      </LazyLoad>
+        <div className="bnt-cont">
+          <Link legacyBehavior href={`/artist/${artistPage}/#upcoming`}>
+            <a>
+              <CommonPill className="clickable blue small">
+                View more
+              </CommonPill>
+            </a>
+          </Link>
+        </div>
+      </div>
     </EventCardStyles>
   )
 }

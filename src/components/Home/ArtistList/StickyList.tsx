@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Tween } from "react-gsap"
-import { Controller, Scene } from "react-scrollmagic"
+import { gsap } from "gsap"
+import { useTimeout } from "usehooks-ts"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
@@ -30,101 +30,107 @@ const StickyList = ({
     )
   }, [width])
 
+  const initScrollMagic = () => {
+    const controller = new window.ScrollMagic.Controller() // Use globally available ScrollMagic
+
+    const scene1 = new window.ScrollMagic.Scene({
+      duration: height * (artists.length - 4),
+      triggerElement: "#sticky-artists-trigger",
+      triggerHook: "onLeave",
+    })
+      .setPin(".artist-list")
+      .addTo(controller)
+
+    const scene2 = new window.ScrollMagic.Scene({
+      duration: height * (artists.length - 4),
+      triggerElement: "#scrolly-trigger",
+      triggerHook: "onLeave",
+    })
+      .addTo(controller)
+      .on("progress", (e: any) => {
+        const targetX = -listSize * e.progress
+        gsap.to(".scroller", 0.1, {
+          x: targetX,
+        })
+      })
+
+    return () => {
+      scene1.destroy()
+      scene2.destroy()
+      // @ts-ignore
+      controller.destroy()
+    }
+  }
+  useTimeout(initScrollMagic, 1000)
+
   return (
     <div className="featured-artists">
-      <Controller>
-        <div id="sticky-artists-trigger" />
-        <div id="scrolly-trigger" />
-        <Scene
-          duration={height * (artists.length - 4) + "px"}
-          triggerElement="#sticky-artists-trigger"
-          pin
-          triggerHook={"onLeave"}
-        >
-          <section className="artist-list">
-            <GradientBackground />
-            <div className="content">
-              <div className="section-header">
-                <h2>{title}</h2>
-                <Link legacyBehavior href={buttonLink} scroll={false}>
-                  <a className="link">
-                    <CommonPill className="clickable pink">
-                      {buttonTitle}
-                    </CommonPill>
-                  </a>
-                </Link>
-              </div>
-              <div className="scroll-scene">
-                <Scene
-                  enabled={listSize > 0}
-                  duration={height * (artists.length - 4) + "px"}
-                  triggerElement="#scrolly-trigger"
-                  triggerHook={"onLeave"}
-                >
-                  <Tween
-                    from={{
-                      x: 0 + "px",
-                    }}
-                    to={{
-                      x: -listSize + "px",
-                    }}
-                  >
-                    <div className="scroller items" id="scroller">
-                      {artists.map((item: any, index: number) => {
-                        const slug = item.attributes.slug
-                        const name = item.attributes.name
-                        const image =
-                          item.attributes?.profile_picture?.data.attributes.url
-                        const imageW =
-                          item.attributes?.profile_picture?.data.attributes
-                            .width
-                        const imageH =
-                          item.attributes?.profile_picture?.data.attributes
-                            .height
-                        return (
-                          <div className="artist-item" key={slug + index}>
-                            <div className="inner">
-                              <div className="image-container">
-                                <Image
-                                  src={cleanUrl(image)}
-                                  alt={slug}
-                                  quality={90}
-                                  width={imageW}
-                                  height={imageH}
-                                />
-                              </div>
-                              <div className="bar">
-                                <h3 className="title">{name}</h3>
-                                <Link
-                                  legacyBehavior
-                                  href={"/artist/" + slug}
-                                  scroll={false}
-                                >
-                                  <a className="link">
-                                    <CommonPill className="clickable small">
-                                      Learn more
-                                    </CommonPill>
-                                  </a>
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })}
-                      <div className="p1-side-logo">
-                        <img
-                          src="/assets/img/plusone-logo-vertical.png"
-                          alt="PlusOne Side Logo"
+      <div id="sticky-artists-trigger" />
+      <div id="scrolly-trigger" />
+      <section className="artist-list">
+        <GradientBackground />
+        <div className="content">
+          <div className="section-header">
+            <h2>{title}</h2>
+            <Link legacyBehavior href={buttonLink} scroll={false}>
+              <a className="link">
+                <CommonPill className="clickable pink">
+                  {buttonTitle}
+                </CommonPill>
+              </a>
+            </Link>
+          </div>
+          <div className="scroll-scene">
+            <div className="scroller items" id="scroller">
+              {artists.map((item: any, index: any) => {
+                const slug = item.attributes.slug
+                const name = item.attributes.name
+                const image =
+                  item.attributes?.profile_picture?.data.attributes.url
+                const imageW =
+                  item.attributes?.profile_picture?.data.attributes.width
+                const imageH =
+                  item.attributes?.profile_picture?.data.attributes.height
+                return (
+                  <div className="artist-item" key={slug + index}>
+                    <div className="inner">
+                      <div className="image-container">
+                        <Image
+                          src={cleanUrl(image)}
+                          alt={slug}
+                          quality={90}
+                          width={imageW}
+                          height={imageH}
                         />
                       </div>
+                      <div className="bar">
+                        <h3 className="title">{name}</h3>
+                        <Link
+                          legacyBehavior
+                          href={"/artist/" + slug}
+                          scroll={false}
+                        >
+                          <a className="link">
+                            <CommonPill className="clickable small">
+                              Learn more
+                            </CommonPill>
+                          </a>
+                        </Link>
+                      </div>
                     </div>
-                  </Tween>
-                </Scene>
+                  </div>
+                )
+              })}
+              <div className="p1-side-logo">
+                <img
+                  src="/assets/img/plusone-logo-vertical.png"
+                  alt="PlusOne Side Logo"
+                />
               </div>
             </div>
-          </section>
-        </Scene>
-      </Controller>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

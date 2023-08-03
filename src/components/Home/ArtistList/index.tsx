@@ -1,10 +1,9 @@
+import dynamic from "next/dynamic"
 import { useWindowSize } from "usehooks-ts"
-
-import GradientBackground from "@/components/Common/GradientBackground"
 
 import { ArtistListStyles } from "./ArtistListStyles"
 import ArtistsSwiper from "./ArtistsSwiper"
-import StickyList from "./StickyList"
+const StickyList = dynamic(() => import("./StickyList"))
 
 const ArtistList = ({ artists, title, buttonTitle, buttonLink }: any) => {
   const { height, width } = useWindowSize()

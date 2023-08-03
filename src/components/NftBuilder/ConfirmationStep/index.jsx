@@ -119,6 +119,8 @@ const ConfirmationStep = ({
     return nft
   }
 
+  const showError = errorMessage && errorMessage.length > 1
+
   return (
     <ConfirmationStepStyles>
       <h2>Confirm Collection Data</h2>
@@ -219,7 +221,7 @@ const ConfirmationStep = ({
               </div>
             </div>
           )}
-          {errorMessage && (
+          {showError && (
             <div className="contract-failed">
               The contract deployment has failed, please contact support team.{" "}
               {errorMessage}
