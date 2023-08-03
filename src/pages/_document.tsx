@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <script
             src="https://cdn.jsdelivr.net/npm/fabric-pure-browser@5.1.0/dist/fabric.min.js"
+            defer
             referrerPolicy="no-referrer"
           />
           <script
