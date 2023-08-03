@@ -63,7 +63,7 @@ const JuiceExamples = () => {
   }
 
   const deployPaperContract = async () => {
-    publishPaperContract(contractAddress)
+    // publishPaperContract(contractAddress)
   }
 
   const uploadAssetAndDevMint = async () => {

@@ -77,8 +77,6 @@ const forceAirdrop = async (values: any) => {
 
   // Deploys the contract
   const contractAddress = await createContract(event)
-  publishPaperContract(contractAddress)
-  console.log("contractAddress: ", contractAddress)
   const participantWallets = []
   for (const participant of participants) {
     const image = event.attributes.image.data.attributes.url
@@ -119,6 +117,9 @@ const forceAirdrop = async (values: any) => {
   const pass = await createPass(contractAddress, event, participants)
   const passName = event.attributes.name + " Golden Guest Pass"
   console.log("Pass", pass)
+  // @ts-ignore
+  publishPaperContract(contractAddress, pass.data.id)
+  console.log("contractAddress: ", contractAddress)
 
   // Loop variable to count the participants
   let loop = 0
