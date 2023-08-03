@@ -1,15 +1,16 @@
+import React from "react"
 import Head from "next/head"
 import axios from "axios"
 
 import Home from "@/components/Home"
 
-const Index = ({ page, passes }: any) => {
+const Index = ({ page }: any) => {
   return (
     <>
       <Head>
         <title>Home - PlusOne</title>
       </Head>
-      <Home page={page.data} passes={passes.data} />
+      <Home page={page.data} />
     </>
   )
 }
@@ -21,14 +22,9 @@ export const getStaticProps = async () => {
 
   const postResponse = await axios.get(`${apiURL}/api/homepage?populate=deep,4`)
 
-  const passesResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/api/passes?populate=*`
-  )
-
   return {
     props: {
       page: postResponse.data,
-      passes: passesResponse.data,
     },
     revalidate: 30,
   }

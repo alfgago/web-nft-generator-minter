@@ -11,7 +11,7 @@ const UpcomingDrawings = dynamic(() => import("./UpcomingDrawings"))
 const UpcomingDrops = dynamic(() => import("./UpcomingDrops"))
 const LotteryWinners = dynamic(() => import("./LotteryWinners"))
 
-const Home = ({ page, passes, colored = false }: any) => {
+const Home = ({ page, colored = false }: any) => {
   const attributes = page.attributes
   const sections = attributes.sections
 
@@ -40,7 +40,6 @@ const Home = ({ page, passes, colored = false }: any) => {
                 buttonTitle={section.button_text}
                 buttonLink={section.button_link}
                 useBorderTop={true}
-                passes={passes}
               />
             )}
             {type == "lp.featured-artists" && (
