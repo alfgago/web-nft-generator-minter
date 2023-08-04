@@ -4,7 +4,6 @@ const SearchBarStyles = styled.div`
   position: relative;
   margin: auto;
   text-align: left;
-  height: ${35 / 16}rem;
   width: 100%;
   z-index: 99;
 
