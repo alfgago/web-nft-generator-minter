@@ -55,7 +55,6 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     console.log("Mint Transaction Hash: " + txHash)
     */
   }
-  console.log(nft)
   const imageUrl = cleanUrl(nft.attributes.image_url)
   const testnetPrice = pass.attributes.initial_price / 50
 
@@ -66,7 +65,8 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       imageUrl: imageUrl,
       order: nft.attributes.order,
       contractId:
-        pass.paper_contract_id ?? "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
+        pass.attributes.paper_contract_id ??
+        "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
     })
     if (data) {
       setIframeCheckoutLink(data.checkoutLinkIntentUrl)
