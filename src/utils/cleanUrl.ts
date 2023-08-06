@@ -9,7 +9,8 @@ const clean = (src: string) => {
       "https://plusone-public.s3.amazonaws.com",
       process.env.NEXT_PUBLIC_DOMAIN + "/aws"
     )
-    .replace("ipfs://", "https://plusonemusic.io/ipfs/")
+    .replace("ipfs://", process.env.NEXT_PUBLIC_DOMAIN + "/ipfs/")
+    .replace("https://plusonemusic.io", process.env.NEXT_PUBLIC_DOMAIN ?? "")
 
   return cleaned
 }
