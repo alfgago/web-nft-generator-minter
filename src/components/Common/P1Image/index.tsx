@@ -8,6 +8,7 @@ const P1Image = ({ src, alt = "", width = 600, height = 600 }: any) => {
     "plusone-public.s3.amazonaws.com",
     "plusone-frontend.vercel.app",
     "plusonemusic.io",
+    "staging.plusonemusic.io",
     "localhost",
     "ipfs.io",
     "akns-images.eonline.com",
