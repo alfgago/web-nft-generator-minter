@@ -81,9 +81,9 @@ const transformCreateContractParams = (
     },
     paymentSplits: paymentSplits,
     lazyMintSettings: {
-      maxMintableAtCurrentState: body.size > 50 ? 50 : 5,
-      maxMintsPerWallet: body.size > 50 ? 50 : 5,
-      maxMintsPerTxn: body.size > 5 ? 5 : 5,
+      maxMintableAtCurrentState: 0,
+      maxMintsPerWallet: 0,
+      maxMintsPerTxn: 0,
       mintPrice: `${body.price || 0}`,
     },
     operatorAddress: process.env.JUICE_WALLET_ADDRESS || "",
