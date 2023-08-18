@@ -1,7 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
-import NodeCache from "node-cache"
-const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({
   price,
@@ -20,7 +17,8 @@ const fetchData = async ({
     body: JSON.stringify({
       contractId: contractId,
       title: title,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl ?? "",
+      limitPerTransaction: 1,
       mintMethod: {
         name: "claimTo",
         args: {

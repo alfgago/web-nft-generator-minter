@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
+import axios from "axios"
 import { ethers } from "ethers"
 
 import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus"
@@ -50,7 +51,7 @@ const JuiceExamples = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ network: "goerli" }), // see back end mock
+      body: JSON.stringify({ network: "goerli", price: 0.005 }),
     })
 
     if (!res.ok) {
@@ -63,7 +64,23 @@ const JuiceExamples = () => {
   }
 
   const deployPaperContract = async () => {
-    // publishPaperContract(contractAddress)
+    /*
+    const { data } = await axios.post("/api/mints/register-paper-contract", {
+      contractAddress: contractAddress,
+    })
+    console.log(data)
+    console.log(data.contractId)
+  */
+
+    const res = await axios.post("/api/mints/paperpay", {
+      price: 0.005,
+      title: "Test NFT",
+      imageUrl:
+        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+      order: 1,
+      contractId: "662894e8-ffb6-4837-8ec8-530523c33358",
+    })
+    console.log(res.data)
   }
 
   const uploadAssetAndDevMint = async () => {

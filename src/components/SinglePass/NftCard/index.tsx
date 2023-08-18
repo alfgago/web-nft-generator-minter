@@ -60,7 +60,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
 
   const checkoutLink = async () => {
     const { data } = await axios.post("/api/mints/paperpay", {
-      price: testnetPrice,
+      price: pass.attributes.initial_price,
       title: nft.attributes.name,
       imageUrl: imageUrl,
       order: nft.attributes.order,
