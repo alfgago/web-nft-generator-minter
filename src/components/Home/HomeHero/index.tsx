@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import Link from "next/link"
+import { useAccount } from "wagmi"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
@@ -9,7 +11,6 @@ import cleanUrl from "@/utils/cleanUrl"
 import ShowsCarousel from "../ShowsCarousel"
 
 import { HomeHeroStyles } from "./HomeHeroStyles"
-import { useAccount } from "wagmi"
 
 const HomeHero = ({ title, copy, image }: any) => {
   const { isConnected } = useAccount()
@@ -54,16 +55,17 @@ const HomeHero = ({ title, copy, image }: any) => {
                 <CommonPill className="btn clickable fill">Sign Up</CommonPill>
               </span>
             ) : (
-              <a className="signup" href="/my-passes">
+              <Link className="signup" href="/my-passes">
                 <CommonPill className="btn clickable fill">
                   See Passes
                 </CommonPill>
-              </a>
+              </Link>
             )}
             <a
               className="marketplace"
               href="https://market.plusonemusic.io"
               target="_blank"
+              rel="noreferrer"
             >
               <CommonPill className="btn clickable">
                 Visit Marketplace
