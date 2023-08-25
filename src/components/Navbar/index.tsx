@@ -11,13 +11,14 @@ import { InjectedConnector } from "wagmi/connectors/injected"
 import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
 
 import Login from "../Login"
+import { usePaperSDKContext } from "../PaperSDKProvider"
 import SearchBar from "../SearchBar"
 
 import { NavbarStyles } from "./NavbarStyles"
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
-  const [paperSdk, setPaperSdk] = useState({})
+  const { paperSdk, setUser, user } = usePaperSDKContext()
   const { width } = useWindowSize()
   const { isConnected } = useAccount()
 
@@ -27,26 +28,13 @@ const Navbar = () => {
   })
 
   useEffect(() => {
-    const sdk = new PaperEmbeddedWalletSdk({
-      clientId:
-        process.env.NEXT_PUBLIC_PAPER_TOKEN ||
-        "dc69730f-5c2e-42be-8a7c-ec310da0f391",
-      // @ts-ignore
-      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK || "Goerli",
-    })
-    console.log("Paper SDK ", sdk)
-    setPaperSdk(sdk)
+    console.log(user)
   }, [])
 
   const loginWithPaper = async () => {
     // @ts-ignore
-    const { user } = await paperSdk.auth.loginWithPaperModal()
-    alert(
-      "Logged in as " +
-        user.authDetails.email +
-        ", paper wallet is: " +
-        user.walletAddress
-    )
+    const login = await paperSdk.auth.loginWithPaperModal()
+    setUser(login.user)
   }
 
   // change nav color when scrolling

@@ -35,4 +35,8 @@ export const MyNtfStyles = styled.main`
   .content > h1 {
     padding-bottom: ${7 / 16}rem;
   }
+
+  .notfound {
+    color: #fff;
+  }
 `

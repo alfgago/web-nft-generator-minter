@@ -28,8 +28,10 @@ const MyNfts = () => {
       const { data } = await axios.get("/api/nfts/owned?address=" + address)
       setNfts(data)
     }
-    getNFTs()
-  }, [])
+    if (address) {
+      getNFTs()
+    }
+  }, [address])
 
   return (
     <MyNtfStyles>

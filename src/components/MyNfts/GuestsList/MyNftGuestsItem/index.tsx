@@ -16,6 +16,7 @@ const MyNftGuestsItem = ({ nft }: any) => {
         const response = await axios.get(
           "/api/shows/single?id=" + nft.event.value
         )
+        console.log(response.data.data)
         setEvent(response.data.data)
         const nftResponse = await axios.get(
           "/api/nfts/by-image-url?image=" +
@@ -27,10 +28,7 @@ const MyNftGuestsItem = ({ nft }: any) => {
     fetchData()
   }, [])
 
-  if (!event) {
-    return
-  }
-  return (
+  return event && queriedNft ? (
     <MyNftGuestsItemStyles>
       <div className="event-info-cont">
         <img src={nft.image} alt="" />
@@ -46,6 +44,8 @@ const MyNftGuestsItem = ({ nft }: any) => {
         {event && <NewGuestForm event={event} nft={queriedNft} />}
       </div>
     </MyNftGuestsItemStyles>
+  ) : (
+    <div className="notfound" />
   )
 }
 

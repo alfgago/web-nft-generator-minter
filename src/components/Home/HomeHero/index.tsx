@@ -1,43 +1,23 @@
 import { useEffect, useState } from "react"
-import Link from "next/link"
-import { ReactSVG } from "react-svg"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
+import Modal from "@/components/Common/Modal"
+import { usePaperSDKContext } from "@/components/PaperSDKProvider"
+import UserSignUp from "@/components/UserSignup"
 import cleanUrl from "@/utils/cleanUrl"
-import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
 
 import ShowsCarousel from "../ShowsCarousel"
 
 import { HomeHeroStyles } from "./HomeHeroStyles"
 
 const HomeHero = ({ title, copy, image }: any) => {
-  const [paperSdk, setPaperSdk] = useState({})
+  const { paperSdk, setUser } = usePaperSDKContext()
+  const [toggleEdit, setToggleEdit] = useState(null)
 
   useEffect(() => {
-    const sdk = new PaperEmbeddedWalletSdk({
-      clientId:
-        process.env.NEXT_PUBLIC_PAPER_TOKEN ||
-        "dc69730f-5c2e-42be-8a7c-ec310da0f391",
-      // @ts-ignore
-      chain: process.env.NEXT_PUBLIC_PAPER_NETWORK || "Goerli",
-    })
-    console.log("Paper SDK ", sdk)
-    setPaperSdk(sdk)
+    console.log("Paper SDK ", paperSdk)
   }, [])
-
-  const loginWithPaper = async () => {
-    // @ts-ignore
-    const { user } = await paperSdk.auth.loginWithPaperModal()
-    sessionStorage.setItem("paperWalletAddress", user.walletAddress)
-
-    console.log(
-      "Logged in as " +
-        user.authDetails.email +
-        ", paper wallet is: " +
-        user.walletAddress
-    )
-  }
 
   return (
     <HomeHeroStyles>
@@ -72,7 +52,7 @@ const HomeHero = ({ title, copy, image }: any) => {
           <h1 className="title">{title}</h1>
           {copy && <div className="copy">{copy}</div>}
 
-          <span className="signup" onClick={() => loginWithPaper()}>
+          <span className="signup" onClick={() => setToggleEdit(true)}>
             <CommonPill className="btn clickable fill">Sign Up</CommonPill>
           </span>
         </div>
@@ -84,6 +64,12 @@ const HomeHero = ({ title, copy, image }: any) => {
           </div>
         </div>
       </div>
+
+      {toggleEdit && (
+        <Modal setIsOpen={setToggleEdit} title="Sign Up">
+          <UserSignUp />
+        </Modal>
+      )}
     </HomeHeroStyles>
   )
 }

@@ -57,7 +57,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   }
   async function fetchData() {
     try {
-      // if the user is loged in
+      // If the user is logged in
       let apiResponse
 
       if (user) {
@@ -147,7 +147,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           .filter((event: any) => event !== null)
       )
     } catch (e: any) {
-      console.log(e)
+      console.log("No chat events found")
     }
   }
   // Fetch the data in the useEffect hook
@@ -181,10 +181,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           <GroupChat type="forWallet" userEvents={events} userInfo={userInfo} />
         )
       )}
-
-      {/* {isConnected && userPasses.length > 0 && (
-        <GroupChat userEvents={userPasses} userId={address} />
-      )} */}
     </LayoutStyles>
   )
 }

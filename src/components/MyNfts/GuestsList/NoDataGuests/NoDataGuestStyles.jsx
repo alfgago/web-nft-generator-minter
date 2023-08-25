@@ -3,6 +3,7 @@ import styled from "styled-components"
 export const NoDataGuestStyles = styled.div`
   display: flex;
   justify-content: space-between;
+  color: #fff;
 
   > div {
     h3 {

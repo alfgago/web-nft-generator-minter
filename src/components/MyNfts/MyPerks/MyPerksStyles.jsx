@@ -8,4 +8,9 @@ export const MyPerksStyles = styled.section`
     font-weight: 600;
     font-size: 40px;
   }
+
+  .not-found {
+    color: #fff;
+    margin-top: 2rem;
+  }
 `
