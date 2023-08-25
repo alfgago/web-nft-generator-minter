@@ -2,37 +2,55 @@ import { NextApiRequest, NextApiResponse } from "next"
 import Strapi from "strapi-sdk-js"
 
 const createUser = async (values: any) => {
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
+  try {
+    const apiURL =
+      process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
+    const token = process.env.API_TOKEN
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const strapi = new Strapi({
+      url: apiURL,
+      prefix: "/api",
+      store: {
+        key: "strapi_jwt",
+        useLocalStorage: false,
+        cookieOptions: { path: "/" },
       },
-    },
-  })
+      axiosOptions: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    })
 
-  const user = await strapi.create("users", {
-    name: values.firstName,
-    lastName: values.lastName,
-    email: values.email,
-    phoneNumber: values.phoneNumber,
-    username: values.email,
-    blocked: false,
-    password: "NOLOGIN",
-    wallet: values.user?.walletAddress,
-    paperWalletId: values.user?.authDetails?.userWalletId ?? "",
-  })
+    console.log({
+      name: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      username: values.email,
+      blocked: false,
+      password: "NOLOGIN",
+      wallet: values.user?.walletAddress,
+      paperWalletId: values.user?.authDetails?.userWalletId ?? "",
+    })
 
-  return user
+    const user = await strapi.create("users", {
+      name: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      username: values.email,
+      blocked: false,
+      password: "NOLOGIN",
+      wallet: values.user?.walletAddress,
+      paperWalletId: values.user?.authDetails?.userWalletId ?? "",
+      role: 1,
+    })
+
+    return user
+  } catch (e) {
+    console.log(e.error.details)
+  }
 }
 
 export default async function handler(

@@ -21,6 +21,8 @@ const fetchData = async ({ address }: any) => {
     `${alchemyDomain}/nft/v2/${token}/getNFTs?owner=${address}`
   )
 
+  console.log(`${alchemyDomain}/nft/v2/${token}/getNFTs?owner=${address}`)
+
   const nfts = filterNfts(response.data.ownedNfts)
   cache.set(cacheKey, nfts)
   return nfts
@@ -29,7 +31,7 @@ const fetchData = async ({ address }: any) => {
 // Filters the owned NFTs, to only get the PlusOne ones
 function filterNfts(array: any) {
   return array.filter(function (obj: any) {
-    return obj.contractMetadata?.symbol === "P1" && obj.media[0].gateway
+    return obj.contractMetadata?.symbol === "P1"
   })
 }
 
