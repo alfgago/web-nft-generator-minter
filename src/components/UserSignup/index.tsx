@@ -45,14 +45,15 @@ const UserSignUp = () => {
   const loginWithPaper = async (values: FormValues) => {
     try {
       const login = await paperSdk.auth.loginWithPaperModal()
-      setUser(login.user)
 
       const signupValues = {
         ...values,
         user: login.user, // Include the user data from login
       }
 
-      await axios.post("/api/users/signup", signupValues)
+      const user = await axios.post("/api/users/signup", signupValues)
+      setUser(user)
+
       setSubmitted(true)
     } catch (error) {
       console.error("Error during loginWithPaper:", error)

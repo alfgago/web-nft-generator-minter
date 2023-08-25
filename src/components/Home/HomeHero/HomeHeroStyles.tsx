@@ -92,11 +92,19 @@ export const HomeHeroStyles = styled.section`
     }
 
     .btn {
-      background: #fff;
+      color: #fff;
+      background: transparent;
       border: 1px solid #fff;
-      color: #000;
+      
       font-weight: 900;
       font-size: 2rem;
+      
+      &.fill {
+        background: #fff;
+        border: 1px solid #fff;
+        color: #000;
+      }
+
       &:hover {
         color: #fff;
         background: transparent;
@@ -105,6 +113,8 @@ export const HomeHeroStyles = styled.section`
       @media ${DEVICE.laptop} {
         font-size: 1.8rem;
         line-height: 1.2;
+        padding-top: .75rem;
+        padding-bottom: .4rem;
       }
     }
   }
@@ -263,5 +273,10 @@ export const HomeHeroStyles = styled.section`
         display: none;
       }
     }
+  }
+
+  .ctas {
+    display: flex;
+    gap: 1rem;
   }
 `
