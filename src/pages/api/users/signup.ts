@@ -20,10 +20,8 @@ const createUser = async (values: any) => {
     },
   })
 
-  console.log(values)
-
   const user = await strapi.create("users", {
-    firstName: values.firstName,
+    name: values.firstName,
     lastName: values.lastName,
     email: values.email,
     phoneNumber: values.phoneNumber,
@@ -34,7 +32,7 @@ const createUser = async (values: any) => {
     paperWalletId: values.user?.authDetails?.userWalletId ?? "",
   })
 
-  return true
+  return user
 }
 
 export default async function handler(
