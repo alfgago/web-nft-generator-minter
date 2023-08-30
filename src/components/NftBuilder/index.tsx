@@ -183,6 +183,8 @@ const NftBuilder = ({ artists }: any) => {
         // NFT Storage limits to 10 requests every 5 seconds, add wait
         await new Promise((resolve) => setTimeout(resolve, 5 * 1000))
       }
+
+      /*
       if (premint) {
         try {
           const folderCid = await uploadFolder(contractAddress, metadatas)
@@ -205,6 +207,7 @@ const NftBuilder = ({ artists }: any) => {
         })
         setSaleState()
       }
+      */
 
       setUploading(false)
       setContractDeployed(true)
