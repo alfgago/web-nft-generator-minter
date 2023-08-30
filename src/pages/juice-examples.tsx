@@ -70,14 +70,18 @@ const JuiceExamples = () => {
     })
     console.log(data)
     console.log(data.contractId)
-  */
+    */
+    const imageUrl =
+      "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+
+    const metadata = getMetadataSample(imageUrl, 1)
 
     const res = await axios.post("/api/mints/paperpay", {
       price: 0.005,
       title: "Test NFT",
-      imageUrl:
-        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+      imageUrl: imageUrl,
       order: 1,
+      metadata: metadata,
       contractId: "662894e8-ffb6-4837-8ec8-530523c33358",
     })
     console.log(res.data)
@@ -342,6 +346,41 @@ const uploadAsset = async () => {
   const metadataCid = await uploadNFTMeta(metadataWithDataURI)
 
   return metadataCid
+}
+
+const getMetadataSample = (imageUrl: any, order = 1) => {
+  const atts = [
+    {
+      trait_type: "pass_type",
+      value: "Circle",
+    },
+    {
+      trait_type: "member",
+      value: "Sample Member",
+    },
+    {
+      trait_type: "artist",
+      value: "Sample Artist",
+    },
+  ]
+
+  if (formValues.passType == "Guest") {
+    atts.push({
+      trait_type: "event",
+      value: "Sample Event",
+    })
+  }
+
+  const metadata = {
+    name: "Sample NFT",
+    description: "Sample NFT Description",
+    image: imageUrl,
+    order: order,
+    external_url: cleanUrl(imageUrl),
+    attributes: atts,
+  }
+
+  return metadata
 }
 
 export default JuiceExamples

@@ -5,6 +5,7 @@ const fetchData = async ({
   title,
   imageUrl,
   order,
+  metadata,
   contractId = "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
 }: any) => {
   const options = {
@@ -19,6 +20,7 @@ const fetchData = async ({
       title: title,
       imageUrl: imageUrl ?? "",
       limitPerTransaction: 1,
+      metadata: metadata,
       mintMethod: {
         name: "claimTo",
         args: {

@@ -14,23 +14,32 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   const { data: signer } = useSigner()
   const { isConnected, address } = useAccount()
   const [minting, setMinting] = useState(0)
+  const [isMinted, setIsMinted] = useState(false)
   const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
-  const [addressForPaper, setAddressForPape] = useState("")
+
+  const alchemyToken = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+  const alchemyDomain =
+    process.env.NEXT_PUBLIC_NETWORK == "goerli"
+      ? "https://eth-goerli.g.alchemy.com"
+      : "https://polygon-mainnet.g.alchemy.com"
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
 
   useEffect(() => {
-    const paperWalletAddress = sessionStorage.getItem("walletAddress")
-    if (paperWalletAddress) {
-      setAddressForPape(paperWalletAddress)
-    } else {
-      if (address) {
-        setAddressForPape(address)
+    const queryAlchemy = async () => {
+      try {
+        const response = await axios.get(
+          `${alchemyDomain}/nft/v2/${alchemyToken}/getOwnersForToken?contractAddress=${pass.attributes.contract_address}&tokenId=${nft.attributes.order}`
+        )
+        setIsMinted(response?.data?.owners ? true : false)
+      } catch (e) {
+        // Not minted yet
       }
     }
-  }, [address])
+    queryAlchemy()
+  }, [])
 
   const mint = async (mintingId: number) => {
     checkoutLink()
@@ -55,15 +64,18 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     console.log("Mint Transaction Hash: " + txHash)
     */
   }
-  const imageUrl = cleanUrl(nft.attributes.image_url)
-  const testnetPrice = pass.attributes.initial_price / 50
 
+  console.log(nft.attributes.image_url)
+  const imageUrl = cleanUrl(nft.attributes.image_url)
+  const metadata = nft.attributes.metadata
+  console.log(imageUrl)
   const checkoutLink = async () => {
     const { data } = await axios.post("/api/mints/paperpay", {
       price: pass.attributes.initial_price,
       title: nft.attributes.name,
       imageUrl: imageUrl,
       order: nft.attributes.order,
+      metadata: metadata,
       contractId:
         pass.attributes.paper_contract_id ??
         "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
@@ -78,10 +90,9 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   return (
     <NftCardStyles className={"drop-card " + classes}>
       <div className="image-container">
-        <Image
+        <img
           src={imageUrl}
           alt={`${nft.attributes.name} NFT Preview Image`}
-          quality={90}
           width={400}
           height={400}
         />
@@ -89,7 +100,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       <div className="inner">
         <h2 className="title">{nft.attributes.name}</h2>
         <div className="info">
-          {!nft.attributes.is_minted ? (
+          {!isMinted ? (
             <>
               <div className="price">
                 <b>Price</b>
@@ -122,7 +133,13 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
                 <b>Price</b>
                 <span>{pass.attributes.initial_price} MATIC</span>
               </div>
-              <CommonPill className="clickable blue small">Bid</CommonPill>
+              <a
+                target="_blank"
+                href="https://market.plusonemusic.io"
+                rel="noreferrer"
+              >
+                <CommonPill className="clickable blue small">Bid</CommonPill>
+              </a>
             </>
           )}
         </div>
