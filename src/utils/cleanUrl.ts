@@ -10,6 +10,7 @@ const clean = (src: string) => {
       process.env.NEXT_PUBLIC_DOMAIN + "/aws"
     )
     .replace("ipfs://", process.env.NEXT_PUBLIC_DOMAIN + "/ipfs/")
+    .replace("http://localhost:3000", "https://plusonemusic.io")
 
   return cleaned
 }

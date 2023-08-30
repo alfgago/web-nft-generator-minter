@@ -46,6 +46,7 @@ export type UserMintParams = {
   signer: Signer // acquired once wallet is connected
   metadataCid: string
   nftId: number
+  returnSignature: boolean
 }
 
 export type MintDataForSignature = {
@@ -63,6 +64,7 @@ export const userDynamicMint = async ({
   signer,
   metadataCid,
   nftId,
+  returnSignature = false,
 }: UserMintParams) => {
   const jc = createLocalJuiceClient(network, contractAddress, signer)
   await jc.waitForInit()
@@ -99,6 +101,9 @@ export const userDynamicMint = async ({
     )
 
   const { signature } = await res.json()
+  if (returnSignature) {
+    return signature
+  }
   const mintPrice = (await jc.lazyMintFacet?.publicMintPrice()) || 0
 
   // actually mint the NFT with the tokenUri and signature

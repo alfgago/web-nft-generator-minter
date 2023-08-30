@@ -10,6 +10,7 @@ import {
   bulkMint,
   deployContract,
   publishPaperContract,
+  registerReservoirCollection,
   setFolderStorage,
   uploadFolder,
   uploadNft,
@@ -202,10 +203,21 @@ const NftBuilder = ({ artists }: any) => {
           setErrorMessage(JSON.stringify(error))
         }
       } else {
+        const folderCid = await uploadFolder(contractAddress, metadatas)
+        await setFolderStorage(contractAddress, folderCid)
+        // await bulkMint(contractAddress, formValues.size, true)
+        await axios.post("/api/passes/update-folder", {
+          id: passResponse.data.data.id,
+          folderCid: folderCid,
+        })
         setSaleState()
       }
+
       setUploading(false)
       setContractDeployed(true)
+
+      // Register for reservoir marketplace
+      registerReservoirCollection(contractAddress)
       setErrorMessage("")
     }
   }

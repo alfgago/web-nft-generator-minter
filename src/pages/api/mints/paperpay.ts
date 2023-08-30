@@ -18,9 +18,9 @@ const fetchData = async ({
     body: JSON.stringify({
       contractId: contractId,
       title: title,
+      hideNativeMint: true,
       imageUrl: imageUrl ?? "",
       limitPerTransaction: 1,
-      metadata: metadata,
       mintMethod: {
         name: "claimTo",
         args: {
@@ -35,7 +35,6 @@ const fetchData = async ({
       },
     }),
   }
-
   try {
     const response = await fetch(
       "https://withpaper.com/api/2022-08-12/checkout-link-intent",

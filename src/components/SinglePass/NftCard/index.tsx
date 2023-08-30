@@ -33,7 +33,15 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
         const response = await axios.get(
           `${alchemyDomain}/nft/v2/${alchemyToken}/getOwnersForToken?contractAddress=${pass.attributes.contract_address}&tokenId=${nft.attributes.order}`
         )
-        setIsMinted(response?.data?.owners ? true : false)
+
+        const minted =
+          response?.data?.owners &&
+          response?.data?.owners[0] !=
+            "0x3d6e3236732adc24557b64a4b35548a1f78c025b"
+            ? true
+            : false
+
+        setIsMinted(minted)
       } catch (e) {
         // Not minted yet
       }
