@@ -8,7 +8,7 @@ import pLimit from "p-limit"
 import {
   b64toBlob,
   bulkMint,
-  deployContract,
+  deployThirdwebContract,
   publishPaperContract,
   registerReservoirCollection,
   setFolderStorage,
@@ -18,7 +18,6 @@ import {
 
 import SimpleHeader from "../Common/SimpleHeader"
 
-import { useRequestStatus } from "./Hooks/useRequestStatus"
 import FormStep from "./FormStep"
 import { NftBuilderStyles } from "./NftBuilderStyles"
 import StepsHeader from "./StepsHeader"
@@ -69,12 +68,6 @@ const NftBuilder = ({ artists }: any) => {
     memberName: "",
   })
 
-  const {
-    requestStatus: contractDeployStatus,
-    requestData,
-    setRequestId,
-  } = useRequestStatus()
-
   useEffect(() => {
     if (contractAddress) {
       console.log("Contract: " + contractAddress)
@@ -82,12 +75,7 @@ const NftBuilder = ({ artists }: any) => {
     }
   }, [contractAddress])
 
-  useEffect(() => {
-    if (requestData?.contractAddress) {
-      setContractAddress(requestData.contractAddress)
-    }
-  }, [requestData])
-
+  /*
   useEffect(() => {
     console.log("requestData status", contractDeployStatus)
     console.log("requestData", requestData)
@@ -100,6 +88,7 @@ const NftBuilder = ({ artists }: any) => {
       setErrorMessage("")
     }
   }, [contractDeployStatus])
+  */
 
   useEffect(() => {
     // @ts-ignore
@@ -130,10 +119,14 @@ const NftBuilder = ({ artists }: any) => {
     setUploadedCount(0)
 
     try {
-      const reqId = await deployContract(formValues)
-      setRequestId(reqId)
-    } catch (error) {
-      setErrorMessage(JSON.stringify(error))
+      const { transactionHash } = await deployThirdwebContract(formValues)
+      setContractAddress(transactionHash)
+    } catch (e) {
+      setErrorMessage(
+        "Failure creating the contract. Please contact us if issue persists."
+      )
+      setUploading(false)
+      console.log(e)
     }
   }
 

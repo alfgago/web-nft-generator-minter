@@ -173,6 +173,33 @@ export const bulkMint = async (
   console.log("Admin Bulk Mint Transaction Hash: " + transactionHash)
 }
 
+export const deployThirdwebContract = async (formValues: any) => {
+  const payload = {
+    network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
+    ...formValues,
+  }
+
+  const { data } = await axios.post(
+    baseUrl + "/api/thirdweb/deploy-contract",
+    payload
+  )
+
+  return data
+}
+
+export const addThirdwebContractMeta = async (
+  metadata: any,
+  contractAddress: string
+) => {
+  // Instantiate the SDK in either read or read-write mode
+  const sdk = new ThirdWebSDK("ethereum")
+
+  // Connect to your smart contract using the contract address.
+  const contract = await sdk.getContract(contractAddress)
+
+  return data
+}
+
 export const deployContract = async (formValues: any) => {
   const payload = {
     network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
