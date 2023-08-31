@@ -27,14 +27,11 @@ const Navbar = () => {
     connector: new InjectedConnector(),
   })
 
-  useEffect(() => {
-    console.log(user)
-  }, [])
-
   const loginWithPaper = async () => {
     // @ts-ignore
     const login = await paperSdk.auth.loginWithPaperModal()
     setUser(login.user)
+    location.reload()
   }
 
   // change nav color when scrolling

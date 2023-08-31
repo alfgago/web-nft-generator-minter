@@ -103,6 +103,9 @@ export const PaperSDKProvider = ({
           new PaperEmbeddedWalletWagmiConnector({
             chains,
             options: {
+              // @ts-ignore
+              shimChainChangedDisconnect: true,
+              shimDisconnect: true,
               chain: chainName,
               clientId: clientId,
             },
