@@ -126,25 +126,10 @@ export const setFolderStorage = async (
 }
 
 export const registerReservoirCollection = async (contractAddress: string) => {
-  const options = {
-    method: "PUT",
-    headers: {
-      accept: "*/*",
-      "content-type": "application/json",
-      "x-api-key": "cef489d6-2ea3-5764-a540-88e4f9d9fb56",
-    },
-    body: JSON.stringify({ community: "plusonemusic" }),
-  }
-
-  fetch(
-    "https://api.reservoir.tools/collections/" +
-      contractAddress +
-      "/community/v1",
-    options
-  )
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err))
+  const { data } = await axios.post("/api/contracts/register-reservoir", {
+    contractAddress: contractAddress,
+  })
+  return data
 }
 
 export const bulkMint = async (

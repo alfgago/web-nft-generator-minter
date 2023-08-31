@@ -5,7 +5,7 @@ const fetchData = async ({
   title,
   imageUrl,
   order,
-  metadata,
+  metadataCid,
   contractId = "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
 }: any) => {
   const options = {
@@ -18,9 +18,13 @@ const fetchData = async ({
     body: JSON.stringify({
       contractId: contractId,
       title: title,
-      hideNativeMint: true,
       imageUrl: imageUrl ?? "",
       limitPerTransaction: 1,
+      redirectAfterPayment: true,
+      successCallbackUrl:
+        process.env.NEXT_PUBLIC_DOMAIN +
+        "/success-mint/?metadataCid=" +
+        metadataCid,
       mintMethod: {
         name: "claimTo",
         args: {

@@ -25,7 +25,7 @@ const SinglePass = ({ pass }: any) => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/nfts?limit=200&sort=name&pass=${pass.id}`
+          `/api/nfts?limit=200&sort=order&pass=${pass.id}`
         )
         const arr = data.data
         setNfts(arr)
