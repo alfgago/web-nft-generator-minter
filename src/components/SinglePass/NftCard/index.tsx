@@ -14,7 +14,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   const { data: signer } = useSigner()
   const { isConnected, address } = useAccount()
   const [minting, setMinting] = useState(0)
-  const [isMinted, setIsMinted] = useState(false)
+  const [isMinted, setIsMinted] = useState<any>(false)
   const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
 
   const { connect } = useConnect({
@@ -83,6 +83,43 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     setMinting(0)
   }
 
+  const mintButton = () => {
+    if (minting) {
+      return (
+        <CommonPill className="clickable loader small">
+          <img
+            width="40px;"
+            height="40px"
+            src="/assets/img/spinner.svg"
+            className="spinner"
+            alt="loader"
+          />
+        </CommonPill>
+      )
+    }
+
+    if (isMinted) {
+      if (isMinted.toLowerCase() == address.toLowerCase()) {
+        return <CommonPill className="ownedbtn purple small">Owned</CommonPill>
+      }
+      return (
+        <a
+          target="_blank"
+          href="https://market.plusonemusic.io"
+          rel="noreferrer"
+        >
+          <CommonPill className="clickable blue small">Bid</CommonPill>
+        </a>
+      )
+    }
+
+    return (
+      <CommonPill className="clickable blue small" onClick={() => mint(nft.id)}>
+        Buy Now
+      </CommonPill>
+    )
+  }
+
   return (
     <NftCardStyles className={"drop-card " + classes}>
       <div className="image-container">
@@ -96,48 +133,13 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       <div className="inner">
         <h2 className="title">{nft.attributes.name}</h2>
         <div className="info">
-          {!isMinted ? (
-            <>
-              <div className="price">
-                <b>Price</b>
-                <span>{pass.attributes.initial_price} MATIC</span>
-              </div>
-              {!minting ? (
-                <>
-                  <CommonPill
-                    className="clickable blue small"
-                    onClick={() => mint(nft.id)}
-                  >
-                    Buy Now
-                  </CommonPill>
-                </>
-              ) : (
-                <CommonPill className="clickable loader small">
-                  <img
-                    width="40px;"
-                    height="40px"
-                    src="/assets/img/spinner.svg"
-                    className="spinner"
-                    alt="loader"
-                  />
-                </CommonPill>
-              )}
-            </>
-          ) : (
-            <>
-              <div className="price">
-                <b>Price</b>
-                <span>{pass.attributes.initial_price} MATIC</span>
-              </div>
-              <a
-                target="_blank"
-                href="https://market.plusonemusic.io"
-                rel="noreferrer"
-              >
-                <CommonPill className="clickable blue small">Bid</CommonPill>
-              </a>
-            </>
-          )}
+          <>
+            <div className="price">
+              <b>Price</b>
+              <span>{pass.attributes.initial_price} MATIC</span>
+            </div>
+            {mintButton()}
+          </>
         </div>
       </div>
       {iframeCheckoutLink && (

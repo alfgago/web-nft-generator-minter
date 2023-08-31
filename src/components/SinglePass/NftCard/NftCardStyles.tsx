@@ -49,12 +49,17 @@ export const NftCardStyles = styled.div`
       position: relative;
     }
 
-    .clickable {
+    .clickable,
+    .ownedbtn {
       position: absolute;
       right: 0;
       bottom: 0;
       font-size: ${14 / 16}rem;
       padding: ${5 / 16}rem ${14 / 16}rem;
+    }
+
+    .ownedbtn {
+      pointer-events: none;
     }
   }
 

@@ -21,7 +21,7 @@ const fetchData = async ({ contractAddress, tokenId }: any) => {
     const response = await axios.get(
       `${alchemyDomain}/nft/v2/${alchemyToken}/getOwnersForToken?contractAddress=${contractAddress}&tokenId=${tokenId}`
     )
-    minted = response?.data?.owners ? true : false
+    minted = response?.data?.owners ? response?.data?.owners[0] : false
   } catch (e) {
     minted = false
   }
