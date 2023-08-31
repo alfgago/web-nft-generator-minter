@@ -30,6 +30,8 @@ export const getServerSideProps = async ({ query }: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
+  await checkTransactionStatus(query)
+
   const response = await axios.get(`${apiURL}/api/passes`, {
     params: {
       populate: "artist.banner,event,tour,collection_preview_image",
@@ -46,6 +48,36 @@ export const getServerSideProps = async ({ query }: any) => {
         pass: response.data.data[0],
       },
     }
+  }
+}
+
+const checkTransactionStatus = async (query: any) => {
+  if (!query.transactionId) return
+  const transactionId = query.transactionId
+  const metadataCid = query.metadataCid
+  const nftId = query.nftId
+  const { data } = await axios.get(
+    "https://withpaper.com/api/v1/transaction-status/" + transactionId
+  )
+  const claimedTokens = data.result.claimedTokens
+  const tokenId = claimedTokens.tokens[0].tokenId
+  const collectionAddress = claimedTokens.collectionAddress
+
+  const res = await axios.post(
+    process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/set-token-uri",
+    {
+      contractAddress: collectionAddress,
+      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
+      tokenId,
+      metadataCid,
+      nftId,
+    }
+  )
+
+  return {
+    props: {
+      data: res.data,
+    },
   }
 }
 

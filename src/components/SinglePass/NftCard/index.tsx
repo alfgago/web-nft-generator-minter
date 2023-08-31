@@ -17,12 +17,6 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   const [isMinted, setIsMinted] = useState(false)
   const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
 
-  const alchemyToken = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  const alchemyDomain =
-    process.env.NEXT_PUBLIC_NETWORK == "goerli"
-      ? "https://eth-goerli.g.alchemy.com"
-      : "https://polygon-mainnet.g.alchemy.com"
-
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   })
@@ -30,18 +24,12 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   useEffect(() => {
     const queryAlchemy = async () => {
       try {
-        const response = await axios.get(
-          `${alchemyDomain}/nft/v2/${alchemyToken}/getOwnersForToken?contractAddress=${pass.attributes.contract_address}&tokenId=${nft.attributes.order}`
-        )
+        const { data } = await axios.post("/api/nfts/is-minted", {
+          contractAddress: pass.attributes.contract_address,
+          tokenId: nft.attributes.mint_order ?? 0,
+        })
 
-        const minted =
-          response?.data?.owners &&
-          response?.data?.owners[0] !=
-            "0x3d6e3236732adc24557b64a4b35548a1f78c025b"
-            ? true
-            : false
-
-        setIsMinted(minted)
+        setIsMinted(data)
       } catch (e) {
         // Not minted yet
       }
@@ -73,7 +61,6 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     */
   }
 
-  console.log(nft.attributes.image_url)
   const imageUrl = cleanUrl(nft.attributes.image_url)
   const metadataCid = nft.attributes.ipfs_token
 
@@ -82,11 +69,12 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       price: pass.attributes.initial_price,
       title: nft.attributes.name,
       imageUrl: imageUrl,
-      order: nft.attributes.mint_order ?? nft.attributes.order,
       metadataCid: metadataCid,
       contractId:
         pass.attributes.paper_contract_id ??
         "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
+      nftId: nft.id,
+      contractAddress: pass.attributes.contract_address,
     })
     if (data) {
       setIframeCheckoutLink(data.checkoutLinkIntentUrl)

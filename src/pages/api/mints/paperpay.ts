@@ -4,10 +4,17 @@ const fetchData = async ({
   price,
   title,
   imageUrl,
-  order,
+  order = 0,
   metadataCid,
   contractId = "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
+  nftId,
+  contractAddress,
 }: any) => {
+  const callbackUrl = `${process.env.DOMAIN}
+    /pass/${contractAddress}?metadataCid=${metadataCid}
+    &nftId=${nftId}
+    `
+
   const options = {
     method: "POST",
     headers: {
@@ -21,8 +28,7 @@ const fetchData = async ({
       imageUrl: imageUrl ?? "",
       limitPerTransaction: 1,
       redirectAfterPayment: true,
-      successCallbackUrl:
-        process.env.DOMAIN + "/success-mint/?metadataCid=" + metadataCid,
+      successCallbackUrl: callbackUrl,
       mintMethod: {
         name: "claimTo",
         args: {
