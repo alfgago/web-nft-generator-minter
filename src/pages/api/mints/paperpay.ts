@@ -22,9 +22,7 @@ const fetchData = async ({
       limitPerTransaction: 1,
       redirectAfterPayment: true,
       successCallbackUrl:
-        process.env.NEXT_PUBLIC_DOMAIN +
-        "/success-mint/?metadataCid=" +
-        metadataCid,
+        process.env.DOMAIN + "/success-mint/?metadataCid=" + metadataCid,
       mintMethod: {
         name: "claimTo",
         args: {

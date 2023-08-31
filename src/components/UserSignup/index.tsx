@@ -110,7 +110,7 @@ const UserSignUp = () => {
                         onClick={() => setSignupOption("paperWallet")}
                       >
                         <CommonPill className="clickable small black">
-                          Signup with Paper
+                          Signup with Email
                         </CommonPill>
                       </button>
                       <button

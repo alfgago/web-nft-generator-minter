@@ -185,7 +185,7 @@ const Navbar = () => {
                           src="/assets/icons/paper-logo-icon.svg"
                           alt="metamask-icon"
                         />
-                        <span>Connect with Paper</span>
+                        <span>Connect with Email</span>
                       </a>
                     </li>
                   </ul>
