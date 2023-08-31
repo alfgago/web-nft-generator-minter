@@ -99,7 +99,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
     }
 
     if (isMinted) {
-      if (isMinted.toLowerCase() == address.toLowerCase()) {
+      if (address && isMinted.toLowerCase() == address.toLowerCase()) {
         return <CommonPill className="ownedbtn purple small">Owned</CommonPill>
       }
       return (
