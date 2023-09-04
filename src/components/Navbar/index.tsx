@@ -8,8 +8,6 @@ import { useWindowSize } from "usehooks-ts"
 import { useAccount, useConnect } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
-import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
-
 import Login from "../Login"
 import { usePaperSDKContext } from "../PaperSDKProvider"
 import SearchBar from "../SearchBar"

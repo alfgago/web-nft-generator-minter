@@ -16,7 +16,6 @@ const MyNftGuestsItem = ({ nft }: any) => {
         const response = await axios.get(
           "/api/shows/single?id=" + nft.event.value
         )
-        console.log(response.data.data)
         setEvent(response.data.data)
         const nftResponse = await axios.get(
           "/api/nfts/by-image-url?image=" +

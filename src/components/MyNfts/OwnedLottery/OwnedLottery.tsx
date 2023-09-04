@@ -79,7 +79,6 @@ const OwnedLottery = ({ items }: any) => {
 
     // set only events that contains passes
     setFilteredPasses(filtered)
-    console.log("filtered", filtered)
   }, [filter, circlePasses])
 
   return (

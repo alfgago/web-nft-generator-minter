@@ -51,7 +51,7 @@ const UserSignUp = () => {
         user: login.user, // Include the user data from login
       }
 
-      const user = await axios.post("/api/users/signup", signupValues)
+      const user = await axios.post("/api/users/guest-signup", signupValues)
       setUser(user)
 
       setSubmitted(true)

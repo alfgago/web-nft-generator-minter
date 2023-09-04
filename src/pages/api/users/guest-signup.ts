@@ -22,29 +22,14 @@ const createUser = async (values: any) => {
       },
     })
 
-    console.log({
+    const user = await strapi.create("guests", {
       name: values.firstName,
-      lastName: values.lastName,
+      last_name: values.lastName,
       email: values.email,
-      phoneNumber: values.phoneNumber,
-      username: values.email,
-      blocked: false,
-      password: "NOLOGIN",
+      phone: values.phoneNumber,
       wallet: values.user?.walletAddress,
-      paperWalletId: values.user?.authDetails?.userWalletId ?? "",
-    })
-
-    const user = await strapi.create("users", {
-      name: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      phoneNumber: values.phoneNumber,
-      username: values.email,
-      blocked: false,
-      password: "NOLOGIN",
-      wallet: values.user?.walletAddress,
-      paperWalletId: values.user?.authDetails?.userWalletId ?? "",
-      role: 1,
+      paper_wallet_id: values.user?.authDetails?.userWalletId ?? "",
+      signup_type: "paper",
     })
 
     return user
