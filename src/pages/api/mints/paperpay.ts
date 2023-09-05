@@ -14,7 +14,7 @@ const fetchData = async ({
     /pass/${contractAddress}?metadataCid=${metadataCid}
     &nftId=${nftId}
     `
-
+  return callbackUrl
   const options = {
     method: "POST",
     headers: {
@@ -51,7 +51,7 @@ const fetchData = async ({
     const data = await response.json()
     return data
   } catch (err) {
-    console.log(err)
+    return callbackUrl
   }
 }
 
