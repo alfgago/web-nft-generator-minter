@@ -33,6 +33,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
 
         setIsMinted(data)
 
+        // @ts-ignore
         if (nftId && parseInt(nftId) === parseInt(nft.id)) {
           setMinting(2)
         }
