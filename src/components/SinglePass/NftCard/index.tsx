@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import axios from "axios"
 import { useAccount, useConnect, useSigner } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
@@ -11,11 +12,12 @@ import cleanUrl from "@/utils/cleanUrl"
 import { NftCardStyles } from "./NftCardStyles"
 
 const NftCard = ({ nft, classes = "", pass }: any) => {
-  const { data: signer } = useSigner()
-  const { isConnected, address } = useAccount()
+  const { address } = useAccount()
   const [minting, setMinting] = useState(0)
   const [isMinted, setIsMinted] = useState<any>(false)
   const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
+  const router = useRouter()
+  const { nftId } = router.query
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
@@ -30,6 +32,10 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
         })
 
         setIsMinted(data)
+
+        if (nftId && parseInt(nftId) === parseInt(nft.id)) {
+          setMinting(2)
+        }
       } catch (e) {
         // Not minted yet
       }
@@ -84,20 +90,6 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   }
 
   const mintButton = () => {
-    if (minting) {
-      return (
-        <CommonPill className="clickable loader small">
-          <img
-            width="40px;"
-            height="40px"
-            src="/assets/img/spinner.svg"
-            className="spinner"
-            alt="loader"
-          />
-        </CommonPill>
-      )
-    }
-
     if (isMinted) {
       if (address && isMinted.toLowerCase() == address.toLowerCase()) {
         return <CommonPill className="ownedbtn purple small">Owned</CommonPill>
@@ -110,6 +102,25 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
         >
           <CommonPill className="clickable blue small">Bid</CommonPill>
         </a>
+      )
+    }
+
+    if (minting) {
+      if (minting == 2) {
+        return (
+          <CommonPill className="ownedbtn purple small">Minting...</CommonPill>
+        )
+      }
+      return (
+        <CommonPill className="clickable loader small">
+          <img
+            width="40px;"
+            height="40px"
+            src="/assets/img/spinner.svg"
+            className="spinner"
+            alt="loader"
+          />
+        </CommonPill>
       )
     }
 

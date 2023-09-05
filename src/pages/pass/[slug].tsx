@@ -30,7 +30,10 @@ export const getServerSideProps = async ({ query }: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  await checkTransactionStatus(query)
+  setTimeout(async () => {
+    const status = await checkTransactionStatus(query)
+    console.log(status)
+  }, 5000)
 
   const response = await axios.get(`${apiURL}/api/passes`, {
     params: {
@@ -53,6 +56,7 @@ export const getServerSideProps = async ({ query }: any) => {
 
 const checkTransactionStatus = async (query: any) => {
   if (!query.transactionId) return
+
   const transactionId = query.transactionId
   const metadataCid = query.metadataCid
   const nftId = query.nftId
@@ -74,11 +78,7 @@ const checkTransactionStatus = async (query: any) => {
     }
   )
 
-  return {
-    props: {
-      data: res.data,
-    },
-  }
+  return res.data
 }
 
 export default PassPage
