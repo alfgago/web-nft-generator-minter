@@ -10,11 +10,7 @@ const fetchData = async ({
   nftId,
   contractAddress,
 }: any) => {
-  const callbackUrl = `${process.env.DOMAIN}
-    /pass/${contractAddress}?metadataCid=${metadataCid}
-    &nftId=${nftId}
-    `
-  return callbackUrl
+  const callbackUrl = `${process.env.DOMAIN}/pass/${contractAddress}?metadataCid=${metadataCid}&nftId=${nftId}`
   const options = {
     method: "POST",
     headers: {
