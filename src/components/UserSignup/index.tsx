@@ -55,7 +55,7 @@ const UserSignUp = () => {
       setUser(user)
 
       setSubmitted(true)
-      location.reload()
+      // location.reload()
     } catch (error) {
       console.error("Error during loginWithPaper:", error)
     }
@@ -97,7 +97,7 @@ const UserSignUp = () => {
                       ) : null}
                     </label>
                     <label>
-                      <span>Phone Number</span>
+                      <span>Phone Number (optional)</span>
                       <Field name="phoneNumber" type="tel" placeholder="" />
                       {errors.phoneNumber && touched.phoneNumber ? (
                         <div className="alert">{errors.phoneNumber}</div>

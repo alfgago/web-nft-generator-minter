@@ -22,7 +22,7 @@ const createUser = async (values: any) => {
       },
     })
 
-    const user = await strapi.create("guests", {
+    const params = {
       name: values.firstName,
       last_name: values.lastName,
       email: values.email,
@@ -30,11 +30,13 @@ const createUser = async (values: any) => {
       wallet: values.user?.walletAddress,
       paper_wallet_id: values.user?.authDetails?.userWalletId ?? "",
       signup_type: "paper",
-    })
+    }
+
+    const user = await strapi.create("guests", params)
 
     return user
   } catch (e) {
-    console.log(e.error.details)
+    console.log(e)
   }
 }
 
