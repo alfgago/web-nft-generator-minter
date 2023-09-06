@@ -29,7 +29,7 @@ const Navbar = () => {
     // @ts-ignore
     const login = await paperSdk.auth.loginWithPaperModal()
     setUser(login.user)
-    location.reload()
+    window.location.reload()
   }
 
   // change nav color when scrolling

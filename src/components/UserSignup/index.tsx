@@ -55,7 +55,10 @@ const UserSignUp = () => {
       setUser(user)
 
       setSubmitted(true)
-      // location.reload()
+
+      setTimeout(function () {
+        window.location.reload()
+      }, 1500)
     } catch (error) {
       console.error("Error during loginWithPaper:", error)
     }

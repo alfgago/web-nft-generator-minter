@@ -41,7 +41,7 @@ const LoginForm = ({ setIsOpen }: any) => {
         setIsOpen(false)
       }
       setIncorrect(false)
-      location.reload()
+      window.location.reload()
       return
     }
     setIncorrect(true)
