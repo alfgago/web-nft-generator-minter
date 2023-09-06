@@ -27,14 +27,14 @@ export default async function handler(
       mint_order: tokenId,
     })
 
-    /* const transactionHash = await setTokenURI({
+    const transactionHash = await setTokenURI({
       contractAddress,
       network,
       tokenId,
       metadataCid,
     })
 
-    console.log(transactionHash)*/
+    console.log(transactionHash)
 
     res.status(200).json({ transactionHash: "transactionHash" })
   } catch (e) {
