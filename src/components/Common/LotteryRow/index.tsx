@@ -10,11 +10,11 @@ import { LotteryRowStyles } from "./LotteryRowStyles"
 const LotteryRow = ({ drop, color }: any) => {
   const nft = drop.attributes?.airdropped_nft?.data
   const winner = drop.attributes?.winner?.data
-  const imageUrl = nft.attributes?.image_url
+  const imageUrl = nft?.attributes?.image_url ?? ""
   const imageW = 150
   const imageH = 150
 
-  return (
+  return nft ? (
     <LotteryRowStyles className={color}>
       <div className="image">
         <Image
@@ -40,6 +40,8 @@ const LotteryRow = ({ drop, color }: any) => {
         </div>
       </div>
     </LotteryRowStyles>
+  ) : (
+    ""
   )
 }
 
