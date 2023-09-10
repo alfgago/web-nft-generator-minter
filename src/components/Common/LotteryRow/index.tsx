@@ -41,7 +41,7 @@ const LotteryRow = ({ drop, color }: any) => {
       </div>
     </LotteryRowStyles>
   ) : (
-    ""
+    <></>
   )
 }
 
