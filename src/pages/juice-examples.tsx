@@ -64,27 +64,10 @@ const JuiceExamples = () => {
   }
 
   const deployPaperContract = async () => {
-    /*
     const { data } = await axios.post("/api/mints/register-paper-contract", {
-      contractAddress: contractAddress,
+      contractAddress: "0x18cf91E7aeA159B6246b4aB1385Ef8564B3ff220",
     })
     console.log(data)
-    console.log(data.contractId)
-    */
-    const imageUrl =
-      "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-
-    const metadata = getMetadataSample(imageUrl, 1)
-
-    const res = await axios.post("/api/mints/paperpay", {
-      price: 0.005,
-      title: "Test NFT",
-      imageUrl: imageUrl,
-      order: 1,
-      metadata: metadata,
-      contractId: "662894e8-ffb6-4837-8ec8-530523c33358",
-    })
-    console.log(res.data)
   }
 
   const uploadAssetAndDevMint = async () => {

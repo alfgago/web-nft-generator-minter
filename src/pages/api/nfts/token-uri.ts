@@ -52,19 +52,23 @@ export default async function handler(
 ) {
   try {
     const { contractAddress, network, tokenId, metadataCid, nftId } = req.body
-    const hash = await isMinted(contractAddress, parseInt(tokenId))
+    // const hash = await isMinted(contractAddress, parseInt(tokenId))
+    const hash = ""
     if (!hash.length) {
       axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/update-status", {
         id: nftId,
         mint_order: tokenId,
       })
 
-      const transactionHash = await setTokenURI({
+      const tokenUriParams = {
         contractAddress,
         network,
         tokenId,
         metadataCid,
-      })
+      }
+      console.log(tokenUriParams)
+
+      const transactionHash = await setTokenURI(tokenUriParams)
 
       console.log(transactionHash)
 

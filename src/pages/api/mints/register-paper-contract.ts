@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import Strapi from "strapi-sdk-js"
 
+import { setFolderStorageBaseURI } from "@/utils/SmartContracts/setFolderStorageBaseURI"
+
 export async function getContractABI() {
   return [
     {
@@ -951,6 +953,12 @@ export async function getContractABI() {
 const fetchData = async ({ contractAddress, passId }: any) => {
   const contractABI = await getContractABI()
   try {
+    const network = process.env.NEXT_PUBLIC_NETWORK ?? "goerli"
+    setFolderStorageBaseURI({
+      contractAddress,
+      network,
+    })
+
     const response = await fetch(
       "https://withpaper.com/api/2022-08-12/register-contract",
       {

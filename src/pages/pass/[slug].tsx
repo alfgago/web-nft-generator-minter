@@ -17,8 +17,6 @@ const checkTransactionStatus = async (transactionId, metadataCid, nftId) => {
     const claimedTokens = data.result.claimedTokens
     const tokenId = claimedTokens.tokens[0].tokenId
     const collectionAddress = claimedTokens.collectionAddress
-    console.log("claimedTokens")
-    console.log(claimedTokens)
 
     const res = await axios.post(
       process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/token-uri",
