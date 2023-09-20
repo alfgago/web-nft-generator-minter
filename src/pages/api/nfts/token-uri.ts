@@ -59,8 +59,8 @@ export default async function handler(
       nftId,
       transactionId,
     } = req.body
-    // const hash = await isMinted(contractAddress, parseInt(tokenId))
-    const hash = ""
+    const hash = await isMinted(contractAddress, parseInt(tokenId))
+    // const hash = ""
     if (!hash.length) {
       axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/update-status", {
         id: nftId,
