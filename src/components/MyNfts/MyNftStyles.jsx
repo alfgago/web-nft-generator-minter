@@ -28,6 +28,19 @@ export const MyNtfStyles = styled.main`
     }
   }
 
+  .edit-profile-button {
+    margin: 1rem 0;
+    color: #fff;
+    border-color: #fff;
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .icon {
+      margin-left: 0;
+      margin-right: 1rem;
+    }
+  }
+
   .content {
     padding-bottom: ${32 / 16}rem;
   }

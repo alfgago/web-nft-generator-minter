@@ -5,15 +5,18 @@ import { useAccount, useConnect, useDisconnect } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "../Common/CommonStyles"
+import Modal from "../Common/Modal"
 import SimpleHeader from "../Common/SimpleHeader"
 
 import MyPerks from "./MyPerks/MyPerks"
 import OwnedLottery from "./OwnedLottery/OwnedLottery"
+import EditProfileForm from "./EditProfileForm"
 import MyNftGuestsList from "./GuestsList"
 import { MyNtfStyles } from "./MyNftStyles"
 import ShowNfts from "./ShowMyNfts"
 
 const MyNfts = () => {
+  const [toggleEdit, setToggleEdit] = useState(false)
   const [nfts, setNfts] = useState([])
   const { address, isConnected } = useAccount()
 
@@ -45,11 +48,20 @@ const MyNfts = () => {
         <div className="subt-container">
           <h3>{address}</h3>
           {isConnected && (
-            <div className="disconnect">
-              <button onClick={() => disconnect()}>
-                Disconnect your wallet
-              </button>
-            </div>
+            <>
+              <CommonPill
+                className="edit-profile-button clickable small"
+                onClick={() => setToggleEdit(true)}
+              >
+                <ReactSVG className="edit icon" src="/assets/icons/edit.svg" />
+                Edit My Profile
+              </CommonPill>
+              <div className="disconnect">
+                <button onClick={() => disconnect()}>
+                  Disconnect your wallet
+                </button>
+              </div>
+            </>
           )}
         </div>
       </SimpleHeader>
@@ -74,6 +86,12 @@ const MyNfts = () => {
             </button>
           </div>
         </section>
+      )}
+
+      {toggleEdit && (
+        <Modal setIsOpen={setToggleEdit} title="Edit User Profile">
+          <EditProfileForm wallet={address} />
+        </Modal>
       )}
     </MyNtfStyles>
   )
