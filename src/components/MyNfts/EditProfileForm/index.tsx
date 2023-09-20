@@ -104,6 +104,14 @@ const EditProfileForm = ({ wallet }) => {
                 {!isSubmitting ? (
                   <>
                     <Form className="cols-2">
+                      <label className="full">
+                        <span>Username</span>
+                        <Field name="username" type="text" placeholder="" />
+                        {errors.username && touched.username ? (
+                          <div className="alert">{errors.username}</div>
+                        ) : null}
+                      </label>
+                      <div className="separator" />
                       <label>
                         <span>First Name</span>
                         <Field name="firstName" type="text" placeholder="" />
