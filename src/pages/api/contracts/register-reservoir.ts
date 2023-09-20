@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
 
 const fetchData = async ({ contractAddress }: any) => {
   const options = {
