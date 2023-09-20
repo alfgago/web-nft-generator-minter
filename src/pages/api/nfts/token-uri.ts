@@ -51,30 +51,40 @@ export default async function handler(
   res: NextApiResponse<AirdropResponseBody>
 ) {
   try {
-    const { contractAddress, network, tokenId, metadataCid, nftId } = req.body
+    const {
+      contractAddress,
+      network,
+      tokenId,
+      metadataCid,
+      nftId,
+      transactionId,
+    } = req.body
     // const hash = await isMinted(contractAddress, parseInt(tokenId))
     const hash = ""
     if (!hash.length) {
       axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/update-status", {
         id: nftId,
         mint_order: tokenId,
+        paper_transaction_id: transactionId,
       })
 
       const tokenUriParams = {
         contractAddress,
         network,
         tokenId,
-        metadataCid,
+        metadataCid: "ipfs://" + metadataCid,
       }
       console.log(tokenUriParams)
 
       const transactionHash = await setTokenURI(tokenUriParams)
 
+      console.log("transactionHash")
       console.log(transactionHash)
 
       res.status(200).json({ transactionHash: transactionHash })
+    } else {
+      res.status(200).json({ transactionHash: hash })
     }
-    return res.status(200).json({ transactionHash: hash })
   } catch (e) {
     console.log(e)
     res.status(400).send({ err: "Bad Request:" + e })

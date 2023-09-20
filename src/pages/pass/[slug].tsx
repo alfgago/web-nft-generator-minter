@@ -26,6 +26,7 @@ const checkTransactionStatus = async (transactionId, metadataCid, nftId) => {
         tokenId,
         metadataCid,
         nftId,
+        transactionId,
       }
     )
 
