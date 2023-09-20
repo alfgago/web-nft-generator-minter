@@ -11,6 +11,9 @@ interface Payload {
   giveaway_slots: number
   confirmed: boolean
   image?: string // Make the image property optional
+  doors_time: string
+  deadline_hours: number
+  age_restriction: string
 }
 
 const updateShow = async (values: any) => {
@@ -40,6 +43,9 @@ const updateShow = async (values: any) => {
     city: values.city,
     giveaway_slots: values.giveaway_slots,
     confirmed: true,
+    doors_time: values.doors_time,
+    deadline_hours: values.deadline_hours,
+    age_restriction: values.age_restriction,
   }
   if (values.image) {
     payload.image = values.image

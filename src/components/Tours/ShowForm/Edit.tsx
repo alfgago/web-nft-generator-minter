@@ -19,6 +19,9 @@ interface FormValues {
   artist: string
   giveaway_slots: number
   image: File | null // Add image field
+  doors_time: string
+  deadline_hours: number
+  age_restriction: string
 }
 
 const EditDateForm = ({ editShowId = 0 }) => {
@@ -69,6 +72,9 @@ const EditDateForm = ({ editShowId = 0 }) => {
         const values = show.attributes
         const showDate = new Date(show?.attributes?.date)
         values.date = dateToIso(showDate)
+
+        const doorsTime = new Date(show?.attributes?.doors_time)
+        values.doors_time = dateToIso(doorsTime)
         setPreviewUrl(show?.attributes?.image?.data?.attributes?.url)
         values.image = show?.attributes?.image?.data?.id
         setInitValues(values)
@@ -97,9 +103,13 @@ const EditDateForm = ({ editShowId = 0 }) => {
     country: Yup.string().required("Country is required"),
     city: Yup.string().required("city is required"),
     giveaway_slots: Yup.number().required("Giveaway slots is required"),
+    doors_time: Yup.string().required("Doors Date is required"),
+    age_restriction: Yup.string().required("Age restriction is required"),
+    deadline_hours: Yup.number().required("Deadline Hours are required"),
   })
 
   async function updateShow(values: FormValues) {
+    console.log(values)
     const response = await axios.post("/api/shows/update", {
       id: editShowId,
       date: values.date,
@@ -108,6 +118,9 @@ const EditDateForm = ({ editShowId = 0 }) => {
       city: values.city,
       image: values.image,
       giveaway_slots: values.giveaway_slots,
+      doors_time: values.doors_time,
+      age_restriction: values.age_restriction,
+      deadline_hours: values.deadline_hours,
     })
     return response
   }
@@ -192,6 +205,41 @@ const EditDateForm = ({ editShowId = 0 }) => {
                         <label>
                           <span>City</span>
                           <Field name="city" type="text" placeholder="" />
+                        </label>
+                        <label>
+                          <span>Doors Time</span>
+                          {errors.doors_time && touched.doors_time ? (
+                            <div className="alert">{errors.doors_time}</div>
+                          ) : null}
+                          <Field name="doors_time" type="date" placeholder="" />
+                        </label>
+                        <label>
+                          <span>
+                            Register deadline prior to doors open (hours)
+                          </span>
+                          {errors.deadline_hours && touched.deadline_hours ? (
+                            <div className="alert">{errors.deadline_hours}</div>
+                          ) : null}
+                          <Field
+                            name="deadline_hours"
+                            type="number"
+                            placeholder="24 hours"
+                          />
+                        </label>
+                        <label>
+                          <span>Age restriction</span>
+                          {errors.age_restriction && touched.age_restriction ? (
+                            <div className="alert">
+                              {errors.age_restriction}
+                            </div>
+                          ) : null}
+                          <Field name="age_restriction" as="select">
+                            <option value="all">All Ages</option>
+                            <option value="ages_10">Kids 10+</option>
+                            <option value="ages_13">Teens 13+</option>
+                            <option value="ages_17">Mature 17+</option>
+                            <option value="ages_18">18+</option>
+                          </Field>
                         </label>
 
                         <label className="image">

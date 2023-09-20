@@ -20,6 +20,9 @@ interface FormValues {
   artist: string
   giveaway_slots: number
   image: File | null // Add image field
+  doors_time: string
+  deadline_hours: number
+  age_restriction: string
 }
 
 const initialValues = {
@@ -97,6 +100,9 @@ const NewDateForm = () => {
     city: Yup.string().required("city is required"),
     artist: Yup.string().required("Artist is required"),
     giveaway_slots: Yup.string().required("Giveaway slots is required"),
+    doors_time: Yup.string().required("Doors Date is required"),
+    age_restriction: Yup.string().required("Age restriction is required"),
+    deadline_hours: Yup.number().required("Deadline Hours are required"),
   })
 
   async function createShow(values: FormValues) {
@@ -108,6 +114,9 @@ const NewDateForm = () => {
       artist: values.artist,
       image: values.image,
       giveaway_slots: values.giveaway_slots,
+      doors_time: values.doors_time,
+      age_restriction: values.age_restriction,
+      deadline_hours: values.deadline_hours,
     })
     return response
   }
@@ -209,6 +218,30 @@ const NewDateForm = () => {
                       <label>
                         <span>City</span>
                         <Field name="city" type="text" placeholder="" />
+                      </label>
+                      <label>
+                        <span>Doors Time</span>
+                        <Field name="doors_time" type="date" placeholder="" />
+                      </label>
+                      <label>
+                        <span>
+                          Register deadline prior to doors open (hours)
+                        </span>
+                        <Field
+                          name="deadline_hours"
+                          type="number"
+                          placeholder="24 hours"
+                        />
+                      </label>
+                      <label>
+                        <span>Age restriction</span>
+                        <Field name="age_restriction" as="select">
+                          <option value="all">All Ages</option>
+                          <option value="ages_10">Kids 10+</option>
+                          <option value="ages_13">Teens 13+</option>
+                          <option value="ages_17">Mature 17+</option>
+                          <option value="ages_18">18+</option>
+                        </Field>
                       </label>
 
                       <label className="image">

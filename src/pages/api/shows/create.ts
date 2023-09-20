@@ -31,6 +31,9 @@ const createShow = async (values: any) => {
     artist: values.artist,
     giveaway_slots: values.giveaway_slots,
     confirmed: true,
+    doors_time: values.doors_time,
+    deadline_hours: values.deadline_hours,
+    age_restriction: values.age_restriction,
   })
 
   return event

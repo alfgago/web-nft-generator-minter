@@ -67,7 +67,18 @@ const JuiceExamples = () => {
     const { data } = await axios.post("/api/mints/register-paper-contract", {
       contractAddress: "0x18cf91E7aeA159B6246b4aB1385Ef8564B3ff220",
     })
-    console.log(data)
+
+    await axios.post("/api/contracts/register-reservoir", {
+      contractAddress: "0x037606bDF0CeB2387A2F6EfD2cf1288E324B18f4",
+    })
+
+    await axios.post("/api/contracts/register-reservoir", {
+      contractAddress: "0x01aA6015E663c7b3a0966Be26daf0494cdcBbC4D",
+    })
+
+    await axios.post("/api/contracts/register-reservoir", {
+      contractAddress: "0x18cf91E7aeA159B6246b4aB1385Ef8564B3ff220",
+    })
   }
 
   const uploadAssetAndDevMint = async () => {
