@@ -210,7 +210,7 @@ const NftBuilder = ({ artists }: any) => {
       setContractDeployed(true)
 
       // Register for reservoir marketplace
-      registerReservoirCollection(contractAddress)
+      // registerReservoirCollection(contractAddress)
       setErrorMessage("")
     }
   }
