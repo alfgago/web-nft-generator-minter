@@ -25,7 +25,7 @@ const fetchData = async () => {
   }
 
   const response = await fetch(
-    "https://api.reservoir.tools/collections-sets/v1",
+    "https://api-goerli.reservoir.tools/collections-sets/v1",
     options
   )
 
