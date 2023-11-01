@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useWindowSize } from "usehooks-ts"
 
 import PassDescription from "@/components/PassDescription"
 import PassPreview from "@/components/PassPreview"
@@ -12,6 +13,9 @@ import { CommonPill } from "../CommonStyles"
 import { CardPassStyles } from "./CardPassStyles"
 
 const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
+  const { width } = useWindowSize()
+  const isMobile = width < 1080
+
   if (!event) {
     event = pass.attributes.event.data
       ? pass.attributes.event.data.attributes
@@ -35,6 +39,14 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
   try {
     return (
       <CardPassStyles>
+        {isMobile && title && (
+          <div
+            className="mobile-title title"
+            dangerouslySetInnerHTML={{
+              __html: title,
+            }}
+          />
+        )}
         <div className="flex">
           {imgCardPass.startsWith("https://plusonemusic.io") ? (
             <Image
@@ -56,7 +68,7 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
           )}
           <div className="inner-card">
             <div className="titles trap">
-              {title && (
+              {!isMobile && title && (
                 <div
                   className="title"
                   dangerouslySetInnerHTML={{

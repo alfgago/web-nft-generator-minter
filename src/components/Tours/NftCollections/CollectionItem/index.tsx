@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { ReactSVG } from "react-svg"
+import { useWindowSize } from "usehooks-ts"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
@@ -9,6 +10,8 @@ import EditPerksForm from "../../EditPerksForm"
 
 import { CollectionItemStyles } from "./CollectionItemStyles"
 const CollectionItem = ({ item }: any) => {
+  const { width } = useWindowSize()
+  const isMobile = width < 1080
   const [toggleEdit, setToggleEdit] = useState(false)
   const onEdit = () => {
     setToggleEdit(true)
@@ -37,7 +40,7 @@ const CollectionItem = ({ item }: any) => {
                 className="icon"
                 src="/assets/icons/edit.svg"
               />
-              Edit Perks
+              {isMobile ? "Perks" : "Edit Perks"}
             </CommonPill>
           </div>
         </div>

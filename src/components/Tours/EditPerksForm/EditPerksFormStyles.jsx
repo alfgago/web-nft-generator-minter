@@ -63,17 +63,42 @@ export const EditPerksFormStyles = styled.div`
     margin-bottom: 1.5rem;
 
     .perk-item {
-      display: flex;
-      border-bottom: 1px solid #eee;
+      display: block;
       margin-bottom: 1rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      @media (${DEVICE.laptop}) {
+        display: flex;
+        padding: 0;
+        border-bottom: 1px solid #eee;
+      }
+      .icon-field {
+        width: 100%;
+        select {
+          width: 100%;
+        }
+      }
+      @media (${DEVICE.maxlaptop}) {
+        select,
+        textarea,
+        input {
+          background: #fff;
+          width: 100%;
+        }
+      }
       label {
+        display: block;
         width: auto;
-        padding: 0.5rem;
+        padding: 0.5rem 0;
         margin-bottom: 0;
         input[type="file"] {
           background: none;
           border: none;
           font-size: 1rem;
+        }
+        @media (${DEVICE.laptop}) {
+          padding: 0.5rem;
+          margin-bottom: 0;
         }
       }
       .alert {

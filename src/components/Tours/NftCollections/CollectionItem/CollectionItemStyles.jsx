@@ -23,7 +23,7 @@ export const CollectionItemStyles = styled.div`
 
   h3 {
     padding-right: .5rem;
-    font-size: 16px;
+    font-size: 14px;
     @media(${DEVICE.laptop}){
       font-size: 1.25rem;
     }
@@ -35,11 +35,18 @@ export const CollectionItemStyles = styled.div`
     &:hover {
       color: #fff;
     }
+    @media ${DEVICE.maxlaptop} {
+      .icon {
+        height: 100%;
+      }
+    }
   }
 
   .top-content {
     display: flex;
     width: 100%;
+    background-color: ${COLORS.black};
+    align-items: center;
     @media ${DEVICE.laptop} {
       max-width: ${615 / 16}rem;
       width: 50%;
@@ -47,6 +54,7 @@ export const CollectionItemStyles = styled.div`
 
     .title {
       position: relative;
+      align-items: center;
       justify-content: space-between;
       display: flex;
       height: 100%;

@@ -97,7 +97,8 @@ export const HomeHeroStyles = styled.section`
       border: 1px solid #fff;
       
       font-weight: 900;
-      font-size: 2rem;
+      font-size: 1.3rem;
+      line-height: 1.2;
       
       &.fill {
         background: #fff;
@@ -112,7 +113,6 @@ export const HomeHeroStyles = styled.section`
 
       @media ${DEVICE.laptop} {
         font-size: 1.8rem;
-        line-height: 1.2;
         padding-top: .75rem;
         padding-bottom: .4rem;
       }
@@ -278,5 +278,4 @@ export const HomeHeroStyles = styled.section`
   .ctas {
     display: flex;
     gap: 1rem;
-  }
 `

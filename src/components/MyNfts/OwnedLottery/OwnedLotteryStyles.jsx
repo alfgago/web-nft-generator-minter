@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { COLORS, DEVICE } from "@/styles/variables"
 
 export const OwnedLotteryStyles = styled.section`
 
@@ -8,25 +9,32 @@ export const OwnedLotteryStyles = styled.section`
   }
 
   .header-cont {
-    display: flex;
+    display: block;
     gap: 6rem;
     padding-bottom: ${69 / 16}rem;
+    @media ${DEVICE.laptop} {
+      display: flex;
+    }
 
     align-items: center;
-    > div h2 {
-      font-weight: 600;
-      font-size: 40px;
-    }
 
     .filters {
         display: flex;
-        gap: ${97 / 16}rem;
+        gap: ${24 / 16}rem;
+        padding-left: 0;
+        @media ${DEVICE.laptop} {
+          gap: ${60 / 16}rem;
+          padding-left: 1rem;
+        }
 
         li {
+          font-size: 1rem;
+          font-weight: 500;
+          list-style-type: none;
+          cursor: pointer;
+          @media ${DEVICE.laptop} {
             font-size: ${32 / 16}rem;
-            font-weight: 500;
-            list-style-type: none;
-            cursor: pointer;
+          }
         }
   }
 `

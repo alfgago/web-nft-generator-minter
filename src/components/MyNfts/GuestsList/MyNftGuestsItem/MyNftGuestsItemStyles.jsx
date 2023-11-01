@@ -3,7 +3,13 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const MyNftGuestsItemStyles = styled.div`
   display: flex;
-  width: calc((100% / 3 - 5rem));
+  width: 100%;
+  box-shadow: 0 0 15px rgba(150, 150, 150, 0.2);
+  background: #111;
+  padding: 1rem;
+  @media ${DEVICE.laptop} {
+    width: calc((100% / 3 - 5rem));
+  }
 
   flex-direction: column;
   .event-info-cont {

@@ -13,9 +13,15 @@ export const ModalStyles = styled.section`
   top: 0rem;
   padding: 0;
   width: 100%;
-  height: 100%;
   z-index: 9999999;
+  height: 100vh;
+
   background-color: ${COLORS.white};
+  overflow-y: auto;
+
+  @media ${DEVICE.laptop} {
+    height: 100%;
+  }
 
   transition: 0.5s ease all;
   opacity: 0;
@@ -112,11 +118,13 @@ export const ModalStyles = styled.section`
   }
 
   .title {
-    padding: 0 ${40 / 16}rem;
     margin: 0;
     font-weight: 600;
-    font-size: ${40 / 16}rem;
-    line-height: ${44 / 16}rem;
+    @media ${DEVICE.laptop} {
+      font-size: ${40 / 16}rem;
+      line-height: ${44 / 16}rem;
+      padding: 0 ${40 / 16}rem;
+    }
   }
 
   .close-mobile {

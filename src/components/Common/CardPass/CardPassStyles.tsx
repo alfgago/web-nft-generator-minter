@@ -11,8 +11,9 @@ export const CardPassStyles = styled.div`
     width: 100%;
     background: ${COLORS.white};
     box-shadow: 0 ${4 / 16}rem ${32 / 16}rem rgba(0, 0, 0, 0.2);
-    margin-top: 0.5rem;
+    margin-top: 0;
     max-width: 43.75rem;
+    flex-direction: row;
 
     @media ${DEVICE.laptop} {
       max-width: 100%;
@@ -122,7 +123,9 @@ export const CardPassStyles = styled.div`
     object-fit: cover;
 
     @media ${DEVICE.maxlaptop} {
+      object-fit: contain;
       height: auto;
+      object-position: top;
       &.more {
         position: absolute;
         width: 40px;
@@ -176,10 +179,18 @@ export const CardPassStyles = styled.div`
     opacity: 1;
   }
 
+  .mobile-title {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    text-align: left;
+    padding-left: calc(40% + 10px);
+  }
+
   .inner-card {
     width: 60%;
     display: flex;
-    padding: 20px 15px;
+    padding: 10px 10px;
     flex-direction: column;
     justify-content: space-between;
     @media ${DEVICE.laptop} {
@@ -204,7 +215,11 @@ export const CardPassStyles = styled.div`
         }
 
         p {
+          margin-top: 0;
           margin-bottom: 3px;
+          @media ${DEVICE.laptop} {
+            margin-top: 1rem;
+          }
         }
       }
     }

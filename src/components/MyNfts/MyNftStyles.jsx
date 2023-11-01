@@ -5,6 +5,8 @@ export const MyNtfStyles = styled.main`
     padding-bottom: ${70 / 16}rem;
     h3 {
       font-weight: 600;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .disconnect {
       button {

@@ -12,8 +12,8 @@ const GuestItem = ({ data }: any) => {
   }
   const guestName: string = data.name
   const guestEmail: string = data.email
-  const image = data.nft.data.attributes.image_url
-  const nftName = data.nft.data.attributes.name
+  const image = data.nft?.data?.attributes?.image_url || ""
+  const nftName = data.nft?.data?.attributes?.name || "NFT Deleted"
 
   return (
     <GuestItemStyles>
