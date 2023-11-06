@@ -199,11 +199,15 @@ const ShowRow = ({ item, index }: any) => {
               {timer}
             </div>
             <div className="actions">
-              <Link href={"/pass/" + pass?.attributes.contract_address}>
-                <CommonPill className="clickable blue small">
-                  Buy pass
-                </CommonPill>
-              </Link>
+              {item.attributes.passes.data.length ? (
+                <Link href={"/pass/" + pass?.attributes.contract_address}>
+                  <CommonPill className="clickable blue small">
+                    Buy pass
+                  </CommonPill>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         )}

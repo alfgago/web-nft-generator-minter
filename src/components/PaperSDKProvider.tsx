@@ -100,23 +100,18 @@ export const PaperSDKProvider = ({
       createClient({
         autoConnect: true,
         connectors: [
-          new PaperEmbeddedWalletWagmiConnector({
-            chains,
-            options: {
-              // @ts-ignore
-              shimChainChangedDisconnect: true,
-              shimDisconnect: true,
-              chain: chainName,
-              clientId: clientId,
-            },
-          }),
           new MetaMaskConnector({
             chains,
             options: {
-              // @ts-ignore
-              shimChainChangedDisconnect: true,
-              shimDisconnect: true,
+              shimDisconnect: false,
               UNSTABLE_shimOnConnectSelectAccount: true,
+            },
+          }),
+          new PaperEmbeddedWalletWagmiConnector({
+            chains,
+            options: {
+              chain: chainName,
+              clientId: clientId,
             },
           }),
           /* new WalletConnectConnector({

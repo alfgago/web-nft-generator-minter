@@ -61,12 +61,7 @@ const HomeHero = ({ title, copy, image }: any) => {
                 </CommonPill>
               </Link>
             )}
-            <a
-              className="marketplace"
-              href="https://market.plusonemusic.io"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a className="marketplace" href="https://market.plusonemusic.io">
               <CommonPill className="btn clickable">
                 Visit Marketplace
               </CommonPill>

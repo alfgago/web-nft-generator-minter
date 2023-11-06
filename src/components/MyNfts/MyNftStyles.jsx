@@ -53,5 +53,6 @@ export const MyNtfStyles = styled.main`
 
   .notfound {
     color: #fff;
+    display: none;
   }
 `

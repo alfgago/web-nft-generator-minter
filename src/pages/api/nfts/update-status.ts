@@ -22,7 +22,7 @@ const updateMintStatus = async (values: any) => {
   const params = {
     is_minted: true,
     mint_order: parseInt(values.mint_order ?? 0),
-    paper_transaction_id: values.paperTransactionId ?? "",
+    paper_transaction_id: values.paper_transaction_id ?? "",
   }
   console.log(params)
   const nft = await strapi.update("nfts", values.id, params)

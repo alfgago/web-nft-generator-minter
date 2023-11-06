@@ -94,7 +94,7 @@ export const ModalStyles = styled.section`
   @media ${DEVICE.laptop} {
     .bg-modal {
       position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.95);
       width: 100%;
       height: 100%;
       top: 0;

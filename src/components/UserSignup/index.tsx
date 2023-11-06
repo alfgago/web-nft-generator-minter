@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { Field, Form, Formik } from "formik"
 import { ReactSVG } from "react-svg"
+import { useAccount, useConnect } from "wagmi"
+import { InjectedConnector } from "wagmi/connectors/injected"
 import * as Yup from "yup"
 
 import { CommonPill } from "../Common/CommonStyles"
@@ -24,10 +26,12 @@ const UserSignUpSchema = Yup.object().shape({
 })
 
 const UserSignUp = () => {
+  const formikRef = useRef(null) as any
   const { paperSdk, setUser } = usePaperSDKContext()
-  const [signupOption, setSignupOption] = useState<string | null>(null)
   const [isSubmitting, setSubmitting] = useState(false)
   const [isSubmitted, setSubmitted] = useState(false)
+  const [isSubmittedMetamask, setSubmittedMetamask] = useState(false)
+  const { address, isConnected } = useAccount()
 
   const initialValues: FormValues = {
     firstName: "",
@@ -36,11 +40,49 @@ const UserSignUp = () => {
     phoneNumber: "",
   }
 
-  const onSubmit = async (values: FormValues) => {
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+
+  const onSubmit = async (values: FormValues, walletType: string) => {
     setSubmitted(false)
     setSubmitting(true)
-    await loginWithPaper(values)
+    // Decide which function to call based on the wallet type
+    if (walletType === "paper") {
+      await loginWithPaper(values)
+    } else if (walletType === "metamask") {
+      await loginWithMetamask(values)
+    }
   }
+
+  const loginWithMetamask = async (values: FormValues) => {
+    connect()
+    setSubmittedMetamask(true)
+  }
+
+  const registerMetamaskUser = async () => {
+    if (address && isSubmittedMetamask) {
+      const signupValues = {
+        ...formikRef.current?.values,
+        paper_id: null,
+        wallet: address,
+        signup_type: "metamask",
+      }
+
+      const user = await axios.post("/api/users/guest-signup", signupValues)
+      setUser(user)
+      setSubmitted(true)
+      setSubmitting(false)
+
+      setTimeout(function () {
+        window.location.reload()
+      }, 1500)
+    }
+  }
+
+  useEffect(() => {
+    registerMetamaskUser()
+  }, [isSubmittedMetamask, address])
 
   const loginWithPaper = async (values: FormValues) => {
     try {
@@ -48,7 +90,9 @@ const UserSignUp = () => {
 
       const signupValues = {
         ...values,
-        user: login.user, // Include the user data from login
+        paper_id: login.user?.authDetails?.userWalletId,
+        wallet: login.user?.walletAddress,
+        signup_type: "paper",
       }
 
       const user = await axios.post("/api/users/guest-signup", signupValues)
@@ -65,6 +109,19 @@ const UserSignUp = () => {
     setSubmitting(false)
   }
 
+  // Event handlers for buttons
+  const handlePaperWalletSignup = () => {
+    console.log("handlePaperWalletSignup")
+    const values = formikRef.current?.values // Access form values from Formik ref
+    onSubmit(values, "paper")
+  }
+
+  const handleMetamaskSignup = () => {
+    console.log("handleMetamaskSignup")
+    const values = formikRef.current?.values // Access form values from Formik ref
+    onSubmit(values, "metamask")
+  }
+
   return (
     <UserSignUpStyles className="content">
       <div>
@@ -72,7 +129,8 @@ const UserSignUp = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={UserSignUpSchema}
-            onSubmit={onSubmit}
+            onSubmit={null}
+            innerRef={formikRef}
           >
             {({ errors, touched }) => (
               <div className="signup-form in-popup">
@@ -102,30 +160,19 @@ const UserSignUp = () => {
                     <label>
                       <span>Phone Number (optional)</span>
                       <Field name="phoneNumber" type="tel" placeholder="" />
-                      {errors.phoneNumber && touched.phoneNumber ? (
-                        <div className="alert">{errors.phoneNumber}</div>
-                      ) : null}
                     </label>
 
                     <div className="buttons">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setSignupOption("paperWallet")}
-                      >
+                      <div onClick={() => handlePaperWalletSignup()}>
                         <CommonPill className="clickable small black">
                           Signup with Email
                         </CommonPill>
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setSignupOption("metamask")}
-                      >
+                      </div>
+                      <div onClick={() => handleMetamaskSignup()}>
                         <CommonPill className="clickable small black">
                           Signup with Metamask
                         </CommonPill>
-                      </button>
+                      </div>
                     </div>
                   </Form>
                 ) : (

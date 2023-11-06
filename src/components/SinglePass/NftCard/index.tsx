@@ -98,7 +98,10 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       return (
         <a
           target="_blank"
-          href="https://market.plusonemusic.io"
+          href={
+            "https://market.plusonemusic.io/collection/goerli/" +
+            pass.attributes.contract_address
+          }
           rel="noreferrer"
         >
           <CommonPill className="clickable blue small">Bid</CommonPill>

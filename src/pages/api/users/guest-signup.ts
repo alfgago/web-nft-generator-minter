@@ -27,9 +27,9 @@ const createUser = async (values: any) => {
       last_name: values.lastName,
       email: values.email,
       phone: values.phoneNumber,
-      wallet: values.user?.walletAddress,
-      paper_wallet_id: values.user?.authDetails?.userWalletId ?? "",
-      signup_type: "paper",
+      wallet: values.wallet,
+      paper_wallet_id: values.paper_id ?? "",
+      signup_type: values?.signup_type ?? "paper",
     }
 
     const user = await strapi.create("guests", params)

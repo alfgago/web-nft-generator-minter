@@ -42,6 +42,7 @@ const LoginForm = ({ setIsOpen }: any) => {
       }
       setIncorrect(false)
       window.location.reload()
+      window.location.href = process.env.NEXT_PUBLIC_DOMAIN + "/tour-manager"
       return
     }
     setIncorrect(true)

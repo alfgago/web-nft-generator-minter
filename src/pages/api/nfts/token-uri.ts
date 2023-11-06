@@ -41,8 +41,7 @@ const isMinted = async (contractAddress: string, order: number) => {
     cache.set(cacheKey, getNFTsForCollection)
   }
 
-  console.log(getNFTsForCollection[order - 1])
-  const gateway = getNFTsForCollection[order - 1]?.tokenUri?.gateway ?? ""
+  const gateway = getNFTsForCollection[order - 1]?.metadata?.image ?? ""
   return gateway
 }
 
@@ -60,7 +59,6 @@ export default async function handler(
       transactionId,
     } = req.body
     const hash = await isMinted(contractAddress, parseInt(tokenId))
-    // const hash = ""
     if (!hash.length) {
       axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/update-status", {
         id: nftId,
@@ -83,6 +81,7 @@ export default async function handler(
 
       res.status(200).json({ transactionHash: transactionHash })
     } else {
+      console.log("transactionId", transactionId, " Already minted")
       res.status(200).json({ transactionHash: hash })
     }
   } catch (e) {

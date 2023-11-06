@@ -9,35 +9,8 @@ import cleanUrl from "@/utils/cleanUrl"
 
 const SinglePass = dynamic(() => import("@/components/SinglePass"))
 
-const checkTransactionStatus = async (transactionId, metadataCid, nftId) => {
-  try {
-    const { data } = await axios.get(
-      "https://withpaper.com/api/v1/transaction-status/" + transactionId
-    )
-    const claimedTokens = data.result.claimedTokens
-    const tokenId = claimedTokens.tokens[0].tokenId
-    const collectionAddress = claimedTokens.collectionAddress
-
-    const res = await axios.post(
-      process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/token-uri",
-      {
-        contractAddress: collectionAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-        tokenId,
-        metadataCid,
-        nftId,
-        transactionId,
-      }
-    )
-
-    return res.data
-  } catch (e) {
-    console.log(e)
-    return false
-  }
-}
-
 const PassPage = ({ pass }: any) => {
+  const [loading, setLoading] = useState(false)
   const title = pass.attributes.collection_name
   const image = cleanUrl(pass.attributes.preview_image_url)
   const ogTitle = title + " - PlusOne"
@@ -45,6 +18,34 @@ const PassPage = ({ pass }: any) => {
 
   // Get the router object
   const router = useRouter()
+
+  const checkTransactionStatus = async (transactionId, metadataCid, nftId) => {
+    try {
+      const { data } = await axios.get(
+        "https://withpaper.com/api/v1/transaction-status/" + transactionId
+      )
+      const claimedTokens = data.result.claimedTokens
+      const tokenId = claimedTokens.tokens[0].tokenId
+      const collectionAddress = claimedTokens.collectionAddress
+
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/token-uri",
+        {
+          contractAddress: collectionAddress,
+          network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
+          tokenId,
+          metadataCid,
+          nftId,
+          transactionId,
+        }
+      )
+
+      return res.data
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }
 
   useInterval(async () => {
     // @ts-ignore
@@ -57,6 +58,9 @@ const PassPage = ({ pass }: any) => {
       const { transactionId, metadataCid, nftId } = transactionQuery
 
       if (!transactionId) return
+      console.log("transactionId", transactionId)
+      console.log("metadataCid", metadataCid)
+      console.log("nftIf", nftId)
 
       const status = await checkTransactionStatus(
         transactionId,
@@ -67,9 +71,9 @@ const PassPage = ({ pass }: any) => {
       window.transactionStatus = status
       // @ts-ignore
       window.sending = false
-      console.log(status)
+      console.log("status", status)
     }
-  }, 3000)
+  }, 2000)
 
   return (
     <>

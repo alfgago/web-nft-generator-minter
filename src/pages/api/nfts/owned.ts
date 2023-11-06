@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 import NodeCache from "node-cache"
-const cache = new NodeCache({ stdTTL: 10 }) // cache for 10 seconds
+const cache = new NodeCache({ stdTTL: 30 }) // cache for 10 seconds
 
 const fetchData = async ({ address }: any) => {
   const token = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
