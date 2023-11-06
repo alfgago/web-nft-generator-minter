@@ -42,7 +42,7 @@ const nextConfig = {
       },
       {
         source: "/ipfs/:path*",
-        destination: "https://gateway.pinata.cloud/ipfs/:path*", // Proxy to S3
+        destination: "https://cf-ipfs.com/ipfs/:path*", // Proxy to S3
       },
     ]
   },
