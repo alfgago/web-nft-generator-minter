@@ -11,38 +11,55 @@ import cleanUrl from "@/utils/cleanUrl"
 
 import { NftCardStyles } from "./NftCardStyles"
 
-const NftCard = ({ nft, classes = "", pass }: any) => {
+const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
   const { address } = useAccount()
   const [minting, setMinting] = useState(0)
   const [isMinted, setIsMinted] = useState<any>(false)
+  const [ownerAddress, setOwnerAddress] = useState("")
   const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
   const router = useRouter()
   const { nftId } = router.query
-
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
+  const orderId = nft.attributes.mint_order ?? 0
 
   useEffect(() => {
-    const queryAlchemy = async () => {
+    const queryIfMinted = async () => {
       try {
-        const { data } = await axios.post("/api/nfts/is-minted", {
-          contractAddress: pass.attributes.contract_address,
-          tokenId: nft.attributes.mint_order ?? 0,
-        })
+        // Convert tokenId to the format it appears in mintedNfts
+        const formattedTokenId = `0x${parseInt(orderId)
+          .toString(16)
+          .padStart(64, "0")}`
 
-        setIsMinted(data)
+        // Find the owner of the tokenId in the mintedNfts
+        const tokenOwnerEntry = mintedNfts.find((owner) =>
+          owner.tokenBalances.some(
+            (token) => token.tokenId === formattedTokenId
+          )
+        )
 
+        if (tokenOwnerEntry) {
+          setIsMinted(true)
+          setOwnerAddress(tokenOwnerEntry.ownerAddress) // Set the owner address here
+        } else {
+          setIsMinted(false)
+        }
+
+        // Your existing code...
         // @ts-ignore
         if (nftId && parseInt(nftId) === parseInt(nft.id)) {
           setMinting(2)
         }
       } catch (e) {
-        // Not minted yet
+        // Handle errors or cases where the token isn't minted yet
+        console.error("An error occurred while querying if minted", e)
       }
     }
-    queryAlchemy()
-  }, [])
+
+    queryIfMinted()
+  }, [mintedNfts, nftId, orderId, nft.id])
+
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
 
   const mint = async (mintingId: number) => {
     checkoutLink()
@@ -92,7 +109,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
 
   const mintButton = () => {
     if (isMinted) {
-      if (address && isMinted.toLowerCase() == address.toLowerCase()) {
+      if (address && ownerAddress.toLowerCase() == address.toLowerCase()) {
         return <CommonPill className="ownedbtn purple small">Owned</CommonPill>
       }
       return (
@@ -136,7 +153,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
   }
 
   return (
-    <NftCardStyles className={"drop-card " + classes}>
+    <NftCardStyles className={classes}>
       <div className="image-container">
         <img
           src={imageUrl}
@@ -160,7 +177,7 @@ const NftCard = ({ nft, classes = "", pass }: any) => {
       {iframeCheckoutLink && (
         <Modal
           setIsOpen={() => setIframeCheckoutLink("")}
-          title={`Paper Checkout`}
+          title={`Checkout`}
           className="paper-checkout-modal"
         >
           <iframe src={iframeCheckoutLink} />

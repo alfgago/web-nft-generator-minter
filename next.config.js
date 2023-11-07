@@ -23,6 +23,7 @@ const nextConfig = {
       "gateway.pinata.cloud",
       "plusone-public.s3.amazonaws.com",
       "plusone-frontend.vercel.app",
+      "cf-ipfs.com",
       "plusonemusic.io",
       "localhost",
       "ipfs.io",

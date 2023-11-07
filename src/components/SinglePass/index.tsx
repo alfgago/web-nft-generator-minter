@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react"
+import React, { Suspense, useEffect, useState } from "react"
 import Image from "next/image"
 import axios from "axios"
+import { InView } from "react-intersection-observer"
 
-import { CommonPill } from "@/components/Common/CommonStyles"
 import cleanUrl from "@/utils/cleanUrl"
 import { getPassDescription } from "@/utils/getPassDescription"
 
 import SimpleHeader from "../Common/SimpleHeader"
 
-import NftCard from "./NftCard"
 import {
   BrowseStyles,
   ListingStyles,
   SinglePassStyles,
 } from "./SinglePassStyles"
 
+// Lazy load NftCard component
+const NftCard = React.lazy(() => import("./NftCard"))
+
 const SinglePass = ({ pass }: any) => {
   const dropDate = new Date(pass.attributes.drop_date)
 
   const [nfts, setNfts] = useState([])
+  const [mintedNfts, setMintedNfts] = useState([])
 
   // Fetch the data in the useEffect hook
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchNftsData = async () => {
       try {
         const { data } = await axios.get(
           `/api/nfts?limit=200&sort=order&pass=${pass.id}`
@@ -33,7 +36,22 @@ const SinglePass = ({ pass }: any) => {
         console.log(err)
       }
     }
-    fetchData()
+    fetchNftsData()
+  }, [])
+
+  // Fetch the data in the useEffect hook
+  useEffect(() => {
+    const fetchOwnedData = async () => {
+      try {
+        const { data } = await axios.post(`/api/nfts/owned-per-contract`, {
+          contractAddress: pass.attributes.contract_address,
+        })
+        setMintedNfts(data)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
+    fetchOwnedData()
   }, [])
 
   return (
@@ -99,11 +117,29 @@ const SinglePass = ({ pass }: any) => {
       </BrowseStyles>
       <ListingStyles>
         <div className="content">
-          <div className="list">
-            {nfts.map((item: any, index: number) => {
-              return <NftCard key={"nft" + index} nft={item} pass={pass} />
-            })}
-          </div>
+          {mintedNfts && mintedNfts.length > 0 ? (
+            <Suspense fallback={<div>Loading...</div>}>
+              <div className="list">
+                {nfts.map((item: any, index: number) => (
+                  <InView key={"nft" + index} triggerOnce>
+                    {({ inView, ref }) => (
+                      <div ref={ref} className="drop-card">
+                        {inView && (
+                          <NftCard
+                            nft={item}
+                            pass={pass}
+                            mintedNfts={mintedNfts}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </InView>
+                ))}
+              </div>
+            </Suspense>
+          ) : (
+            <div>No NFTs Found</div>
+          )}
         </div>
       </ListingStyles>
     </SinglePassStyles>

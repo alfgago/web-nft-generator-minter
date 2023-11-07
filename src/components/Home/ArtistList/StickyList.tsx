@@ -1,8 +1,9 @@
+// @ts-nocheck
+
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { gsap } from "gsap"
-import { useTimeout } from "usehooks-ts"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import GradientBackground from "@/components/Common/GradientBackground"
@@ -25,13 +26,22 @@ const StickyList = ({
 
     const content = document.querySelector(".artist-list .content")
     setListSize(
-      // @ts-ignore
       scrollerW - last.offsetWidth - content.getBoundingClientRect().left / 2
     )
   }, [width])
 
+  useEffect(() => {
+    if (listSize) {
+      setTimeout(initScrollMagic, 1000)
+    }
+  }, [listSize])
+
   const initScrollMagic = () => {
-    const controller = new window.ScrollMagic.Controller() // Use globally available ScrollMagic
+    if (!window.controller) {
+      window.controller = new window.ScrollMagic.Controller() // Use globally available ScrollMagic
+    } else {
+      destroyScenes(window.controller)
+    }
 
     const scene1 = new window.ScrollMagic.Scene({
       duration: height * (artists.length - 4),
@@ -39,29 +49,31 @@ const StickyList = ({
       triggerHook: "onLeave",
     })
       .setPin(".artist-list")
-      .addTo(controller)
+      .addTo(window.controller)
 
     const scene2 = new window.ScrollMagic.Scene({
       duration: height * (artists.length - 4),
       triggerElement: "#scrolly-trigger",
       triggerHook: "onLeave",
     })
-      .addTo(controller)
+      .addTo(window.controller)
       .on("progress", (e: any) => {
         const targetX = -listSize * e.progress
         gsap.to(".scroller", 0.1, {
           x: targetX,
         })
       })
-
-    return () => {
-      scene1.destroy()
-      scene2.destroy()
-      // @ts-ignore
-      controller.destroy()
-    }
+    window.controller.scenes.push(scene1)
+    window.controller.scenes.push(scene2)
   }
-  useTimeout(initScrollMagic, 1000)
+
+  const destroyScenes = (controller) => {
+    // Assuming controller.scenes is an array holding references to your scenes
+    controller.scenes.forEach((scene) => {
+      scene.destroy(true)
+    })
+    controller.scenes = [] // Clear the array after destroying the scenes
+  }
 
   return (
     <div className="featured-artists">
