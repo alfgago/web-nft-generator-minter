@@ -56,8 +56,8 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
     if (participants.length && nft) {
       for (const participant of participants) {
         if (
-          participant.attributes.circle_nft &&
-          participant.attributes.circle_nft.data.id === nft.id
+          participant.attributes?.circle_nft &&
+          participant.attributes?.circle_nft?.data?.id === nft.id
         ) {
           return true
         }

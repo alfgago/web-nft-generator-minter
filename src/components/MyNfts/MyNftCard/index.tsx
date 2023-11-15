@@ -17,10 +17,8 @@ const MyNftCard = ({ nft }: any) => {
         </div>
         <div className="info-cont">
           <a
-            title={"Sell " + nft.title + " on OpenSea"}
-            href="https://opensea.io/"
-            target="_blank"
-            rel="noreferrer"
+            title={"Sell " + nft.title + " on Marketplace"}
+            href="https://market.plusonemusic.io/"
           >
             <CommonPill className="clickable small">Sell</CommonPill>
           </a>
