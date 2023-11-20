@@ -36,17 +36,13 @@ const SinglePass = ({ pass }: any) => {
         console.log(err)
       }
     }
-    fetchNftsData()
-  }, [])
-
-  // Fetch the data in the useEffect hook
-  useEffect(() => {
     const fetchOwnedData = async () => {
       try {
         const { data } = await axios.post(`/api/nfts/owned-per-contract`, {
           contractAddress: pass.attributes.contract_address,
         })
         setMintedNfts(data)
+        fetchNftsData()
       } catch (err: any) {
         console.log(err)
       }
