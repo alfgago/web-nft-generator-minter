@@ -117,7 +117,7 @@ const SinglePass = ({ pass }: any) => {
       </BrowseStyles>
       <ListingStyles>
         <div className="content">
-          {mintedNfts && mintedNfts.length > 0 ? (
+          {mintedNfts ? (
             <Suspense fallback={<div>Loading...</div>}>
               <div className="list">
                 {nfts.map((item: any, index: number) => (
