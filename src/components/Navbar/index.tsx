@@ -133,12 +133,28 @@ const Navbar = () => {
                     </li>
                   )}
                   {!isConnected && (
-                    <li className="li-account">
-                      <a href="#" onClick={() => connect()}>
-                        My Passes
-                      </a>
-                    </li>
+                    <>
+                      <li className="li-wallet">
+                        <a href="#" onClick={() => connect()}>
+                          <img
+                            src="/assets/icons/metamask.svg"
+                            alt="metamask-icon"
+                          />
+                          Log in with Metamask
+                        </a>
+                      </li>
+                      <li className="li-wallet">
+                        <a href="#" onClick={() => loginWithPaper()}>
+                          <img
+                            src="/assets/icons/paper-logo-icon.svg"
+                            alt="metamask-icon"
+                          />
+                          <span>Connect with Email</span>
+                        </a>
+                      </li>
+                    </>
                   )}
+
                   {!session && (
                     <li className="li-account">
                       <a href="#" onClick={() => setOpenLogin(true)}>
@@ -156,37 +172,6 @@ const Navbar = () => {
                 </ul>
               </div>
             </li>
-            {!isConnected && (
-              <li className="has-submenu">
-                {width > 1080 ? (
-                  <ReactSVG src="/assets/icons/wallet.svg" />
-                ) : (
-                  <a href="">Wallet</a>
-                )}
-                <div className="submenu">
-                  <ul>
-                    <li className="li-wallet">
-                      <a href="#" onClick={() => connect()}>
-                        <img
-                          src="/assets/icons/metamask.svg"
-                          alt="metamask-icon"
-                        />
-                        Connect with Metamask
-                      </a>
-                    </li>
-                    <li className="li-wallet">
-                      <a href="#" onClick={() => loginWithPaper()}>
-                        <img
-                          src="/assets/icons/paper-logo-icon.svg"
-                          alt="metamask-icon"
-                        />
-                        <span>Connect with Email</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            )}
           </ul>
         </nav>
         <button
