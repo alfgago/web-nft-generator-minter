@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
 
 import { DropCardStyles } from "./DropCardStyles"
 
@@ -50,7 +50,7 @@ const DropCard = ({ pass, classes = "" }: any) => {
   }, [])
 
   const imageUrl =
-    pass.attributes.preview_image_url ??
+    getPassImageUrl(pass) ??
     pass.attributes.collection_preview_image?.data?.attributes.url
 
   return (

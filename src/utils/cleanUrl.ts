@@ -37,4 +37,18 @@ export const getNftImageUrl = (nft: any) => {
   return ""
 }
 
+export const getPassImageUrl = (pass: any) => {
+  const attributes = pass.attributes ? pass.attributes : pass
+
+  if (attributes) {
+    if (attributes?.art?.data && attributes.art.data.length > 0) {
+      return attributes.art.data[0].attributes.url
+    }
+
+    return attributes.preview_image_url ?? ""
+  }
+
+  return ""
+}
+
 export default clean

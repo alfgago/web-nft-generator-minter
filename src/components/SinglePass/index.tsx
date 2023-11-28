@@ -3,7 +3,7 @@ import Image from "next/image"
 import axios from "axios"
 import { InView } from "react-intersection-observer"
 
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
 import { getPassDescription } from "@/utils/getPassDescription"
 
 import SimpleHeader from "../Common/SimpleHeader"
@@ -50,12 +50,14 @@ const SinglePass = ({ pass }: any) => {
     fetchOwnedData()
   }, [])
 
+  const imageUrl = getPassImageUrl(pass)
+
   return (
     <SinglePassStyles>
       <SimpleHeader className="pass-header">
         <div className="flex">
           <Image
-            src={cleanUrl(pass.attributes.preview_image_url)}
+            src={cleanUrl(imageUrl)}
             alt="PlusOne collection preview image"
             quality={90}
             width={400}

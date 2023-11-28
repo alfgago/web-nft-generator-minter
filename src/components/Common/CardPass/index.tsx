@@ -5,7 +5,7 @@ import { useWindowSize } from "usehooks-ts"
 import PassDescription from "@/components/PassDescription"
 import PassPreview from "@/components/PassPreview"
 import Tooltip from "@/components/Tooltip"
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
 import dateFormat from "@/utils/dateFunctions"
 
 import { CommonPill } from "../CommonStyles"
@@ -32,7 +32,7 @@ const CardPass = ({ pass, event, isGiveaway = false, isHome = false }: any) => {
   const eventImage = event?.image?.data?.attributes?.url
 
   const imgCardPass = cleanUrl(
-    pass?.attributes?.preview_image_url ??
+    getPassImageUrl(pass) ??
       "https://plusonemusic.io/aws/default_BG_8e19e47a80.png?updated_at=2022-12-19T17:39:51.850Z"
   )
 

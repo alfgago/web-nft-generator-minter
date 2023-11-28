@@ -5,14 +5,15 @@ import { useRouter } from "next/router"
 import axios from "axios"
 import { useInterval } from "usehooks-ts"
 
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
 
 const SinglePass = dynamic(() => import("@/components/SinglePass"))
 
 const PassPage = ({ pass }: any) => {
   const [loading, setLoading] = useState(false)
   const title = pass.attributes.collection_name
-  const image = cleanUrl(pass.attributes.preview_image_url)
+  const imgUrl = getPassImageUrl(pass)
+  const image = cleanUrl(imgUrl)
   const ogTitle = title + " - PlusOne"
   const bio = ""
 

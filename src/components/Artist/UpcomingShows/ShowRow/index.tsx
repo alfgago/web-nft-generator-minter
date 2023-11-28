@@ -7,7 +7,7 @@ import { useWindowSize } from "usehooks-ts"
 import AddToCalendar from "@/components/Common/AddToCalendar"
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Tooltip from "@/components/Tooltip"
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
 import dateFormat from "@/utils/dateFunctions"
 
 import { ShowRowStyles } from "./ShowRowStyles"
@@ -25,7 +25,7 @@ const ShowRow = ({ item, index }: any) => {
     item.attributes?.image?.data?.attributes?.url ??
     "/assets/img/drop-pic-2.png"
   const imageUrl = item.attributes.passes.data.length
-    ? pass.attributes.preview_image_url
+    ? getPassImageUrl(pass)
     : eventImage
 
   const dropDate = item.attributes.passes.data.length

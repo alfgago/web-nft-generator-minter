@@ -5,6 +5,7 @@ import { useWindowSize } from "usehooks-ts"
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
 import P1Image from "@/components/Common/P1Image"
+import { getPassImageUrl } from "@/utils/cleanUrl"
 
 import EditPerksForm from "../../EditPerksForm"
 
@@ -16,18 +17,14 @@ const CollectionItem = ({ item }: any) => {
   const onEdit = () => {
     setToggleEdit(true)
   }
+  const imgUrl = getPassImageUrl(item)
 
   return (
     <CollectionItemStyles>
       <div key={item.id} className="itemWrapper">
         <div className="top-content">
           <div className="img-container">
-            <P1Image
-              alt="Tour Logo"
-              src={item.preview_image_url}
-              width={120}
-              height={120}
-            />
+            <P1Image alt="Tour Logo" src={imgUrl} width={120} height={120} />
           </div>
           <div className="title">
             <h3>{item.collection_name}</h3>
