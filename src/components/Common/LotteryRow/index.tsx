@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getNftImageUrl } from "@/utils/cleanUrl"
 
 import { CommonPill } from "../CommonStyles"
 
@@ -10,7 +10,7 @@ import { LotteryRowStyles } from "./LotteryRowStyles"
 const LotteryRow = ({ drop, color }: any) => {
   const nft = drop.attributes?.airdropped_nft?.data
   const winner = drop.attributes?.winner?.data
-  const imageUrl = nft?.attributes?.image_url ?? ""
+  const imageUrl = getNftImageUrl(nft)
   const imageW = 150
   const imageH = 150
 

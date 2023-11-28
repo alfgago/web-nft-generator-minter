@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react"
 
 import P1Image from "@/components/Common/P1Image"
+import { getNftImageUrl } from "@/utils/cleanUrl"
 
 import { GuestItemStyles } from "./GuestItemStyles"
 const GuestItem = ({ data }: any) => {
@@ -12,7 +13,7 @@ const GuestItem = ({ data }: any) => {
   }
   const guestName: string = data.name
   const guestEmail: string = data.email
-  const image = data.nft?.data?.attributes?.image_url || ""
+  const image = getNftImageUrl(data.nft)
   const nftName = data.nft?.data?.attributes?.name || "NFT Deleted"
 
   return (

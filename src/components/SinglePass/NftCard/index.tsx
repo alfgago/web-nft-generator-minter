@@ -7,7 +7,7 @@ import { InjectedConnector } from "wagmi/connectors/injected"
 
 import { CommonPill } from "@/components/Common/CommonStyles"
 import Modal from "@/components/Common/Modal"
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl, { getNftImageUrl } from "@/utils/cleanUrl"
 
 import { NftCardStyles } from "./NftCardStyles"
 
@@ -85,7 +85,8 @@ const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
     */
   }
 
-  const imageUrl = cleanUrl(nft.attributes.image_url)
+  const geturl = getNftImageUrl(nft)
+  const imageUrl = cleanUrl(geturl)
   const metadataCid = nft.attributes.ipfs_token
 
   const checkoutLink = async () => {

@@ -25,4 +25,16 @@ function convertFromNftStorage(url: string) {
   return url
 }
 
+export const getNftImageUrl = (nft: any) => {
+  if (nft && nft.attributes) {
+    if (nft.attributes?.art?.data && nft.attributes.art.data.length > 0) {
+      return nft.attributes.art.data[0].attributes.url
+    }
+
+    return nft.attributes.image_url ?? ""
+  }
+
+  return ""
+}
+
 export default clean
