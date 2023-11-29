@@ -136,12 +136,12 @@ const Navbar = () => {
                     <>
                       <li className="li-wallet">
                         <a href="#" onClick={() => loginWithPaper()}>
-                          <span>Connect with Email</span>
+                          <span>Email Login</span>
                         </a>
                       </li>
                       <li className="li-wallet">
                         <a href="#" onClick={() => connect()}>
-                          Log in with Metamask
+                          Metamask Login
                         </a>
                       </li>
                     </>
