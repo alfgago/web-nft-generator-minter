@@ -8,7 +8,7 @@ const Index = ({ page }: any) => {
   return (
     <>
       <Head>
-        <title>Home - PlusOne</title>
+        <title>Home - PlusOne Music</title>
       </Head>
       <Home page={page.data} />
     </>
