@@ -135,21 +135,13 @@ const Navbar = () => {
                   {!isConnected && (
                     <>
                       <li className="li-wallet">
-                        <a href="#" onClick={() => connect()}>
-                          <img
-                            src="/assets/icons/metamask.svg"
-                            alt="metamask-icon"
-                          />
-                          Log in with Metamask
+                        <a href="#" onClick={() => loginWithPaper()}>
+                          <span>Connect with Email</span>
                         </a>
                       </li>
                       <li className="li-wallet">
-                        <a href="#" onClick={() => loginWithPaper()}>
-                          <img
-                            src="/assets/icons/paper-logo-icon.svg"
-                            alt="metamask-icon"
-                          />
-                          <span>Connect with Email</span>
+                        <a href="#" onClick={() => connect()}>
+                          Log in with Metamask
                         </a>
                       </li>
                     </>
