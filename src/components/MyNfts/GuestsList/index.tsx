@@ -10,14 +10,13 @@ import NodataGuests from "./NoDataGuests"
 const MyNftGuestsList = ({ myNfts }: any) => {
   const [nfts, setNfts] = useState<number[]>([])
   const fetchData = async () => {
-    const filteredArray = myNfts
-      .map((item: any) => ({
-        image: cleanUrl(item.metadata.image),
-        event: item.metadata.attributes.find(
-          (attr: any) => attr.trait_type === "event"
-        ),
-      }))
-      .filter((item: any) => item.event !== undefined)
+    const filteredArray = myNfts.map((item: any) => ({
+      image: cleanUrl(item.metadata.image),
+      event: item.metadata.attributes.find(
+        (attr: any) => attr.trait_type === "event"
+      ),
+    }))
+    console.log(filteredArray)
     setNfts(filteredArray)
   }
 
