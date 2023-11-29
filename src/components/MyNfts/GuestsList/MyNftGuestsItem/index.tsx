@@ -19,7 +19,9 @@ const MyNftGuestsItem = ({ nft }: any) => {
         setEvent(response.data.data)
         const nftResponse = await axios.get(
           "/api/nfts/by-image-url?image=" +
-            nft.image.replace("https://plusonemusic.io/ipfs/", "")
+            nft.image
+              .replace("https://plusonemusic.io/ipfs/", "")
+              .replace("https://staging.plusonemusic.io/ipfs/", "")
         )
         setQueriedNft(nftResponse.data)
       } catch (err: any) {}
