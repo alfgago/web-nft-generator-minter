@@ -9,7 +9,7 @@ export default async function handler(
     res.status(405).send("Method Not Allowed")
   }
   const password = req.body.password
-  if ("P!U$0N3" === password) {
+  if ("P!U$0N3music" === password) {
     const cookie = serialize("p1login", "true", {
       path: "/",
       httpOnly: true,
