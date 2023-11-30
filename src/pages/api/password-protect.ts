@@ -10,7 +10,7 @@ export default async function handler(
   }
   const password = req.body.password
   if (process.env.PASSWORD_PROTECT === password) {
-    const cookie = serialize("p1login", "true", {
+    const cookie = serialize("P!U$0N3", "true", {
       path: "/",
       httpOnly: true,
     })
