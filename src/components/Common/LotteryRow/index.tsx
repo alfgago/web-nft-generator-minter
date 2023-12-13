@@ -13,6 +13,8 @@ const LotteryRow = ({ drop, color }: any) => {
   const imageUrl = getNftImageUrl(nft)
   const imageW = 150
   const imageH = 150
+  console.log(nft)
+  console.log(imageUrl)
 
   return nft ? (
     <LotteryRowStyles className={color}>
