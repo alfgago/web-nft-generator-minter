@@ -11,14 +11,15 @@ const getWinners = async ({ page = 1, limit = 10 }: any) => {
   const cacheKey = `drop_winners_${page}_${limit}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    return cached
+    // return cached
   }
 
   const participantsResponse = await axios.get(`${apiURL}/api/airdrops`, {
     params: {
       "pagination[page]": page,
       "pagination[pageSize]": limit,
-      populate: "airdropped_nft,winner",
+      populate:
+        "airdropped_nft.art,airdropped_nft.pass_collection.event,winner",
       sort: "createdAt:desc",
     },
     headers: {

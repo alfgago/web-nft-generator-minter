@@ -10,10 +10,10 @@ export const LotteryRowStyles = styled.div`
   background: #e1fdfd;
 
   @media ${DEVICE.laptop} {
-    font-size: ${22 / 16}rem;
+    font-size: ${18 / 16}rem;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    padding-right: ${32 / 16}rem;
+    padding-right: ${16 / 16}rem;
   }
 
   &.pink {
@@ -38,6 +38,7 @@ export const LotteryRowStyles = styled.div`
     @media ${DEVICE.laptop} {
       height: ${110 / 16}rem;
       width: ${110 / 16}rem;
+      min-width: ${110 / 16}rem;
       padding: 0;
     }
   }
@@ -48,7 +49,7 @@ export const LotteryRowStyles = styled.div`
     flex-wrap: wrap;
 
     @media ${DEVICE.laptop} {
-      width: 100%;
+      width: calc(100% - ${110 / 16}rem);
       flex-wrap: initial;
     }
 
@@ -77,7 +78,8 @@ export const LotteryRowStyles = styled.div`
       padding: 5px 10px;
 
       @media ${DEVICE.laptop} {
-        width: auto;
+        align-items: left;
+        width: 280px;
         padding: ${20 / 16}rem ${30 / 16}rem;
       }
     }
@@ -109,7 +111,7 @@ export const LotteryRowStyles = styled.div`
         display: flex;
         width: ${250 / 16}rem;
         padding: 0 ${20 / 16}rem;
-        font-size: ${19 / 16}rem;
+        font-size: ${16 / 16}rem;
       }
 
       span {

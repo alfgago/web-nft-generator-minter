@@ -45,13 +45,13 @@ const NFTUploader = () => {
         fetchMore = false
       }
     }
-
     return allItems
   }
 
   useEffect(() => {
     const fetchNFTs = async () => {
       const fetchedNFTs = await fetchData("nfts")
+      console.log(fetchedNFTs)
       setNfts(fetchedNFTs)
     }
 
