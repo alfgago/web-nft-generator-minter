@@ -1,52 +1,46 @@
 /* eslint-disable new-cap */
-import React, { useEffect, useState } from "react"
-import Link from "next/link"
-import { signOut } from "next-auth/react"
-import { useSession } from "next-auth/react"
-import { ReactSVG } from "react-svg"
-import { useWindowSize } from "usehooks-ts"
-import { useAccount, useConnect } from "wagmi"
-import { InjectedConnector } from "wagmi/connectors/injected"
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { ReactSVG } from "react-svg";
+import { useWindowSize } from "usehooks-ts";
 
-import Login from "../Login"
-import { usePaperSDKContext } from "../PaperSDKProvider"
-import SearchBar from "../SearchBar"
+import Login from "../Login";
+import { ThirdwebProvider, useUser, useAuth } from "@thirdweb-dev/react";
+import SearchBar from "../SearchBar";
 
-import { NavbarStyles } from "./NavbarStyles"
+import { NavbarStyles } from "./NavbarStyles";
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false)
-  const { paperSdk, setUser, user } = usePaperSDKContext()
-  const { width } = useWindowSize()
-  const { isConnected } = useAccount()
+  const [showMenu, setShowMenu] = useState(false);
+  const { width } = useWindowSize();
 
-  const { data: session, status } = useSession()
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
+  const { data: session, status } = useSession();
 
-  const loginWithPaper = async () => {
-    // @ts-ignore
-    const login = await paperSdk.auth.loginWithPaperModal()
-    setUser(login.user)
-    window.location.reload()
-  }
+  const { login, logout, user } = useAuth();
+  const { connectWallet, disconnectWallet, wallet } = useUser();
+
+  const loginWithThirdweb = async () => {
+    await login();
+    window.location.reload();
+  };
 
   // change nav color when scrolling
-  const [color, setColor] = useState(false)
+  const [color, setColor] = useState(false);
   const changeColor = () => {
     if (window.scrollY >= 90) {
-      setColor(true)
+      setColor(true);
     } else {
-      setColor(false)
+      setColor(false);
     }
-  }
+  };
 
   if (typeof window !== "undefined") {
-    window.addEventListener("scroll", changeColor)
+    window.addEventListener("scroll", changeColor);
   }
 
-  const [openLogin, setOpenLogin] = useState(false)
+  const [openLogin, setOpenLogin] = useState(false);
 
   return (
     <NavbarStyles hasColor={color} id="navbar" className="navbar">
@@ -125,23 +119,23 @@ const Navbar = () => {
                       <Link href="/tour-manager">Manager</Link>
                     </li>
                   )}
-                  {isConnected && (
+                  {wallet && (
                     <li className="li-account">
                       <Link href="/my-passes">
                         <span>My Passes</span>
                       </Link>
                     </li>
                   )}
-                  {!isConnected && (
+                  {!wallet && (
                     <>
                       <li className="li-wallet">
-                        <a href="#" onClick={() => loginWithPaper()}>
+                        <a href="#" onClick={loginWithThirdweb}>
                           <span>Email Login</span>
                         </a>
                       </li>
                       <li className="li-wallet">
-                        <a href="#" onClick={() => connect()}>
-                          Metamask Login
+                        <a href="#" onClick={connectWallet}>
+                          Wallet Login
                         </a>
                       </li>
                     </>
@@ -167,13 +161,11 @@ const Navbar = () => {
           </ul>
         </nav>
         <button
-          className={`hamburger hamburger--elastic ${
-            showMenu ? "is-active" : ""
-          }`}
+          className={`hamburger hamburger--elastic ${showMenu ? "is-active" : ""}`}
           type="button"
           onClick={() => {
-            setShowMenu(!showMenu)
-            showMenu && setOpenLogin(false)
+            setShowMenu(!showMenu);
+            showMenu && setOpenLogin(false);
           }}
         >
           <span className="hamburger-box">
@@ -183,7 +175,7 @@ const Navbar = () => {
       </div>
       {openLogin && <Login setIsOpen={setOpenLogin} />}
     </NavbarStyles>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -41,7 +41,7 @@ const fetchData = async ({
   }
   try {
     const response = await fetch(
-      "https://withpaper.com/api/2022-08-12/checkout-link-intent",
+      "https://thirdweb.com/api/2022-08-12/checkout-link-intent",
       options
     )
     const data = await response.json()

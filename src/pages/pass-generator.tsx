@@ -1,7 +1,6 @@
 import Head from "next/head"
-import { getSession } from "next-auth/react"
+import { useUser, useAuth } from "@thirdweb-dev/react"
 import axios from "axios"
-
 import NftBuilder from "@/components/NftBuilder"
 
 const BuilderPage = ({ data }: any) => {
@@ -22,9 +21,11 @@ BuilderPage.requireAuth = true
 export const getServerSideProps = async ({ req }: any) => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
 
-  const session = await getSession({ req })
+  // Use Thirdweb's `getUser` method to get the current user session
+  const { getUser } = useAuth()
+  const user = await getUser(req)
 
-  if (!session) {
+  if (!user) {
     return {
       redirect: {
         destination: "/manager-login",
@@ -32,9 +33,9 @@ export const getServerSideProps = async ({ req }: any) => {
       },
     }
   }
+
   const { data } = await axios.get(
-    // @ts-ignore
-    domain + `/api/artists/managed/?user=${session.id}`
+    `${domain}/api/artists/managed/?user=${user.id}`
   )
   const artists = data
 

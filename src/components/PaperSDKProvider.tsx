@@ -9,15 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react"
-import { configureChains, createClient, WagmiConfig } from "wagmi"
-// import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet"
-import { MetaMaskConnector } from "wagmi/connectors/metaMask"
-// import { WalletConnectConnector } from "wagmi/connectors/walletConnect"
-import { alchemyProvider } from "wagmi/providers/alchemy"
-
-import { PaperEmbeddedWalletSdk } from "@paperxyz/embedded-wallet-service-sdk"
-import { PaperEmbeddedWalletWagmiConnector } from "@paperxyz/embedded-wallet-service-wagmi"
-import { goerli, polygon } from "@wagmi/chains"
+import { ChainId, ThirdwebProvider, useUser, useMetamask, useDisconnect, useAddress } from "@thirdweb-dev/react"
 
 interface SDKContext {
   chainName: any
@@ -26,41 +18,49 @@ interface SDKContext {
   appName: string
   user: any
   setUser: Dispatch<SetStateAction<any>>
-  paperSdk: any
 }
-const PaperSDKContext = createContext<SDKContext>({
-  chainName: "Polygon",
-  setChainName: () => {},
+const SDKContext = createContext<SDKContext>({
+  chainName: ChainId.Polygon,
+  setChainName: () => { },
   clientId: "",
   appName: "",
   user: null,
-  setUser: () => {},
-  paperSdk: null,
+  setUser: () => { },
 })
 
-export interface PaperProviderProps {
+export interface ProviderProps {
   chainName?: any
   appName?: string
   clientId?: string
 }
 
 /**
- * @typedef PaperProviderProps
+ * @typedef ProviderProps
  * @type {object}
  * @property {string} appName - The name used to display
  * @property {string}  chainName - deprecated. Not used anymore
  * @property {string} clientId - deprecated. Used by VerifyOwnershipWithPaper which has since been deprecated
- * @param {PaperProviderProps} props
+ * @param {ProviderProps} props
  */
-export const PaperSDKProvider = ({
+export const SDKProvider = ({
   appName = "",
-  chainName = "Goerli",
+  chainName = ChainId.Goerli,
   clientId = "",
   children,
-}: React.PropsWithChildren<PaperProviderProps>) => {
+}: React.PropsWithChildren<ProviderProps>) => {
   const [chainName_, setChainName] = useState<any>(chainName)
-  const [paperSdk, setPaperSdk] = useState({})
   const [user, setUser] = useState(null)
+  const address = useAddress();
+  const connectWithMetamask = useMetamask();
+  const disconnect = useDisconnect();
+
+  useEffect(() => {
+    if (address) {
+      setUser(address);
+    } else {
+      setUser(null);
+    }
+  }, [address]);
 
   const contextValue = useMemo(
     () => ({
@@ -70,78 +70,19 @@ export const PaperSDKProvider = ({
       clientId: clientId,
       user: user,
       setUser,
-      paperSdk: paperSdk,
     }),
-    [chainName_, appName, clientId, paperSdk, user]
-  )
-
-  useEffect(() => {
-    const sdk = new PaperEmbeddedWalletSdk({
-      clientId: clientId,
-      chain: chainName,
-    })
-    console.log("Paper SDK ", sdk)
-    setPaperSdk(sdk)
-  }, [])
-
-  const { chains, provider, webSocketProvider } = configureChains(
-    [goerli, polygon],
-    [
-      alchemyProvider({
-        apiKey:
-          process.env.NEXT_PUBLIC_ALCHEMY_API_KEY ||
-          "0Uqb4GwdMaeTOoCV8zghzzCb9ilb577B",
-      }),
-    ]
-  )
-
-  const client = useMemo(
-    () =>
-      createClient({
-        autoConnect: true,
-        connectors: [
-          new MetaMaskConnector({
-            chains,
-            options: {
-              shimDisconnect: false,
-              UNSTABLE_shimOnConnectSelectAccount: true,
-            },
-          }),
-          new PaperEmbeddedWalletWagmiConnector({
-            chains,
-            options: {
-              chain: chainName,
-              clientId: clientId,
-            },
-          }),
-          /* new WalletConnectConnector({
-            chains,
-            options: {
-              qrcode: true,
-            },
-          }),
-          new CoinbaseWalletConnector({
-            chains,
-            options: {
-              appName: appName || "PlusOne",
-            },
-          }),*/
-        ],
-        provider,
-        webSocketProvider,
-      }),
-    [appName]
+    [chainName_, appName, clientId, user]
   )
 
   return (
-    <WagmiConfig client={client}>
-      <PaperSDKContext.Provider value={contextValue}>
+    <ThirdwebProvider desiredChainId={chainName_}>
+      <SDKContext.Provider value={contextValue}>
         {children}
-      </PaperSDKContext.Provider>
-    </WagmiConfig>
+      </SDKContext.Provider>
+    </ThirdwebProvider>
   )
 }
 
-export const usePaperSDKContext = (): SDKContext => {
-  return useContext(PaperSDKContext)
+export const useSDKContext = (): SDKContext => {
+  return useContext(SDKContext)
 }

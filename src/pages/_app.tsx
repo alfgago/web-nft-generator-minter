@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react"
 import AuthGuard from "@/components/Common/AuthGuard"
 import Layout from "@/components/Layout"
 import Meta from "@/components/Meta"
-import { PaperSDKProvider } from "@/components/PaperSDKProvider"
+import { ThirdwebProvider } from "thirdweb/react";
 
 import "../styles/fonts/stylesheet.css"
 import "../styles/hamburger.css"
@@ -13,12 +13,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <>
       <Meta />
-      <PaperSDKProvider
-        appName="PlusOne"
-        clientId={process.env.NEXT_PUBLIC_PAPER_TOKEN}
-        // @ts-ignore
-        chainName={process.env.NEXT_PUBLIC_PAPER_NETWORK}
-      >
+      <ThirdwebProvider>
         <SessionProvider session={session}>
           {Component.requireAuth ? (
             <AuthGuard>
@@ -32,7 +27,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
             </Layout>
           )}
         </SessionProvider>
-      </PaperSDKProvider>
+      </ThirdwebProvider>
     </>
   )
 }

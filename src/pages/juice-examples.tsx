@@ -1,207 +1,143 @@
-// @ts-nocheck
-import { useEffect, useState } from "react"
-import axios from "axios"
-import { ethers } from "ethers"
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import axios from "axios";
 
-import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus"
-import { publishPaperContract } from "@/utils/mintUtils"
-import { uploadNFTMeta } from "@/utils/SmartContracts/assetUpload"
-import imageDataUri from "@/utils/SmartContracts/exampleDataUri"
-import { userDynamicMint } from "@/utils/SmartContracts/mint"
-import { JsonRpcSigner } from "@ethersproject/providers"
+import { useRequestStatus } from "@/components/NftBuilder/Hooks/useRequestStatus";
+import imageDataUri from "@/utils/SmartContracts/exampleDataUri";
+import { uploadNFTMeta } from "@/utils/SmartContracts/assetUpload";
+import { JsonRpcSigner } from "@ethersproject/providers";
 
 const JuiceExamples = () => {
-  const [signer, setSigner] = useState<null | JsonRpcSigner>(null)
-  const [connectedAddress, setConnectedAddress] = useState("none")
+  const [signer, setSigner] = useState<null | JsonRpcSigner>(null);
+  const [connectedAddress, setConnectedAddress] = useState("none");
   const [contractAddress, setContractAddress] = useState(
     "0xb2777bfe02f85305df83509383fc66cb4e5b2d46"
-  )
+  );
+
+  const sdk = new ThirdwebSDK("goerli");
 
   const {
     requestStatus: contractDeployStatus,
     requestData,
     setRequestId,
-  } = useRequestStatus()
+  } = useRequestStatus();
 
   useEffect(() => {
     if (requestData?.contractAddress) {
-      setContractAddress(requestData.contractAddress)
+      setContractAddress(requestData.contractAddress);
     }
-  }, [requestData])
+  }, [requestData]);
 
   const connectMetamask = async () => {
-    const mmProvider = getMMEthereumProvider()
+    const mmProvider = getMMEthereumProvider();
     if (!mmProvider) {
-      alert("MetaMask not found")
-      return
+      alert("MetaMask not found");
+      return;
     }
 
-    const provider = new ethers.providers.Web3Provider(mmProvider, "any")
-    await provider.send("eth_requestAccounts", [])
+    const provider = new ethers.providers.Web3Provider(mmProvider, "any");
+    await provider.send("eth_requestAccounts", []);
 
-    const signerVal = provider.getSigner()
-    const address = await signerVal.getAddress()
-    setSigner(signerVal)
-    setConnectedAddress(address)
-  }
+    const signerVal = provider.getSigner();
+    const address = await signerVal.getAddress();
+    setSigner(signerVal);
+    setConnectedAddress(address);
+
+    sdk.updateSignerOrProvider(signerVal); // Update the thirdweb SDK with the signer
+  };
 
   const deployContract = async () => {
-    const res = await fetch("/api/contracts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ network: "goerli", price: 0.005 }),
-    })
-
-    if (!res.ok) {
-      const { err } = await res.json()
-      throw Error(err)
-    }
-
-    const { requestId } = await res.json()
-    setRequestId(requestId)
-  }
-
-  const deployPaperContract = async () => {
-    const { data } = await axios.post("/api/mints/register-paper-contract", {
-      contractAddress: "0x18cf91E7aeA159B6246b4aB1385Ef8564B3ff220",
-    })
-
-    await axios.post("/api/contracts/register-reservoir", {
-      contractAddress: "0x037606bDF0CeB2387A2F6EfD2cf1288E324B18f4",
-    })
-
-    await axios.post("/api/contracts/register-reservoir", {
-      contractAddress: "0x01aA6015E663c7b3a0966Be26daf0494cdcBbC4D",
-    })
-
-    await axios.post("/api/contracts/register-reservoir", {
-      contractAddress: "0x18cf91E7aeA159B6246b4aB1385Ef8564B3ff220",
-    })
-  }
+    const contract = await sdk.getMarketplace().deploy({
+      name: "Example NFT Contract",
+      primary_sale_recipient: connectedAddress,
+    });
+    setContractAddress(contract.address);
+    setRequestId(contract.address);
+  };
 
   const uploadAssetAndDevMint = async () => {
-    const metadataCid = await uploadAsset()
-    const res = await fetch("/api/mints", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const metadataCid = await uploadAsset();
+    const contract = await sdk.getMarketplace(contractAddress);
+
+    const tx = await contract.mint({
+      metadata: {
+        name: "Example NFT",
+        image: metadataCid,
+        description: "This is an example NFT",
       },
-      body: JSON.stringify({
-        metadataCid,
-        contractAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-      }),
-    })
+      to: connectedAddress,
+    });
 
-    if (!res.ok) throw new Error("Dev mint failed" + (await res.json()))
-
-    const { transactionHash } = await res.json()
-
-    alert("Mint Transaction Hash: " + transactionHash)
-  }
+    alert("Mint Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   const uploadAssetAndDynamicMint = async () => {
-    const metadataCid = await uploadAsset()
+    const metadataCid = await uploadAsset();
 
-    if (!signer) throw new Error("Connect metamask before attempting to mint")
+    if (!signer) throw new Error("Connect metamask before attempting to mint");
 
-    const txHash = await userDynamicMint({
-      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-      metadataCid,
-      contractAddress,
-      signer,
-    })
+    const contract = await sdk.getMarketplace(contractAddress);
 
-    alert("Mint Transaction Hash: " + txHash)
-  }
+    const tx = await contract.mint({
+      metadata: {
+        name: "Example NFT",
+        image: metadataCid,
+        description: "This is an example NFT",
+      },
+      to: connectedAddress,
+    });
+
+    alert("Mint Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   const airdrop = async () => {
-    const res = await fetch("/api/airdrops", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contractAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-        toWalletAddress: connectedAddress,
-        nftId: 1,
-      }),
-    })
+    const contract = await sdk.getMarketplace(contractAddress);
 
-    if (!res.ok)
-      throw new Error("Airdrop failed" + JSON.stringify(await res.json()))
+    const tx = await contract.transfer({
+      to: connectedAddress,
+      tokenId: 1,
+      amount: 1,
+    });
 
-    const { transactionHash } = await res.json()
-
-    alert("Airdrop Transaction Hash: " + transactionHash)
-  }
+    alert("Airdrop Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   const setSaleState = async () => {
-    const res = await fetch("/api/contracts/setSaleState", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contractAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-        saleState: 6, // the state that opens the sale
-      }),
-    })
+    const contract = await sdk.getMarketplace(contractAddress);
 
-    if (!res.ok) throw new Error("Set Sale State failed" + (await res.json()))
+    const tx = await contract.setSaleState({
+      saleState: 6, // the state that opens the sale
+    });
 
-    const { transactionHash } = await res.json()
-
-    alert("Set Sale State Transaction Hash: " + transactionHash)
-  }
+    alert("Set Sale State Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   const setFolderStorage = async () => {
-    const res = await fetch("/api/contracts/setFolderStorage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contractAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-        folderIPFSUrl:
-          "ipfs://bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u/", // can view contents here: https://nftstorage.link/ipfs/bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u
-      }),
-    })
+    const contract = await sdk.getMarketplace(contractAddress);
 
-    if (!res.ok)
-      throw new Error("Set Folder Storage failed" + (await res.json()))
+    const tx = await contract.setMetadata({
+      metadataUri:
+        "ipfs://bafybeibsx5nqobzhxdzzcl56iwmidpnajke756wjesxuedcq7sald6233u/",
+    });
 
-    const { transactionHash } = await res.json()
-
-    alert("Set Folder Storage Transaction Hash: " + transactionHash)
-  }
+    alert("Set Folder Storage Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   const adminBulkMint = async () => {
-    const res = await fetch("/api/contracts/bulkMint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contractAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-        count: 3, // note: counts > 8 sometimes are not indexed by opensea, but they are still valid mints
-        toAddress: connectedAddress,
+    const contract = await sdk.getMarketplace(contractAddress);
+
+    const tx = await contract.mintBatch({
+      metadataList: new Array(3).fill({
+        name: "Bulk Mint NFT",
+        description: "Bulk Mint NFT Description",
+        image: imageDataUri,
       }),
-    })
+      to: connectedAddress,
+    });
 
-    if (!res.ok)
-      throw new Error("Admin Bulk Mint failed" + (await res.json()).toString())
-
-    const { transactionHash } = await res.json()
-
-    alert("Admin Bulk Mint Transaction Hash: " + transactionHash)
-  }
+    alert("Admin Bulk Mint Transaction Hash: " + tx.receipt.transactionHash);
+  };
 
   return (
     <div style={{ padding: 100, display: "flex", flexDirection: "column" }}>
@@ -211,7 +147,7 @@ const JuiceExamples = () => {
       <button style={buttonStyles} onClick={deployContract}>
         Deploy Contract
       </button>
-      <span>Deploys a new smart contract via the vault API</span>
+      <span>Deploys a new smart contract via the thirdweb SDK</span>
       {contractDeployStatus === "pending" && <span>pending</span>}
       {contractDeployStatus === "succeeded" && (
         <span>success, deployed contract to: {contractAddress}</span>
@@ -261,13 +197,6 @@ const JuiceExamples = () => {
 
       <hr />
 
-      <h4 style={h4Styles}>ABI</h4>
-      <button style={buttonStyles} onClick={deployPaperContract}>
-        Deploy Paper Contract
-      </button>
-
-      <hr />
-
       <h4 style={h4Styles}>Set Folder Storage</h4>
       <button style={buttonStyles} onClick={setFolderStorage}>
         Set Folder Storage
@@ -279,14 +208,14 @@ const JuiceExamples = () => {
 
       <h4 style={h4Styles}>Admin Bulk Mint</h4>
       <button style={buttonStyles} onClick={adminBulkMint}>
-        Bulk Mint NFTs (10)
+        Bulk Mint NFTs (3)
       </button>
       <span>
         Sends the NFT held by the admin wallet to the connected wallet
       </span>
     </div>
-  )
-}
+  );
+};
 
 const buttonStyles = {
   padding: "20px 10px",
@@ -294,11 +223,11 @@ const buttonStyles = {
   color: "white",
   maxWidth: 200,
   margin: "10px 0",
-}
+};
 
 const h4Styles = {
   marginTop: 50,
-}
+};
 
 // helpers
 
@@ -306,7 +235,7 @@ const getMMEthereumProvider = () => {
   // @ts-ignore
   if (window.ethereum?.isMetaMask && !window.ethereum?.overrideIsMetaMask) {
     // @ts-ignore
-    return window.ethereum
+    return window.ethereum;
   }
 
   // @ts-ignore
@@ -314,13 +243,13 @@ const getMMEthereumProvider = () => {
     // @ts-ignore
     for (const provider of window.ethereum.providers) {
       if (provider.isMetaMask) {
-        return provider
+        return provider;
       }
     }
   }
 
-  return null
-}
+  return null;
+};
 
 const uploadAsset = async () => {
   const metadataWithDataURI = {
@@ -334,13 +263,13 @@ const uploadAsset = async () => {
         value: "Blue",
       },
     ],
-  }
+  };
 
   // upload the image and metadata to IPFS
-  const metadataCid = await uploadNFTMeta(metadataWithDataURI)
+  const metadataCid = await uploadNFTMeta(metadataWithDataURI);
 
-  return metadataCid
-}
+  return metadataCid;
+};
 
 const getMetadataSample = (imageUrl: any, order = 1) => {
   const atts = [
@@ -356,13 +285,13 @@ const getMetadataSample = (imageUrl: any, order = 1) => {
       trait_type: "artist",
       value: "Sample Artist",
     },
-  ]
+  ];
 
   if (formValues.passType == "Guest") {
     atts.push({
       trait_type: "event",
       value: "Sample Event",
-    })
+    });
   }
 
   const metadata = {
@@ -372,9 +301,9 @@ const getMetadataSample = (imageUrl: any, order = 1) => {
     order: order,
     external_url: cleanUrl(imageUrl),
     attributes: atts,
-  }
+  };
 
-  return metadata
-}
+  return metadata;
+};
 
-export default JuiceExamples
+export default JuiceExamples;

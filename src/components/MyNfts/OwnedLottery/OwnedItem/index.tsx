@@ -1,41 +1,45 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { useAccount } from "wagmi"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAddress, useContract, useNFT } from "@thirdweb-dev/react";
 
-import { CommonPill } from "@/components/Common/CommonStyles"
-import Countdown from "@/components/Common/CountDown"
-import P1Image from "@/components/Common/P1Image"
-import cleanUrl from "@/utils/cleanUrl"
+import { CommonPill } from "@/components/Common/CommonStyles";
+import Countdown from "@/components/Common/CountDown";
+import P1Image from "@/components/Common/P1Image";
+import cleanUrl from "@/utils/cleanUrl";
 
-import { OwnedItemStyles } from "./OwnedItemStyles"
+import { OwnedItemStyles } from "./OwnedItemStyles";
 
-const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
-  const [participants, setParticipants] = useState<any>([])
-  const [nft, setNft] = useState<any>(null)
-  const [subscribeSuccess, setSubscribeSuccess] = useState(false)
-  const { address } = useAccount()
+const OwnedItem = ({ itemData, eventData, nftData = false }) => {
+  const [participants, setParticipants] = useState([]);
+  const [nft, setNft] = useState(null);
+  const [subscribeSuccess, setSubscribeSuccess] = useState(false);
+  const address = useAddress();
+  const { contract } = useContract("<YOUR_CONTRACT_ADDRESS>");
+  const { data: nftDetails } = useNFT(contract, itemData.id);
 
   async function fetchParticipants() {
     const { data } = await axios.get(
       "/api/airdrops/get-participants?event=" + eventData.id
-    )
+    );
     // Update the state with the response data
-    setParticipants(data.data)
+    setParticipants(data.data);
   }
+
   async function fetchNft() {
     if (nftData) {
-      setNft(nftData)
-      return
+      setNft(nftData);
+      return;
     }
     const nftResponse = await axios.get(
       "/api/nfts/by-image-url?image=" + itemData.image.replace("ipfs://", "")
-    )
-    setNft(nftResponse.data)
+    );
+    setNft(nftResponse.data);
   }
+
   useEffect(() => {
-    fetchParticipants()
-    fetchNft()
-  }, [nftData])
+    fetchParticipants();
+    fetchNft();
+  }, [nftData]);
 
   const enterGiveaway = async () => {
     const res = await axios.post("/api/airdrops/subscribe", {
@@ -43,15 +47,15 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
       // email: values.email,
       event: eventData.id,
       circle_nft: nft.id,
-    })
+    });
     if (res.data) {
-      setSubscribeSuccess(true)
+      setSubscribeSuccess(true);
     }
-  }
+  };
 
   const isEntered = () => {
     if (subscribeSuccess) {
-      return true
+      return true;
     }
     if (participants.length && nft) {
       for (const participant of participants) {
@@ -59,60 +63,60 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
           participant.attributes?.circle_nft &&
           participant.attributes?.circle_nft?.data?.id === nft.id
         ) {
-          return true
+          return true;
         }
       }
     }
-    return false
-  }
+    return false;
+  };
 
-  const image = cleanUrl(itemData.image)
-  const passTitle = itemData.name
-  const passPrice = "$50"
+  const image = cleanUrl(itemData.image);
+  const passTitle = itemData.name;
+  const passPrice = "$50";
 
-  const eventInfo = eventData.attributes
-  const enventLocation = eventInfo.city
-  const eventDate = eventInfo.date
-  const totalPassesParticipating = participants?.length ?? 0
-  const winnersAmount = eventInfo.giveaway_slots
+  const eventInfo = eventData.attributes;
+  const enventLocation = eventInfo.city;
+  const eventDate = eventInfo.date;
+  const totalPassesParticipating = participants?.length ?? 0;
+  const winnersAmount = eventInfo.giveaway_slots;
 
   const month = new Date(eventDate).toLocaleString("default", {
     month: "long",
-  })
+  });
   const day = new Date(eventDate).toLocaleString("default", {
     day: "2-digit",
-  })
+  });
 
-  const numDays = 30
+  const numDays = 30;
   const isStakeable = () => {
-    const today = new Date()
+    const today = new Date();
     const xDaysFromToday = new Date(
       today.getTime() + numDays * 24 * 60 * 60 * 1000
-    )
-    const event = new Date(eventDate)
+    );
+    const event = new Date(eventDate);
 
-    return event >= today && event <= xDaysFromToday
-  }
+    return event >= today && event <= xDaysFromToday;
+  };
 
   function calculateLotteryChances() {
     const totalSlots = subscribeSuccess
       ? totalPassesParticipating + 1
-      : totalPassesParticipating
-    const slotsOwned = 1
+      : totalPassesParticipating;
+    const slotsOwned = 1;
     if (totalSlots === 0 || totalSlots - 1 === 0) {
-      return 0 // Return 0% in case of division by zero
+      return 0; // Return 0% in case of division by zero
     }
-    const winnersAmount = 1
-    const chancesOfWinning = (winnersAmount / totalSlots) * slotsOwned * 100
+    const winnersAmount = 1;
+    const chancesOfWinning = (winnersAmount / totalSlots) * slotsOwned * 100;
 
     if (isNaN(chancesOfWinning)) {
-      return 0 // Return 0% if chancesOfWinning is NaN
+      return 0; // Return 0% if chancesOfWinning is NaN
     }
     if (chancesOfWinning > 100) {
-      return 100 // Return 100% if chancesOfWinning is over 100
+      return 100; // Return 100% if chancesOfWinning is over 100
     }
 
-    return parseFloat(chancesOfWinning.toFixed(2)) // Round to 2 decimal places and return as a number
+    return parseFloat(chancesOfWinning.toFixed(2)); // Round to 2 decimal places and return as a number
   }
 
   return (
@@ -181,7 +185,7 @@ const OwnedItem = ({ itemData, eventData, nftData = false }: any) => {
         </div>
       </div>
     </OwnedItemStyles>
-  )
-}
+  );
+};
 
-export default OwnedItem
+export default OwnedItem;

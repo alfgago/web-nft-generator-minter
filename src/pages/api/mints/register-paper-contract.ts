@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import Strapi from "strapi-sdk-js"
 
+// Assuming setFolderStorageBaseURI is defined elsewhere and imported correctly.
 import { setFolderStorageBaseURI } from "@/utils/SmartContracts/setFolderStorageBaseURI"
 
 export async function getContractABI() {
@@ -959,31 +961,25 @@ const fetchData = async ({ contractAddress, passId }: any) => {
       network,
     })
 
-    const response = await fetch(
-      "https://withpaper.com/api/2022-08-12/register-contract",
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          Authorization: `Bearer 96e2b098-4661-4810-8b16-2b633ffa2e81`,
-        },
-        body: JSON.stringify({
-          chain: process.env.NEXT_PUBLIC_PAPER_NETWORK ?? "Goerli",
-          contractAddress: contractAddress,
-          contractType: "CUSTOM_CONTRACT",
-          contractDefinition: contractABI,
-        }),
-      }
+    const provider = new ethers.providers.JsonRpcProvider(
+      process.env.NEXT_PUBLIC_INFURA_URL
     )
+    const sdk = new ThirdwebSDK(provider)
 
-    const data = await response.json()
+    const contract = await sdk.getContractFromAbi(contractAddress, contractABI)
+
+    // Perform actions with the contract if necessary
+    // For example, fetching some data from the contract (if required)
+    const contractData = await contract.call("someFunction")
+
+    // Assuming you want to log or use the contract data
+    console.log(contractData)
 
     if (passId) {
-      updatePass(passId, data.contractId)
+      await updatePass(passId, contract.address)
     }
 
-    return data
+    return { contractAddress: contract.address, contractData }
   } catch (err) {
     console.log(err)
   }

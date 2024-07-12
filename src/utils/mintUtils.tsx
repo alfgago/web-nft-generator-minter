@@ -1,15 +1,16 @@
 import axios from "axios"
 import { ethers } from "ethers"
 import { NFTStorage } from "nft.storage"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 
 import cleanUrl from "@/utils/cleanUrl"
-import { MetaDataClient } from "@juicelabs/client"
-
 import { storeNftMeta } from "./storeNftMeta"
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
 const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+
+const sdk = new ThirdwebSDK(process.env.NEXT_PUBLIC_NETWORK ?? "goerli");
 
 export const uploadFolder = async (contractAddress: string, metadatas: any) => {
   console.log("uploadFolder")
@@ -164,27 +165,32 @@ export const deployContract = async (formValues: any) => {
     ...formValues,
   }
   console.log("Init Contract Deployment")
-  const res = await fetch(baseUrl + "/api/contracts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  })
 
-  if (!res.ok) {
-    const { err } = await res.json()
-    alert("Error: " + err)
+  const contractMetadata = {
+    name: formValues.name,
+    symbol: formValues.symbol,
+    primary_sale_recipient: formValues.primarySaleRecipient,
+    description: formValues.description,
+    image: formValues.image,
+  };
+
+  let contractAddress;
+  try {
+    const contract = await sdk.deployer.deployNFTCollection(contractMetadata);
+    contractAddress = contract.address;
+  } catch (err) {
+    console.error("Error deploying contract:", err);
+    throw new Error("Contract deployment failed");
   }
 
-  const { requestId } = await res.json()
-  return requestId
+  return contractAddress;
 }
 
 export const publishPaperContract = async (
   contractAddress: any,
   passId: number
 ) => {
+  // Implement the equivalent functionality for registering in thirdweb, if necessary
   const { data } = await axios.post("/api/mints/register-paper-contract", {
     contractAddress: contractAddress,
     passId: passId,

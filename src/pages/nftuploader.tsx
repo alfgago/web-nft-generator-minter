@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react"
-import Head from "next/head"
-import axios from "axios"
-import FormData from "form-data"
-import Strapi from "strapi-sdk-js"
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import axios from "axios";
+import FormData from "form-data";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
-import cleanUrl from "@/utils/cleanUrl"
+import cleanUrl from "@/utils/cleanUrl";
 
 const NFTUploader = () => {
-  const [nfts, setNfts] = useState([])
-  const [passes, setPasses] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337/"
-  const token = process.env.NEXT_PUBLIC_API_TOKEN_LIMITED
+  const [nfts, setNfts] = useState([]);
+  const [passes, setPasses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337/";
+  const token = process.env.NEXT_PUBLIC_API_TOKEN_LIMITED;
 
   const fetchData = async (endpoint) => {
-    let allItems = []
-    let page = 1
-    let fetchMore = true
+    let allItems = [];
+    let page = 1;
+    let fetchMore = true;
 
     while (fetchMore) {
       try {
@@ -30,190 +30,176 @@ const NFTUploader = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        });
 
-        const fetchedItems = response.data.data
-        allItems = allItems.concat(fetchedItems)
+        const fetchedItems = response.data.data;
+        allItems = allItems.concat(fetchedItems);
 
         if (fetchedItems.length < 100) {
-          fetchMore = false
+          fetchMore = false;
         } else {
-          page++
+          page++;
         }
       } catch (error) {
-        console.error(`Error fetching ${endpoint}:`, error.message)
-        fetchMore = false
+        console.error(`Error fetching ${endpoint}:`, error.message);
+        fetchMore = false;
       }
     }
-    return allItems
-  }
+    return allItems;
+  };
 
   useEffect(() => {
     const fetchNFTs = async () => {
-      const fetchedNFTs = await fetchData("nfts")
-      console.log(fetchedNFTs)
-      setNfts(fetchedNFTs)
-    }
+      const fetchedNFTs = await fetchData("nfts");
+      console.log(fetchedNFTs);
+      setNfts(fetchedNFTs);
+    };
 
     const fetchPasses = async () => {
-      const fetchedPasses = await fetchData("passes")
-      setPasses(fetchedPasses)
-    }
+      const fetchedPasses = await fetchData("passes");
+      setPasses(fetchedPasses);
+    };
 
-    fetchNFTs()
-    fetchPasses()
-  }, [])
+    fetchNFTs();
+    fetchPasses();
+  }, []);
 
   const uploadImagesToArtField = async (nfts) => {
+    const sdk = new ThirdwebSDK("mainnet");
+
     for (const nifty of nfts) {
       try {
-        console.log(nifty)
-        const nft = nifty.attributes
-        const imageUrl = cleanUrl(nft.image_url)
-        const art = nft.art.data
+        const nft = nifty.attributes;
+        const imageUrl = cleanUrl(nft.image_url);
+        const art = nft.art.data;
 
         if (!imageUrl) {
-          console.log(`NFT ${nft.name} does not have an image URL.`, nft)
-          continue
+          console.log(`NFT ${nft.name} does not have an image URL.`, nft);
+          continue;
         }
         if (art) {
-          console.log(`NFT ${nft.name} already has art.`, art)
-          continue
+          console.log(`NFT ${nft.name} already has art.`, art);
+          continue;
         }
         // Fetch the image from the IPFS URL
-        const response = await axios.get(imageUrl, { responseType: "blob" })
+        const response = await axios.get(imageUrl, { responseType: "blob" });
 
         if (!response || response.status !== 200) {
-          console.log(`Failed to fetch image for NFT ${nft.name}`)
-          continue
+          console.log(`Failed to fetch image for NFT ${nft.name}`);
+          continue;
         }
 
         try {
-          const filename = `${nft.name}-${nifty.id}.jpg`
-          const blob = response.data
-          const formData = new FormData()
-          formData.append("files", blob, filename)
+          const filename = `${nft.name}-${nifty.id}.jpg`;
+          const blob = response.data;
+          const formData = new FormData();
+          formData.append("files", blob, filename);
 
-          const strapi = new Strapi({
-            url: apiURL,
-            prefix: "/api",
-            store: {
-              key: "strapi_jwt",
-              useLocalStorage: false,
-              cookieOptions: { path: "/" },
+          // Upload the image to the "art" field for the current NFT
+          const uploadResponse = await sdk.storage.upload(formData);
+
+          // Update the NFT's "art" field with the uploaded image
+          const updatedArt = uploadResponse.uris[0];
+          const editedNft = await axios.put(
+            `${apiURL}/api/nfts/${nifty.id}`,
+            {
+              data: {
+                art: updatedArt,
+              },
             },
-            axiosOptions: {
+            {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
-          })
+            }
+          );
 
-          // Upload the image to the "art" field for the current NFT
-          const uploadResponse = await strapi.axios.post("/upload", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-
-          // Update the NFT's "art" field with the uploaded image
-          const editedNft = await strapi.update("nfts", nifty.id, {
-            art: [uploadResponse.data[0].id],
-          })
-
-          console.log(`Uploaded image for NFT ${nft.name}`)
+          console.log(`Uploaded image for NFT ${nft.name}`);
         } catch (error) {
           console.error(
             `Error uploading image for NFT ${nft.name}: ${error.message}`
-          )
+          );
         }
       } catch (error) {
-        console.log(`Error fetching image for NFT: ${error.message}`)
-        continue
+        console.log(`Error fetching image for NFT: ${error.message}`);
+        continue;
       }
     }
-  }
+  };
 
   const uploadPassImagesToArtField = async (passes) => {
+    const sdk = new ThirdwebSDK("mainnet");
+
     for (const nifty of passes) {
       try {
-        console.log(nifty)
-        const nft = nifty.attributes
-        const imageUrl = cleanUrl(nft.preview_image_url)
-        const art = nft.art.data
+        const nft = nifty.attributes;
+        const imageUrl = cleanUrl(nft.preview_image_url);
+        const art = nft.art.data;
 
         if (!imageUrl) {
           console.log(
             `NFT ${nft.collection_name} does not have an image URL.`,
             nft
-          )
-          continue
+          );
+          continue;
         }
         if (art) {
-          console.log(`NFT ${nft.collection_name} already has art.`, art)
-          continue
+          console.log(`NFT ${nft.collection_name} already has art.`, art);
+          continue;
         }
 
         // Fetch the image from the IPFS URL
-        const response = await axios.get(imageUrl, { responseType: "blob" })
+        const response = await axios.get(imageUrl, { responseType: "blob" });
 
         if (response.status !== 200) {
-          console.log(`Failed to fetch image for NFT ${nft.collection_name}`)
-          continue
+          console.log(`Failed to fetch image for NFT ${nft.collection_name}`);
+          continue;
         }
 
         try {
-          const filename = `${nft.collection_name}-${nifty.id}.jpg`
-          const blob = response.data
-          const formData = new FormData()
-          formData.append("files", blob, filename)
+          const filename = `${nft.collection_name}-${nifty.id}.jpg`;
+          const blob = response.data;
+          const formData = new FormData();
+          formData.append("files", blob, filename);
 
-          const strapi = new Strapi({
-            url: apiURL,
-            prefix: "/api",
-            store: {
-              key: "strapi_jwt",
-              useLocalStorage: false,
-              cookieOptions: { path: "/" },
+          // Upload the image to the "art" field for the current NFT
+          const uploadResponse = await sdk.storage.upload(formData);
+
+          // Update the NFT's "art" field with the uploaded image
+          const updatedArt = uploadResponse.uris[0];
+          const editedNft = await axios.put(
+            `${apiURL}/api/passes/${nifty.id}`,
+            {
+              data: {
+                art: updatedArt,
+              },
             },
-            axiosOptions: {
+            {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
-          })
+            }
+          );
 
-          // Upload the image to the "art" field for the current NFT
-          const uploadResponse = await strapi.axios.post("/upload", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-
-          // Update the NFT's "art" field with the uploaded image
-          const editedNft = await strapi.update("passes", nifty.id, {
-            art: [uploadResponse.data[0].id],
-          })
-
-          console.log(`Uploaded image for NFT ${nft.collection_name}`)
+          console.log(`Uploaded image for NFT ${nft.collection_name}`);
         } catch (error) {
           console.error(
             `Error uploading image for NFT ${nft.collection_name}: ${error.message}`
-          )
+          );
         }
       } catch (error) {
-        console.log(`Error fetching image for NFT: ${error.message}`)
-        continue
+        console.log(`Error fetching image for NFT: ${error.message}`);
+        continue;
       }
     }
-  }
+  };
 
   const handleUploadImages = async () => {
-    setIsLoading(true)
-    await uploadPassImagesToArtField(passes)
-    await uploadImagesToArtField(nfts)
-    setIsLoading(false)
-  }
+    setIsLoading(true);
+    await uploadPassImagesToArtField(passes);
+    await uploadImagesToArtField(nfts);
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -226,7 +212,7 @@ const NFTUploader = () => {
         </button>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default NFTUploader
+export default NFTUploader;
