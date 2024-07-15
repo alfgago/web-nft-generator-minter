@@ -1,36 +1,35 @@
 /* eslint-disable max-len */
 // @ts-nocheck
-import { useEffect, useRef, useState } from "react"
-import axios from "axios"
-import { Field, Form, Formik } from "formik"
-import DatePicker from "react-datepicker"
-import { useAccount, useConnect } from "wagmi"
-import { InjectedConnector } from "wagmi/connectors/injected"
-import * as Yup from "yup"
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import DatePicker from "react-datepicker";
+import { useThirdWeb } from "@thirdweb-dev/react"; // Import thirdweb hook
+import * as Yup from "yup";
 
-import { CommonPill } from "@/components/Common/CommonStyles"
-
-import { FormStepStyles } from "./FormStepStyles"
+import { CommonPill } from "@/components/Common/CommonStyles";
+import { FormStepStyles } from "./FormStepStyles";
+import "react-datepicker/dist/react-datepicker.css";
 
 import "react-datepicker/dist/react-datepicker.css"
 interface FormValues {
-  name: string
-  dropDate: Date
-  wallet: string
-  size: number
-  winners: number
-  passType: string
-  saleType: string
-  artist: number
-  member: number
-  show: number
-  duration: number
-  price: number
-  tourFrom: Date
-  tourTo: Date
-  tourName: string
-  lotteryDate: Date
-  artistName: string
+  name: string;
+  dropDate: Date;
+  wallet: string;
+  size: number;
+  winners: number;
+  passType: string;
+  saleType: string;
+  artist: number;
+  member: number;
+  show: number;
+  duration: number;
+  price: number;
+  tourFrom: Date;
+  tourTo: Date;
+  tourName: string;
+  lotteryDate: Date;
+  artistName: string;
 }
 
 const FormStep = ({
@@ -51,16 +50,11 @@ const FormStep = ({
     artist: Yup.string().required("Please enter the artist"),
     member: Yup.string().required("Please enter the member"),
     wallet: Yup.string().required("Please enter your wallet"),
-    size: Yup.number()
-      .when("saleType", {
-        is: "Auction",
-        then: Yup.number().max(
-          10,
-          "Size must be no bigger than 10 when using Auction type"
-        ),
-        otherwise: Yup.number().max(500, "Size must be no bigger than 500"),
-      })
-      .required("Please enter your collection size."),
+    size: Yup.number().when("saleType", {
+      is: "Auction",
+      then: Yup.number().max(10, "Size must be no bigger than 10 when using Auction type"),
+      otherwise: Yup.number().max(500, "Size must be no bigger than 500"),
+    }).required("Please enter your collection size."),
     passType: Yup.string().required("Please enter your pass type"),
     saleType: Yup.string().required("Please enter your sale type"),
     price: Yup.number().required("Please enter your price"),
@@ -72,126 +66,123 @@ const FormStep = ({
       is: true,
       then: Yup.number().required("Charity royalty is required").positive(),
     }),
-  })
-  const [members, setMembers] = useState([])
-  const [shows, setShows] = useState([])
-  const formikRef = useRef(null) as any
+  });
 
-  const { address, isConnected } = useAccount()
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
+  const [members, setMembers] = useState([]);
+  const [shows, setShows] = useState([]);
+  const formikRef = useRef(null) as any;
+
+  const { connect, address, isConnected } = useThirdWeb(); // Using thirdweb hook
 
   useEffect(() => {
     if (selectedArtist) {
-      setMembers(selectedArtist.members)
-      fetchShows(selectedArtist.id)
+      setMembers(selectedArtist.members);
+      fetchShows(selectedArtist.id);
     }
-  }, [selectedArtist])
+  }, [selectedArtist]);
 
   const submit = async (values: FormValues) => {
-    selectDefaultImage(values)
-    nextAction(values)
-  }
+    selectDefaultImage(values);
+    nextAction(values);
+  };
 
   const selectDefaultImage = (values: FormValues) => {
-    const member = members.find((m: any) => m.id == values.member)
+    const member = members.find((m: any) => m.id == values.member);
 
-    let image = selectedArtist.banner.url ? selectedArtist.banner.url : ""
-    image = member?.nft_default_image ? member.nft_default_image.url : image
+    let image = selectedArtist.banner.url ? selectedArtist.banner.url : "";
+    image = member?.nft_default_image ? member.nft_default_image.url : image;
 
     if (values.passType == "Guest") {
       image = selectedShow?.attributes?.image?.data?.attributes
         ? selectedShow?.attributes?.image?.data?.attributes.url
-        : image
+        : image;
     }
 
-    setDefaultImage(image)
-  }
+    setDefaultImage(image);
+  };
 
-  const fetchShows = async (artistId) => {
-    // @ts-ignore
-    const res = await axios.get("/api/shows?artist=" + artistId)
-    const artistShows = res.data.data
-    setShows(artistShows)
-  }
+  const fetchShows = async (artistId: number) => {
+    const res = await axios.get("/api/shows?artist=" + artistId);
+    const artistShows = res.data.data;
+    setShows(artistShows);
+  };
 
   const generateName = (artist: number, passType: string, show: number) => {
-    let type = passType.charAt(0).toUpperCase() + passType.slice(1)
-    let title = ""
+    let type = passType.charAt(0).toUpperCase() + passType.slice(1);
+    let title = "";
 
     if (type == "Guest") {
-      const selShow = shows.find((obj: any) => obj.id == show)
+      const selShow = shows.find((obj: any) => obj.id == show);
       if (selShow) {
-        setSelectedShow(selShow)
-        type = selShow.attributes.name
+        setSelectedShow(selShow);
+        type = selShow.attributes.name;
       }
     } else {
-      setSelectedShow(false)
+      setSelectedShow(false);
     }
 
-    const selArtist = artists.find((obj: any) => obj.id == artist)
+    const selArtist = artists.find((obj: any) => obj.id == artist);
     if (selArtist) {
-      setSelectedArtist(selArtist)
-      formikRef.current.setFieldValue("artistName", selArtist.name)
-      title = `${selArtist.name} ${type} Pass`
+      setSelectedArtist(selArtist);
+      formikRef.current.setFieldValue("artistName", selArtist.name);
+      title = `${selArtist.name} ${type} Pass`;
     }
-    formikRef.current.setFieldValue("name", title)
-    setNftTitle(title)
-  }
+    formikRef.current.setFieldValue("name", title);
+    setNftTitle(title);
+  };
 
   const selectArtist = (artistId: number) => {
-    fetchShows(artistId)
-    formikRef.current.setFieldValue("artist", artistId)
+    fetchShows(artistId);
+    formikRef.current.setFieldValue("artist", artistId);
 
-    window.canvas = false
-    window.uploadedNfts = 0
-    sessionStorage.removeItem("collectionData")
-    sessionStorage.removeItem("canvasJson")
+    window.canvas = false;
+    window.uploadedNfts = 0;
+    sessionStorage.removeItem("collectionData");
+    sessionStorage.removeItem("canvasJson");
 
     generateName(
       artistId,
       formikRef.current.values.passType,
       formikRef.current.values.show
-    )
-  }
+    );
+  };
 
   const selectShow = (showId: number) => {
-    formikRef.current.setFieldValue("show", showId)
+    formikRef.current.setFieldValue("show", showId);
 
     generateName(
       formikRef.current.values.artist,
       formikRef.current.values.passType,
       showId
-    )
-  }
+    );
+  };
 
   const selectPassType = (passType: any) => {
-    formikRef.current.setFieldValue("passType", passType)
+    formikRef.current.setFieldValue("passType", passType);
     if (passType == "Circle") {
-      formikRef.current.setFieldValue("saleType", "Fixed")
+      formikRef.current.setFieldValue("saleType", "Fixed");
     }
 
     generateName(
       formikRef.current.values.artist,
       passType,
       formikRef.current.values.show
-    )
-  }
+    );
+  };
 
   const selectMember = (memberId: number) => {
     if (memberId) {
-      const member = members.find((m: any) => m.id == memberId)
+      const member = members.find((m: any) => m.id == memberId);
 
-      formikRef.current.setFieldValue("member", memberId)
-      formikRef.current.setFieldValue("memberName", member.name)
+      formikRef.current.setFieldValue("member", memberId);
+      formikRef.current.setFieldValue("memberName", member.name);
 
-      window.canvas = false
-      window.uploadedNfts = 0
-      sessionStorage.removeItem("collectionData")
-      sessionStorage.removeItem("canvasJson")
+      window.canvas = false;
+      window.uploadedNfts = 0;
+      sessionStorage.removeItem("collectionData");
+      sessionStorage.removeItem("canvasJson");
     }
-  }
+  };
 
   return (
     <FormStepStyles>
@@ -224,7 +215,7 @@ const FormStep = ({
                 name="artist"
                 as="select"
                 onChange={(e: any) => {
-                  selectArtist(e.target.value)
+                  selectArtist(e.target.value);
                 }}
               >
                 <option value="">-</option>
@@ -245,7 +236,7 @@ const FormStep = ({
                 name="member"
                 as="select"
                 onChange={(e: any) => {
-                  selectMember(e.target.value)
+                  selectMember(e.target.value);
                 }}
               >
                 <option value="">-</option>
@@ -266,7 +257,7 @@ const FormStep = ({
                 name="passType"
                 as="select"
                 onChange={(e: any) => {
-                  selectPassType(e.target.value)
+                  selectPassType(e.target.value);
                 }}
               >
                 <option value="">-</option>
@@ -314,7 +305,7 @@ const FormStep = ({
                   name="show"
                   as="select"
                   onChange={(e: any) => {
-                    selectShow(e.target.value)
+                    selectShow(e.target.value);
                   }}
                 >
                   <option value="">-</option>
@@ -365,13 +356,10 @@ const FormStep = ({
             <label>
               {values.saleType == "Auction" ? (
                 <span>
-                  Initial auction price ({process.env.NEXT_PUBLIC_PAPER_NETWORK}
-                  )
+                  Initial auction price ({process.env.NEXT_PUBLIC_PAPER_NETWORK})
                 </span>
               ) : (
-                <span>
-                  Fixed price ({process.env.NEXT_PUBLIC_PAPER_NETWORK})
-                </span>
+                <span>Fixed price ({process.env.NEXT_PUBLIC_PAPER_NETWORK})</span>
               )}
               {errors.price && touched.price ? (
                 <div className="alert">{errors.price}</div>
@@ -441,7 +429,7 @@ const FormStep = ({
         )}
       </Formik>
     </FormStepStyles>
-  )
-}
+  );
+};
 
-export default FormStep
+export default FormStep;

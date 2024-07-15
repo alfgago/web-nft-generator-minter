@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useRouter } from "next/router"
-import axios from "axios"
-import { useAccount, useConnect, useSigner } from "wagmi"
-import { InjectedConnector } from "wagmi/connectors/injected"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
+import { useContract } from "@thirdweb-dev/react";
 
-import { CommonPill } from "@/components/Common/CommonStyles"
-import Modal from "@/components/Common/Modal"
-import cleanUrl, { getNftImageUrl } from "@/utils/cleanUrl"
+import { CommonPill } from "@/components/Common/CommonStyles";
+import Modal from "@/components/Common/Modal";
+import cleanUrl, { getNftImageUrl } from "@/utils/cleanUrl";
 
-import { NftCardStyles } from "./NftCardStyles"
+import { NftCardStyles } from "./NftCardStyles";
 
 const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
-  const { address } = useAccount()
-  const [minting, setMinting] = useState(0)
-  const [isMinted, setIsMinted] = useState<any>(false)
-  const [ownerAddress, setOwnerAddress] = useState("")
-  const [iframeCheckoutLink, setIframeCheckoutLink] = useState("")
-  const router = useRouter()
-  const { nftId } = router.query
-  const orderId = nft.attributes.mint_order ?? 0
+  const address = useAddress();
+  const connectWithMetamask = useMetamask();
+  const [minting, setMinting] = useState(0);
+  const [isMinted, setIsMinted] = useState<any>(false);
+  const [ownerAddress, setOwnerAddress] = useState("");
+  const [iframeCheckoutLink, setIframeCheckoutLink] = useState("");
+  const router = useRouter();
+  const { nftId } = router.query;
+  const orderId = nft.attributes.mint_order ?? 0;
+
+  const { contract } = useContract(pass.attributes.contract_address, "nft-collection");
 
   useEffect(() => {
     const queryIfMinted = async () => {
@@ -27,91 +29,60 @@ const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
         // Convert tokenId to the format it appears in mintedNfts
         const formattedTokenId = `0x${parseInt(orderId)
           .toString(16)
-          .padStart(64, "0")}`
+          .padStart(64, "0")}`;
 
         // Find the owner of the tokenId in the mintedNfts
         const tokenOwnerEntry = mintedNfts.find((owner) =>
           owner.tokenBalances.some(
             (token) => token.tokenId === formattedTokenId
           )
-        )
+        );
 
         if (tokenOwnerEntry) {
-          setIsMinted(true)
-          setOwnerAddress(tokenOwnerEntry.ownerAddress) // Set the owner address here
+          setIsMinted(true);
+          setOwnerAddress(tokenOwnerEntry.ownerAddress);
         } else {
-          setIsMinted(false)
+          setIsMinted(false);
         }
 
-        // Your existing code...
-        // @ts-ignore
         if (nftId && parseInt(nftId) === parseInt(nft.id)) {
-          setMinting(2)
+          setMinting(2);
         }
       } catch (e) {
-        // Handle errors or cases where the token isn't minted yet
-        console.error("An error occurred while querying if minted", e)
+        console.error("An error occurred while querying if minted", e);
       }
-    }
+    };
 
-    queryIfMinted()
-  }, [mintedNfts, nftId, orderId, nft.id])
-
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
+    queryIfMinted();
+  }, [mintedNfts, nftId, orderId, nft.id]);
 
   const mint = async (mintingId: number) => {
-    checkoutLink()
-
-    setMinting(mintingId)
-    // If not connected, prompts connection
-    /* if (!isConnected) {
-      connect()
-      return
+    try {
+      setMinting(mintingId);
+      const tx = await contract.mintTo(address, {
+        metadata: {
+          name: nft.attributes.name,
+          image: getNftImageUrl(nft),
+          ipfsToken: nft.attributes.ipfs_token,
+        },
+        price: pass.attributes.initial_price,
+      });
+      console.log("Mint Transaction:", tx);
+      setMinting(0);
+      // Optionally, you can refresh the minted NFTs list here to update the UI
+    } catch (error) {
+      console.error("Minting failed:", error);
+      setMinting(0);
     }
-    if (!signer) throw new Error("Connect metamask before attempting to mint")
+  };
 
-    const txHash = await userDynamicMint({
-      // @ts-ignore
-      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-      metadataCid: nft.attributes.ipfs_token,
-      contractAddress: pass.attributes.contract_address,
-      signer,
-      nftId: nft.id,
-    })
-
-    console.log("Mint Transaction Hash: " + txHash)
-    */
-  }
-
-  const geturl = getNftImageUrl(nft)
-  const imageUrl = cleanUrl(geturl)
-  const metadataCid = nft.attributes.ipfs_token
-
-  const checkoutLink = async () => {
-    const { data } = await axios.post("/api/mints/paperpay", {
-      price: pass.attributes.initial_price,
-      title: nft.attributes.name,
-      imageUrl: imageUrl,
-      metadataCid: metadataCid,
-      contractId:
-        pass.attributes.paper_contract_id ??
-        "0494c9c2-b05e-4d13-9d1b-cee6a878b3ee",
-      nftId: nft.id,
-      contractAddress: pass.attributes.contract_address,
-    })
-    if (data) {
-      setIframeCheckoutLink(data.checkoutLinkIntentUrl)
-    }
-
-    setMinting(0)
-  }
+  const geturl = getNftImageUrl(nft);
+  const imageUrl = cleanUrl(geturl);
 
   const mintButton = () => {
     if (isMinted) {
-      if (address && ownerAddress.toLowerCase() == address.toLowerCase()) {
-        return <CommonPill className="ownedbtn purple small">Owned</CommonPill>
+      if (address && ownerAddress.toLowerCase() === address.toLowerCase()) {
+        return <CommonPill className="ownedbtn purple small">Owned</CommonPill>;
       }
       return (
         <a
@@ -124,14 +95,14 @@ const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
         >
           <CommonPill className="clickable blue small">Bid</CommonPill>
         </a>
-      )
+      );
     }
 
     if (minting) {
-      if (minting == 2) {
+      if (minting === 2) {
         return (
           <CommonPill className="ownedbtn purple small">Minting...</CommonPill>
-        )
+        );
       }
       return (
         <CommonPill className="clickable loader small">
@@ -143,15 +114,15 @@ const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
             alt="loader"
           />
         </CommonPill>
-      )
+      );
     }
 
     return (
       <CommonPill className="clickable blue small" onClick={() => mint(nft.id)}>
         Buy Now
       </CommonPill>
-    )
-  }
+    );
+  };
 
   return (
     <NftCardStyles className={classes}>
@@ -185,7 +156,7 @@ const NftCard = ({ nft, classes = "", pass, mintedNfts = [] }: any) => {
         </Modal>
       )}
     </NftCardStyles>
-  )
-}
+  );
+};
 
-export default NftCard
+export default NftCard;

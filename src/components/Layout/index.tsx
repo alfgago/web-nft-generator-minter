@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
-import { useSession } from "next-auth/react"
-import axios from "axios"
-import { AnimatePresence, motion } from "framer-motion"
-import { useAccount } from "wagmi"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import { useAccount, useAddress } from "@thirdweb-dev/react";  // Updated for thirdweb
 
-import Footer from "../Footer"
-import GroupChat from "../GroupChat"
-import Navbar from "../Navbar"
+import Footer from "../Footer";
+import GroupChat from "../GroupChat";
+import Navbar from "../Navbar";
 
-import { LayoutStyles } from "./LayoutStyles"
+import { LayoutStyles } from "./LayoutStyles";
 
 const defaultVariants = {
   out: {
@@ -24,55 +24,52 @@ const defaultVariants = {
       duration: 0.5,
     },
   },
-}
+};
 
 const onExitCompleteHandler = () => {
-  window.scrollTo(0, 0)
-}
+  window.scrollTo(0, 0);
+};
 
 export interface UserInfo {
-  id: string
-  email: string | null
-  profileUrl: string | null
-  name: string | null
+  id: string;
+  email: string | null;
+  profileUrl: string | null;
+  name: string | null;
 }
 
 const Layout = ({ children }: { children: JSX.Element }) => {
-  const { asPath } = useRouter()
-  const { address, isConnected } = useAccount()
-  const { data: user } = useSession()
-  const [validTime, setValidTime] = useState(false)
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
-  const [events, setEvents] = useState([])
+  const { asPath } = useRouter();
+  const address = useAddress();  // Updated for thirdweb
+  const { data: user } = useSession();
+  const [validTime, setValidTime] = useState(false);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [events, setEvents] = useState([]);
 
-  const slug = asPath.replaceAll("/", "")
+  const slug = asPath.replaceAll("/", "");
 
   const getTime = (targetTime: any, now: any) => {
-    const remainingTime = targetTime.getTime() - now.getTime()
-    const seconds = Math.floor(remainingTime / 1000)
-    const minutes = Math.floor(seconds / 60)
-    const hours = Math.floor(minutes / 60)
+    const remainingTime = targetTime.getTime() - now.getTime();
+    const seconds = Math.floor(remainingTime / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
 
-    return { hours: hours, minutes: minutes, seconds: seconds }
-  }
+    return { hours: hours, minutes: minutes, seconds: seconds };
+  };
+
   async function fetchData() {
     try {
-      // If the user is logged in
-      let apiResponse
+      let apiResponse;
 
       if (user) {
-        /* get all the shows of the loged in user 
-          that contains passes of single events */
         const { data } = await axios.get(
-          // @ts-ignore
           "/api/shows/manager-chats?user=" + user.id
-        )
+        );
 
-        apiResponse = data.data
+        apiResponse = data.data;
         const userData = apiResponse.length
           ? apiResponse[0].attributes.artist.data.attributes.user.data
-              .attributes
-          : null
+            .attributes
+          : null;
 
         if (userData) {
           setUserInfo({
@@ -80,46 +77,44 @@ const Layout = ({ children }: { children: JSX.Element }) => {
             name: userData.name,
             email: userData.email,
             profileUrl: "",
-          })
+          });
         }
       }
 
       if (!user && address) {
         const walletEvents = await axios.get(
           "/api/nfts/owned?address=" + address
-        )
+        );
 
-        // by the list of the shows get only the event attribute
         const eventsArray = walletEvents.data.map((el: any) => {
           return el.metadata.attributes
             .map((item: any) => {
-              return item.trait_type === "event" && item.value
+              return item.trait_type === "event" && item.value;
             })
-            .filter((event: any) => event !== false)
-        })
+            .filter((event: any) => event !== false);
+        });
 
-        const filteredEventArr: number[] = []
-        // remove the repeated values and undefined
+        const filteredEventArr: number[] = [];
         eventsArray.map((el: any) => {
           el[0] != undefined &&
             el !== false &&
             !filteredEventArr.includes(parseInt(el[0])) &&
-            filteredEventArr.push(parseInt(el[0]))
-        })
-        // format the array to send in url
-        const jsonArray = JSON.stringify(filteredEventArr)
+            filteredEventArr.push(parseInt(el[0]));
+        });
+
+        const jsonArray = JSON.stringify(filteredEventArr);
 
         const { data } = await axios.get(
           "/api/shows/manager-chats?eventList=" + jsonArray
-        )
-        apiResponse = data.data
+        );
+        apiResponse = data.data;
 
         setUserInfo({
           id: "id_" + address?.toString()!,
           name: address?.toString()!,
           email: "",
           profileUrl: "",
-        })
+        });
       }
 
       setEvents(
@@ -128,32 +123,32 @@ const Layout = ({ children }: { children: JSX.Element }) => {
             const totalTime = getTime(
               new Date(event.attributes.date),
               new Date()
-            )
+            );
             if (totalTime.minutes > 2880 || totalTime.minutes < 0) {
-              return null
+              return null;
             }
-            setValidTime(true)
+            setValidTime(true);
             const respImage =
               event.attributes.artist.data.attributes.profile_picture.data
-                .attributes.url
+                .attributes.url;
             return {
               artistName: event.attributes.artist.data.attributes.name,
               name: event.attributes.name,
               image: respImage,
               description: event.attributes.description,
               id: event.attributes.name.replace(/ /g, ""),
-            }
+            };
           })
           .filter((event: any) => event !== null)
-      )
+      );
     } catch (e: any) {
-      console.log("No chat events found")
+      console.log("No chat events found");
     }
   }
-  // Fetch the data in the useEffect hook
+
   useEffect(() => {
-    fetchData()
-  }, [user, isConnected])
+    fetchData();
+  }, [user, address]);
 
   return (
     <LayoutStyles className={`page-content slug-${slug ? slug : "home"}`}>
@@ -176,12 +171,13 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         <GroupChat type="forManager" userEvents={events} userInfo={userInfo} />
       ) : (
         validTime &&
-        isConnected &&
+        address &&
         events.length > 0 && (
           <GroupChat type="forWallet" userEvents={events} userInfo={userInfo} />
         )
       )}
     </LayoutStyles>
-  )
-}
-export default Layout
+  );
+};
+
+export default Layout;

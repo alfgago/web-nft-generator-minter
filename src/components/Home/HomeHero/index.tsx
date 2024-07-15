@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { useAccount } from "wagmi"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
 
-import { CommonPill } from "@/components/Common/CommonStyles"
-import GradientBackground from "@/components/Common/GradientBackground"
-import Modal from "@/components/Common/Modal"
-import UserSignUp from "@/components/UserSignup"
-import cleanUrl from "@/utils/cleanUrl"
+import { CommonPill } from "@/components/Common/CommonStyles";
+import GradientBackground from "@/components/Common/GradientBackground";
+import Modal from "@/components/Common/Modal";
+import UserSignUp from "@/components/UserSignup";
+import cleanUrl from "@/utils/cleanUrl";
 
-import ShowsCarousel from "../ShowsCarousel"
+import ShowsCarousel from "../ShowsCarousel";
 
-import { HomeHeroStyles } from "./HomeHeroStyles"
+import { HomeHeroStyles } from "./HomeHeroStyles";
 
-const HomeHero = ({ title, copy, image }: any) => {
-  const { isConnected } = useAccount()
-  const [toggleEdit, setToggleEdit] = useState(null)
+const HomeHero = ({ title, copy, image }) => {
+  const address = useAddress();
+  const connectWithMetamask = useMetamask();
+  const [toggleEdit, setToggleEdit] = useState(false);
 
   return (
     <HomeHeroStyles>
@@ -50,8 +51,8 @@ const HomeHero = ({ title, copy, image }: any) => {
           {copy && <div className="copy">{copy}</div>}
 
           <div className="ctas">
-            {!isConnected ? (
-              <span className="signup" onClick={() => setToggleEdit(true)}>
+            {!address ? (
+              <span className="signup" onClick={connectWithMetamask}>
                 <CommonPill className="btn clickable fill">Sign Up</CommonPill>
               </span>
             ) : (
@@ -83,7 +84,7 @@ const HomeHero = ({ title, copy, image }: any) => {
         </Modal>
       )}
     </HomeHeroStyles>
-  )
-}
+  );
+};
 
-export default HomeHero
+export default HomeHero;

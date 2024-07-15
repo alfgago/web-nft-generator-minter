@@ -1,80 +1,85 @@
-import { useEffect, useState } from "react"
-import dynamic from "next/dynamic"
-import Head from "next/head"
-import { useRouter } from "next/router"
-import axios from "axios"
-import { useInterval } from "usehooks-ts"
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useInterval } from "usehooks-ts";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ethers } from "ethers";
 
-import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl"
+import cleanUrl, { getPassImageUrl } from "@/utils/cleanUrl";
 
-const SinglePass = dynamic(() => import("@/components/SinglePass"))
+const SinglePass = dynamic(() => import("@/components/SinglePass"));
 
-const PassPage = ({ pass }: any) => {
-  const [loading, setLoading] = useState(false)
-  const title = pass.attributes.collection_name
-  const imgUrl = getPassImageUrl(pass)
-  const image = cleanUrl(imgUrl)
-  const ogTitle = title + " - PlusOne"
-  const bio = ""
+const sdk = new ThirdwebSDK("goerli"); // Use the appropriate network
+
+const PassPage = ({ pass }) => {
+  const [loading, setLoading] = useState(false);
+  const title = pass.attributes.collection_name;
+  const imgUrl = getPassImageUrl(pass);
+  const image = cleanUrl(imgUrl);
+  const ogTitle = title + " - PlusOne";
+  const bio = "";
 
   // Get the router object
-  const router = useRouter()
+  const router = useRouter();
 
   const checkTransactionStatus = async (transactionId, metadataCid, nftId) => {
     try {
-      const { data } = await axios.get(
-        "https://withpaper.com/api/v1/transaction-status/" + transactionId
-      )
-      const claimedTokens = data.result.claimedTokens
-      const tokenId = claimedTokens.tokens[0].tokenId
-      const collectionAddress = claimedTokens.collectionAddress
+      const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
+      const txReceipt = await provider.getTransactionReceipt(transactionId);
 
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/token-uri",
-        {
-          contractAddress: collectionAddress,
-          network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-          tokenId,
-          metadataCid,
-          nftId,
-          transactionId,
-        }
-      )
+      if (txReceipt && txReceipt.status === 1) { // Transaction succeeded
+        const logs = txReceipt.logs;
+        const claimedTokens = logs.map((log) => {
+          // Decode the log to get the tokenId and collectionAddress
+          const parsedLog = sdk.nft.parseTokenTransferEvent(log);
+          return {
+            tokenId: parsedLog.tokenId.toString(),
+            collectionAddress: parsedLog.contractAddress,
+          };
+        });
 
-      return res.data
+        const res = await axios.post(
+          process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/token-uri",
+          {
+            contractAddress: claimedTokens[0].collectionAddress,
+            network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
+            tokenId: claimedTokens[0].tokenId,
+            metadataCid,
+            nftId,
+            transactionId,
+          }
+        );
+
+        return res.data;
+      }
+      return false;
     } catch (e) {
-      console.log(e)
-      return false
+      console.log(e);
+      return false;
     }
-  }
+  };
 
   useInterval(async () => {
-    // @ts-ignore
     if (!window.transactionStatus && !window.sending) {
-      // @ts-ignore
-      window.sending = true
-      const transactionQuery = router.query
-      if (!transactionQuery) return
+      window.sending = true;
+      const transactionQuery = router.query;
+      if (!transactionQuery) return;
 
-      const { transactionId, metadataCid, nftId } = transactionQuery
+      const { transactionId, metadataCid, nftId } = transactionQuery;
 
-      if (!transactionId) return
-      console.log("transactionId", transactionId)
-      console.log("metadataCid", metadataCid)
-      console.log("nftIf", nftId)
+      if (!transactionId) return;
+      console.log("transactionId", transactionId);
+      console.log("metadataCid", metadataCid);
+      console.log("nftIf", nftId);
 
-      const status = await checkTransactionStatus(
-        transactionId,
-        metadataCid,
-        nftId
-      )
-      // @ts-ignore
-      window.transactionStatus = status
-      // @ts-ignore
-      window.sending = false
-      console.log("status", status)
+      const status = await checkTransactionStatus(transactionId, metadataCid, nftId);
+      window.transactionStatus = status;
+      window.sending = false;
+      console.log("status", status);
     }
-  }, 2000)
+  }, 2000);
 
   return (
     <>
@@ -87,12 +92,12 @@ const PassPage = ({ pass }: any) => {
 
       <SinglePass pass={pass} />
     </>
-  )
-}
+  );
+};
 
-export const getServerSideProps = async ({ query }: any) => {
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
+export const getServerSideProps = async ({ query }) => {
+  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/";
+  const token = process.env.API_TOKEN;
 
   const response = await axios.get(`${apiURL}/api/passes`, {
     params: {
@@ -102,15 +107,15 @@ export const getServerSideProps = async ({ query }: any) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
+  });
 
   if (response.data) {
     return {
       props: {
         pass: response.data.data[0],
       },
-    }
+    };
   }
-}
+};
 
-export default PassPage
+export default PassPage;
