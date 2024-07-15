@@ -1,3 +1,15 @@
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { NFTStorage } from "nft.storage"
+import { Web3Storage } from "web3.storage"
+import axios from "axios"
+
+const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
+const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+const network = process.env.NEXT_PUBLIC_NETWORK ?? "polygon"
+
+const sdk = new ThirdwebSDK(network)
+
 export default class TemplateFabric {
   layers
 
@@ -239,7 +251,7 @@ export default class TemplateFabric {
     this.reorderCanvasSingle()
   }
 
-  changeImage = ({ canvasRef, imageUrl }) => {
+  changeImage = async ({ canvasRef, imageUrl }) => {
     canvasRef.getObjects().forEach(function (el) {
       if (el.get("type") == "image") {
         canvasRef.remove(el)

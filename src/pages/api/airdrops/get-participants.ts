@@ -7,28 +7,49 @@ const cache = new NodeCache({ stdTTL: 10 }) // cache for 60 seconds
 const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
 const token = process.env.API_TOKEN
 
-const getParticipants = async ({ event }: any) => {
+/**
+ * Fetches participants data for a given event from the API.
+ * If the data is not in the cache, it makes a request to the API and caches the response.
+ * If the request fails, it tries to get the data from the cache.
+ * @param event - The event ID for which to fetch participants data.
+ * @returns A Promise that resolves to the participants data for the given event.
+ * @throws {Error} If the request to the API fails and the data is not in the cache.
+ */
+const getParticipants = async ({
+  event,
+}: {
+  event: string
+}): Promise<IParticipant[]> => {
   const cacheKey = `participants_${event}`
-  const cached = cache.get(cacheKey)
+  const cached = cache.get<IParticipant[]>(cacheKey)
   if (cached) {
     return cached
   }
 
-  const participantsResponse = await axios.get(
-    `${apiURL}/api/giveaway-participants`,
-    {
-      params: {
-        "filters[event][id][$eq]": event,
-        populate: "circle_nft",
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  try {
+    const response = await axios.get<IParticipant[]>(
+      `${apiURL}/api/giveaway-participants`,
+      {
+        params: {
+          "filters[event][id][$eq]": event,
+          populate: "circle_nft",
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    const participantsData = response.data
+    cache.set(cacheKey, participantsData)
+    return participantsData
+  } catch (error) {
+    // If the request fails, try to get the data from the cache
+    const cachedData = cache.get<IParticipant[]>(cacheKey)
+    if (cachedData) {
+      return cachedData
     }
-  )
-  cache.set(cacheKey, participantsResponse.data)
-
-  return participantsResponse.data
+    throw error
+  }
 }
 
 export default async function handler(
