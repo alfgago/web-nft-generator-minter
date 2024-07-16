@@ -4,13 +4,7 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { ethers } from "ethers";
 import axios from "axios";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const Index = ({ data }) => {
-  console.log(data);
-=======
-=======
->>>>>>> cbcd7f3a511bab89bccc56d25a2ae3fed138c3a0
+const Index = ({ }) => {
   interface SuccessMintProps {
     data: {
       transactionId: string
@@ -21,11 +15,7 @@ const Index = ({ data }) => {
 
   /**
    * Renders the success page after minting an NFT.
-  <<<<<<< HEAD
    *
-  =======
-   * 
-  >>>>>>> cbcd7f3a511bab89bccc56d25a2ae3fed138c3a0
    * @param {SuccessMintProps} props - The props containing the transactionId,
    * metadataCid, and nftId of the minted NFT.
    * @returns {JSX.Element} The success page.
@@ -33,15 +23,30 @@ const Index = ({ data }) => {
   const Index: React.FC<SuccessMintProps> = ({
     data: { transactionId, metadataCid, nftId },
   }: SuccessMintProps): JSX.Element => {
+    /**
+     * Mints the NFT using the API.
+     *
+     * @return {Promise<void>} A promise that resolves when the NFT is minted.
+     */
     const mintNft = async (): Promise<void> => {
       try {
-        const response = await axios.post<{ data: string }>("/api/mint", {
-          transactionId,
-          metadataCid,
-          nftId,
-        })
+        // Send a POST request to the API to mint the NFT
+        const response = await axios.post<{ data: string }>(
+          "/api/mint",
+          {
+            transactionId, // The transaction ID of the minting transaction
+            metadataCid, // The CID of the metadata for the NFT
+            nftId, // The ID of the NFT
+          }
+        )
+
+        // Log the response data from the API
         console.log(response.data)
+
+        // TODO: Implement the code for setting the token URI for the minted NFT
+
       } catch (error) {
+        // Log any errors that occur during the minting process
         console.error(error)
       }
     }
@@ -50,10 +55,6 @@ const Index = ({ data }) => {
       mintNft()
     }, [])
 
-<<<<<<< HEAD
->>>>>>> cbcd7f3 (fixed modules for thirdweb)
-=======
->>>>>>> cbcd7f3a511bab89bccc56d25a2ae3fed138c3a0
     return (
       <>
         <Head>
@@ -66,79 +67,54 @@ const Index = ({ data }) => {
   };
 
   export default Index;
-
-<<<<<<< HEAD
-  export async function getServerSideProps({ query }) {
-    const transactionId = query.transactionId;
-    const metadataCid = query.metadataCid;
-    const nftId = query.nftId;
-
-    // Initialize thirdweb SDK
-    const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
-    const sdk = new ThirdwebSDK(provider);
-
-    // Get transaction details using thirdweb SDK
-    const transaction = await sdk.getTransaction(transactionId);
-    const claimedTokens = transaction.result.claimedTokens;
-    const tokenId = claimedTokens[0].tokenId;
-    const collectionAddress = claimedTokens.collectionAddress;
-
-    // Set the token URI
-=======
-export async function getServerSideProps({ query }: any) {
+}
+/**
+ * Fetches the server-side props for the SuccessMint component.
+ * Sets the token URI for the minted NFT and returns the response data as props.
+ *
+ * @param {Object} context - The context object containing the query object.
+ * @param {Object} context.query - The query object containing the transactionId, metadataCid, and nftId.
+ * @returns {Object} The response data as props.
+ */
+export async function getServerSideProps({ query }: { query: { [key: string]: string } }) {
   // Extract query parameters: transactionId, metadataCid, and nftId
-  const transactionId = query.transactionId
-  const metadataCid = query.metadataCid
-  const nftId = query.nftId
+  const transactionId = query.transactionId;
+  const metadataCid = query.metadataCid;
+  const nftId = query.nftId;
 
-  // Logging the received query parameters for debugging
-  console.log("Got transactionId:", transactionId)
-  console.log("Got metadataCid:", metadataCid)
-  console.log("Got nftId:", nftId)
+  // Initialize thirdweb SDK
+  const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
+  const sdk = new ThirdwebSDK(provider);
 
-  // Fetching transaction status from an external API using the transactionId
-  const { data } = await axios.get(
-    `https://withpaper.com/api/v1/transaction-status/${transactionId}`
-  )
-  // Logging the received transaction data
-  console.log("Got transaction data:", data)
+  // Get transaction details using thirdweb SDK
+  // Send a GET request to the thirdweb API to get the transaction details
+  const transaction = await sdk.getTransaction(transactionId);
+  const claimedTokens = transaction.result.claimedTokens;
+  const tokenId = parseInt(claimedTokens[0].tokenId);
+  const collectionAddress = claimedTokens[0].collectionAddress;
 
-  // Extracting necessary data from the transaction response
-  const { claimedTokens, status } = data.result
-  if (status !== "success") {
-    // TODO: Handle transaction failure
-    throw new Error("Transaction failed")
-  }
-  const [token] = claimedTokens.tokens
-  const { tokenId, collectionAddress } = token
+  // Set the token URI
+  // Send a POST request to the server's API to set the token URI
+  const tokenUriParams = {
+    contractAddress: collectionAddress,
+    network: process.env.NEXT_PUBLIC_NETWORK ?? "polygon",
+    tokenId,
+    metadataCid: "ipfs://" + metadataCid,
+  };
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/nfts/token-uri`,
+    tokenUriParams
+  );
 
-  // Logging the extracted tokenId and collectionAddress for debugging
-  console.log("Got tokenId:", tokenId)
-  console.log("Got collectionAddress:", collectionAddress)
-
-  // Sending a POST request to set the token URI with the collected data
->>>>>>> cbcd7f3a511bab89bccc56d25a2ae3fed138c3a0
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/nfts/set-token-uri`,
-      {
-        contractAddress: collectionAddress,
-        network: process.env.NEXT_PUBLIC_NETWORK ?? "polygon",
-        tokenId,
-        metadataCid,
-        nftId,
-      }
-<<<<<<< HEAD
-    );
-=======
-  )
   // Logging the response from setting the token URI
-  console.log("Set token uri response:", res.data)
->>>>>>> cbcd7f3a511bab89bccc56d25a2ae3fed138c3a0
+  console.log("Set token uri response:", res.data);
 
-    // Returning the response data as props to the React component for server-side rendering
-    return {
-      props: {
-        data: res.data,
+  // Returning the response data as props to the React component for server-side rendering
+  return {
+    props: {
+      data: {
+        transactionHash: res.data,
       },
-    };
-  }
+    },
+  };
+}
