@@ -1,21 +1,24 @@
 import React from "react"
 import Head from "next/head"
 import { getSession } from "next-auth/react"
+"
+import { ThirdwebProvider, useUser } from "@thirdweb-dev/react"
 
 import TourManagerLogin from "@/components/Tours/TourManagerLogin"
 
-const TourManagerPage = ({ user }: any) => {
+const TourManagerPage = () => {
+  const { user } = useUser()
   const title = "Login"
 
   return (
-    <>
+    <ThirdwebProvider>
       <Head>
         <title>{title} - PlusOne</title>
         <meta name="robots" content="noindex" />
       </Head>
 
       <TourManagerLogin />
-    </>
+    </ThirdwebProvider>
   )
 }
 

@@ -1,17 +1,17 @@
 import React from "react"
 import Head from "next/head"
-import axios from "axios"
+import { ThirdwebProvider, useContract, useContractRead } from "@thirdweb-dev/react"
 
 import Home from "@/components/Home"
 
 const Index = ({ page }: any) => {
   return (
-    <>
+    <ThirdwebProvider>
       <Head>
         <title>Home - PlusOne Music</title>
       </Head>
       <Home page={page.data} />
-    </>
+    </ThirdwebProvider>
   )
 }
 
@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const postResponse = await axios.get(
+  const postResponse = await fetch(
     `${apiURL}/api/homepage?populate=deep,4`,
     {
       headers: {
@@ -28,9 +28,11 @@ export const getStaticProps = async () => {
     }
   )
 
+  const data = await postResponse.json()
+
   return {
     props: {
-      page: postResponse.data,
+      page: data,
     },
     revalidate: 30,
   }

@@ -15,8 +15,8 @@ const fetchData = async ({ address }: any) => {
   // Initialize Thirdweb SDK
   const network =
     process.env.NEXT_PUBLIC_NETWORK === "goerli" ? "goerli" : "polygon"
-  const sdk = ThirdwebSDK.fromNetwork(network, {
-    privateKey: process.env.THIRDWEB_PRIVATE_KEY,
+  const sdk = new ThirdwebSDK(network, {
+    secretKey: process.env.THIRDWEB_SECRET_KEY,
   })
 
   // Fetch owned NFTs

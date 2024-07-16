@@ -24,9 +24,11 @@ const fetchNFTs = async ({
     return cached
   }
 
-  const nftModule = sdk.getNFTModule(process.env.NEXT_PUBLIC_NFT_MODULE_ADDRESS)
+  const nftCollection = await sdk.getNFTCollection(
+    process.env.NEXT_PUBLIC_NFT_MODULE_ADDRESS
+  )
 
-  let nfts = await nftModule.getAll()
+  let nfts = await nftCollection.getAll()
 
   if (pass) {
     nfts = nfts.filter((nft) => nft.metadata.pass_collection_id === pass)

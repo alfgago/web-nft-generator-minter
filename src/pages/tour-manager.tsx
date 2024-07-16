@@ -1,12 +1,17 @@
 import React from "react"
 import Head from "next/head"
-import { getSession } from "next-auth/react"
+import { ThirdwebProvider, useUser } from "@thirdweb-dev/react"
 
 import Tours from "@/components/Tours"
 import TourManagerLogin from "@/components/Tours/TourManagerLogin"
 
-const TourManagerPage = ({ user }: any) => {
+const TourManagerPage = () => {
+  const { user, isLoading } = useUser()
   const title = "Manager"
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -22,22 +27,10 @@ const TourManagerPage = ({ user }: any) => {
 
 TourManagerPage.requireAuth = true
 
-export const getServerSideProps = async ({ req }: any) => {
-  const session = await getSession({ req })
+const TourManagerPageWrapper = () => (
+  <ThirdwebProvider>
+    <TourManagerPage />
+  </ThirdwebProvider>
+)
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/manager-login",
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {
-      user: session,
-    },
-  }
-}
-
-export default TourManagerPage
+export default TourManagerPageWrapper

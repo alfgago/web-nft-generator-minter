@@ -9,7 +9,7 @@ const fetchData = async ({ contractAddress, tokenId }: any) => {
   const network =
     process.env.NEXT_PUBLIC_NETWORK === "goerli" ? "goerli" : "polygon"
 
-  const sdk = ThirdwebSDK.fromApiKey(thirdwebApiKey, network)
+  const sdk = new ThirdwebSDK(network, { apiKey: thirdwebApiKey })
 
   const cacheKey = `is_minted_nfts_${contractAddress}_${tokenId}`
   const isOwned = cache.get(cacheKey)
@@ -19,9 +19,9 @@ const fetchData = async ({ contractAddress, tokenId }: any) => {
 
   let minted = false
   try {
-    const contract = await sdk.getNFTDrop(contractAddress)
-    const owners = await contract.getOwnersOfToken(tokenId)
-    minted = owners.length > 0 ? owners[0] : false
+    const contract = await sdk.getContract(contractAddress, "nft-drop")
+    const owners = await contract.erc721.getOwnerOf(tokenId)
+    minted = owners ? owners : false
   } catch (e) {
     console.error(e)
     minted = false

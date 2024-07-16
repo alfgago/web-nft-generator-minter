@@ -15,8 +15,8 @@ const fetchData = async ({ contractAddress }) => {
   }
 
   try {
-    const contract = sdk.getNFTCollection(contractAddress)
-    const owners = await contract.getAllOwners()
+    const contract = await sdk.getContract(contractAddress, "nft-collection")
+    const owners = await contract.erc721.getAllOwners()
 
     owned = owners.length ? owners : false
   } catch (e) {

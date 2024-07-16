@@ -5,8 +5,6 @@ import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({ image }: any) => {
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
 
   const cacheKey = `nfts_byipfs_${image}`
@@ -16,11 +14,11 @@ const fetchData = async ({ image }: any) => {
   }
 
   const sdk = new ThirdwebSDK("mainnet") // or other network
-  const contract = sdk.getContract(contractAddress, "nft-collection")
+  const contract = await sdk.getContract(contractAddress, "nft-collection")
 
-  const nfts = await contract.getAll({
+  const nfts = await contract.erc721.getAll({
     filters: {
-      image_url: `ipfs://${image}`,
+      image: `ipfs://${image}`,
     },
     order: {
       name: "asc",
