@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 10 }) // cache for 60 seconds
 
 const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
 const token = process.env.API_TOKEN
+
+const sdk = new ThirdwebSDK("mainnet")
 
 const getParticipants = async ({ event }: any) => {
   const cacheKey = `participants_${event}`
@@ -14,7 +16,7 @@ const getParticipants = async ({ event }: any) => {
     return cached
   }
 
-  const participantsResponse = await axios.get(
+  const participantsResponse = await sdk.api.get(
     `${apiURL}/api/giveaway-participants`,
     {
       params: {

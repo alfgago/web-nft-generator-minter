@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
@@ -15,14 +15,15 @@ const fetchData = async ({ id }: any) => {
       return cached
     }
 
-    const params = {
-      populate: "image",
-    }
-
-    const response = await axios.get(`${apiURL}/api/events/${id}`, {
-      params: params,
+    const sdk = new ThirdwebSDK(apiURL, {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    })
+
+    const response = await sdk.get(`/api/events/${id}`, {
+      params: {
+        populate: "image",
       },
     })
 

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebStorage } from "@thirdweb-dev/storage"
 import puppeteer from "puppeteer"
 
 const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
@@ -265,24 +265,16 @@ const postData = async ({
   const passName = passTitle + " " + number
   const desc = "PlusOne NFT for " + passTitle
 
-  const metadata = JSON.stringify({
+  const metadata = {
     name: passName,
     description: desc,
-  })
+    image: screenshotBuffer,
+  }
 
-  const response = await axios.post(
-    "https://api.nft.storage/upload",
-    screenshotBuffer,
-    {
-      headers: {
-        "Content-Type": "image/png",
-        Authorization: `Bearer ${NFT_STORAGE_TOKEN}`,
-        "X-Client-Metadata": metadata,
-      },
-    }
-  )
+  const storage = new ThirdwebStorage({ secretKey: NFT_STORAGE_TOKEN })
+  const uri = await storage.upload(metadata)
 
-  return "ipfs://" + response.data.value.cid
+  return uri
 }
 
 export default async function handler(
@@ -290,7 +282,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
-    // return res.status(405).send({ error: "Method not allowed" })
+    return res.status(405).send({ error: "Method not allowed" })
   }
 
   try {

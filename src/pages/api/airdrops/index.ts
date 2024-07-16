@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next"
-
-import { airdropNFT, AirdropParams } from "@/utils/SmartContracts/airdropNFT"
-
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import "dotenv/config"
 
-type AirdropRequestBody = AirdropParams
+type AirdropRequestBody = {
+  contractAddress: string
+  network: string
+  toWalletAddress: string
+  nftId: string
+}
 
 interface AirdropRequest extends NextApiRequest {
   body: AirdropRequestBody
@@ -27,14 +30,13 @@ export default async function handler(
   try {
     const { contractAddress, network, toWalletAddress, nftId } = req.body
 
-    const transactionHash = await airdropNFT({
-      contractAddress,
-      network,
-      toWalletAddress,
-      nftId,
-    })
+    const sdk = new ThirdwebSDK(network)
+    const contract = await sdk.getNFTCollection(contractAddress)
+    const transaction = await contract.transfer(toWalletAddress, nftId)
 
-    res.status(200).json({ transactionHash })
+    res
+      .status(200)
+      .json({ transactionHash: transaction.receipt.transactionHash })
   } catch (e) {
     const msg = e instanceof Error ? e.message : e
     res.status(400).send({ err: "Bad Request:" + msg })

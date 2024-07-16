@@ -1,16 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next"
-
-import {
-  setSaleState,
-  SetSaleStateParams,
-} from "@/utils/SmartContracts/setSaleState"
-
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import "dotenv/config"
 
-type SetSaleStateRequestBody = SetSaleStateParams
-
 interface SetSaleStateRequest extends NextApiRequest {
-  body: SetSaleStateRequestBody
+  body: {
+    contractAddress: string
+    network: string
+    saleState: boolean
+  }
 }
 
 type ErrResponseBody = {
@@ -30,11 +27,11 @@ export default async function handler(
   try {
     const { contractAddress, network, saleState } = req.body
 
-    const transactionHash = await setSaleState({
-      contractAddress,
-      network,
-      saleState,
-    })
+    const sdk = new ThirdwebSDK(network)
+    const contract = await sdk.getContract(contractAddress)
+
+    const transaction = await contract.call("setSaleState", saleState)
+    const transactionHash = transaction.receipt.transactionHash
 
     res.status(200).json({ transactionHash })
   } catch (e) {

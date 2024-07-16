@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next"
-
-import { bulkMint, BulkMintParams } from "@/utils/SmartContracts/mint"
-
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import "dotenv/config"
 
-type BulkMintRequestBody = BulkMintParams
+type BulkMintRequestBody = {
+  contractAddress: string
+  network: string
+  count: number
+  toJuice?: boolean
+}
 
 interface BulkMintRequest extends NextApiRequest {
   body: BulkMintRequestBody
@@ -27,14 +30,15 @@ export default async function handler(
   try {
     const { contractAddress, network, count, toJuice = false } = req.body
 
-    const transactionHash = await bulkMint({
-      contractAddress,
-      network,
-      toAddress: toJuice
-        ? process.env.JUICE_WALLET_ADDRESS ?? ""
-        : process.env.ADMIN_WALLET_ADDRESS ?? "",
-      count,
-    })
+    const sdk = new ThirdwebSDK(network)
+    const contract = await sdk.getContract(contractAddress)
+
+    const toAddress = toJuice
+      ? process.env.JUICE_WALLET_ADDRESS ?? ""
+      : process.env.ADMIN_WALLET_ADDRESS ?? ""
+
+    const transaction = await contract.erc721.mintBatch(toAddress, count)
+    const transactionHash = transaction.receipt.transactionHash
 
     res.status(200).json({ transactionHash })
   } catch (e) {

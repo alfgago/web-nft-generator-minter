@@ -1,36 +1,38 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
-const cache = new NodeCache({ stdTTL: 30 }) // cache for 10 seconds
+
+// Initialize cache with a TTL of 30 seconds
+const cache = new NodeCache({ stdTTL: 30 })
 
 const fetchData = async ({ address }: any) => {
-  const token = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-
   const cacheKey = `owned_nfts_${address}`
   const ownedNfts = cache.get(cacheKey)
   if (ownedNfts) {
     return ownedNfts
   }
 
-  const alchemyDomain =
-    process.env.NEXT_PUBLIC_NETWORK == "goerli"
-      ? "https://eth-goerli.g.alchemy.com"
-      : "https://polygon-mainnet.g.alchemy.com"
+  // Initialize Thirdweb SDK
+  const network =
+    process.env.NEXT_PUBLIC_NETWORK === "goerli" ? "goerli" : "polygon"
+  const sdk = ThirdwebSDK.fromNetwork(network, {
+    privateKey: process.env.THIRDWEB_PRIVATE_KEY,
+  })
 
-  const response = await axios.get(
-    `${alchemyDomain}/nft/v2/${token}/getNFTs?owner=${address}`
-  )
+  // Fetch owned NFTs
+  const nfts = await sdk.wallet.getNFTs(address)
 
-  const nfts = filterNfts(response.data.ownedNfts)
-  cache.set(cacheKey, nfts)
-  return nfts
+  // Filter NFTs to only get the PlusOne ones
+  const filteredNfts = filterNfts(nfts)
+  cache.set(cacheKey, filteredNfts)
+  return filteredNfts
 }
 
-// Filters the owned NFTs, to only get the PlusOne ones
+// Filters the owned NFTs to only get the PlusOne ones
 function filterNfts(array: any) {
-  return array.filter(function (obj: any) {
-    return obj.contractMetadata?.symbol === "P1" && obj.media[0].gateway
-  })
+  return array.filter(
+    (obj: any) => obj.metadata.symbol === "P1" && obj.metadata.image
+  )
 }
 
 export default async function handler(
@@ -41,7 +43,7 @@ export default async function handler(
     const data = await fetchData(req.query)
     res.status(200).json(data)
   } catch (e) {
-    console.log(e)
+    console.error(e)
     res.status(400).send({ err: "There was an error fetching the data", e })
   }
 }

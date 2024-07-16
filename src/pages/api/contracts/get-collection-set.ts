@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 
 // Initialize a cache with a 24-hour TTL (time-to-live)
@@ -14,40 +14,21 @@ const fetchData = async () => {
   }
 
   const passes = await fetchPasses()
-  const options = {
-    method: "POST",
-    headers: {
-      accept: "*/*",
-      "content-type": "application/json",
-      "x-api-key": "cef489d6-2ea3-5764-a540-88e4f9d9fb56",
-    },
-    body: JSON.stringify({ collections: passes }),
-  }
-
-  const response = await fetch(
-    "https://api-goerli.reservoir.tools/collections-sets/v1",
-    options
-  )
-
-  if (!response.ok) {
-    throw new Error(`API request failed with status ${response.status}`)
-  }
-
-  const data = await response.json()
+  const sdk = new ThirdwebSDK("goerli")
+  const collectionSet = await sdk.api.createCollectionSet({
+    collections: passes,
+  })
 
   // Cache the data with a 24-hour TTL
-  cache.set("getCollectionSet", data)
+  cache.set("getCollectionSet", collectionSet)
 
-  return data
+  return collectionSet
 }
 
 async function fetchPasses() {
-  const { data } = await axios.get(
-    process.env.NEXT_PUBLIC_DOMAIN + "/api/passes?limit=100"
-  )
-  const contractAddresses = data.data.map(
-    (pass) => pass.attributes.contract_address
-  )
+  const sdk = new ThirdwebSDK("goerli")
+  const passes = await sdk.api.getPasses({ limit: 100 })
+  const contractAddresses = passes.map((pass) => pass.contract_address)
   return contractAddresses
 }
 

@@ -1,5 +1,5 @@
 import { NextApiResponse } from "next"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 
 const updateArtist = async ({
   artist,
@@ -12,21 +12,13 @@ const updateArtist = async ({
   twitter,
   members,
 }: any) => {
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
+  const apiURL =
+    process.env.NEXT_PUBLIC_THIRDWEB_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  const sdk = new ThirdwebSDK(apiURL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   })
 
@@ -41,7 +33,7 @@ const updateArtist = async ({
     members,
   }
 
-  const updatedArtist = await strapi.update("artists", artist, params)
+  const updatedArtist = await sdk.update("artists", artist, params)
 
   return updatedArtist
 }

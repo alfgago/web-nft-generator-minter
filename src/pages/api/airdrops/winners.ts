@@ -1,34 +1,31 @@
 /* eslint-disable max-len */
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 10 }) // cache for 60 seconds
 
 const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
 const token = process.env.API_TOKEN
 
+const sdk = new ThirdwebSDK("mainnet")
+
 const getWinners = async ({ page = 1, limit = 10 }: any) => {
   const cacheKey = `drop_winners_${page}_${limit}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
 
-  const participantsResponse = await axios.get(`${apiURL}/api/airdrops`, {
-    params: {
-      "pagination[page]": page,
-      "pagination[pageSize]": limit,
-      populate:
-        "airdropped_nft.art,airdropped_nft.pass_collection.event,winner",
-      sort: "createdAt:desc",
-    },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  cache.set(cacheKey, participantsResponse.data)
+  const contract = await sdk.getContract("your-contract-address")
+  const participantsResponse = await contract.call(
+    "getAirdropWinners",
+    page,
+    limit
+  )
 
-  return participantsResponse.data
+  cache.set(cacheKey, participantsResponse)
+
+  return participantsResponse
 }
 
 export default async function handler(

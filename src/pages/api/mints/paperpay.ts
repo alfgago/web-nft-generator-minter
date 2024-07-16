@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { ethers } from "ethers"
 
 const fetchData = async ({
   price,
@@ -10,44 +12,25 @@ const fetchData = async ({
   nftId,
   contractAddress,
 }: any) => {
-  const callbackUrl = `${process.env.DOMAIN}/pass/${contractAddress}?metadataCid=${metadataCid}&nftId=${nftId}`
-  const options = {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      Authorization: "Bearer 96e2b098-4661-4810-8b16-2b633ffa2e81",
-    },
-    body: JSON.stringify({
-      contractId: contractId,
-      title: title,
-      imageUrl: imageUrl ?? "",
-      limitPerTransaction: 1,
-      redirectAfterPayment: true,
-      successCallbackUrl: callbackUrl,
-      mintMethod: {
-        name: "claimTo",
-        args: {
-          to: "$WALLET",
-          quantity: "$QUANTITY",
-          tokenId: order,
-        },
-        payment: {
-          value: price + " * $QUANTITY",
-          currency: "ETH",
-        },
-      },
-    }),
-  }
-  try {
-    const response = await fetch(
-      "https://withpaper.com/api/2022-08-12/checkout-link-intent",
-      options
+  const sdk = new ThirdwebSDK(
+    new ethers.Wallet(
+      process.env.PRIVATE_KEY,
+      ethers.getDefaultProvider(process.env.ALCHEMY_API_URL)
     )
-    const data = await response.json()
-    return data
+  )
+  const contract = await sdk.getContract(contractAddress, "nft-drop")
+
+  try {
+    const tx = await contract.claimTo(process.env.WALLET_ADDRESS, order, {
+      quantity: 1,
+      pricePerToken: ethers.utils.parseEther(price.toString()),
+      currencyAddress: ethers.constants.AddressZero,
+    })
+
+    const callbackUrl = `${process.env.DOMAIN}/pass/${contractAddress}?metadataCid=${metadataCid}&nftId=${nftId}`
+    return { tx, callbackUrl }
   } catch (err) {
-    return callbackUrl
+    return { error: err.message }
   }
 }
 

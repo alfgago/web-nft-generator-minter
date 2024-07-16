@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
@@ -15,30 +15,29 @@ const fetchData = async ({
   const cacheKey = `shows_${page}_${limit}_${artist}_${user}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
 
-  const params = {
+  const sdk = new ThirdwebSDK(apiURL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const params: any = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
     "sort[0]": "date:desc",
     populate: "passes",
   }
   if (artist) {
-    // @ts-ignore
     params["filters[artist][id][$eq]"] = artist
   }
   if (user) {
-    // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
   }
 
-  const response = await axios.get(`${apiURL}/api/events`, {
-    params: params,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const response = await sdk.api.get("/api/events", { params })
 
   cache.set(cacheKey, response.data)
   return response.data

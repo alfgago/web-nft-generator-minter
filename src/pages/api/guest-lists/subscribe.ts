@@ -1,25 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { ethers } from "ethers"
 
 const createGuestList = async (values: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_RPC_URL
+  )
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
+  const sdk = new ThirdwebSDK(wallet)
+
+  const contract = await sdk.getContract(
+    process.env.CONTRACT_ADDRESS,
+    "guest-lists"
+  )
 
   const params = {
     "pagination[page]": 1,
@@ -46,9 +42,9 @@ const createGuestList = async (values: any) => {
   }
   if (response?.data?.data?.length) {
     guestList = response.data.data[0]
-    await strapi.update("guest-lists", guestList.id, guestListData)
+    await contract.call("updateGuestList", guestList.id, guestListData)
   } else {
-    guestList = await strapi.create("guest-lists", guestListData)
+    guestList = await contract.call("createGuestList", guestListData)
   }
 
   return guestList

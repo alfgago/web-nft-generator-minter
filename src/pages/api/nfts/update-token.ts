@@ -1,40 +1,54 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { getToken } from "next-auth/jwt"
 
-const updateToken = async (values: any) => {
-  const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
-  const token = process.env.API_TOKEN
+// Helper function to initialize the Thirdweb SDK
+const initializeThirdwebSDK = (apiURL: string, token: string) => {
+  return new ThirdwebSDK(apiURL, {
+    secretKey: token,
+  })
+}
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+// Function to update the NFT token
+const updateNftToken = async (sdk: ThirdwebSDK, values: any) => {
+  const contract = await sdk.getContract("nfts")
+  const nft = await contract.erc721.update(values.id, {
+    metadata: {
+      ipfs: values.ipfs_token,
     },
   })
-
-  const nft = await strapi.update("nfts", values.id, {
-    ipfs_token: values.ipfs_token,
-  })
-
   return nft
 }
 
+// API handler function
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  if (req.method !== "PUT") {
+    return res.status(405).json({ error: "Method not allowed" })
+  }
+
   try {
-    const data = await updateToken(req.body)
+    // Get the API URL and token from environment variables
+    const apiURL =
+      process.env.NEXT_PUBLIC_THIRDWEB_URL ?? "http://localhost:1337/"
+    const token = process.env.THIRDWEB_API_TOKEN
+
+    if (!token) {
+      throw new Error("API token is missing")
+    }
+
+    // Initialize the Thirdweb SDK
+    const sdk = initializeThirdwebSDK(apiURL, token)
+
+    // Update the NFT token using the provided values
+    const data = await updateNftToken(sdk, req.body)
+
+    // Send a successful response with the updated data
     res.status(200).json(data)
-  } catch (e: any) {
-    res.status(400).send({ e: e, err: e.message })
+  } catch (error: any) {
+    // Send an error response
+    res.status(400).json({ error: error.message })
   }
 }

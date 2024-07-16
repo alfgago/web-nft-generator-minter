@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
@@ -19,33 +19,33 @@ const fetchData = async ({
     return cached
   }
 
-  const params = {
+  const sdk = new ThirdwebSDK(apiURL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const params: any = {
     "pagination[page]": page,
     "pagination[pageSize]": 9999,
     populate: "event.artist.name,nft",
   }
 
   if (pass) {
-    // @ts-ignore
     params["filters[pass_collection][id][$eq]"] = pass
   }
 
   if (minted && minted != "All") {
     const isMinted = minted == "Minted"
-    // @ts-ignore
     params["filters[is_minted][$ne]"] = !isMinted
   }
 
   if (user) {
-    // @ts-ignore
     params["filters[event][artist][user][id][$eq]"] = user
   }
 
-  const nftsResponse = await axios.get(`${apiURL}/api/guest-lists`, {
+  const nftsResponse = await sdk.api.get(`/api/guest-lists`, {
     params,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 
   cache.set(cacheKey, nftsResponse.data)

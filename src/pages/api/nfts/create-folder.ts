@@ -1,22 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { filesFromPath } from "files-from-path"
 import fs from "fs"
-import { NFTStorage } from "nft.storage"
 import path from "path"
+import { ThirdwebStorage } from "@thirdweb-dev/sdk"
 
 const uploadFolder = async ({ folderName, metadatas }: any) => {
-  const NFT_STORAGE_TOKEN = process.env.NEXT_PUBLIC_NFT_STORAGE_KEY ?? ""
-  const storage = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+  // Initialize Thirdweb Storage
+  const storage = new ThirdwebStorage()
 
   // Removes the folder from local storage if already exists
   removeDir(folderName)
   // Creates a new folder where NFTs will be located
   fs.mkdirSync(folderName)
-
-  const files = filesFromPath(folderName, {
-    pathPrefix: path.resolve(folderName), // see the note about pathPrefix below
-    hidden: true, // use the default of false if you want to ignore files that start with '.'
-  })
 
   const metadataArray = JSON.parse(metadatas)
   for (let i = 0; i < metadataArray.length; i += 1) {
@@ -26,12 +20,15 @@ const uploadFolder = async ({ folderName, metadatas }: any) => {
     fs.writeFileSync(`${folderName}/${metadataArray[i].order}`, jsonString)
   }
 
-  // upload the folder to IPFS
-  const cid = await storage.storeDirectory(files)
-  console.log(`Folder uploaded with CID:`, cid)
+  // Prepare files to upload
+  const files = fs.readdirSync(folderName).map((file) => ({
+    path: `${folderName}/${file}`,
+    content: fs.readFileSync(`${folderName}/${file}`),
+  }))
 
-  const status = await storage.status(cid)
-  console.log("Store Status: ", status)
+  // Upload files to IPFS
+  const cid = await storage.uploadBatch(files)
+  console.log(`Folder uploaded with CID:`, cid)
 
   // Removes the folder from local storage
   removeDir(folderName)

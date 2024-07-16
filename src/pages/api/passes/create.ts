@@ -1,30 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { ethers } from "ethers"
 
 const createPass = async (values: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
+  const provider = new ethers.providers.JsonRpcProvider(apiURL)
+  const wallet = new ethers.Wallet(token, provider)
+  const sdk = new ThirdwebSDK(wallet)
 
-  const pass = await strapi.create("passes", {
+  const contractAddress = values.contract_address
+    ? values.contract_address
+    : "NO-KEY-YET"
+  const contract = await sdk.getContract(contractAddress)
+
+  const pass = await contract.call("createPass", {
     collection_name: values.name,
-    contract_address: values.contract_address
-      ? values.contract_address
-      : "NO-KEY-YET",
     collection_size: values.size,
     drop_date: values.dropDate,
     initial_price: values.price,

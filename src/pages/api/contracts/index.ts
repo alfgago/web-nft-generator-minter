@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-
-import { deployContract } from "@/utils/SmartContracts/deployContract"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import { CreateContractParams, Network } from "@juicelabs/client"
-
 import "dotenv/config"
 
 // types should probably be consolidated somewhere
@@ -31,10 +29,6 @@ type CreateContractResponseBody =
     }
   | ErrResponseBody
 
-// TODO - @zac actually perform transformation
-// transform the form body from the front end into
-// the shape expected by the client lib. Or throw
-// if the body is invalid
 const transformCreateContractParams = (
   body: CreateContractRequestBody
 ): CreateContractParams => {
@@ -98,10 +92,19 @@ export default async function handler(
   res: NextApiResponse<CreateContractResponseBody>
 ) {
   try {
-    const { network } = req.body
+    const { network, name, wallet, price, size, premint } = req.body
+    const sdk = new ThirdwebSDK(network)
     const createParams = transformCreateContractParams(req.body)
-    const requestId = await deployContract(createParams, network)
-    res.status(200).json({ requestId: requestId })
+    const contract = await sdk.deployer.deployNFTCollection({
+      name: createParams.metadata.name,
+      symbol: createParams.metadata.symbol,
+      primary_sale_recipient: createParams.paymentSplits[0].splitAddress,
+      max_supply: createParams.metadata.maxSupply,
+      price_per_token: createParams.lazyMintSettings.mintPrice,
+      seller_fee_basis_points: createParams.metadata.royaltyBips,
+      fee_recipient: createParams.paymentSplits[0].splitAddress,
+    })
+    res.status(200).json({ requestId: contract.address })
   } catch (e) {
     const msg = e instanceof Error ? e.message : e
     res.status(400).send({ err: "Bad Request:" + msg })

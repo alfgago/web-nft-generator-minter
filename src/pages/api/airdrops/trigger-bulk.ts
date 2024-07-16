@@ -1,10 +1,11 @@
-/* eslint-disable max-len */
 import { NextApiRequest, NextApiResponse } from "next"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import axios from "axios"
 
 const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
+const network = process.env.NEXT_PUBLIC_NETWORK ?? "goerli"
 
-import { bulkMint, setFolderStorage, uploadFolder } from "@/utils/mintUtils"
+const sdk = new ThirdwebSDK(network)
 
 const folderAirdrops = async ({
   contractAddress,
@@ -13,9 +14,10 @@ const folderAirdrops = async ({
   passId,
 }: any) => {
   try {
-    const folderCid = await uploadFolder(contractAddress, metadatas)
-    await setFolderStorage(contractAddress, folderCid)
-    await bulkMint(contractAddress, participantWallets.length, true)
+    const contract = await sdk.getContract(contractAddress)
+    const folderCid = await contract.storage.upload(metadatas)
+    await contract.call("setFolderStorage", folderCid)
+    await contract.call("bulkMint", participantWallets.length, true)
     await axios.post(baseUrl + "/api/passes/update-folder", {
       id: passId,
       folderCid: folderCid,
@@ -27,33 +29,21 @@ const folderAirdrops = async ({
   let loop = 1
   for (const wallet of participantWallets) {
     // Airdrops each NFT to each corresponding wallet.
-    airdrop(contractAddress, wallet, loop)
+    await airdrop(contractAddress, wallet, loop)
     loop++
   }
 }
 
 const airdrop = async (contractAddress: any, wallet: string, nftId: number) => {
   console.log(`Airdropping ${contractAddress} #${nftId} to ${wallet}`)
-  const res = await fetch(baseUrl + "/api/airdrops", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      contractAddress,
-      network: process.env.NEXT_PUBLIC_NETWORK ?? "goerli",
-      toWalletAddress: wallet,
-      nftId: nftId,
-    }),
-  })
+  const contract = await sdk.getContract(contractAddress)
+  const transaction = await contract.call("transfer", wallet, nftId)
 
-  if (!res.ok)
-    throw new Error("Airdrop failed: " + JSON.stringify(await res.json()))
+  if (!transaction.receipt.status)
+    throw new Error("Airdrop failed: " + JSON.stringify(transaction.receipt))
 
-  const { transactionHash } = await res.json()
-
-  console.log("Airdrop transaction hash: ", transactionHash)
-  return transactionHash
+  console.log("Airdrop transaction hash: ", transaction.receipt.transactionHash)
+  return transaction.receipt.transactionHash
 }
 
 export default async function handler(

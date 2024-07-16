@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { ethers } from "ethers"
 
 interface Payload {
   name: string
@@ -20,20 +20,9 @@ const updateShow = async (values: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
 
-  const strapi = new Strapi({
-    url: apiURL,
-    prefix: "/api",
-    store: {
-      key: "strapi_jwt",
-      useLocalStorage: false,
-      cookieOptions: { path: "/" },
-    },
-    axiosOptions: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  })
+  const provider = new ethers.providers.JsonRpcProvider(apiURL)
+  const wallet = new ethers.Wallet(token, provider)
+  const sdk = new ThirdwebSDK(wallet)
 
   const payload: Payload = {
     name: values.name,
@@ -51,7 +40,8 @@ const updateShow = async (values: any) => {
     payload.image = values.image
   }
 
-  const event = await strapi.update("events", values.id, payload)
+  const contract = await sdk.getContract("events")
+  const event = await contract.call("updateEvent", values.id, payload)
 
   return event
 }

@@ -3,8 +3,11 @@
 // @ts-nocheck
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { ThirdwebAuth } from "@thirdweb-dev/auth/next-auth"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 
-import { signInRequest } from "../sign-in"
+const sdk = new ThirdwebSDK("your-network-url")
+
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   providers: [
@@ -19,7 +22,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // api validation request
-        const data = await signInRequest({
+        const data = await sdk.auth.login({
           email: credVal.email,
           password: credVal.password,
         })

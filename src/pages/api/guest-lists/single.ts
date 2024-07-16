@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 5 }) // cache for 30 seconds
 
@@ -10,8 +10,14 @@ const getGuestList = async (values: any) => {
   const cacheKey = `single_guestlist_${values.nft}_${values.event}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
+
+  const sdk = new ThirdwebSDK(apiURL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
   const params = {
     "pagination[page]": 1,
@@ -20,12 +26,7 @@ const getGuestList = async (values: any) => {
     "filters[nft][id][$eq]": values.nft,
   }
 
-  const response = await axios.get(`${apiURL}/api/guest-lists`, {
-    params: params,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const response = await sdk.api.get("/api/guest-lists", { params })
 
   cache.set(cacheKey, response?.data)
   return response?.data

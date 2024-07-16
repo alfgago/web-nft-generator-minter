@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import atob from "atob"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import { NFTStorage } from "nft.storage"
 import Strapi from "strapi-sdk-js"
 
@@ -13,6 +13,9 @@ const createPass = async (values: any) => {
   const blob = b64toBlob(values.image)
   const nftKey = await client.storeBlob(blob)
   const previewImageUrl = "https://plusonemusic.io/ipfs/" + nftKey
+
+  const sdk = new ThirdwebSDK("mainnet")
+  const contract = await sdk.getContract(values.contract_address)
 
   const strapi = new Strapi({
     url: apiURL,

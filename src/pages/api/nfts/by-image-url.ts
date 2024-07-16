@@ -1,36 +1,39 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
+
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
 const fetchData = async ({ image }: any) => {
   const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
   const token = process.env.API_TOKEN
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
 
   const cacheKey = `nfts_byipfs_${image}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
 
-  // @ts-ignore
-  const params = {
-    "pagination[page]": 1,
-    "pagination[pageSize]": 10,
-    populate: "*",
-    sort: "name",
-    "filters[image_url][$eq]": "ipfs://" + image,
-  }
+  const sdk = new ThirdwebSDK("mainnet") // or other network
+  const contract = sdk.getContract(contractAddress, "nft-collection")
 
-  const nftsResponse = await axios.get(`${apiURL}/api/nfts`, {
-    params,
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const nfts = await contract.getAll({
+    filters: {
+      image_url: `ipfs://${image}`,
     },
+    order: {
+      name: "asc",
+    },
+    limit: 10,
+    offset: 0,
   })
 
-  cache.set(cacheKey, nftsResponse.data.data[0])
-  return nftsResponse.data.data[0]
+  if (nfts.length > 0) {
+    cache.set(cacheKey, nfts[0])
+    return nfts[0]
+  }
+  return null
 }
 
 export default async function handler(
@@ -39,6 +42,10 @@ export default async function handler(
 ) {
   try {
     const data = await fetchData(req.query)
+    if (!data) {
+      res.status(404).send({ err: "NFT not found" })
+      return
+    }
     res.status(200).json(data)
   } catch (e) {
     res.status(400).send({ err: "There was an error fetching the data", e })

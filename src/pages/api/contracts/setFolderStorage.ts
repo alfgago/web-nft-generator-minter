@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next"
-
-import {
-  SetFolderStorageParams,
-  setMetadataFolderStorage,
-} from "@/utils/SmartContracts/setFolderStorage"
-
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import "dotenv/config"
 
-type SetFolderStorageRequestBody = SetFolderStorageParams
+type SetFolderStorageRequestBody = {
+  contractAddress: string
+  network: string
+  folderIPFSUrl: string
+}
 
 interface SetFolderStorageRequest extends NextApiRequest {
   body: SetFolderStorageRequestBody
@@ -30,11 +29,11 @@ export default async function handler(
   try {
     const { contractAddress, network, folderIPFSUrl } = req.body
 
-    const transactionHash = await setMetadataFolderStorage({
-      contractAddress,
-      network,
-      folderIPFSUrl,
-    })
+    const sdk = new ThirdwebSDK(network)
+    const contract = await sdk.getContract(contractAddress)
+
+    const transaction = await contract.call("setFolderStorage", folderIPFSUrl)
+    const transactionHash = transaction.receipt.transactionHash
 
     res.status(200).json({ transactionHash })
   } catch (e) {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
 const cache = new NodeCache({ stdTTL: 30 }) // cache for 30 seconds
 
@@ -22,18 +22,20 @@ const fetchData = async ({
     return cached
   }
 
-  const params = {
+  const sdk = new ThirdwebSDK(apiURL, {
+    secretKey: token,
+  })
+
+  const params: any = {
     "pagination[page]": page,
     "pagination[pageSize]": limit,
     "sort[0]": "date:desc",
     populate: "artist.profile_picture,image",
   }
   if (artist) {
-    // @ts-ignore
     params["filters[artist][id][$eq]"] = artist
   }
   if (user) {
-    // @ts-ignore
     params["filters[artist][user][id][$eq]"] = user
   }
   if (future) {
@@ -41,32 +43,25 @@ const fetchData = async ({
     const dd = String(today.getDate()).padStart(2, "0")
     const mm = String(today.getMonth() + 1).padStart(2, "0") // January is 0!
     const yyyy = today.getFullYear()
-    const todayString = yyyy + "-" + mm + "-" + dd // Temporalmente usando 2020, porque de lo contrario no muestra datos, mientras llenamos BD
+    const todayString = yyyy + "-" + mm + "-" + dd
 
     params["sort[0]"] = "date:asc"
-    // @ts-ignore
     params["filters[date][$gte]"] = todayString
   }
   if (passType) {
-    // @ts-ignore
     params["filters[passes][pass_type][$eq]"] = passType
   }
 
   if (passId) {
-    // @ts-ignore
     params["filters[passes][id][$eq]"] = passId
   }
 
   if (nft) {
-    // @ts-ignore
     params["filters[passes][nfts][id][$eq]"] = nft
   }
 
-  const response = await axios.get(`${apiURL}/api/events`, {
+  const response = await sdk.api.get(`/api/events`, {
     params: params,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
 
   cache.set(cacheKey, response.data)

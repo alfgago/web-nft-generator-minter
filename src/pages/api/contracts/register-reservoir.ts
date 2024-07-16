@@ -1,25 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
+import { ethers } from "ethers"
 
 const fetchData = async ({ contractAddress }: any) => {
-  const options = {
-    method: "PUT",
-    headers: {
-      accept: "*/*",
-      "content-type": "application/json",
-      "x-api-key": "cef489d6-2ea3-5764-a540-88e4f9d9fb56",
-    },
-    body: JSON.stringify({ community: "plusonemusic" }),
-  }
-
-  fetch(
-    "https://api.reservoir.tools/collections/" +
-      contractAddress +
-      "/community/v1",
-    options
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.ALCHEMY_API_URL
   )
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err))
+  const sdk = new ThirdwebSDK(provider)
+
+  const contract = await sdk.getContract(contractAddress)
+  const communityData = { community: "plusonemusic" }
+
+  try {
+    const response = await contract.call("updateCommunity", communityData)
+    return response
+  } catch (err) {
+    console.error(err)
+    throw new Error("Error updating community data")
+  }
 }
 
 export default async function handler(

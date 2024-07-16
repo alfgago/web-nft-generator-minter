@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import axios from "axios"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import NodeCache from "node-cache"
-const cache = new NodeCache({ stdTTL: 10 }) // cache for 10 seconds
-
-import { setTokenURI, TokenUriParams } from "@/utils/SmartContracts/setTokenUri"
-
+import axios from "axios"
 import "dotenv/config"
+
+const cache = new NodeCache({ stdTTL: 10 }) // cache for 10 seconds
 
 type ErrResponseBody = {
   err: string
@@ -17,13 +16,11 @@ type AirdropResponseBody =
     }
   | ErrResponseBody
 
-const isMinted = async (contractAddress: string, order: number) => {
-  const alchemyToken = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  const alchemyDomain =
-    process.env.NEXT_PUBLIC_NETWORK == "goerli"
-      ? "https://eth-goerli.g.alchemy.com"
-      : "https://polygon-mainnet.g.alchemy.com"
-
+const isMinted = async (
+  contractAddress: string,
+  tokenId: number,
+  sdk: ThirdwebSDK
+) => {
   const cacheKey = `getNFTsForCollection_${contractAddress}`
 
   let getNFTsForCollection = cache.get(cacheKey)
@@ -31,17 +28,16 @@ const isMinted = async (contractAddress: string, order: number) => {
   if (!getNFTsForCollection) {
     getNFTsForCollection = []
     try {
-      const response = await axios.get(
-        `${alchemyDomain}/nft/v2/${alchemyToken}/getNFTsForCollection?contractAddress=${contractAddress}&withMetadata=true`
-      )
-      getNFTsForCollection = response?.data?.nfts ?? []
+      const contract = await sdk.getContract(contractAddress, "nft-collection")
+      const nfts = await contract.erc721.getAll()
+      getNFTsForCollection = nfts
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
     cache.set(cacheKey, getNFTsForCollection)
   }
 
-  const gateway = getNFTsForCollection[order - 1]?.metadata?.image ?? ""
+  const gateway = getNFTsForCollection[tokenId - 1]?.metadata?.image ?? ""
   return gateway
 }
 
@@ -58,34 +54,44 @@ export default async function handler(
       nftId,
       transactionId,
     } = req.body
-    const hash = await isMinted(contractAddress, parseInt(tokenId))
+
+    // Initialize Thirdweb SDK
+    const sdk = ThirdwebSDK.fromNetwork(
+      network === "goerli" ? "goerli" : "polygon"
+    )
+
+    const hash = await isMinted(contractAddress, parseInt(tokenId), sdk)
     if (!hash.length) {
-      axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/nfts/update-status", {
-        id: nftId,
-        mint_order: tokenId,
-        paper_transaction_id: transactionId,
-      })
+      // Update NFT status in our database
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_DOMAIN}/api/nfts/update-status`,
+        {
+          id: nftId,
+          mint_order: tokenId,
+          paper_transaction_id: transactionId,
+        }
+      )
 
-      const tokenUriParams = {
-        contractAddress,
-        network,
-        tokenId,
-        metadataCid: "ipfs://" + metadataCid,
+      const contract = await sdk.getContract(contractAddress, "nft-collection")
+      const metadata = {
+        name: `Token #${tokenId}`,
+        description: `Metadata for token #${tokenId}`,
+        image: `ipfs://${metadataCid}`,
       }
-      console.log(tokenUriParams)
+      const transactionHash = await contract.erc721.mintTo(
+        contractAddress,
+        metadata
+      )
 
-      const transactionHash = await setTokenURI(tokenUriParams)
+      console.log("transactionHash", transactionHash)
 
-      console.log("transactionHash")
-      console.log(transactionHash)
-
-      res.status(200).json({ transactionHash: transactionHash })
+      res.status(200).json({ transactionHash })
     } else {
       console.log("transactionId", transactionId, " Already minted")
       res.status(200).json({ transactionHash: hash })
     }
   } catch (e) {
-    console.log(e)
-    res.status(400).send({ err: "Bad Request:" + e })
+    console.error(e)
+    res.status(400).send({ err: `Bad Request: ${e}` })
   }
 }

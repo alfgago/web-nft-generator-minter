@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
 import NodeCache from "node-cache"
-import Strapi from "strapi-sdk-js"
+import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 
 import dateFormat from "@/utils/dateFunctions"
 import {
@@ -17,20 +17,7 @@ const baseUrl = process.env.NEXT_PUBLIC_DOMAIN ?? "http://localhost:3000"
 const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337"
 const token = process.env.API_TOKEN
 
-const strapi = new Strapi({
-  url: apiURL,
-  prefix: "/api",
-  store: {
-    key: "strapi_jwt",
-    useLocalStorage: false,
-    cookieOptions: { path: "/" },
-  },
-  axiosOptions: {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  },
-})
+const sdk = new ThirdwebSDK("mainnet")
 
 const forceAirdrop = async (values: any) => {
   const eventResponse = await axios.get(
@@ -45,21 +32,6 @@ const forceAirdrop = async (values: any) => {
     }
   )
   const event = eventResponse.data.data
-
-  /*
-  const circleResponse = await axios.get(
-    `${apiURL}/api/events/${values.circle_nft}`,
-    {
-      params: {
-        populate: "image",
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  const circleNft = circleResponse.data.data
-  */
 
   const participantsResponse = await axios.get(
     `${apiURL}/api/giveaway-participants`,
@@ -117,7 +89,6 @@ const forceAirdrop = async (values: any) => {
   const pass = await createPass(contractAddress, event, participants)
   const passName = event.attributes.name + " Golden Guest Pass"
   console.log("Pass", pass)
-  // @ts-ignore
   publishPaperContract(contractAddress, pass.data.id)
   console.log("contractAddress: ", contractAddress)
 
@@ -143,7 +114,6 @@ const forceAirdrop = async (values: any) => {
   for (const participant of participants) {
     const newNft = await uploadNft(
       participant.passImage,
-      // @ts-ignore
       pass.data.id,
       loop,
       metadatas,
@@ -151,7 +121,6 @@ const forceAirdrop = async (values: any) => {
       passName,
       participant?.attributes?.wallet ?? ""
     )
-    // @ts-ignore
     createAirdrop(participant?.id, newNft.id)
     loop++
   }
@@ -163,7 +132,6 @@ const forceAirdrop = async (values: any) => {
       contractAddress,
       metadatas,
       participantWallets,
-      // @ts-ignore
       passId: pass.data.id,
     },
     {
@@ -181,19 +149,20 @@ const createContract = async (event: any) => {
   const cacheKey = `airdrop_contract_${event.id}`
   let contractAddress = cache.get(cacheKey)
   if (!contractAddress) {
-    const reqId = await deployContract({
+    const contract = await sdk.getContractFactory().deploy({
       name: passName,
-      wallet:
+      symbol: "GGP",
+      primary_sale_recipient:
         process.env.ADMIN_WALLET_ADDRESS ??
         "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7",
-      price: 0,
-      size: event.attributes.giveaway_slots,
-      premint: false,
+      total_supply: event.attributes.giveaway_slots,
+      mint_price: 0,
+      royalty_recipient:
+        process.env.ADMIN_WALLET_ADDRESS ??
+        "0x8075105DD20Aa65D05DdeD1C8651aB55f76861c7",
+      royalty_bps: 0,
     })
-    contractAddress = await waitForSuccess(reqId)
-    if (!contractAddress) {
-      throw new Error("Contract creation failed")
-    }
+    contractAddress = contract.address
     cache.set(cacheKey, contractAddress)
   }
   return contractAddress
@@ -205,11 +174,8 @@ const createPass = async (
   participants: any
 ) => {
   const passName = event.attributes.name + " Golden Guest Pass"
-  // Gets Circle NFT from first participant
   const circleNft = participants[0].attributes.circle_nft.data
-  // Gets preview image from first participant
   const previewImage = participants[0].passImage
-  // Gets artist from event
   const artist = event.attributes.artist.data
 
   const passParams = {
@@ -225,7 +191,7 @@ const createPass = async (
     pass_type: "Guest",
     sale_type: "Fixed",
     is_lottery: false,
-    is_airdropped: true, // Unique to golden passes
+    is_airdropped: true,
     preview_image_url: previewImage,
     is_charity: circleNft?.attributes?.is_charity ?? null,
     charity_name: circleNft?.attributes?.charity_name ?? null,
@@ -242,24 +208,6 @@ const createAirdrop = async (participantId: string, nftId: number) => {
     airdropped_nft: nftId,
   })
   return airdrop
-}
-
-async function waitForSuccess(reqId: string) {
-  while (true) {
-    const juiceResponse = await axios.get(
-      "https://juicelabs.io/api/v1/requests/" + reqId
-    )
-    console.log(juiceResponse.data)
-    if (juiceResponse.data.status === "succeeded") {
-      return juiceResponse.data.contractAddress
-    }
-    if (juiceResponse.data.status === "failed") {
-      return false
-    }
-
-    // Wait for 5 seconds before making the next query
-    await new Promise((resolve) => setTimeout(resolve, 5000))
-  }
 }
 
 export default async function handler(
