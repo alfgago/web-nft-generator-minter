@@ -7,11 +7,34 @@ const cache = new NodeCache({ stdTTL: 10 }) // cache for 60 seconds
 const apiURL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337/"
 const token = process.env.API_TOKEN
 
-const getWinners = async ({ page = 1, limit = 10 }: any) => {
+/**
+ * Retrieves the winners of an airdrop, with pagination and caching.
+ * @param {Object} options - The options for retrieving the winners.
+ * @param {number} [options.page=1] - The page number of the winners to retrieve.
+ * @param {number} [options.limit=10] - The number of winners to retrieve per page.
+ * @returns {Promise<{ data: any[], meta: { pagination: { page: number, pageSize: number, pageCount: number, total: number } } }>} - The winners and pagination information.
+ */
+const getWinners = async ({
+  page = 1,
+  limit = 10,
+}: {
+  page?: number
+  limit?: number
+}): Promise<{
+  data: any[]
+  meta: {
+    pagination: {
+      page: number
+      pageSize: number
+      pageCount: number
+      total: number
+    }
+  }
+}> => {
   const cacheKey = `drop_winners_${page}_${limit}`
   const cached = cache.get(cacheKey)
   if (cached) {
-    // return cached
+    return cached
   }
 
   const participantsResponse = await axios.get(`${apiURL}/api/airdrops`, {
@@ -26,6 +49,8 @@ const getWinners = async ({ page = 1, limit = 10 }: any) => {
       Authorization: `Bearer ${token}`,
     },
   })
+
+  // TODO: Implement caching for the response
   cache.set(cacheKey, participantsResponse.data)
 
   return participantsResponse.data
