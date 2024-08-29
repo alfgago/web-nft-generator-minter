@@ -28,7 +28,7 @@ export default class MyDocument extends Document {
           <script
             async
             defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAct3czCwkxYOWDMR1ewC_b88NPtpO2YKc&libraries=places"
+            src="https://maps.googleapis.com/maps/api/js?key=XXX&libraries=places"
           />
 
           <link
