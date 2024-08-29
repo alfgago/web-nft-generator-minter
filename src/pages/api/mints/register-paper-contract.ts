@@ -18,7 +18,7 @@ const fetchData = async ({ contractAddress, passId }: any) => {
         headers: {
           accept: "application/json",
           "content-type": "application/json",
-          Authorization: `Bearer 96e2b098-4661-4810-8b16-2b633ffa2e81`,
+          Authorization: `Bearer ${process.env.PAPER_BEARER_TOKEN}`,
         },
         body: JSON.stringify({
           chain: process.env.NEXT_PUBLIC_PAPER_NETWORK ?? "Goerli",
